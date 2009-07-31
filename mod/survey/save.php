@@ -1,4 +1,4 @@
-<?php // $Id: save.php,v 1.26.2.2 2008/05/25 14:25:06 skodak Exp $
+<?php // $Id$
 
     require_once('../../config.php');
     require_once('lib.php');

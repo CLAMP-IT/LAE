@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.5.2.6 2009/05/04 08:11:15 stronk7 Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the forum module

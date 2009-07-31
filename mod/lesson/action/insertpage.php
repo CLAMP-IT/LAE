@@ -1,8 +1,8 @@
-<?php // $Id: insertpage.php,v 1.12 2006/09/30 19:49:41 mark-nielsen Exp $
+<?php // $Id$
 /**
  * Action for processing the form from addpage action and inserts the page.
  *
- * @version $Id: insertpage.php,v 1.12 2006/09/30 19:49:41 mark-nielsen Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

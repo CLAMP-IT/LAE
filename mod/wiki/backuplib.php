@@ -1,4 +1,4 @@
-<?PHP //$Id: backuplib.php,v 1.7.2.1 2008/04/28 23:08:57 stronk7 Exp $
+<?PHP //$Id$
     //This php script contains all the stuff to backup/restore
     //wiki mods
 

@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.5.2.1 2008/09/27 00:40:01 ethem Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to
 // the authorize enrol plugin

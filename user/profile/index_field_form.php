@@ -1,4 +1,4 @@
-<?php //$Id: index_field_form.php,v 1.4.4.2 2008/04/25 12:20:02 skodak Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 

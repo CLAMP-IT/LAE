@@ -1,4 +1,4 @@
-<?PHP  //$Id: version.php,v 1.15 2007/08/13 02:57:05 toyomoyo Exp $
+<?PHP  //$Id$
 // This file defines the current version of the
 // blocks code that is being used.  This can be
 // compared against the values stored in the

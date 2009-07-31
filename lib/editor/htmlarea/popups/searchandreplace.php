@@ -1,4 +1,4 @@
-<?php // $Id: searchandreplace.php,v 1.4 2007/01/27 23:23:44 skodak Exp $
+<?php // $Id$
     require("../../../../config.php");
 
     $id = optional_param('id', SITEID, PARAM_INT);

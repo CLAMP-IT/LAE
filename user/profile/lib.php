@@ -1,4 +1,4 @@
-<?php //$Id: lib.php,v 1.23.2.12 2009/03/07 21:01:39 skodak Exp $
+<?php //$Id$
 
 /// Some constants
 

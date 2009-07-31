@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.18.2.4 2009/02/16 18:03:12 stronk7 Exp $
+<?php // $Id$
     //This function provides automatic linking to
     //resources when its name (title) is found inside every Moodle text
     //Williams, Stronk7, Martin D

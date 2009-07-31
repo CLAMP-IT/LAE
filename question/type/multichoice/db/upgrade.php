@@ -1,4 +1,4 @@
-<?php  // $Id: upgrade.php,v 1.5.2.2 2008/12/12 13:12:59 tjhunt Exp $
+<?php  // $Id$
 
 // This file keeps track of upgrades to 
 // the multichoice qtype plugin

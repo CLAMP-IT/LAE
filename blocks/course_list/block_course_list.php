@@ -1,4 +1,4 @@
-<?PHP //$Id: block_course_list.php,v 1.46.2.6 2008/08/29 04:23:38 peterbulmer Exp $
+<?PHP //$Id$
 
 include_once($CFG->dirroot . '/course/lib.php');
 

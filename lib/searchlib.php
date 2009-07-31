@@ -1,4 +1,4 @@
-<?php  // $Id: searchlib.php,v 1.13.6.1 2008/04/16 03:35:37 scyrma Exp $
+<?php  // $Id$
 
 require_once($CFG->libdir.'/lexer.php');
 

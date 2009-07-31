@@ -2,7 +2,7 @@
 /**
  * OO AJAX Implementation for PHP
  *
- * SVN Rev: $Id: Server.php,v 1.1.2.1 2008/10/03 07:09:51 nicolasconnault Exp $
+ * SVN Rev: $Id$
  *
  * @category   HTML
  * @package    AJAX

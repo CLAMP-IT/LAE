@@ -1,4 +1,4 @@
-<?php // $Id: upgradesettings.php,v 1.21.2.3 2008/07/04 23:54:22 skodak Exp $
+<?php // $Id$
 
 // detects settings that were added during an upgrade, displays a screen for the admin to
 // modify them, and then processes modifications

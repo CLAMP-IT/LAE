@@ -1,4 +1,4 @@
-<?PHP //$Id: block_participants.php,v 1.33.2.2 2008/03/03 11:41:03 moodler Exp $
+<?PHP //$Id$
 
 class block_participants extends block_list {
     function init() {

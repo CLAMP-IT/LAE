@@ -1,4 +1,4 @@
-<?PHP // $Id: version.php,v 1.8.2.1 2008/03/03 11:48:40 moodler Exp $
+<?PHP // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of lams

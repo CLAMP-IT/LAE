@@ -1,4 +1,4 @@
-<?php // $Id: displaytex.php,v 1.4.6.1 2007/12/19 17:38:41 skodak Exp $
+<?php // $Id$
       // This script displays tex source code.
 
     require_once('../../config.php');

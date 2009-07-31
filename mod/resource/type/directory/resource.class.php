@@ -1,4 +1,4 @@
-<?php // $Id: resource.class.php,v 1.38.2.3 2008/05/02 08:17:27 scyrma Exp $
+<?php // $Id$
 
 class resource_directory extends resource_base {
 

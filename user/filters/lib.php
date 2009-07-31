@@ -1,4 +1,4 @@
-<?php //$Id: lib.php,v 1.1.2.5 2009/05/13 05:35:38 jerome Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot.'/user/filters/text.php');
 require_once($CFG->dirroot.'/user/filters/date.php');

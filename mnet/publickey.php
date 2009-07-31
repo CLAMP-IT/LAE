@@ -1,4 +1,4 @@
-<?php // $Id: publickey.php,v 1.2 2007/08/29 10:48:46 stronk7 Exp $
+<?php // $Id$
 /**
  * Print this server's public key and exit
  *

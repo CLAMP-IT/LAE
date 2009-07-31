@@ -1,4 +1,4 @@
-<?php // $Id: format.php,v 1.41.2.3 2009/05/12 05:09:28 moodler Exp $
+<?php // $Id$
       // format.php - course format featuring social forum
       //              included from view.php
     

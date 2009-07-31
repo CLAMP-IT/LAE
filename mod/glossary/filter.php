@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.33.2.2 2008/11/12 17:02:23 sam_marshall Exp $
+<?php // $Id$
 
 function glossary_filter($courseid, $text) {
     global $CFG;

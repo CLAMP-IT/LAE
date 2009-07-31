@@ -1,4 +1,4 @@
-<?php // $Id: info.php,v 1.17.2.7 2008/09/01 09:30:07 mudrd8mz Exp $
+<?php // $Id$
 
 /// Displays external information about a course
 

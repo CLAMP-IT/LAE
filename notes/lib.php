@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.7.2.3 2008/11/30 19:25:49 skodak Exp $
+<?php // $Id$
 
 /**
  * Library of functions and constants for notes

@@ -5,7 +5,7 @@
  * @copyright &copy; 2006 The Open University
  * @author N.D.Freear@open.ac.uk, T.J.Hunt@open.ac.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @version $Id: index.php,v 1.4.2.3 2008/12/11 09:21:53 tjhunt Exp $
+ * @version $Id$
  * @package SimpleTestEx
  */
 

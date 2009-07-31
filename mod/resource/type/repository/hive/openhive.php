@@ -1,4 +1,4 @@
-<?php // $Id: openhive.php,v 1.6 2007/01/08 19:34:19 skodak Exp $
+<?php // $Id$
 
     require_once("../../../../../config.php");
 

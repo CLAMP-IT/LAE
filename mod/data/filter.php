@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.11.4.1 2009/02/16 17:57:19 stronk7 Exp $
+<?php // $Id$
     //
     // This function provides automatic linking to data contents of text
     // fields where these fields have autolink enabled.

@@ -1,10 +1,10 @@
-<?php // $Id: htmlarea.class.php,v 1.4.2.1 2008/05/02 03:31:50 scyrma Exp $
+<?php // $Id$
 
 /**
  * This file contains the htmlarea subclass for moodle editorObject.
  *
  * @author Janne Mikkonen
- * @version  $Id: htmlarea.class.php,v 1.4.2.1 2008/05/02 03:31:50 scyrma Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package editorObject
  */

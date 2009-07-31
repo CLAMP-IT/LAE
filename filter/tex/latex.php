@@ -1,4 +1,4 @@
-<?php // $Id: latex.php,v 1.9.2.1 2009/03/31 10:23:53 skodak Exp $
+<?php // $Id$
     // latex.php
     // render TeX stuff using latex - this will not work on all platforms
     // or configurations. Only works on Linux and Mac with appropriate 

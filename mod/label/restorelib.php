@@ -1,4 +1,4 @@
-<?php //$Id: restorelib.php,v 1.13 2006/09/18 09:13:04 moodler Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //label mods
 

@@ -1,4 +1,4 @@
-<?php //$Id: manage.php,v 1.52.2.5 2008/12/11 09:21:52 tjhunt Exp $
+<?php //$Id$
 
     require_once('../../config.php');
 

@@ -1,4 +1,4 @@
-<?php  // $Id: rsslib.php,v 1.25.2.1 2008/07/10 09:48:46 scyrma Exp $
+<?php  // $Id$
     //This file adds support to rss feeds generation
 
     //This function is the main entry point to forum

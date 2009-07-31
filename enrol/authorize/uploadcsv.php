@@ -1,4 +1,4 @@
-<?php // $Id: uploadcsv.php,v 1.12.2.2 2008/02/07 16:27:53 ethem Exp $
+<?php // $Id$
 
 /// Load libraries
     require_once('../../config.php');

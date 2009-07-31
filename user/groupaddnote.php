@@ -1,4 +1,4 @@
-<?php  // $Id: groupaddnote.php,v 1.3.2.1 2008/11/30 19:25:49 skodak Exp $
+<?php  // $Id$
 require_once("../config.php");
 require_once($CFG->dirroot .'/notes/lib.php');
 

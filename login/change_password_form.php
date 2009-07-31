@@ -1,4 +1,4 @@
-<?php //$Id: change_password_form.php,v 1.11.2.1 2007/11/23 22:12:35 skodak Exp $
+<?php //$Id$
 
 require_once $CFG->libdir.'/formslib.php';
 

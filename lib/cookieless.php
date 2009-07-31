@@ -1,4 +1,4 @@
-<?php  // $Id: cookieless.php,v 1.4 2007/01/03 15:00:13 moodler Exp $
+<?php  // $Id$
 /**
 * Enable cookieless sessions by including $CFG->usesid=true;
 * in config.php.

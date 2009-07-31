@@ -1,4 +1,4 @@
-<?PHP //$Id: block_mnet_hosts.php,v 1.9.2.4 2008/07/18 04:02:32 moodler Exp $
+<?PHP //$Id$
 
 class block_mnet_hosts extends block_list {
     function init() {

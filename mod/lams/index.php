@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.5.2.2 2007/10/29 10:42:17 poltawski Exp $
+<?php // $Id$
 
 /// This page lists all the instances of lams in a particular course
 

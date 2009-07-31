@@ -1,4 +1,4 @@
-<?php  // $Id: edit_form.php,v 1.5.2.2 2008/11/30 19:25:49 skodak Exp $
+<?php  // $Id$
 
 require_once($CFG->libdir.'/formslib.php');
 

@@ -1,4 +1,4 @@
-<?php  // $Id: jsupdated.php,v 1.8.2.2 2008/10/14 08:38:26 dongsheng Exp $
+<?php  // $Id$
 
 /** jsupdated.php - notes by Martin Langhoff <martin@catalyst.net.nz>
  ** 

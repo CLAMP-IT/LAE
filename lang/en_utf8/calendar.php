@@ -1,4 +1,4 @@
-<?PHP // $Id: calendar.php,v 1.10.4.1 2007/11/29 14:40:46 skodak Exp $ 
+<?PHP // $Id$ 
       // calendar.php - created with Moodle 1.7 beta + (2006101003)
 
 $string['allday'] = 'All day';

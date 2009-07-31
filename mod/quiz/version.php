@@ -1,4 +1,4 @@
-<?php // $Id: version.php,v 1.128.2.4 2009/01/14 07:03:14 tjhunt Exp $
+<?php // $Id$
 
 ////////////////////////////////////////////////////////////////////////////////
 //  Code fragment to define the version of quiz

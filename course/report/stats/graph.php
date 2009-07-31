@@ -1,4 +1,4 @@
-<?php  //$Id: graph.php,v 1.11.2.4 2008/11/30 12:05:04 skodak Exp $
+<?php  //$Id$
 
     require_once('../../../config.php');
     require_once($CFG->dirroot.'/lib/statslib.php');

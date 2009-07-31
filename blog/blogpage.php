@@ -1,4 +1,4 @@
-<?php  // $Id: blogpage.php,v 1.13.2.1 2008/06/27 03:34:27 moodler Exp $
+<?php  // $Id$
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page

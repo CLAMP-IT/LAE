@@ -1,4 +1,4 @@
-<?php  //$Id: pagelib.php,v 1.11.2.3 2008/09/15 11:29:24 mudrd8mz Exp $
+<?php  //$Id$
 
 require_once($CFG->libdir.'/pagelib.php');
 

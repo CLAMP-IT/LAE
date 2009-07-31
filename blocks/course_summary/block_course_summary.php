@@ -1,4 +1,4 @@
-<?PHP //$Id: block_course_summary.php,v 1.26.2.2 2008/03/03 11:41:02 moodler Exp $
+<?PHP //$Id$
 
 class block_course_summary extends block_base {
     function init() {

@@ -1,4 +1,4 @@
-<?PHP // $Id: quiz.php,v 1.83.2.13 2009/03/18 11:14:17 thepurpleblob Exp $
+<?PHP // $Id$
 
 $string['1day'] = '1 Day';
 $string['1hour'] = '1 Hour';

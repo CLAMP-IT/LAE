@@ -1,4 +1,4 @@
-<?php  // $Id: index.php,v 1.14.2.2 2008/11/29 14:30:57 skodak Exp $
+<?php  // $Id$
 
     require_once('../../../config.php');
     require_once($CFG->dirroot.'/lib/statslib.php');

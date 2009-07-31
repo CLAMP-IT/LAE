@@ -1,4 +1,4 @@
-<?php //$Id: filters.php,v 1.3.2.2 2007/12/19 17:38:44 skodak Exp $
+<?php //$Id$
 $string['actfilterhdr'] = 'Active filters';
 $string['addfilter'] = 'Add filter';
 $string['anycategory'] = 'any category';

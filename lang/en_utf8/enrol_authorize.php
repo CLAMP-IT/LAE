@@ -1,4 +1,4 @@
-<?PHP // $Id: enrol_authorize.php,v 1.48.4.1 2008/07/04 17:07:02 ethem Exp $ 
+<?PHP // $Id$ 
       // enrol_authorize.php - created with Moodle 1.8 dev (2006112200)
 
 

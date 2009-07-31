@@ -1,4 +1,4 @@
-<?PHP //$Id: try.php,v 1.8.4.3 2009/03/30 10:04:57 dongsheng Exp $
+<?PHP //$Id$
     require_once ("../config.php");
     require_once ("backup_scheduled.php");
     require_once ("lib.php");

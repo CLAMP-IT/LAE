@@ -1,4 +1,4 @@
-<?php // $Id: create.php,v 1.9.2.3 2008/04/02 06:09:59 dongsheng Exp $
+<?php // $Id$
 
 require('../../config.php');
 

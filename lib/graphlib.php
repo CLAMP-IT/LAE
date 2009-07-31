@@ -1,4 +1,4 @@
-<?php  // $Id: graphlib.php,v 1.20.10.3 2008/06/11 08:22:35 jmg324 Exp $
+<?php  // $Id$
 
 /*
 Graph Class. PHP Class to draw line, point, bar, and area graphs, including numeric x-axis and double y-axis.

@@ -1,4 +1,4 @@
-<?PHP  // $Id: admin.php,v 1.30.2.2 2008/04/02 06:10:05 dongsheng Exp $
+<?PHP  // $Id$
 /// Extended by Michael Schneider
 
     require_once("../../config.php");

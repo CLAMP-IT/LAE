@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.1.30.1 2008/05/02 03:31:50 scyrma Exp $
+<?php // $Id$
 
 function speller_enable (&$CFG) {
     echo "function spellClickHandler(editor, buttonId) {\n";

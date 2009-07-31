@@ -1,4 +1,4 @@
-<?php // $Id: question.php,v 1.49.2.3 2009/03/30 09:15:38 tjhunt Exp $
+<?php // $Id$
 /**
  * Page for editing questions using the new form library.
  *

@@ -1,4 +1,4 @@
-<?php  //$Id: upgradelib.php,v 1.9.2.9 2009/05/09 01:45:27 stronk7 Exp $
+<?php  //$Id$
 
 /*
  * This file is used for special upgrade functions - for example groups and gradebook.

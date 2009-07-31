@@ -1,4 +1,4 @@
-<?PHP //$Id: backuplib.php,v 1.7 2006/01/25 07:20:13 gbateson Exp $
+<?PHP //$Id$
     //This php script contains all the stuff to backup/restore
     //quiz mods
     //-----------------------------------------------------------

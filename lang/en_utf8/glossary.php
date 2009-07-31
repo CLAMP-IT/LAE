@@ -1,4 +1,4 @@
-<?PHP // $Id: glossary.php,v 1.8.2.3 2009/05/06 09:15:46 stronk7 Exp $
+<?PHP // $Id$
       // glossary.php - created with Moodle 1.7 beta + (2006101003)
 
 

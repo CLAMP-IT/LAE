@@ -5,4 +5,4 @@ Changes:
 
 skodak
 
-$Id: readme_moodle.txt,v 1.3 2007/06/09 16:32:42 skodak Exp $
+$Id$

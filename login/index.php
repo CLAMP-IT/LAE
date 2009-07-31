@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.129.2.5 2009/03/23 09:46:18 mudrd8mz Exp $
+<?php // $Id$
 
 
     require_once("../config.php");

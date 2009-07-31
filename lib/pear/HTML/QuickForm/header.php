@@ -16,7 +16,7 @@
 // | Author: Alexey Borzov <borz_off@cs.msu.su>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: header.php,v 1.1 2006/09/24 17:04:54 jamiesensei Exp $
+// $Id$
 
 require_once 'HTML/QuickForm/static.php';
 

@@ -5,7 +5,7 @@
  *
  * Helps an admin to clean up spam in Moodle
  *
- * @version $Id: index.php,v 1.1.2.5 2009/02/17 23:01:43 skodak Exp $
+ * @version $Id$
  * @authors Dongsheng Cai, Martin Dougiamas, Amr Hourani
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */

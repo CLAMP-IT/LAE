@@ -1,4 +1,4 @@
-<?php // $Id: confirm.php,v 1.29.2.1 2008/04/02 06:10:02 dongsheng Exp $
+<?php // $Id$
 
     require_once("../config.php");
 

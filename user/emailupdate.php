@@ -1,4 +1,4 @@
-<?php // $Id: emailupdate.php,v 1.28 2008/02/26 06:43:54 nicolasconnault Exp $
+<?php // $Id$
 
 require_once('../config.php');
 require_once($CFG->libdir.'/adminlib.php');

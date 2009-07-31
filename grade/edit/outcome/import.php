@@ -1,4 +1,4 @@
-<?php // $Id: import.php,v 1.1.2.10 2009/05/25 09:50:06 poltawski Exp $
+<?php // $Id$
 // Allows a user to import outcomes (and associated scales)
 
 ///////////////////////////////////////////////////////////////////////////

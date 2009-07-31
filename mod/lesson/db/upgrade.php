@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.9.2.3 2009/03/06 18:44:54 mark-nielsen Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the lesson module

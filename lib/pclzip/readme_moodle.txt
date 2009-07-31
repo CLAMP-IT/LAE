@@ -5,4 +5,4 @@ Changes:
  * removed PclZipUtilTranslateWinPath from line 1958 - see MDL-7828
 
 skodak
-$Id: readme_moodle.txt,v 1.3 2006/12/29 22:35:17 skodak Exp $
+$Id$

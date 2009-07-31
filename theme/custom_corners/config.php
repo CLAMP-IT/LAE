@@ -1,4 +1,4 @@
-<?php   // $Id: config.php,v 1.7.2.3 2008/02/27 12:06:49 urs_hunkler Exp $
+<?php   // $Id$
 ////////////////////////////////////////////////////////////////////////////////
 /// This file contains a few configuration variables that control 
 /// how Moodle uses this theme.

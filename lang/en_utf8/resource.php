@@ -1,4 +1,4 @@
-<?PHP // $Id: resource.php,v 1.7.4.7 2009/01/08 02:59:54 jerome Exp $ 
+<?PHP // $Id$ 
       // resource.php - created with Moodle 1.7 beta + (2006101003)
 
 

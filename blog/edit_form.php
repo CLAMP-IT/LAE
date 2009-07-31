@@ -1,4 +1,4 @@
-<?php  // $Id: edit_form.php,v 1.8.2.5 2008/02/25 05:30:44 moodler Exp $
+<?php  // $Id$
 
 require_once($CFG->libdir.'/formslib.php');
 

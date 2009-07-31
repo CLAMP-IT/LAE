@@ -1,4 +1,4 @@
-<?php // $Id: maintenance.php,v 1.12.4.1 2009/01/20 05:57:08 moodler Exp $
+<?php // $Id$
       // Enables/disables maintenance mode
 
     require('../config.php');

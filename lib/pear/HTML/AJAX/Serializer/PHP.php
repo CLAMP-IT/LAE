@@ -1,5 +1,5 @@
 <?php
-// $Id: PHP.php,v 1.1.2.1 2008/10/03 07:09:50 nicolasconnault Exp $
+// $Id$
 /**
  * PHP Serializer
  *

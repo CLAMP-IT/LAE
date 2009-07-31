@@ -1,4 +1,4 @@
-<?php //$Id: pagelib.php,v 1.62.2.8 2008/01/25 08:34:37 scyrma Exp $
+<?php //$Id$
 
 /**
  * This file contains the parent class for moodle pages, page_base, 
@@ -7,7 +7,7 @@
  * (courseid, blogid, activity id, etc).
  *
  * @author Jon Papaioannou
- * @version  $Id: pagelib.php,v 1.62.2.8 2008/01/25 08:34:37 scyrma Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package pages
  */

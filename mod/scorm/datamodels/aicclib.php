@@ -1,4 +1,4 @@
-<?php // $Id: aicclib.php,v 1.5.2.9 2008/12/22 07:04:37 danmarsden Exp $
+<?php // $Id$
 function scorm_add_time($a, $b) {
     $aes = explode(':',$a);
     $bes = explode(':',$b);

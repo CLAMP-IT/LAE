@@ -1,4 +1,4 @@
-<?php  // $Id: groupextendenrol.php,v 1.3 2007/08/17 19:09:26 nicolasconnault Exp $
+<?php  // $Id$
 require_once("../config.php");
 
 $id    = required_param('id', PARAM_INT);              // course id

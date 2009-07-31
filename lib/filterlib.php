@@ -1,4 +1,4 @@
-<?php // $Id: filterlib.php,v 1.24.10.4 2009/02/18 11:02:11 stronk7 Exp $
+<?php // $Id$
       // Contains special functions that are particularly useful to filters
 
 

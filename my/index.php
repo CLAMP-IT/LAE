@@ -1,4 +1,4 @@
-<?php  // $Id: index.php,v 1.16.2.5 2009/04/07 07:46:25 skodak Exp $
+<?php  // $Id$
 
     // this is the 'my moodle' page
 

@@ -1,4 +1,4 @@
-<?PHP  // $Id: enrol.php,v 1.30.4.2 2008/07/26 16:51:11 skodak Exp $
+<?PHP  // $Id$
        // enrol.php - allows admin to edit all enrollment variables
        //             Yes, enrol is correct English spelling.
 

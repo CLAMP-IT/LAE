@@ -1,4 +1,4 @@
-<?php // $Id: moodle_binary_store.php,v 1.5 2006/09/20 20:31:44 skodak Exp $
+<?php // $Id$
 
 /*
    This plugin intercepts some of the binary handling functions to

@@ -1,4 +1,4 @@
-<?php // $Id: category.php,v 1.119.2.12 2008/12/11 09:21:53 tjhunt Exp $
+<?php // $Id$
       // Displays the top level category or all courses
       // In editing mode, allows the admin to edit a category,
       // and rearrange courses

@@ -1,4 +1,4 @@
-<?php  // $Id: comment.php,v 1.19.4.1 2009/02/23 07:24:04 dongsheng Exp $
+<?php  // $Id$
 
     require_once('../../config.php');
     require_once('lib.php');

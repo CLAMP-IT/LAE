@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.38.2.10 2009/05/07 08:55:50 nicolasconnault Exp $
+<?php // $Id$
 //////////////////////////////////////////////////////////////
 //  Media plugin filtering
 //

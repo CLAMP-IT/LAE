@@ -1,4 +1,4 @@
-<?php // $Id: tablelib.php,v 1.24.2.5 2008/05/22 02:33:56 jerome Exp $
+<?php // $Id$
 
 define('TABLE_VAR_SORT',   1);
 define('TABLE_VAR_HIDE',   2);

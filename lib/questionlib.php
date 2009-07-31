@@ -1,4 +1,4 @@
-<?php  // $Id: questionlib.php,v 1.119.2.27 2009/03/30 09:15:37 tjhunt Exp $
+<?php  // $Id$
 /**
  * Code for handling and processing questions
  *

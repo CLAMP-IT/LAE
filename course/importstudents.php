@@ -1,4 +1,4 @@
-<?php //  $Id: importstudents.php,v 1.24 2007/08/17 19:09:11 nicolasconnault Exp $
+<?php //  $Id$
 // script to assign students to a meta course by selecting which courses the meta course comprises.
 // this is basically a hack of student.php that uses courses instead.
 

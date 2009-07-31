@@ -1,4 +1,4 @@
-<?php // $Id: auth_mnet.php,v 1.2 2007/01/23 02:38:54 donal72 Exp $ 
+<?php // $Id$ 
 $string['sso_idp_name']                = 'SSO  (Identity Provider)';
 $string['sso_idp_description']         = 'Publish this service to allow your users to roam to the $a Moodle site without having to re-login there. '.
                                          '<ul><li><em>Dependency</em>: You must also <strong>subscribe</strong> to the SSO (Service Provider) service on $a.</li></ul><br />'.

@@ -1,4 +1,4 @@
-<?php  // $Id: grade.php,v 1.1 2007/08/06 05:31:17 moodler Exp $
+<?php  // $Id$
 
     require_once('../../config.php');
 

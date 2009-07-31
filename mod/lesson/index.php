@@ -1,8 +1,8 @@
-<?php // $Id: index.php,v 1.25.2.4 2008/03/06 04:57:42 scyrma Exp $
+<?php // $Id$
 /**
  * This page lists all the instances of lesson in a particular course
  *
- * @version $Id: index.php,v 1.25.2.4 2008/03/06 04:57:42 scyrma Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

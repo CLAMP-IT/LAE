@@ -1,4 +1,4 @@
-<?php // $Id: unsupported.php,v 1.1.10.3 2007/12/29 16:35:59 skodak Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages in the "unsupported" hidden category, use wisely!
 

@@ -1,4 +1,4 @@
-<?php // $Id: search.php,v 1.15.4.2 2007/12/29 16:48:47 skodak Exp $
+<?php // $Id$
 
 // searches for admin settings
 

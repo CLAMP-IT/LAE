@@ -1,4 +1,4 @@
-<?php // $Id: language.php,v 1.7.4.5 2008/01/11 17:20:31 stronk7 Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages under the "appearance" category
 

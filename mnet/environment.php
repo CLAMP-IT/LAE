@@ -1,4 +1,4 @@
-<?php // $Id: environment.php,v 1.12.2.5 2008/09/18 16:14:12 stronk7 Exp $
+<?php // $Id$
 /**
  * Info about the local environment, wrt RPC
  *

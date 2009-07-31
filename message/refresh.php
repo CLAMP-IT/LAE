@@ -1,4 +1,4 @@
-<?php // $Id: refresh.php,v 1.11.4.1 2008/05/08 03:41:10 jerome Exp $
+<?php // $Id$
 
     require('../config.php');
 

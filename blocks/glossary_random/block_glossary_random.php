@@ -1,4 +1,4 @@
-<?php // $Id: block_glossary_random.php,v 1.20.6.6 2008/04/27 01:55:49 stronk7 Exp $
+<?php // $Id$
 
 define('BGR_RANDOMLY',     '0');
 define('BGR_LASTMODIFIED', '1');

@@ -1,4 +1,4 @@
-<?php  // $Id: questiontype.php,v 1.29.2.9 2008/11/27 05:13:41 tjhunt Exp $
+<?php  // $Id$
 /**
  * The questiontype class for the multiple choice question type.
  *

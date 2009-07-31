@@ -1,4 +1,4 @@
-<?php // $Id: import.php,v 1.14 2007/08/17 19:09:11 nicolasconnault Exp $
+<?php // $Id$
       // Display all the interfaces for importing data into a specific course
 
     require_once('../config.php');

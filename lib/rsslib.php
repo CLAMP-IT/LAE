@@ -1,4 +1,4 @@
-<?php  // $Id: rsslib.php,v 1.52.2.5 2009/05/22 15:17:22 sam_marshall Exp $
+<?php  // $Id$
        // This file contains all the common stuff to be used in RSS System
 
 //This function returns the icon (from theme) with the link to rss/file.php

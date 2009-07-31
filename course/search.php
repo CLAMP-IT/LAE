@@ -1,4 +1,4 @@
-<?php // $Id: search.php,v 1.49.2.8 2008/12/11 10:47:57 tjhunt Exp $
+<?php // $Id$
 
 /// Displays external information about a course
 

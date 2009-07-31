@@ -1,4 +1,4 @@
-<?PHP // $Id: review.php,v 1.17.2.4 2008/04/02 06:10:04 dongsheng Exp $
+<?PHP // $Id$
 // This page prints a review of a particular quiz attempt
     require_once("../../config.php");
     require_once("lib.php");

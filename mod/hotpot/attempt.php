@@ -1,4 +1,4 @@
-<?php // $Id: attempt.php,v 1.18.2.3 2008/04/02 06:10:03 dongsheng Exp $
+<?php // $Id$
     require_once("../../config.php");
     require_once("lib.php");
 

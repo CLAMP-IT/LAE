@@ -33,7 +33,7 @@
 // Version 3.0 developed by Mihai Bazon.
 //   http://dynarch.com/mishoo
 //
-// $Id: htmlarea_bak.php,v 1.3 2006/10/14 07:29:34 moodler Exp $
+// $Id$
 
 if (typeof _editor_url == "string") {
     // Leave exactly one backslash at the end of _editor_url

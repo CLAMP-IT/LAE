@@ -1,4 +1,4 @@
-<?PHP // $Id: block_online_users.php,v 1.2.8.2 2008/11/30 15:43:28 skodak Exp $ 
+<?PHP // $Id$ 
       // block_online_users.php - created with Moodle 1.7 beta + (2006101003)
 
 

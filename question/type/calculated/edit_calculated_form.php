@@ -1,4 +1,4 @@
-<?php  // $Id: edit_calculated_form.php,v 1.19.2.4 2009/02/19 01:09:33 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the calculated question type.
  *

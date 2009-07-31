@@ -1,4 +1,4 @@
-<?php  // $Id: jumpto.php,v 1.6 2006/09/11 06:47:38 skodak Exp $
+<?php  // $Id$
 
 /*
  *  Jumps to a given relative or Moodle absolute URL.

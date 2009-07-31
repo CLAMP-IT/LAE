@@ -1,4 +1,4 @@
-<?php // $Id: localfuncs.php,v 1.10.2.2 2008/03/21 12:08:28 ethem Exp $
+<?php // $Id$
 
 function get_course_cost($course)
 {

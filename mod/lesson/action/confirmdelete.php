@@ -1,8 +1,8 @@
-<?php // $Id: confirmdelete.php,v 1.6 2007/10/09 21:43:30 iarenaza Exp $
+<?php // $Id$
 /**
  * Action for confirming the deletion of a page
  *
- * @version $Id: confirmdelete.php,v 1.6 2007/10/09 21:43:30 iarenaza Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

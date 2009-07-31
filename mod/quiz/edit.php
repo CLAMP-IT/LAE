@@ -1,4 +1,4 @@
-<?php // $Id: edit.php,v 1.107.2.12 2008/11/07 05:50:08 tjhunt Exp $
+<?php // $Id$
 /**
  * Page to edit quizzes
  *

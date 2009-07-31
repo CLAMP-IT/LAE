@@ -1,4 +1,4 @@
-<?php  // $Id: login.php,v 1.4 2007/10/09 21:43:30 iarenaza Exp $
+<?php  // $Id$
        // login.php - action of the login form put up by expired.php.
 
     require('../../config.php');

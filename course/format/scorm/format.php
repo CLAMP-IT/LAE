@@ -1,4 +1,4 @@
-<?php // $Id: format.php,v 1.12.2.1 2007/10/22 06:54:40 nfreear Exp $
+<?php // $Id$
       // format.php - course format featuring single activity
       //              included from view.php
 

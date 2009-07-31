@@ -1,4 +1,4 @@
-<?php  //$Id: querylib.php,v 1.1.2.3 2008/01/21 07:17:47 skodak Exp $
+<?php  //$Id$
 
 /**
  * Returns the aggregated or calculated course grade(s) in given course.

@@ -1,4 +1,4 @@
-<?php // $Id: redirect.php,v 1.1 2006/04/11 07:53:59 moodler Exp $
+<?php // $Id$
 
 /**
 If you're using custompix in your theme, but you don't want to have to copy every pix from /pix into /theme/yourtheme/pix, use this as a 404 handler.

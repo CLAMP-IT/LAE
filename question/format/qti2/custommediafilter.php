@@ -1,4 +1,4 @@
-<?php // $Id: custommediafilter.php,v 1.2.4.1 2007/11/02 16:20:34 tjhunt Exp $
+<?php // $Id$
 
 // note: modified from the original filter/mediaplugin/filter.php
 

@@ -1,4 +1,4 @@
-<?php /// $Id: replace.php,v 1.8.4.4 2009/03/12 19:02:08 stronk7 Exp $
+<?php /// $Id$
       /// Search and replace strings throughout all texts in the whole database
 
 require_once('../config.php');

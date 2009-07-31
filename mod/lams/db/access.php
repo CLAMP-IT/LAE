@@ -1,4 +1,4 @@
-<?php // $Id: access.php,v 1.3 2006/10/11 06:22:01 moodler Exp $
+<?php // $Id$
 /**
  * Capability definitions for the lams module.
  *

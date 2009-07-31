@@ -1,4 +1,4 @@
-<?php  // $Id: rsslib.php,v 1.11 2007/02/27 18:22:04 stronk7 Exp $
+<?php  // $Id$
     //This file adds support to rss feeds generation
 
     //This function is the main entry point to glossary

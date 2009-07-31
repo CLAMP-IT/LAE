@@ -1,4 +1,4 @@
-<?php //$Id: filelib.php,v 1.50.2.28 2009/05/07 08:55:50 nicolasconnault Exp $
+<?php //$Id$
 
 define('BYTESERVING_BOUNDARY', 's1k2o3d4a5k6s7'); //unique string constant
 

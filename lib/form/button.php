@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: button.php,v 1.3 2007/05/27 05:01:51 jamiesensei Exp $
+// $Id$
 
 require_once("HTML/QuickForm/button.php");
 

@@ -1,4 +1,4 @@
-<?php // $Id: mod_form.php,v 1.11.2.1 2008/02/21 14:11:18 skodak Exp $
+<?php // $Id$
 require_once ($CFG->dirroot.'/course/moodleform_mod.php');
 
 class mod_label_mod_form extends moodleform_mod {

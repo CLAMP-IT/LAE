@@ -1,4 +1,4 @@
-<?php  // $Id: assign.php,v 1.18.2.1 2007/11/19 20:27:50 skodak Exp $
+<?php  // $Id$
 /**
  * Add/remove group from grouping.
  * @package groups

@@ -1,4 +1,4 @@
-<?php // $Id: add.php,v 1.6.2.2 2008/11/30 19:25:50 skodak Exp $
+<?php // $Id$
 
     require_once('../config.php');
 

@@ -1,4 +1,4 @@
-<?PHP // $Id: form.php,v 1.17.4.1 2007/12/06 09:02:02 skodak Exp $
+<?PHP // $Id$
 
 $string['somefieldsrequired'] = 'There are required fields in this form marked$a.'; 
 $string['err_alphanumeric']='You must enter only letters or numbers here.';

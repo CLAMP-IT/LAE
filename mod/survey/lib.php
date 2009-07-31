@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.63.2.6 2008/07/24 21:58:05 skodak Exp $
+<?php // $Id$
 
 // Graph size
 $SURVEY_GHEIGHT = 500;

@@ -22,4 +22,4 @@ marker.gif
 
 Petr Skoda (skodak), January 2008  
 
-$Id: README.txt,v 1.1.20.1 2008/01/02 16:49:04 skodak Exp $
+$Id$

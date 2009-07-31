@@ -1,4 +1,4 @@
-<?PHP  // $Id: phpinfo.php,v 1.9 2007/04/30 17:08:36 skodak Exp $
+<?PHP  // $Id$
        // phpinfo.php - shows phpinfo for the current server
 
     require_once("../config.php");

@@ -1,4 +1,4 @@
-<?php  // $Id: delete.php,v 1.1 2006/09/30 15:41:24 skodak Exp $
+<?php  // $Id$
 
     require_once('../../config.php');
     require_once('lib.php');

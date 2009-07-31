@@ -1,4 +1,4 @@
-<?php  //$Id: user_bulk.php,v 1.4.2.4 2008/02/05 15:22:08 poltawski Exp $
+<?php  //$Id$
 
 require_once('../../config.php');
 require_once($CFG->libdir.'/adminlib.php');

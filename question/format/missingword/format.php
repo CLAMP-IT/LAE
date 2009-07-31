@@ -1,4 +1,4 @@
-<?php  // $Id: format.php,v 1.3.4.1 2007/11/02 16:21:07 tjhunt Exp $ 
+<?php  // $Id$ 
 /// Modified by Tom Robb 12 June 2003 to include percentage and comment insertion
 /// facility.
 

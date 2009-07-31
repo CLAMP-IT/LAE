@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.12.2.3 2008/12/01 20:02:27 skodak Exp $
+<?php // $Id$
 
 // Display user activity reports for a course (totals)
 

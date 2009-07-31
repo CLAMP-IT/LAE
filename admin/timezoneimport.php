@@ -1,4 +1,4 @@
-<?php // $Id: timezoneimport.php,v 1.10.4.4 2007/12/31 15:24:22 stronk7 Exp $
+<?php // $Id$
 
     // Automatic update of Timezones from a new source
     

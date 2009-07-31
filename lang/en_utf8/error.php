@@ -1,4 +1,4 @@
-<?PHP // $Id: error.php,v 1.26.2.24 2009/04/23 20:28:35 skodak Exp $
+<?PHP // $Id$
       // error.php - created with Moodle 1.7 beta + (2006101003)
 
 

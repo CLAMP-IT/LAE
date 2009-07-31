@@ -1,4 +1,4 @@
-<?PHP // $Id: workshop.php,v 1.3.8.1 2008/10/02 14:39:13 poltawski Exp $ 
+<?PHP // $Id$ 
       // workshop.php - created with Moodle 1.7 beta + (2006101003)
 
 

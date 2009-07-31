@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.2.4.1 2008/05/01 20:38:48 skodak Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the chat module

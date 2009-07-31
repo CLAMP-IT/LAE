@@ -1,10 +1,10 @@
-<?php // $Id: tinymce.class.php,v 1.5 2007/01/03 14:44:41 moodler Exp $
+<?php // $Id$
 
 /**
  * This file contains the tinymce subclass for moodle editorObject.
  *
  * @author Janne Mikkonen
- * @version  $Id: tinymce.class.php,v 1.5 2007/01/03 14:44:41 moodler Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package editorObject
  */

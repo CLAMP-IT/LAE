@@ -1,4 +1,4 @@
-<?php  //$Id: version.php,v 1.114.2.6 2009/01/28 23:44:23 stronk7 Exp $
+<?php  //$Id$
 
 /// This file defines the current version of the
 /// backup/restore code that is being used.  This can be

@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.7.2.5 2008/05/01 20:37:22 skodak Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to
 // the assignment module

@@ -1,4 +1,4 @@
-<?php //$Id: user_bulk_download.php,v 1.1.2.3 2008/10/22 01:32:22 jerome Exp $
+<?php //$Id$
 /**
 * script for downloading of user lists
 */

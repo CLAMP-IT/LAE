@@ -1,4 +1,4 @@
-<?php //$Id: backuplib.php,v 1.4 2006/01/13 03:45:30 mjollnir_ Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //label mods
 

@@ -1,8 +1,8 @@
-<?php // $Id: import.php,v 1.28.2.1 2007/10/12 16:09:42 tjhunt Exp $
+<?php // $Id$
 /**
  * Imports lesson pages
  *
- * @version $Id: import.php,v 1.28.2.1 2007/10/12 16:09:42 tjhunt Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

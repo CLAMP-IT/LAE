@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.8.2.4 2009/01/08 01:01:05 jerome Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to
 // the data module

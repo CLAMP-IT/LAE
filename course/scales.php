@@ -1,4 +1,4 @@
-<?php // $Id: scales.php,v 1.32.2.2 2009/01/27 06:35:44 tjhunt Exp $
+<?php // $Id$
       // Allows a creator to edit custom scales, and also display help about scales
 
     require_once("../config.php");

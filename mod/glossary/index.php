@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.24.2.6 2008/02/05 21:39:52 skodak Exp $
+<?php // $Id$
 
 /// This page lists all the instances of glossary in a particular course
 /// Replace glossary with the name of your module

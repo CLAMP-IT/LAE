@@ -1,4 +1,4 @@
-<?php  // $Id: return.php,v 1.5 2006/10/23 15:17:31 moodler Exp $
+<?php  // $Id$
 
     require("../../config.php");
     require_once("$CFG->dirroot/enrol/paypal/enrol.php");

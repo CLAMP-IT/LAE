@@ -1,4 +1,4 @@
-<?php  // $Id: edit_match_form.php,v 1.8.2.6 2009/02/19 01:09:34 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the match question type.
  *

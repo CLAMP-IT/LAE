@@ -1,4 +1,4 @@
-<?php // $Id: tag_autocomplete.php,v 1.3.2.8 2008/07/07 07:40:36 scyrma Exp $
+<?php // $Id$
 
 require_once('../config.php');
 require_once('lib.php');

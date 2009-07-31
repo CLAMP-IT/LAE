@@ -1,4 +1,4 @@
-<?php  // $Id: upgrade.php,v 1.1.10.1 2007/11/02 16:20:39 tjhunt Exp $
+<?php  // $Id$
 
 // This file keeps track of upgrades to 
 // the shortanswer qtype plugin

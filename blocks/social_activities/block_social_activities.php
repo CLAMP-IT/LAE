@@ -1,4 +1,4 @@
-<?php //$Id: block_social_activities.php,v 1.20.4.2 2008/03/03 11:41:04 moodler Exp $
+<?php //$Id$
 
 class block_social_activities extends block_list {
     function init(){

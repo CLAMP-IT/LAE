@@ -1,4 +1,4 @@
-<?php // $Id: edit.php,v 1.21.2.1 2007/11/02 16:20:22 tjhunt Exp $
+<?php // $Id$
 /**
 * Page to edit the question bank
 *

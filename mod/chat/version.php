@@ -1,4 +1,4 @@
-<?php // $Id: version.php,v 1.26.2.3 2009/03/11 02:21:45 dongsheng Exp $
+<?php // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of chat

@@ -1,4 +1,4 @@
-<?PHP // $Id: change_password.php,v 1.62.2.2 2008/07/06 17:55:57 skodak Exp $
+<?PHP // $Id$
 
     require_once('../config.php');
     require_once('change_password_form.php');

@@ -1,4 +1,4 @@
-<?php  // $Id: signup.php,v 1.56.2.2 2008/09/25 07:40:54 skodak Exp $
+<?php  // $Id$
 
     require_once('../config.php');
     

@@ -1,4 +1,4 @@
-<?PHP //$Id: block_search_forums.php,v 1.22.2.2 2008/03/03 11:41:04 moodler Exp $
+<?PHP //$Id$
 
 class block_search_forums extends block_base {
     function init() {

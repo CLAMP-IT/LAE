@@ -1,4 +1,4 @@
-<?php // $Id: pixgroup.php,v 1.7.8.1 2008/04/02 06:10:08 dongsheng Exp $
+<?php // $Id$
       // This function fetches group pictures from the data directory
       // Syntax:   pix.php/groupid/f1.jpg or pix.php/groupid/f2.jpg
       //     OR:   ?file=groupid/f1.jpg or ?file=groupid/f2.jpg

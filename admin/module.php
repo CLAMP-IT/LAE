@@ -1,4 +1,4 @@
-<?PHP  // $Id: module.php,v 1.25.4.3 2008/04/02 06:09:57 dongsheng Exp $
+<?PHP  // $Id$
        // module.php - allows admin to edit all local configuration variables for a module
 
     require_once('../config.php');

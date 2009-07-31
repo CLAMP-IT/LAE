@@ -5,7 +5,7 @@
  * processing images using GD
  *
  * @author Martin Dougiamas etc
- * @version  $Id: gdlib.php,v 1.14.2.3 2008/02/21 05:23:24 moodler Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

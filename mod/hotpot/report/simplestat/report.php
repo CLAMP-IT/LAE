@@ -1,4 +1,4 @@
-<?php  // $Id: report.php,v 1.6.8.2 2008/03/06 07:34:05 gbateson Exp $
+<?php  // $Id$
 /// Overview report: displays a big table of all the attempts
 class hotpot_report extends hotpot_default_report {
 	function display(&$hotpot, &$cm, &$course, &$users, &$attempts, &$questions, &$options) {

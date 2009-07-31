@@ -1,4 +1,4 @@
-<?PHP // $Id: index.php,v 1.194.2.21 2009/04/28 18:50:12 skodak Exp $
+<?PHP // $Id$
 
 //  Lists all the users within a given course
 

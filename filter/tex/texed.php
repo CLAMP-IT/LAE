@@ -1,4 +1,4 @@
-<?PHP // $Id: texed.php,v 1.7.2.2 2008/11/11 18:35:42 mjollnir_ Exp $
+<?PHP // $Id$
       // This function fetches math. images from the data directory
       // If not, it obtains the corresponding TeX expression from the cache_tex db table
       // and uses mimeTeX to create the image file

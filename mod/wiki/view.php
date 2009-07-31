@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.76.2.6 2008/09/29 22:37:06 stronk7 Exp $
+<?php  // $Id$
 /// Extended by Michael Schneider
 /// This page prints a particular instance of wiki
 

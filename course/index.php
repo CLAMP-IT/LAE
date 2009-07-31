@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.89.2.13 2009/04/20 05:59:17 tjhunt Exp $
+<?php // $Id$
       // For most people, just lists the course categories
       // Allows the admin to create, delete and rename course categories
 

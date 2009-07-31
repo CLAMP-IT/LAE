@@ -1,4 +1,4 @@
-<?php // $Id: scorm_13lib.php,v 1.7.2.8 2008/12/22 07:04:37 danmarsden Exp $
+<?php // $Id$
 
 function scorm_get_toc($user,$scorm,$liststyle,$currentorg='',$scoid='',$mode='normal',$attempt='',$play=false) {
     global $CFG;

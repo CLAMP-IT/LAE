@@ -1,4 +1,4 @@
-<?php // $Id: loginas.php,v 1.47.2.2 2008/01/10 15:09:10 skodak Exp $
+<?php // $Id$
       // Allows a teacher/admin to login as another user (in stealth mode)
 
     require_once('../config.php');

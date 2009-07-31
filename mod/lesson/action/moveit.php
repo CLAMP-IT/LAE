@@ -1,8 +1,8 @@
-<?php // $Id: moveit.php,v 1.6 2006/09/30 19:49:41 mark-nielsen Exp $
+<?php // $Id$
 /**
  * Action for actually moving the page (database changes)
  *
- * @version $Id: moveit.php,v 1.6 2006/09/30 19:49:41 mark-nielsen Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

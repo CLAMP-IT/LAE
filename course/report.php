@@ -1,4 +1,4 @@
-<?php // $Id: report.php,v 1.6.2.2 2008/11/29 14:30:56 skodak Exp $
+<?php // $Id$
       // Display all the interfaces for importing data into a specific course
 
     require_once('../config.php');

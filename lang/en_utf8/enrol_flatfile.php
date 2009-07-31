@@ -1,4 +1,4 @@
-<?PHP // $Id: enrol_flatfile.php,v 1.4 2006/11/01 09:44:05 moodler Exp $ 
+<?PHP // $Id$ 
       // enrol_flatfile.php - created with Moodle 1.7 beta + (2006101003)
 
 

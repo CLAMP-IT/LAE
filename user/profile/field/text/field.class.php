@@ -1,4 +1,4 @@
-<?php //$Id: field.class.php,v 1.6.2.1 2007/12/21 08:17:36 scyrma Exp $
+<?php //$Id$
 
 class profile_field_text extends profile_field_base {
 

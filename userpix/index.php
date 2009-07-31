@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.9.2.3 2008/07/10 09:48:49 scyrma Exp $
+<?php // $Id$
       // This simple script displays all the users with pictures on one page.
       // By default it is not linked anywhere on the site.  If you want to
       // make it available you should link it in yourself from somewhere.

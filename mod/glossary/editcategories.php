@@ -1,4 +1,4 @@
-<?php  // $Id: editcategories.php,v 1.41.2.1 2007/12/16 18:15:00 poltawski Exp $
+<?php  // $Id$
 
 /// This page allows to edit entries categories for a particular instance of glossary
 

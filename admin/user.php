@@ -1,4 +1,4 @@
-<?php // $Id: user.php,v 1.109.2.4 2008/07/10 08:36:02 skodak Exp $
+<?php // $Id$
 
     require_once('../config.php');
     require_once($CFG->libdir.'/adminlib.php');

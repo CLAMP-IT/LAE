@@ -1,4 +1,4 @@
-<?PHP //$Id: block_section_links.php,v 1.25.2.2 2008/03/03 11:41:04 moodler Exp $
+<?PHP //$Id$
 
 class block_section_links extends block_base {
 

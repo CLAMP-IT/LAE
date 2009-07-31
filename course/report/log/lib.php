@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.22.2.4 2009/02/07 22:31:38 skodak Exp $
+<?php  // $Id$
 
 function print_mnet_log_selector_form($hostid, $course, $selecteduser=0, $selecteddate='today',
                                  $modname="", $modid=0, $modaction='', $selectedgroup=-1, $showcourses=0, $showusers=0, $logformat='showashtml') {

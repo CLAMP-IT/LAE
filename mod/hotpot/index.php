@@ -1,4 +1,4 @@
-<?PHP // $Id: index.php,v 1.26.2.7 2008/12/10 06:30:24 dongsheng Exp $
+<?PHP // $Id$
 
 // This page lists all the instances of hotpot in a particular course
 

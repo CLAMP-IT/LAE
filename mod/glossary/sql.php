@@ -3,7 +3,7 @@
 /**
  * SQL.PHP
  *    This file is include from view.php and print.php
- * @version $Id: sql.php,v 1.43 2007/03/24 00:58:43 stronk7 Exp $
+ * @version $Id$
  * @copyright 2003 
  **/
 

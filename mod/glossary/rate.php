@@ -1,4 +1,4 @@
-<?php   // $Id: rate.php,v 1.12.2.2 2009/05/06 09:15:46 stronk7 Exp $
+<?php   // $Id$
 
 //  Collect ratings, store them, then return to where we came from
 

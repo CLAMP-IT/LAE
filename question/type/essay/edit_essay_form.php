@@ -1,4 +1,4 @@
-<?php  // $Id: edit_essay_form.php,v 1.7.2.2 2009/02/19 01:09:36 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the essay question type.
  *

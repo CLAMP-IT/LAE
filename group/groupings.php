@@ -1,4 +1,4 @@
-<?php // $Id: groupings.php,v 1.2.2.3 2008/01/18 10:49:24 skodak Exp $
+<?php // $Id$
       // Allows a creator to edit groupings
 
 require_once '../config.php';

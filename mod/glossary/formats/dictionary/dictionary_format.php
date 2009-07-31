@@ -1,4 +1,4 @@
-<?php  // $Id: dictionary_format.php,v 1.9.22.1 2007/11/09 14:35:06 nfreear Exp $
+<?php  // $Id$
 
 function glossary_show_entry_dictionary($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL, $aliases=true) {
 

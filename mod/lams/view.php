@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.9.2.1 2007/10/12 16:09:41 tjhunt Exp $
+<?php  // $Id$
 
 /// This page prints a particular instance of lams
 /// (Replace lams with the name of your module)

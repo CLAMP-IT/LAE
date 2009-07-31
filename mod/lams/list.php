@@ -1,4 +1,4 @@
-<?php // $Id: list.php,v 1.3 2007/02/20 17:29:45 skodak Exp $
+<?php // $Id$
 
 /// send LAMS learning deisgn list as a string seperated by ":" to client
 

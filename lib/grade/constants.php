@@ -1,4 +1,4 @@
-<?php // $Id: gradelib.php,v 1.107 2007/09/05 19:15:23 skodak Exp $
+<?php // $Id$
 
 ///////////////////////////////////////////////////////////////////////////
 // NOTICE OF COPYRIGHT                                                   //
@@ -27,7 +27,7 @@
  * Definitions of constants for gradebook
  *
  * @author Moodle HQ developers
- * @version  $Id: gradelib.php,v 1.107 2007/09/05 19:15:23 skodak Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

@@ -1,4 +1,4 @@
-<?php // $Id: restorelib.php,v 1.90.6.2 2007/12/21 15:38:38 tjhunt Exp $
+<?php // $Id$
     //This php script contains all the stuff to restore quiz mods
 
 // Todo:

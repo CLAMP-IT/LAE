@@ -1,4 +1,4 @@
-<?php // $Id: lib.php,v 1.82.2.2 2008/07/24 21:58:06 skodak Exp $
+<?php // $Id$
 
 
 if (!isset($CFG->journal_showrecentactivity)) {

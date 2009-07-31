@@ -8,7 +8,7 @@
  * See {@link helpbutton()} in {@link lib/moodlelib.php}
  *
  * @author Martin Dougiamas
- * @version $Id: help.php,v 1.40.2.5 2009/03/02 14:06:22 mudrd8mz Exp $
+ * @version $Id$
  * @package moodlecore
  */
 require_once('config.php');

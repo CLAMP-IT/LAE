@@ -4,7 +4,7 @@
  * adminlib.php - Contains functions that only administrators will ever need to use
  *
  * @author Martin Dougiamas and many others
- * @version  $Id: adminlib.php,v 1.153.2.74 2009/05/01 10:21:58 tjhunt Exp $
+ * @version  $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

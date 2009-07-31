@@ -1,4 +1,4 @@
-<?php // $Id: user.php,v 1.29.2.3 2008/02/13 17:01:44 skodak Exp $
+<?php // $Id$
       
     require('../config.php');
     require('lib.php');

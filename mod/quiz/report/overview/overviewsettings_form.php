@@ -1,4 +1,4 @@
-<?php  // $Id: overviewsettings_form.php,v 1.1.2.7 2008/07/04 09:48:02 jamiesensei Exp $
+<?php  // $Id$
 require_once "$CFG->libdir/formslib.php";
 class mod_quiz_report_overview_settings extends moodleform {
 

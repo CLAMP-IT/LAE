@@ -1,4 +1,4 @@
-<?PHP // $Id: pix.php,v 1.18.2.1 2007/12/19 17:38:47 skodak Exp $
+<?PHP // $Id$
       // This function fetches math. images from the data directory
       // If not, it obtains the corresponding TeX expression from the cache_tex db table
       // and uses mimeTeX to create the image file

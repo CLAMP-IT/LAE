@@ -1,4 +1,4 @@
-<?php // $Id: backuplib.php,v 1.62.2.6 2008/02/05 10:16:40 jamiesensei Exp $
+<?php // $Id$
     //This php script contains all the stuff to backup quizzes
 
 //This is the "graphical" structure of the quiz mod:

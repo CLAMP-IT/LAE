@@ -1,4 +1,4 @@
-<?php // $Id: access_control.php,v 1.14.4.4 2008/04/02 06:09:58 dongsheng Exp $
+<?php // $Id$
 
 // Allows the admin to control user logins from remote moodles.
 

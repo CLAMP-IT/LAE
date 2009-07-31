@@ -1,4 +1,4 @@
-<?php   // $Id: timezone.php,v 1.8.2.1 2008/05/02 04:07:28 dongsheng Exp $
+<?php   // $Id$
 
     require_once('../config.php');
 

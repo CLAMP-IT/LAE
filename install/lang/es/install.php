@@ -1,4 +1,4 @@
-<?PHP // $Id: install.php,v 1.4 2006/09/20 20:31:43 skodak Exp $ 
+<?PHP // $Id$ 
       // install.php - created with Moodle 1.5 Beta (2005052300)
 
 

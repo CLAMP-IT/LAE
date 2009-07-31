@@ -1,4 +1,4 @@
-<?php // $Id: link_std.php,v 1.6 2007/01/27 23:23:44 skodak Exp $
+<?php // $Id$
     require("../../../../config.php");
 
     $id = optional_param('id', SITEID, PARAM_INT);

@@ -186,4 +186,4 @@ Possible configuration options for HTMLArea are:
 
 To be continue...
     
-$Id: neweditor_readme.txt,v 1.4 2006/03/06 09:44:57 julmis Exp $
+$Id$

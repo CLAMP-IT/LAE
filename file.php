@@ -1,4 +1,4 @@
-<?php // $Id: file.php,v 1.46.2.5 2009/04/09 09:30:32 skodak Exp $
+<?php // $Id$
       // This script fetches files from the dataroot directory
       //
       // You should use the get_file_url() function, available in lib/filelib.php, to link to file.php.

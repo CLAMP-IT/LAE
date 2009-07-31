@@ -1,4 +1,4 @@
-<?PHP // $Id: install.php,v 1.5 2006/09/20 20:31:09 skodak Exp $ 
+<?PHP // $Id$ 
       // install.php - created with Moodle 1.5 UNSTABLE DEVELOPMENT (2005010100)
 
 

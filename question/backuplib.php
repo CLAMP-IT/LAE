@@ -1,4 +1,4 @@
-<?php // $Id: backuplib.php,v 1.13.2.7 2009/01/20 04:24:01 tjhunt Exp $
+<?php // $Id$
 /**
  * Question bank backup code.
  *

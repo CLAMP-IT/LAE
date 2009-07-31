@@ -1,4 +1,4 @@
-<?php // $Id: auth.php,v 1.30.2.21 2009/03/25 09:42:25 poltawski Exp $
+<?php // $Id$
       // auth.php - created with Moodle 1.5 UNSTABLE DEVELOPMENT (2005010100)
 
 

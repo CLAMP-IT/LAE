@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.99.2.14 2009/01/09 06:16:52 tjhunt Exp $
+<?php  // $Id$
 
 /// Library of functions and constants for module chat
 require_once($CFG->libdir.'/pagelib.php');

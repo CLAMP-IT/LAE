@@ -1,4 +1,4 @@
-<?php  // $Id: qt_common.php,v 1.4.2.3 2009/02/19 01:09:36 tjhunt Exp $
+<?php  // $Id$
 
 //***********************************
 // qt_common.php

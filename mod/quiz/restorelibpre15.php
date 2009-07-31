@@ -1,4 +1,4 @@
-<?php // $Id: restorelibpre15.php,v 1.26.8.1 2007/11/02 16:19:57 tjhunt Exp $
+<?php // $Id$
     //This php script contains all the stuff to backup/restore
     //quiz mods
 

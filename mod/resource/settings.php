@@ -1,4 +1,4 @@
-<?php  //$Id: settings.php,v 1.1.2.3 2007/12/23 11:49:42 skodak Exp $
+<?php  //$Id$
 
 require_once($CFG->dirroot.'/mod/resource/lib.php');
 

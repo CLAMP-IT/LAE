@@ -1,4 +1,4 @@
-<?PHP  // $Id: block.php,v 1.18.4.2 2008/04/02 06:09:57 dongsheng Exp $
+<?PHP  // $Id$
 
 // block.php - allows admin to edit all local configuration variables for a block
 

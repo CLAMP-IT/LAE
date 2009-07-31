@@ -1,4 +1,4 @@
-<?PHP  // $Id: report_security.php,v 1.2.2.11 2009/02/19 07:21:42 skodak Exp $
+<?PHP  // $Id$
 
 
 //NOTE TO TRANSLATORS: please do not translate yet, we are going to finalise this file sometime in January and backport to 1.9.x ;-)

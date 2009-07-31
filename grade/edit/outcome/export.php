@@ -1,4 +1,4 @@
-<?php // $Id: export.php,v 1.1.2.2 2008/02/26 07:28:01 scyrma Exp $
+<?php // $Id$
       // Exports selected outcomes in CSV format. 
 
 require_once '../../../config.php';

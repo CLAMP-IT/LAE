@@ -1,4 +1,4 @@
-<?php // $Id: resource.class.php,v 1.37.2.1 2007/10/12 16:09:47 tjhunt Exp $
+<?php // $Id$
 
 class resource_text extends resource_base {
 

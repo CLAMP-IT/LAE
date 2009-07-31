@@ -1,4 +1,4 @@
-<?PHP //$Id: block_calendar_month.php,v 1.30.2.6 2009/01/30 06:22:16 jerome Exp $
+<?PHP //$Id$
 
 class block_calendar_month extends block_base {
     function init() {

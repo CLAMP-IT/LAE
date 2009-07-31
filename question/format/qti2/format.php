@@ -1,4 +1,4 @@
-<?php  // $Id: format.php,v 1.12.4.3 2008/08/04 10:07:54 thepurpleblob Exp $
+<?php  // $Id$
 
 require_once("$CFG->dirroot/question/format/qti2/qt_common.php");
 ////////////////////////////////////////////////////////////////////////////

@@ -1,4 +1,4 @@
-<?php // $Id: pagelib.php,v 1.10 2007/04/16 20:59:17 mattc-catalyst Exp $
+<?php // $Id$
 
 require_once($CFG->libdir.'/pagelib.php');
 

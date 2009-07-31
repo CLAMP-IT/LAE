@@ -1,4 +1,4 @@
-<?php // $Id: preview.php,v 1.23.2.5 2008/12/10 06:22:04 tjhunt Exp $
+<?php // $Id$
 /**
  * This page displays a preview of a question
  *

@@ -1,4 +1,4 @@
-<?PHP // $Id: gradereport_outcomes.php,v 1.4 2007/08/26 05:48:27 moodler Exp $ 
+<?PHP // $Id$ 
 
 $string['addoutcome'] = 'Add an outcome';
 $string['courseoutcomes'] = 'Course outcomes';

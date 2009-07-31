@@ -1,4 +1,4 @@
-<?php //$Id: restorelib.php,v 1.53 2006/11/15 03:15:59 toyomoyo Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //glossary mods
 

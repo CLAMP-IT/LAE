@@ -1,4 +1,4 @@
-<?php  //$Id: grouplib.php,v 1.22.2.8 2009/04/09 08:16:47 skodak Exp $
+<?php  //$Id$
 
 /**
  * Groups not used in course or activity

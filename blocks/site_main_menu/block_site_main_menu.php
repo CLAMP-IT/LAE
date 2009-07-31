@@ -1,4 +1,4 @@
-<?php   //$Id: block_site_main_menu.php,v 1.26.2.4 2008/03/03 11:41:04 moodler Exp $
+<?php   //$Id$
 
 class block_site_main_menu extends block_list {
     function init() {

@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.61.2.6 2009/03/11 02:21:45 dongsheng Exp $
+<?php  // $Id$
 
 /// This page prints a particular instance of chat
 

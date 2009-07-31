@@ -1,4 +1,4 @@
-<?PHP // $Id: index.php,v 1.13.2.6 2009/01/16 05:37:56 dongsheng Exp $
+<?PHP // $Id$
 
 /// This page lists all the instances of wiki in a particular course
 /// Replace wiki with the name of your module

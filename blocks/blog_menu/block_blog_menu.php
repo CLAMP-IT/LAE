@@ -1,4 +1,4 @@
-<?php //$Id: block_blog_menu.php,v 1.16.2.2 2008/05/02 04:07:31 dongsheng Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot .'/blog/lib.php');
 

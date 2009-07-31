@@ -1,4 +1,4 @@
-<?php // $Id: logout.php,v 1.25 2007/05/15 21:13:23 skodak Exp $
+<?php // $Id$
 // Logs the user out and sends them to the home page
 
     require_once("../config.php");

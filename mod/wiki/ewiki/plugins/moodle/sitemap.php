@@ -1,4 +1,4 @@
-<?php // $Id: sitemap.php,v 1.3.20.2 2009/05/10 15:27:35 stronk7 Exp $
+<?php // $Id$
 
 /*
     This plugin will create a sitemap rooted at the given location

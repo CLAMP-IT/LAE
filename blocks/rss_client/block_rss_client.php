@@ -1,4 +1,4 @@
-<?php //$Id: block_rss_client.php,v 1.77.2.8 2008/07/24 21:58:08 skodak Exp $
+<?php //$Id$
 
 /*******************************************************************
 * This file contains one class which defines a block for display on
@@ -6,7 +6,7 @@
 * of a remote RSS news feed in your web site.
 *
 * @author Daryl Hawes
-* @version  $Id: block_rss_client.php,v 1.77.2.8 2008/07/24 21:58:08 skodak Exp $
+* @version  $Id$
 * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
 * @package base
 ******************************************************************/

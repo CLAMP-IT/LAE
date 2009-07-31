@@ -1,4 +1,4 @@
-<?php // $Id: format.php,v 1.83.2.3 2008/12/10 06:05:27 dongsheng Exp $
+<?php // $Id$
       // Display the whole course as "topics" made of of modules
       // In fact, this is very similar to the "weeks" format, in that
       // each "topic" is actually a week.  The main difference is that

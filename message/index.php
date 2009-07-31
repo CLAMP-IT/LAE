@@ -1,4 +1,4 @@
-<?php /// $Id: index.php,v 1.19.2.1 2008/05/02 05:09:41 jerome Exp $
+<?php /// $Id$
        /// Main interface window for messaging
 
     require('../config.php');

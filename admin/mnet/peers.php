@@ -1,4 +1,4 @@
-<?PHP // $Id: peers.php,v 1.14.2.4 2008/08/27 03:33:14 peterbulmer Exp $
+<?PHP // $Id$
 
 // Allows the admin to configure other Moodle hosts info
 

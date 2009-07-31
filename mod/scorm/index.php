@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.25.2.4 2008/02/20 06:18:52 moodler Exp $
+<?php // $Id$
 
     require_once("../../config.php");
     require_once("locallib.php");

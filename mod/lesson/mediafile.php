@@ -1,4 +1,4 @@
-<?php  // $Id: mediafile.php,v 1.13.2.1 2008/07/10 09:48:47 scyrma Exp $
+<?php  // $Id$
 /**
  * This file plays the mediafile set in lesson settings.
  *
@@ -7,7 +7,7 @@
  *  If there is a way to use the resource class instead of this code, please change to do so
  *
  *
- * @version $Id: mediafile.php,v 1.13.2.1 2008/07/10 09:48:47 scyrma Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

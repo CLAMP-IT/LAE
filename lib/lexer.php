@@ -1,4 +1,4 @@
-<?php  // $Id: lexer.php,v 1.1 2005/01/31 07:39:03 moodler Exp $
+<?php  // $Id$
 
 /* PHP lexer code snarfed from the CVS tree for the lamplib project at 
  * http://sourceforge.net/projects/lamplib

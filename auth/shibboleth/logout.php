@@ -1,4 +1,4 @@
-<?php // $Id: logout.php,v 1.1.2.2 2009/03/18 13:26:31 exe-cutor Exp $
+<?php // $Id$
 
 // Implements logout for Shibboleth authenticated users according to:
 // - https://spaces.internet2.edu/display/SHIB2/NativeSPLogoutInitiator

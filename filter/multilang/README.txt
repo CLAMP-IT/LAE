@@ -1,4 +1,4 @@
-$Id: README.txt,v 1.6 2006/12/12 10:39:17 skodak Exp $
+$Id$
 
 To Install it:
     - Enable if from "Administration/Filters".

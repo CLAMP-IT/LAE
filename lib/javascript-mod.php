@@ -1,4 +1,4 @@
-<?php  /// $Id: javascript-mod.php,v 1.1 2005/04/16 12:10:44 moodler Exp $
+<?php  /// $Id$
 
        /// Searches modules, filters and blocks for any Javascript files
        /// that should be called on every page

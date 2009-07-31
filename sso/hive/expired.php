@@ -1,4 +1,4 @@
-<?php  // $Id: expired.php,v 1.5 2007/01/04 21:33:04 skodak Exp $
+<?php  // $Id$
        // expired.php - called by hive when the session has expired.
 
     require('../../config.php');

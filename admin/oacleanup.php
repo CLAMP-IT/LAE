@@ -1,4 +1,4 @@
-<?php // $Id: oacleanup.php,v 1.9 2007/04/30 17:08:43 skodak Exp $
+<?php // $Id$
 
 if (!isset($CFG)) {
 

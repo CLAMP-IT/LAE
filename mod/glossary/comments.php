@@ -1,4 +1,4 @@
-<?php // $Id: comments.php,v 1.28.2.1 2007/10/12 16:09:44 tjhunt Exp $
+<?php // $Id$
 
 /// This page prints a particular instance of glossary
     require_once('../../config.php');

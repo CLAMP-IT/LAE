@@ -1,4 +1,4 @@
-<?php // $Id: access.php,v 1.6.2.1 2008/07/24 21:58:08 skodak Exp $
+<?php // $Id$
 
 $enrol_authorize_capabilities = array(
 

@@ -1,4 +1,4 @@
-<?PHP //$Id: block_tags.php,v 1.3.2.5 2008/03/03 11:41:04 moodler Exp $
+<?PHP //$Id$
 
 class block_tags extends block_base {
     function init() {

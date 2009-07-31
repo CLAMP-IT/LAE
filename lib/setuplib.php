@@ -1,4 +1,4 @@
-<?php // $Id: setuplib.php,v 1.22.2.6 2009/05/08 21:30:31 skodak Exp $ 
+<?php // $Id$ 
       // These functions are required very early in the Moodle 
       // setup process, before any of the main libraries are 
       // loaded.

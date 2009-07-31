@@ -1,4 +1,4 @@
-<?php // $Id: export.php,v 1.43.2.4 2008/09/15 14:21:02 thepurpleblob Exp $
+<?php // $Id$
 /**
  * Export quiz questions into the given category
  *

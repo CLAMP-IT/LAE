@@ -1,4 +1,4 @@
-<?php  // $Id: entrylist_format.php,v 1.16.4.1 2007/11/09 14:35:06 nfreear Exp $
+<?php  // $Id$
 
 function glossary_show_entry_entrylist($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL, $aliases=true) {
     global $USER;

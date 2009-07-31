@@ -1,4 +1,4 @@
-<?php // $Id: send.php,v 1.22.2.4 2008/05/08 03:41:11 jerome Exp $
+<?php // $Id$
 
 require('../config.php');
 require('lib.php');

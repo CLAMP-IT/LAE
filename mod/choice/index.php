@@ -1,4 +1,4 @@
-<?php  // $Id: index.php,v 1.32.2.6 2008/02/26 23:19:05 skodak Exp $
+<?php  // $Id$
 
     require_once("../../config.php");
     require_once("lib.php");

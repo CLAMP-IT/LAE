@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.12.4.11 2008/10/08 01:46:40 fmarier Exp $
+<?php  // $Id$
 
 /// Library of functions and constants for module label
 

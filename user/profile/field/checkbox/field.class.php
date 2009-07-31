@@ -1,4 +1,4 @@
-<?php // $Id: field.class.php,v 1.1.2.2 2008/07/15 04:28:39 moodler Exp $
+<?php // $Id$
 
 class profile_field_checkbox extends profile_field_base {
 

@@ -1,4 +1,4 @@
-<?php // $Id: format.php,v 1.24.2.8 2009/03/16 13:43:19 thepurpleblob Exp $
+<?php // $Id$
 //
 ///////////////////////////////////////////////////////////////
 // The GIFT import filter was designed as an easy to use method 

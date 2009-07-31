@@ -1,4 +1,4 @@
-<?php   // $Id: print.php,v 1.41.2.2 2009/01/16 04:55:38 dongsheng Exp $
+<?php   // $Id$
 
     global $CFG;
 

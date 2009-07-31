@@ -1,8 +1,8 @@
-<?php // $Id: delete.php,v 1.7.8.1 2008/10/09 11:04:12 mudrd8mz Exp $
+<?php // $Id$
 /**
  * Action for deleting a page
  *
- * @version $Id: delete.php,v 1.7.8.1 2008/10/09 11:04:12 mudrd8mz Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

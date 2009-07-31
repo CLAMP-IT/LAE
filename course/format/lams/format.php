@@ -1,4 +1,4 @@
-<?php // $Id: format.php,v 1.25.2.2 2008/12/10 06:05:27 dongsheng Exp $
+<?php // $Id$
 // In fact, this is very similar to the "topics" format. 
 // The main difference is that news forum is replaced by LAMS learner
 // interface.

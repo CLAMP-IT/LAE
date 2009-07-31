@@ -1,4 +1,4 @@
-<?PHP //$Id: block_blog_tags.php,v 1.28.2.7 2008/07/17 04:22:11 scyrma Exp $
+<?PHP //$Id$
 
 define('BLOGDEFAULTTIMEWITHIN', 90);
 define('BLOGDEFAULTNUMBEROFTAGS', 20);

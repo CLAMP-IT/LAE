@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.21.2.2 2008/12/07 18:55:18 stronk7 Exp $
+<?php // $Id$
     //This function provides automatic linking to
     //activities when its name (title) is found inside every Moodle text
     //It's based in the glosssary filter by Williams Castillo

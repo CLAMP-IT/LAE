@@ -1,4 +1,4 @@
-<?php //$Id: yesno.php,v 1.1.2.1 2007/11/13 09:02:13 skodak Exp $
+<?php //$Id$
 
 /**
  * Generic yes/no filter with radio buttons for integer fields.

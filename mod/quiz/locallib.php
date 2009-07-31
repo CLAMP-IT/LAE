@@ -1,4 +1,4 @@
-<?php  // $Id: locallib.php,v 1.127.2.14 2009/03/18 05:16:43 tjhunt Exp $
+<?php  // $Id$
 /**
  * Library of functions used by the quiz module.
  *

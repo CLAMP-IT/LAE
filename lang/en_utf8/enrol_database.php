@@ -1,4 +1,4 @@
-<?PHP // $Id: enrol_database.php,v 1.5.2.1 2007/11/21 11:04:52 thepurpleblob Exp $ 
+<?PHP // $Id$ 
       // enrol_database.php - created with Moodle 1.7 beta + (2006101003)
 
 

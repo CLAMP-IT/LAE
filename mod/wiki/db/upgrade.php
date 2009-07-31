@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.1.8.1 2008/05/01 20:59:43 skodak Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the wiki module

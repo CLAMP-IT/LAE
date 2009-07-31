@@ -1,4 +1,4 @@
-<?php  // $Id: tabs.php,v 1.7.2.1 2007/11/02 16:20:20 tjhunt Exp $
+<?php  // $Id$
 /**
  * Sets up the tabs used by the question bank editing page
  *

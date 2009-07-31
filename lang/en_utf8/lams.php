@@ -1,4 +1,4 @@
-<?PHP // $Id: lams.php,v 1.5.4.1 2007/12/22 20:04:12 poltawski Exp $ 
+<?PHP // $Id$ 
       // lams.php - created with Moodle 1.7 beta + (2006101003)
 
 

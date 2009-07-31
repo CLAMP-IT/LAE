@@ -1,4 +1,4 @@
-<?php // $Id: iCalendar_rfc2445.php,v 1.2 2006/11/23 20:30:57 martinlanghoff Exp $
+<?php // $Id$
 
 /**
  *  BENNU - PHP iCalendar library
@@ -9,7 +9,7 @@
  *  See http://bennu.sourceforge.net/ for more information and downloads.
  *
  * @author Ioannis Papaioannou 
- * @version $Id: iCalendar_rfc2445.php,v 1.2 2006/11/23 20:30:57 martinlanghoff Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 

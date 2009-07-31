@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.128.2.9 2009/01/16 08:59:39 dongsheng Exp $
+<?php  // $Id$
 /// This page prints a particular instance of glossary
     require_once("../../config.php");
     require_once("lib.php");

@@ -1,4 +1,4 @@
-<?PHP // $Id: wiki.php,v 1.6.8.1 2008/11/13 14:54:17 wildgirl Exp $ 
+<?PHP // $Id$ 
       // wiki.php - created with Moodle 1.7 beta + (2006101003)
 
 

@@ -1,4 +1,4 @@
-<?php //$Id: comment_form.php,v 1.3 2006/12/28 09:32:50 jamiesensei Exp $
+<?php //$Id$
 
 require_once $CFG->libdir.'/formslib.php';
 

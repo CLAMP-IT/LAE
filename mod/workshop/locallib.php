@@ -1,4 +1,4 @@
-<?php  // $Id: locallib.php,v 1.43.2.2 2008/07/10 09:48:47 scyrma Exp $
+<?php  // $Id$
 
 /// Library of extra functions and module workshop 
 

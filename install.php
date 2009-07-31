@@ -1,4 +1,4 @@
-<?php /// $Id: install.php,v 1.80.2.19 2009/03/26 01:36:17 dongsheng Exp $
+<?php /// $Id$
       /// install.php - helps admin user to create a config.php file
 
 /// If config.php exists already then we are not needed.

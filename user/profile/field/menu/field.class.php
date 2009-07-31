@@ -1,4 +1,4 @@
-<?php //$Id: field.class.php,v 1.10.2.3 2009/03/15 13:43:28 skodak Exp $
+<?php //$Id$
 
 class profile_field_menu extends profile_field_base {
     var $options;

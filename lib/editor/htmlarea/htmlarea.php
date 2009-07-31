@@ -56,7 +56,7 @@
 // Version 3.0 developed by Mihai Bazon.
 //   http://dynarch.com/mishoo
 //
-// $Id: htmlarea.php,v 1.24.2.6 2009/05/21 02:28:33 jonathanharker Exp $
+// $Id$
 
 if (typeof _editor_url == "string") {
     // Leave exactly one backslash at the end of _editor_url

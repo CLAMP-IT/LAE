@@ -1,4 +1,4 @@
-<?php // $Id: user.php,v 1.30.2.7 2008/07/05 14:53:31 skodak Exp $
+<?php // $Id$
 
 // Display user activity reports for a course
 

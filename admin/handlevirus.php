@@ -1,4 +1,4 @@
-<?php // $Id: handlevirus.php,v 1.8 2007/02/28 06:25:22 moodler Exp $
+<?php // $Id$
 /** This expects the output from a command like
  * clamscan -r --infected --no-summary <files> 2>&1 | php -d error_log=/path/to/log thisfile.php 
  * also it's important that the output of clamscan prints the FULL PATH to each infected file, so use absolute paths for area to scan

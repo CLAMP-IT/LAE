@@ -1,4 +1,4 @@
-<?php /* $Id: import_outcomes_form.php,v 1.1.2.2 2008/10/17 14:55:10 nicolasconnault Exp $ */
+<?php /* $Id$ */
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 

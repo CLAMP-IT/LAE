@@ -1,4 +1,4 @@
-<?php //$Id: courserole.php,v 1.1.2.3 2008/02/08 12:14:39 poltawski Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot .'/user/filters/lib.php');
 

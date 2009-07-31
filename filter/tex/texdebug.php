@@ -1,4 +1,4 @@
-<?php // $Id: texdebug.php,v 1.20.2.4 2009/03/26 19:06:29 stronk7 Exp $
+<?php // $Id$
       // This function fetches math. images from the data directory
       // If not, it obtains the corresponding TeX expression from the cache_tex db table
       // and uses mimeTeX to create the image file

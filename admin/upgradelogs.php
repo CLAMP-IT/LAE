@@ -1,4 +1,4 @@
-<?PHP  //$Id: upgradelogs.php,v 1.10 2007/04/30 17:08:41 skodak Exp $
+<?PHP  //$Id$
 
     require_once('../config.php');
     require_once($CFG->libdir.'/adminlib.php');

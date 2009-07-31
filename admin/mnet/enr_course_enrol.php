@@ -1,4 +1,4 @@
-<?PHP  // $Id: enr_course_enrol.php,v 1.8.4.3 2009/05/18 02:28:06 peterbulmer Exp $
+<?PHP  // $Id$
        // enrol_config.php - allows admin to edit all enrollment variables
        //                    Yes, enrol is correct English spelling.
 

@@ -1,4 +1,4 @@
-<?php  // $Id: rest.php,v 1.8.6.2 2008/07/18 14:00:56 nicolasconnault Exp $
+<?php  // $Id$
        // Provide interface for topics AJAX course formats
 
 require_once('../config.php');

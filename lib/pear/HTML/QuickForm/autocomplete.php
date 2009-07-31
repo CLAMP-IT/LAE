@@ -23,7 +23,7 @@
 // |      http://www.sitepoint.com/article/1220                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: autocomplete.php,v 1.1 2006/09/24 17:04:54 jamiesensei Exp $
+// $Id$
 
 
 require_once("HTML/QuickForm/text.php");

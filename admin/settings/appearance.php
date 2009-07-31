@@ -1,4 +1,4 @@
-<?php // $Id: appearance.php,v 1.25.2.11 2009/04/01 07:39:43 dongsheng Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages under the "appearance" category
 

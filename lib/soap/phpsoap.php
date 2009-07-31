@@ -1,10 +1,10 @@
-<?php // $Id: phpsoap.php,v 1.2 2006/04/05 05:53:19 gustav_delius Exp $
+<?php // $Id$
 /**
 * Library of SOAP functions wrapping the PHP5 SOAP functions
 *
 * The purpose of this wrapping is to make it easier to use alternative SOAP
 * implementations like nuSOAP in case the PHP5 SOAP extension is not available
-* @version $Id: phpsoap.php,v 1.2 2006/04/05 05:53:19 gustav_delius Exp $
+* @version $Id$
 * @author Alex Smith and others members of the Serving Mathematics project
 *         {@link http://maths.york.ac.uk/serving_maths}
 * @license http://www.gnu.org/copyleft/gpl.html GNU Public License

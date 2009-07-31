@@ -1,4 +1,4 @@
-<?php // $Id: rpclib.php,v 1.2 2007/08/29 10:48:47 stronk7 Exp $
+<?php // $Id$
 /**
  * Some dummy functions to test XML-RPC with
  */

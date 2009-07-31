@@ -1,4 +1,4 @@
-<?php  // $Id: health.php,v 1.17.4.7 2009/03/30 10:04:57 dongsheng Exp $
+<?php  // $Id$
 
     ob_start(); //for whitespace test
     require_once('../config.php');

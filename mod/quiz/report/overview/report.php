@@ -2,7 +2,7 @@
 /**
  * This script lists student attempts
  *
- * @version $Id: report.php,v 1.98.2.47 2009/02/16 04:17:54 tjhunt Exp $
+ * @version $Id$
  * @author Martin Dougiamas, Tim Hunt and others.
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package quiz

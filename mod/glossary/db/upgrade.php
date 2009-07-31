@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.8.2.1 2008/05/01 20:46:22 skodak Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the glossary module

@@ -2,7 +2,7 @@
 /**
  * AJAX Debugging implementation
  *
- * SVN Rev: $Id: Debug.php,v 1.1.2.1 2008/10/03 07:09:50 nicolasconnault Exp $
+ * SVN Rev: $Id$
  */
 
 /**

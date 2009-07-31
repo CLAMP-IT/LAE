@@ -1,4 +1,4 @@
-README $Id: README.txt,v 1.2 2003/04/29 21:09:26 stronk7 Exp $
+README $Id$
 ----------
 
 This directory contains my try to create a backup/recover 

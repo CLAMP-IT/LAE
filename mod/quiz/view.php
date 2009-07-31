@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.124.2.18 2009/01/27 04:44:00 tjhunt Exp $
+<?php  // $Id$
 
 // This page prints a particular instance of quiz
 

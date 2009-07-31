@@ -1,4 +1,4 @@
-<?php // $Id: tiny_mce_gzip.php,v 1.1 2006/03/04 15:57:32 julmis Exp $
+<?php // $Id$
 /**
  * $RCSfile: tiny_mce_gzip.php,v $
  * $Revision: 1.1 $

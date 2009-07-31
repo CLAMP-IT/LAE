@@ -1,4 +1,4 @@
-<?php  // $Id: fullwithoutauthor_format.php,v 1.14.20.1 2007/11/09 14:35:07 nfreear Exp $
+<?php  // $Id$
 
 function glossary_show_entry_fullwithoutauthor($course, $cm, $glossary, $entry, $mode="", $hook="", $printicons=1, $ratings=NULL, $aliases=true) {
     global $CFG, $USER;

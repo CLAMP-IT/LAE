@@ -1,4 +1,4 @@
-<?php //$Id: user_bulk_delete.php,v 1.3.2.1 2007/11/13 09:02:12 skodak Exp $
+<?php //$Id$
 /**
 * script for bulk user delete operations
 */

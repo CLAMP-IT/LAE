@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.19.2.3 2008/11/29 16:16:21 skodak Exp $
+<?php // $Id$
       // Displays different views of the logs.
 
     require_once('../../../config.php');

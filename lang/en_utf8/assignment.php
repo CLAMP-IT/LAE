@@ -1,4 +1,4 @@
-<?PHP // $Id: assignment.php,v 1.14.2.11 2008/02/27 05:05:01 moodler Exp $ 
+<?PHP // $Id$ 
       // assignment.php - created with Moodle 1.7 beta + (2006101003)
 
 

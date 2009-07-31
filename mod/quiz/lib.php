@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.282.2.22 2009/05/11 06:31:58 nicolasconnault Exp $
+<?php  // $Id$
 /**
 * Library of functions for the quiz module.
 *

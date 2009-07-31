@@ -1,4 +1,4 @@
-<?php // $Id: sequencinglib.php,v 1.17.2.1 2009/03/23 09:47:30 mudrd8mz Exp $
+<?php // $Id$
 require ('scormlib.php');
 
 function scorm_seq_evaluate($scoid,$usertracks) {

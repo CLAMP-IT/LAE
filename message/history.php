@@ -1,4 +1,4 @@
-<?php // $Id: history.php,v 1.14.4.3 2009/04/26 21:12:56 stronk7 Exp $
+<?php // $Id$
       // For listing message histories between any two users
       
     require('../config.php');

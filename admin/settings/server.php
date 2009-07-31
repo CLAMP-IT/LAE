@@ -1,4 +1,4 @@
-<?php // $Id: server.php,v 1.26.2.29 2009/04/15 03:52:18 dongsheng Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages under the "server" category
 

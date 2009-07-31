@@ -1,4 +1,4 @@
-<?PHP // $Id: mimetypes.php,v 1.2 2006/11/01 09:44:06 moodler Exp $ 
+<?PHP // $Id$ 
       // mimetypes.php - created with Moodle 1.7 beta + (2006101003)
 
 

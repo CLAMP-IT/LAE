@@ -1,4 +1,4 @@
-<?php // $Id: version.php,v 1.17.2.2 2008/07/11 02:54:54 moodler Exp $
+<?php // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of label

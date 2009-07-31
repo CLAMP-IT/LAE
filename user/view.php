@@ -1,4 +1,4 @@
-<?PHP // $Id: view.php,v 1.168.2.27 2009/04/09 08:30:10 skodak Exp $
+<?PHP // $Id$
 
 //  Display profile for a particular user
 

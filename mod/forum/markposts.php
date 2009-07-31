@@ -1,4 +1,4 @@
-<?php // $Id: markposts.php,v 1.16.2.2 2008/04/13 19:10:36 skodak Exp $
+<?php // $Id$
 
       //  Set tracking option for the forum.
 

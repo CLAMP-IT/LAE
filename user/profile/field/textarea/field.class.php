@@ -1,4 +1,4 @@
-<?php //$Id: field.class.php,v 1.2 2007/10/08 08:10:46 ikawhero Exp $
+<?php //$Id$
 
 class profile_field_textarea extends profile_field_base {
 

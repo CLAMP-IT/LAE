@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.10.2.7 2009/04/22 08:20:26 nicolasconnault Exp $
+<?php // $Id$
       // Allows a creator to edit custom outcomes, and also display help about outcomes
 
 ///////////////////////////////////////////////////////////////////////////

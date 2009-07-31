@@ -1,4 +1,4 @@
-$Id: README.txt,v 1.2 2004/08/09 01:39:40 moodler Exp $
+$Id$
 
 GLOSSARY FORMAT PLUGINS
 -----------------------

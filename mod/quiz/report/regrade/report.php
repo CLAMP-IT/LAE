@@ -1,4 +1,4 @@
-<?php  // $Id: report.php,v 1.19.2.1 2007/11/02 16:20:37 tjhunt Exp $
+<?php  // $Id$
 
 // This script regrades all attempts at this quiz
 require_once($CFG->libdir.'/tablelib.php');

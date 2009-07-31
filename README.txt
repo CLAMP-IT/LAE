@@ -1,4 +1,4 @@
-README      $Id: README.txt,v 1.9.14.1 2007/11/14 23:40:50 martinlanghoff Exp $
+README      $Id$
 ------
 
 QUICK INSTALL

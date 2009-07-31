@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.2.2.3 2008/11/26 20:58:04 skodak Exp $
+<?php // $Id$
       // index.php - scheduled backup logs
 
     require_once('../../../config.php');

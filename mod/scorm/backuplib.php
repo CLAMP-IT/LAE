@@ -1,4 +1,4 @@
-<?php //$Id: backuplib.php,v 1.21.2.1 2008/11/05 06:53:02 danmarsden Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //scorm mods
 

@@ -1,8 +1,8 @@
-<?php  // $Id: essay.php,v 1.9 2007/08/27 23:05:42 mattc-catalyst Exp $
+<?php  // $Id$
 /**
  * Provides the interface for grading essay questions
  *
- * @version $Id: essay.php,v 1.9 2007/08/27 23:05:42 mattc-catalyst Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

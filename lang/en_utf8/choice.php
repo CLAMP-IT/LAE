@@ -1,4 +1,4 @@
-<?PHP // $Id: choice.php,v 1.6.4.5 2009/03/18 23:05:09 danmarsden Exp $
+<?PHP // $Id$
       // choice.php - created with Moodle 1.7 beta + (2006101003)
 
 

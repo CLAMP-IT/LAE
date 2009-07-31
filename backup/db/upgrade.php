@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.1 2006/10/26 15:38:18 stronk7 Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the backup system

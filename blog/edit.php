@@ -1,4 +1,4 @@
-<?php //$Id: edit.php,v 1.49.2.12 2008/07/07 07:40:35 scyrma Exp $
+<?php //$Id$
 
 require_once('../config.php');
 include_once('lib.php');

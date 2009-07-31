@@ -1,4 +1,4 @@
-<?PHP // $Id: index.php,v 1.16.4.1 2008/02/01 05:48:43 moodler Exp $
+<?PHP // $Id$
 
     require('../config.php');
 

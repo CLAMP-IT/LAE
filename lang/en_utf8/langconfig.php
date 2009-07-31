@@ -1,4 +1,4 @@
-<?PHP // $Id: langconfig.php,v 1.7.2.2 2008/11/04 16:27:57 stronk7 Exp $ 
+<?PHP // $Id$ 
       // langconfig.php - created with Moodle 1.7 beta + (2006101003)
 
 

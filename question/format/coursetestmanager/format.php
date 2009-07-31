@@ -1,4 +1,4 @@
-<?php  // $Id: format.php,v 1.13.2.2 2007/11/02 16:20:38 tjhunt Exp $
+<?php  // $Id$
 ////////////////////////////////////////////////////////////////////
 /// Class for importing course test manager questions.            //
 ///                                                               //

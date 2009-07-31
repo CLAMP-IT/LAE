@@ -1,4 +1,4 @@
-<?php // $Id: editlib.php,v 1.54.2.5 2008/04/17 08:28:24 moodler Exp $
+<?php // $Id$
 /**
  * Functions used by edit.php to edit quizzes
  *

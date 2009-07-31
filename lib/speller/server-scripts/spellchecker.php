@@ -1,4 +1,4 @@
-<?php // $Id: spellchecker.php,v 1.10 2007/04/15 17:04:26 skodak Exp $
+<?php // $Id$
     include_once("../../../config.php");
     require_login();
 

@@ -2,7 +2,7 @@
 /*
  * General csv import library.
  * @author Petr Skoda
- * @version $Id: csvlib.class.php,v 1.1.2.2 2007/11/05 00:49:29 skodak Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

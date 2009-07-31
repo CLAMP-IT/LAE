@@ -5,7 +5,7 @@
  * @copyright &copy; 2006 The Open University
  * @author N.D.Freear@open.ac.uk, T.J.Hunt@open.ac.uk
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @version $Id: ex_reporter.php,v 1.1.2.2 2008/11/26 20:58:04 skodak Exp $
+ * @version $Id$
  * @package SimpleTestEx
  */
 

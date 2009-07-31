@@ -1,4 +1,4 @@
-<?php // $Id: show.php,v 1.15.2.1 2008/05/02 04:07:32 dongsheng Exp $
+<?php // $Id$
 
     require_once("../../config.php");
     require_once("lib.php");

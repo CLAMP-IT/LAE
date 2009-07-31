@@ -1,4 +1,4 @@
-<?php // $Id: wantedpages.php,v 1.3 2007/01/10 03:07:24 toyomoyo Exp $
+<?php // $Id$
 
 # lists pages, which were referenced
 # but not yet written

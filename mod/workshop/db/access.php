@@ -1,4 +1,4 @@
-<?php // $Id: access.php,v 1.7 2007/02/16 08:47:00 vyshane Exp $
+<?php // $Id$
 /**
  * Capability definitions for the workshop module.
  *

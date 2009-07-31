@@ -1,4 +1,4 @@
-<?php //$Id: choosecoursefile.php,v 1.4.10.1 2009/05/07 20:29:16 stronk7 Exp $
+<?php //$Id$
 global $CFG;
 require_once "$CFG->libdir/form/group.php";
 

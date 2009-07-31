@@ -1,4 +1,4 @@
-<?php // $Id: editorlib.php,v 1.3 2006/04/22 16:36:35 skodak Exp $
+<?php // $Id$
 
 /**
  * Editor class for Moodle.
@@ -7,7 +7,7 @@
  * WYSIWYG editors into Moodle.
  *
  * @author Janne Mikkonen
- * @version $Id: editorlib.php,v 1.3 2006/04/22 16:36:35 skodak Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package editorObject
  */

@@ -1,4 +1,4 @@
-<?php // $Id: mnet.php,v 1.3.6.2 2007/12/19 17:38:37 skodak Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages under the "mnet" category
 

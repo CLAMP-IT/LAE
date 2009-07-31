@@ -1,4 +1,4 @@
-<?php  //$Id: define.class.php,v 1.3.2.1 2007/11/23 22:12:38 skodak Exp $
+<?php  //$Id$
 
 class profile_define_menu extends profile_define_base {
 

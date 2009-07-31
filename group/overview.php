@@ -1,4 +1,4 @@
-<?php // $Id: overview.php,v 1.1.2.3 2008/10/02 15:29:57 poltawski Exp $
+<?php // $Id$
 /**
  * Print an overview of groupings & group membership
  *

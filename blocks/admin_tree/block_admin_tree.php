@@ -1,4 +1,4 @@
-<?php  // $Id: block_admin_tree.php,v 1.28.2.9 2008/08/21 15:31:10 skodak Exp $
+<?php  // $Id$
 
 class block_admin_tree extends block_base {
 

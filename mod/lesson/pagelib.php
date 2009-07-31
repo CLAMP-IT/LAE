@@ -1,9 +1,9 @@
-<?php // $Id: pagelib.php,v 1.5.2.4 2008/01/18 14:37:29 nicolasconnault Exp $
+<?php // $Id$
 /**
  * Page class for lesson
  *
  * @author Mark Nielsen
- * @version $Id: pagelib.php,v 1.5.2.4 2008/01/18 14:37:29 nicolasconnault Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

@@ -1,4 +1,4 @@
-<?PHP // $Id: block_loancalc.php,v 1.3 2006/11/01 09:44:03 moodler Exp $ 
+<?PHP // $Id$ 
       // block_loancalc.php - created with Moodle 1.7 beta + (2006101003)
 
 

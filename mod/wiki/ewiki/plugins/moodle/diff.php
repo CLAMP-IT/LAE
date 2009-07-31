@@ -1,4 +1,4 @@
-<?php // $Id: diff.php,v 1.8 2007/06/08 13:45:10 sam_marshall Exp $
+<?php // $Id$
 
  # this is the "stupid diff", which shows up changes between two
  # saved versions of a WikiPage; even if working very unclean it

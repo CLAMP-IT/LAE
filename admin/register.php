@@ -1,4 +1,4 @@
-<?php  // $Id: register.php,v 1.25.2.4 2009/05/27 03:00:05 jerome Exp $
+<?php  // $Id$
        // register.php - allows admin to register their site on moodle.org
 
     require_once('../config.php');

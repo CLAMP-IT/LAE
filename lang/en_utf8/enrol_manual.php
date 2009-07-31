@@ -1,4 +1,4 @@
-<?PHP // $Id: enrol_manual.php,v 1.3.2.2 2008/12/06 21:21:55 skodak Exp $ 
+<?PHP // $Id$ 
       // enrol_manual.php - created with Moodle 1.7 beta + (2006101003)
 
 

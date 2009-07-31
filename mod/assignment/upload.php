@@ -1,4 +1,4 @@
-<?php  // $Id: upload.php,v 1.26 2006/08/08 22:09:56 skodak Exp $
+<?php  // $Id$
 
     require_once("../../config.php");
     require_once("lib.php");

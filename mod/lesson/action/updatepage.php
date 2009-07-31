@@ -1,8 +1,8 @@
-<?php // $Id: updatepage.php,v 1.17.8.1 2008/10/07 05:13:51 scyrma Exp $
+<?php // $Id$
 /**
  * Action for processing the form in editpage action and saves the page
  *
- * @version $Id: updatepage.php,v 1.17.8.1 2008/10/07 05:13:51 scyrma Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

@@ -1,4 +1,4 @@
-<?php // $Id: delete.php,v 1.29.2.2 2008/07/06 17:55:56 skodak Exp $
+<?php // $Id$
       // Admin-only code to delete a course utterly
 
     require_once("../config.php");

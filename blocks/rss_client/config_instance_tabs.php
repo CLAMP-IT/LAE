@@ -1,4 +1,4 @@
-<?php  // $Id: config_instance_tabs.php,v 1.10.2.1 2007/12/20 16:25:18 skodak Exp $
+<?php  // $Id$
 /// This file to be included so we can assume config.php has already been included.
 /// We also assume that $inactive, $activetab and $currentaction have been set
 

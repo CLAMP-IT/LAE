@@ -1,4 +1,4 @@
-<?php // $Id: deleteentry.php,v 1.37.2.1 2007/10/12 16:09:44 tjhunt Exp $
+<?php // $Id$
 
     require_once("../../config.php");
     require_once("lib.php");

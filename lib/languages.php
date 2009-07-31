@@ -1,4 +1,4 @@
-<?php // $Id: languages.php,v 1.7 2006/12/11 10:07:47 jamiesensei Exp $
+<?php // $Id$
 
 
 

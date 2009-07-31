@@ -5,7 +5,7 @@
  * The public API is all at the end of this file.
  *
  * @author Martin Dougiamas and many others
- * @version $Id: eventslib.php,v 1.16.2.3 2008/10/06 22:07:10 skodak Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

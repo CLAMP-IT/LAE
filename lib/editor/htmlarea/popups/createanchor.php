@@ -1,4 +1,4 @@
-<?php // $Id: createanchor.php,v 1.5 2007/01/27 23:23:45 skodak Exp $
+<?php // $Id$
     require("../../../../config.php");
 
     $id = optional_param('id', SITEID, PARAM_INT);

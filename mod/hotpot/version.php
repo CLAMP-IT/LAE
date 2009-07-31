@@ -1,4 +1,4 @@
-<?PHP // $Id: version.php,v 1.48.2.5 2009/03/16 01:46:54 gbateson Exp $
+<?PHP // $Id$
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of hotpot
 ///  This fragment is called by moodle_needs_upgrading() and /admin/index.php

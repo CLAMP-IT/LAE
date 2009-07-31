@@ -1,4 +1,4 @@
-<?php  // $Id: edit_shortanswer_form.php,v 1.10.2.5 2009/02/19 01:09:33 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the shortanswer question type.
  *

@@ -1,4 +1,4 @@
-<?PHP //$Id: block_calendar_upcoming.php,v 1.27.2.3 2008/04/17 19:19:11 skodak Exp $
+<?PHP //$Id$
 
 class block_calendar_upcoming extends block_base {
     function init() {

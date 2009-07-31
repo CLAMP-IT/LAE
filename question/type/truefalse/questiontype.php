@@ -1,4 +1,4 @@
-<?php  // $Id: questiontype.php,v 1.17.2.5 2008/12/10 00:54:33 tjhunt Exp $
+<?php  // $Id$
 
 /////////////////
 /// TRUEFALSE ///

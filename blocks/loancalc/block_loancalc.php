@@ -1,4 +1,4 @@
-<?php // $Id: block_loancalc.php,v 1.9.4.3 2008/04/04 06:23:21 dongsheng Exp $
+<?php // $Id$
 
 class block_loancalc extends block_base {
 

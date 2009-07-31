@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.6.2.1 2009/04/22 08:20:35 nicolasconnault Exp $
+<?php // $Id$
       // Allows a creator to edit custom scales, and also display help about scales
 
 ///////////////////////////////////////////////////////////////////////////

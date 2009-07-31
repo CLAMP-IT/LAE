@@ -1,4 +1,4 @@
-<?php // $Id: importppt.php,v 1.22.2.3 2009/05/06 16:10:15 skodak Exp $
+<?php // $Id$
 /**
  * This is a very rough importer for powerpoint slides
  * Export a powerpoint presentation with powerpoint as html pages
@@ -8,7 +8,7 @@
  * 
  * The script supports book and lesson.
  *
- * @version $Id: importppt.php,v 1.22.2.3 2009/05/06 16:10:15 skodak Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

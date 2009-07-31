@@ -1,4 +1,4 @@
-<?php // $Id: preview.php,v 1.4 2007/01/27 23:23:44 skodak Exp $ preview for insert image dialog
+<?php // $Id$ preview for insert image dialog
 
     require("../../../../config.php");
 

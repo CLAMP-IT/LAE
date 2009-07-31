@@ -1,4 +1,4 @@
-<?php //$Id: langimport.php,v 1.36.2.10 2009/05/06 16:10:14 skodak Exp $
+<?php //$Id$
 ///This file only manages the installation of 1.6 lang packs.
 ///in downloads.moodle.org, they are store in separate directory /lang16
 ///in local server, they are stored in $CFG->dataroot/lang

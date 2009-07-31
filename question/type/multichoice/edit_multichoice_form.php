@@ -1,4 +1,4 @@
-<?php  // $Id: edit_multichoice_form.php,v 1.12.2.4 2009/02/19 01:09:34 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the multichoice question type.
  *

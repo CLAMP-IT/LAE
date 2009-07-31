@@ -1,4 +1,4 @@
-<?PHP // $Id: block_rss_client.php,v 1.5.2.1 2007/12/19 17:38:43 skodak Exp $ 
+<?PHP // $Id$ 
       // block_rss_client.php - created with Moodle 1.7 beta + (2006101003)
 
 

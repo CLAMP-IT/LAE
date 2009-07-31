@@ -1,4 +1,4 @@
-<?php // $Id: category.php,v 1.115 2007/09/19 07:08:24 martinlanghoff Exp $
+<?php // $Id$
 /**
  * Page for creating or editing course category name/parent/description.
  * When called with an id parameter, edits the category with that id.

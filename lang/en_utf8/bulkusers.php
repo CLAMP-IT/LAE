@@ -1,4 +1,4 @@
-<?php //$Id: bulkusers.php,v 1.5.2.2 2007/11/13 09:02:14 skodak Exp $
+<?php //$Id$
 $string['allfilteredusers'] = 'All filtered ($a->count/$a->total)';
 $string['allselectedusers'] = 'All selected ($a->count/$a->total)';
 $string['allusers'] = 'All users ($a)';

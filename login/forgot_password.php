@@ -1,5 +1,5 @@
 <?php
-// $Id: forgot_password.php,v 1.45.2.4 2008/12/01 22:37:12 skodak Exp $
+// $Id$
 // forgot password routine.
 // find the user and call the appropriate routine for their authentication
 // type.

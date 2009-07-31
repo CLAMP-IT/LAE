@@ -1,4 +1,4 @@
-<?php  // $Id: attempt.php,v 1.131.2.16 2009/03/23 01:59:18 tjhunt Exp $
+<?php  // $Id$
 /**
  * This page prints a particular instance of quiz
  *

@@ -1,4 +1,4 @@
-<?php  // $Id: format.php,v 1.35.2.12 2009/03/18 11:16:59 thepurpleblob Exp $
+<?php  // $Id$
 /**
  * Base class for question import and export formats.
  *

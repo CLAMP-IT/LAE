@@ -1,4 +1,4 @@
-<?php  // $Id: lib.php,v 1.6 2006/09/20 19:46:53 skodak Exp $
+<?php  // $Id$
        // Logs into Hive from HarvestRoad and stores session ID in Moodle session
        // Martin Dougiamas, Moodle
        //

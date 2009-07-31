@@ -1,4 +1,4 @@
-<?php // $Id: courses.php,v 1.14.2.11 2009/02/13 09:58:21 stronk7 Exp $
+<?php // $Id$
 
 // This file defines settingpages and externalpages under the "courses" category
 

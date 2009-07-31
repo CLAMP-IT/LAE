@@ -1,4 +1,4 @@
-<?php  // $Id: log.php,v 1.15.2.1 2008/05/02 04:07:30 dongsheng Exp $
+<?php  // $Id$
        // log.php - old scheduled backups report. Now redirecting
        // to the new admin one
 

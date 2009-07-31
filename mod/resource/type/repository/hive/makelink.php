@@ -1,4 +1,4 @@
-<?php  // $Id: makelink.php,v 1.6 2007/03/20 19:47:06 skodak Exp $
+<?php  // $Id$
 
     require_once('../../../../../config.php');
 

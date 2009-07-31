@@ -1,4 +1,4 @@
-<?php // $Id: editadvanced.php,v 1.21.2.12 2008/12/22 03:16:51 tjhunt Exp $
+<?php // $Id$
 
     require_once('../config.php');
     require_once($CFG->libdir.'/gdlib.php');

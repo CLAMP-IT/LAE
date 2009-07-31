@@ -1,4 +1,4 @@
-<?php    // $Id: formats.php,v 1.22.2.2 2007/12/19 17:38:45 skodak Exp $
+<?php    // $Id$
     /// This file allows to manage the default behaviour of the display formats
 
     require_once("../../config.php");

@@ -1,4 +1,4 @@
-<?php  //$Id: settings.php,v 1.1.2.2 2007/12/19 17:38:47 skodak Exp $
+<?php  //$Id$
 
 if (empty($CFG->enablerssfeeds)) {
     $options = array(0 => get_string('rssglobaldisabled', 'admin'));

@@ -1,4 +1,4 @@
-<?php // $Id: remote_client.php,v 1.3.2.3 2009/04/06 06:37:43 peterbulmer Exp $
+<?php // $Id$
 /**
  * An object to represent lots of information about an RPC-peer machine
  *

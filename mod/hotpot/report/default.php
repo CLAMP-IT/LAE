@@ -1,4 +1,4 @@
-<?PHP  // $Id: default.php,v 1.13.4.2 2008/03/06 07:34:04 gbateson Exp $
+<?PHP  // $Id$
 
 ////////////////////////////////////////////////////////////////////
 /// Default class for report plugins

@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.40.2.1 2008/02/11 15:39:13 ethem Exp $
+<?php // $Id$
 
 /// Load libraries
     require_once('../../config.php');

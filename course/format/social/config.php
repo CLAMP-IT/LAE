@@ -1,4 +1,4 @@
-<?php //$Id: config.php,v 1.2 2005/04/21 13:25:43 defacer Exp $
+<?php //$Id$
 //
 // Optional course format configuration file
 //

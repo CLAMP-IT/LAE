@@ -1,4 +1,4 @@
-<?PHP // $Id: blocks.php,v 1.40.4.5 2008/01/03 15:02:59 skodak Exp $
+<?PHP // $Id$
 
     // Allows the admin to configure blocks (hide/show, delete and configure)
 

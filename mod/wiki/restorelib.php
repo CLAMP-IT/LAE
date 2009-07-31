@@ -1,4 +1,4 @@
-<?PHP //$Id: restorelib.php,v 1.17.6.1 2008/03/17 21:34:00 skodak Exp $
+<?PHP //$Id$
     //This php script contains all the stuff to backup/restore
     //wiki mods
 

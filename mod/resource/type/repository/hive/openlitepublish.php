@@ -1,4 +1,4 @@
-<?php // $Id: openlitepublish.php,v 1.3 2007/10/09 21:43:30 iarenaza Exp $
+<?php // $Id$
 
     require_once("../../../../../config.php");
 

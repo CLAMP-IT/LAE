@@ -1,4 +1,4 @@
-<?php //$Id: backup.php,v 1.46.2.1 2008/03/08 15:36:00 skodak Exp $
+<?php //$Id$
     //This script is used to configure and execute the backup proccess.
 
     //Define some globals for all the script

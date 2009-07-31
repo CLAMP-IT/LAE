@@ -1,4 +1,4 @@
-<?php //$Id: lib.php,v 1.89.2.17 2009/05/22 10:21:45 stronk7 Exp $
+<?php //$Id$
     //This file contains all the general function needed (file manipulation...)
     //not directly part of the backup/restore utility plus some constants
 

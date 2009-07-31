@@ -1,4 +1,4 @@
-<?php // $Id: editsection.php,v 1.25.2.2 2009/02/05 13:28:46 stronk7 Exp $
+<?php // $Id$
       // Edit the introduction of a section
 
     require_once("../config.php");

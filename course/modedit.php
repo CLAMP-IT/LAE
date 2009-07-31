@@ -1,4 +1,4 @@
-<?php // $Id: modedit.php,v 1.34.2.12 2008/07/21 11:46:00 sam_marshall Exp $
+<?php // $Id$
 
 //  adds or updates modules in a course using new formslib
 

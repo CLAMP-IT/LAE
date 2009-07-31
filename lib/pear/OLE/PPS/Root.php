@@ -17,7 +17,7 @@
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Root.php,v 1.3 2006/02/19 10:31:21 stronk7 Exp $
+// $Id$
 
 
 require_once ('OLE/PPS.php');

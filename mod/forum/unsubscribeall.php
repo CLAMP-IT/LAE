@@ -1,4 +1,4 @@
-<?php  //$Id: unsubscribeall.php,v 1.1.2.2 2008/07/07 21:51:40 skodak Exp $
+<?php  //$Id$
 
 require_once("../../config.php");
 require_once("lib.php");

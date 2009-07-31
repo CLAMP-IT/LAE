@@ -1,4 +1,4 @@
-<?php  // $Id: export_form.php,v 1.1.2.2 2008/05/31 15:03:34 robertall Exp $
+<?php  // $Id$
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden!');

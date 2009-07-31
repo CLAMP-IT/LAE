@@ -1,4 +1,4 @@
-<?php //$Id: olson.php,v 1.25 2007/10/02 01:43:07 mattc-catalyst Exp $
+<?php //$Id$
 
 /***
  *** olson_to_timezones ($filename)

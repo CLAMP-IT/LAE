@@ -1,4 +1,4 @@
-<?php // $Id: preset.php,v 1.24.2.11 2008/06/25 10:22:34 robertall Exp $
+<?php // $Id$
 /* Preset Menu
  *
  * This is the page that is the menu item in the config database

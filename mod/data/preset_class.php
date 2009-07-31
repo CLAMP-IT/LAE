@@ -1,5 +1,5 @@
 <?php
-// $Id: preset_class.php,v 1.2.2.4 2008/07/10 09:48:45 scyrma Exp $
+// $Id$
 
 /**
  * This object is a representation of a file-based preset for database activities

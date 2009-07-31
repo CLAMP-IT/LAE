@@ -25,7 +25,7 @@
  * @package Smarty
  */
 
-/* $Id: Config_File.class.php,v 1.2 2005/04/19 09:52:15 thepurpleblob Exp $ */
+/* $Id$ */
 
 /**
  * Config file reading class

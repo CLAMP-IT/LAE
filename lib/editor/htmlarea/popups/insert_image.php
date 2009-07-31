@@ -1,4 +1,4 @@
-<?php // $Id: insert_image.php,v 1.9.8.1 2009/05/21 02:28:34 jonathanharker Exp $
+<?php // $Id$
 
     require("../../../../config.php");
 

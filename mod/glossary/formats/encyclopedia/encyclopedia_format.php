@@ -1,4 +1,4 @@
-<?php  // $Id: encyclopedia_format.php,v 1.17.4.3 2008/02/13 17:01:43 skodak Exp $
+<?php  // $Id$
 
 function glossary_show_entry_encyclopedia($course, $cm, $glossary, $entry, $mode='',$hook='',$printicons=1,$ratings=NULL, $aliases=true) {
     global $CFG, $USER;

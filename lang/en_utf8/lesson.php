@@ -1,4 +1,4 @@
-<?PHP // $Id: lesson.php,v 1.25.2.6 2008/11/26 11:49:11 thepurpleblob Exp $ 
+<?PHP // $Id$ 
       // lesson.php - created with Moodle 1.7 beta + (2006101003)
 
 $string['accesscontrol'] = 'Access control';

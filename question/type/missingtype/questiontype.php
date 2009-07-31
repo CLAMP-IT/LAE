@@ -1,4 +1,4 @@
-<?php  // $Id: questiontype.php,v 1.7.2.1 2007/11/02 16:20:37 tjhunt Exp $
+<?php  // $Id$
 
 ///////////////////
 /// missingtype ///

@@ -1,4 +1,4 @@
-<?php  // $Id: uploaduser.php,v 1.68.2.15 2009/05/13 05:35:38 jerome Exp $
+<?php  // $Id$
 
 /// Bulk user registration script from a comma separated file
 /// Returns list of users with their user ids

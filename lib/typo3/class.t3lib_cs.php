@@ -25,7 +25,7 @@
  * Class for conversion between charsets.
  *
  *    Typo Id: class.t3lib_cs.php,v 1.56 2006/05/03 08:47:30 masi Exp $
- * Moodle $Id: class.t3lib_cs.php,v 1.7 2006/08/11 09:48:35 stronk7 Exp $
+ * Moodle $Id$
  *
  * @author	Kasper Skaarhoj <kasperYYYY@typo3.com>
  * @author	Martin Kutschker <martin.t.kutschker@blackbox.net>

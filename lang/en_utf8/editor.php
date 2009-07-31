@@ -1,4 +1,4 @@
-<?PHP // $Id: editor.php,v 1.4 2006/12/08 04:41:19 vyshane Exp $ 
+<?PHP // $Id$ 
       // editor.php - created with Moodle 1.7 beta + (2006101003)
 
 

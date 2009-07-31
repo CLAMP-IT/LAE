@@ -1,4 +1,4 @@
-<?php // $Id: filter.php,v 1.18.4.3 2007/12/25 10:03:17 skodak Exp $
+<?php // $Id$
     // filter.php
     // Edit text filter settings
 

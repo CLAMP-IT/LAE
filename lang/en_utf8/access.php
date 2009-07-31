@@ -1,4 +1,4 @@
-<?PHP // $Id: access.php,v 1.8.2.2 2007/12/18 17:26:00 nfreear Exp $ 
+<?PHP // $Id$ 
       // access.php - created with Moodle 1.7 beta + (2006101003)
       // Accessibility, usability and navigation language file.
 

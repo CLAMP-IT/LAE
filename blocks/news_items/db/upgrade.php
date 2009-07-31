@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.1 2006/10/26 16:33:52 stronk7 Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the news_items block

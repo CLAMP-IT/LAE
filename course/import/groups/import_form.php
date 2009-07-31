@@ -1,4 +1,4 @@
-<?php  // $Id: import_form.php,v 1.8 2007/05/20 11:56:57 jamiesensei Exp $
+<?php  // $Id$
 
 require_once($CFG->libdir.'/formslib.php');
 

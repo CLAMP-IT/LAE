@@ -1,4 +1,4 @@
-<?php //$Id: lib.php,v 1.80.2.18 2009/05/08 12:07:00 skodak Exp $
+<?php //$Id$
 
     /**
      * Library of functions and constants for blog

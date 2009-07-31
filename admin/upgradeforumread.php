@@ -1,4 +1,4 @@
-<?PHP  //$Id: upgradeforumread.php,v 1.13 2007/08/15 20:21:19 skodak Exp $
+<?PHP  //$Id$
 
     require_once('../config.php');
     require_once($CFG->dirroot.'/mod/forum/lib.php');

@@ -1,4 +1,4 @@
-<?php  // $Id: edit_numerical_form.php,v 1.11.2.8 2009/02/19 01:09:35 tjhunt Exp $
+<?php  // $Id$
 /**
  * Defines the editing form for the numerical question type.
  *

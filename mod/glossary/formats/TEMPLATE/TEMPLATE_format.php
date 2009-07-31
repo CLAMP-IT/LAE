@@ -1,4 +1,4 @@
-<?php  // $Id: TEMPLATE_format.php,v 1.9.4.2 2008/02/13 17:01:45 skodak Exp $
+<?php  // $Id$
 
 function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL, $aliases=true) {
 

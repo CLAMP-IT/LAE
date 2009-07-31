@@ -1,4 +1,4 @@
-<?php // $Id: scorm_12lib.php,v 1.11.2.9 2008/12/22 07:04:37 danmarsden Exp $
+<?php // $Id$
 
 /**
 * This is really a little language parser for AICC_SCRIPT

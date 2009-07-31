@@ -1,4 +1,4 @@
-<?PHP // $Id: role.php,v 1.47.2.18 2008/12/10 02:57:51 tjhunt Exp $
+<?PHP // $Id$
       // role.php - created with Moodle 1.7 beta + (2006101003)
 
 

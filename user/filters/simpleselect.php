@@ -1,4 +1,4 @@
-<?php //$Id: simpleselect.php,v 1.1.2.3 2007/12/11 13:01:13 nfreear Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot.'/user/filters/lib.php');
 

@@ -5,7 +5,7 @@
  * will be caused by an eventual release
  * Feel free to report bugs against it to HTML_AJAX
  *
- * SVN Rev: $Id: JSON.php,v 1.1.2.1 2008/10/03 07:07:32 nicolasconnault Exp $
+ * SVN Rev: $Id$
  */
 
 /**

@@ -1,4 +1,4 @@
-<?php  // $Id: submissions.php,v 1.60.2.3 2008/07/10 09:48:48 scyrma Exp $
+<?php  // $Id$
 
 /*************************************************
     ACTIONS handled are:

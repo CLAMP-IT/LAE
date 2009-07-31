@@ -1,4 +1,4 @@
-<?php // $Id: deprecatedlib.php,v 1.41.2.12 2009/05/04 20:24:45 skodak Exp $
+<?php // $Id$
 
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
@@ -30,7 +30,7 @@
  * use any of these functions.
  *
  * @author Martin Dougiamas
- * @version $Id: deprecatedlib.php,v 1.41.2.12 2009/05/04 20:24:45 skodak Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package moodlecore
  */

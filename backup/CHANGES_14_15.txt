@@ -1,4 +1,4 @@
-CHANGES_14_15 $Id: CHANGES_14_15.txt,v 1.47 2005/06/10 14:19:35 stronk7 Exp $
+CHANGES_14_15 $Id$
 ----------
 
 This document shows changes between 1.4 and 1.5 and their current

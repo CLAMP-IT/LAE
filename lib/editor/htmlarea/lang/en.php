@@ -1,4 +1,4 @@
-<?php // $Id: en.php,v 1.4.10.1 2009/05/07 05:30:10 dongsheng Exp $
+<?php // $Id$
     include("../../../../config.php");
     $lastmodified = filemtime("en.php");
     $lifetime = 1800;

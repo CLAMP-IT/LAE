@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.4.2.2 2007/12/06 07:07:32 toyomoyo Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to 
 // the search block

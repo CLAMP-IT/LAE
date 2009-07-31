@@ -1,4 +1,4 @@
-<?php //$Id: postgres7.php,v 1.32.6.1 2008/02/07 16:27:53 ethem Exp $
+<?php //$Id$
 
 // THIS FILE IS DEPRECATED!  PLEASE DO NOT MAKE CHANGES TO IT!
 //

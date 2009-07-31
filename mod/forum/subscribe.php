@@ -1,4 +1,4 @@
-<?php // $Id: subscribe.php,v 1.37.2.7 2008/04/13 19:10:35 skodak Exp $
+<?php // $Id$
 
 //  Subscribe to or unsubscribe from a forum.
 

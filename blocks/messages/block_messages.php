@@ -1,4 +1,4 @@
-<?PHP //$Id: block_messages.php,v 1.13.4.5 2009/03/22 22:39:40 poltawski Exp $
+<?PHP //$Id$
 
 class block_messages extends block_base {
     function init() {

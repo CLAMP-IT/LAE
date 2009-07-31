@@ -1,4 +1,4 @@
-<?PHP // $Id: version.php,v 1.4 2007/10/10 16:09:51 skodak Exp $
+<?PHP // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of this enrolment module

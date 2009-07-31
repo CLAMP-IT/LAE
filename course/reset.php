@@ -1,4 +1,4 @@
-<?php  // $Id: reset.php,v 1.7.2.1 2007/11/29 14:40:50 skodak Exp $
+<?php  // $Id$
 /*
 resetcourse.php  - Mark Flach and moodle.com
 The purpose of this feature is to quickly remove all user related data from a course

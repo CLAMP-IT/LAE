@@ -1,4 +1,4 @@
-<?php  // $Id: continuous_format.php,v 1.10.22.1 2007/11/09 14:35:07 nfreear Exp $
+<?php  // $Id$
 
 function glossary_show_entry_continuous($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL, $aliases=false) {
 

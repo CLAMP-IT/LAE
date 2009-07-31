@@ -1,4 +1,4 @@
-<?php // $Id: edit_form.php,v 1.7.2.1 2007/11/23 22:12:38 skodak Exp $
+<?php // $Id$
 require_once ($CFG->dirroot.'/lib/formslib.php');
 
 class mod_glossary_entry_form extends moodleform {

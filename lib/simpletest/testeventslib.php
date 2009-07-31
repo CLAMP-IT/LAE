@@ -1,6 +1,6 @@
 <?php
 
-/* $Id: testeventslib.php,v 1.7 2007/06/09 16:32:36 skodak Exp $ */
+/* $Id$ */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page

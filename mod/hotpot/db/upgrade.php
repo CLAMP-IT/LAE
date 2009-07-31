@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.1.8.6 2009/03/16 01:46:54 gbateson Exp $
+<?php  //$Id$
 
 // This file keeps track of upgrades to the hotpot module
 

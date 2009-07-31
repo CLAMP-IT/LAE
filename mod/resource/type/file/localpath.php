@@ -1,4 +1,4 @@
-<?php    // $Id: localpath.php,v 1.5.4.4 2008/12/10 06:30:25 dongsheng Exp $
+<?php    // $Id$
 
     require('../../../../config.php');
     require('../../lib.php');

@@ -1,4 +1,4 @@
-<?php // $Id: edit.php,v 1.108.2.2 2008/07/06 17:55:56 skodak Exp $
+<?php // $Id$
       // Edit course settings
 
     require_once('../config.php');

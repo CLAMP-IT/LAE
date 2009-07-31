@@ -1,4 +1,4 @@
-<?PHP // $Id: modules.php,v 1.44.2.8 2009/01/09 05:34:54 tjhunt Exp $
+<?PHP // $Id$
       // Allows the admin to manage activity modules
 
     require_once('../config.php');

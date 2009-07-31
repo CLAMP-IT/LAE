@@ -1,4 +1,4 @@
-<?php //$Id: user_bulk_forms.php,v 1.1.2.3 2007/12/20 10:54:07 skodak Exp $
+<?php //$Id$
 
 require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/datalib.php');

@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.15.2.4 2008/12/08 10:45:47 exe-cutor Exp $
+<?php // $Id$
       // Designed to be redirected from moodle/login/index.php
 
     require('../../config.php');

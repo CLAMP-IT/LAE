@@ -1,4 +1,4 @@
-<?php // $Id: graph.php,v 1.30 2007/08/28 00:12:02 mattc-catalyst Exp $
+<?php // $Id$
 
     require_once("../../config.php");
     require_once("$CFG->libdir/graphlib.php");

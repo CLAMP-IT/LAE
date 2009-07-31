@@ -1,4 +1,4 @@
-<?PHP // $Id: filter.php,v 1.2 2007/03/30 21:10:15 skodak Exp $
+<?PHP // $Id$
       // This function looks for email addresses in Moodle text and 
       // hides them using the Moodle obfuscate_text function. 
       // Original code by Mike Churchward

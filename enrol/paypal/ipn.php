@@ -1,4 +1,4 @@
-<?php  // $Id: ipn.php,v 1.22 2007/10/09 12:49:57 skodak Exp $
+<?php  // $Id$
 
 /**
 * Listens for Instant Payment Notification from PayPal

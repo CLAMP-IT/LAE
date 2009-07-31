@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: checkbox.php,v 1.1 2006/09/24 17:04:54 jamiesensei Exp $
+// $Id$
 
 require_once("HTML/QuickForm/input.php");
 

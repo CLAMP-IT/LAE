@@ -1,4 +1,4 @@
-<?PHP /*  $Id: styles.php,v 1.2 2007/08/09 11:47:24 urs_hunkler Exp $ */
+<?PHP /*  $Id$ */
 
 /// Every theme should contain a copy of this script.  It lets us 
 /// set up variables and so on before we include the raw CSS files.

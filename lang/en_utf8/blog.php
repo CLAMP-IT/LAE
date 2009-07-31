@@ -1,4 +1,4 @@
-<?PHP // $Id: blog.php,v 1.17.6.6 2008/04/22 05:16:10 dongsheng Exp $
+<?PHP // $Id$
       // blog.php - created with Moodle 1.7 beta + (2006101003)
 
 

@@ -1,4 +1,4 @@
-<?php  // $Id: view.php,v 1.67.2.5 2009/05/07 12:13:10 ericmerrill Exp $
+<?php  // $Id$
 
 /*************************************************
     ACTIONS handled are:

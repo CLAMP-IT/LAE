@@ -1,4 +1,4 @@
-<?php //$Id: header.php,v 1.41.2.8 2008/04/22 05:55:34 moodler Exp $
+<?php //$Id$
 
 /// Sets up blocks and navigation for index.php
 

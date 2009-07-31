@@ -1,4 +1,4 @@
-<?php // $Id: resource.class.php,v 1.21.2.5 2009/05/01 08:06:09 dongsheng Exp $
+<?php // $Id$
 
 /**
 * Extend the base resource class for repository resources

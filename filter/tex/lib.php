@@ -1,4 +1,4 @@
-<?php  //$Id: lib.php,v 1.1.2.6 2009/04/20 21:24:00 stronk7 Exp $
+<?php  //$Id$
 
 function tex_filter_get_executable($debug=false) {
     global $CFG;

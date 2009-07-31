@@ -1,4 +1,4 @@
-<?php //$Id: restorelib.php,v 1.33.2.2 2008/12/11 04:37:11 dongsheng Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //assignment mods
 

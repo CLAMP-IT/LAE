@@ -1,4 +1,4 @@
-<?php // $Id: preview.php,v 1.6 2007/08/06 23:21:48 stronk7 Exp $
+<?php // $Id$
 
     require_once('../../../../config.php');
     require_once('../../lib.php');

@@ -1,4 +1,4 @@
-<?PHP //$Id: file.php,v 1.20.6.1 2008/12/29 20:06:54 skodak Exp $
+<?PHP //$Id$
     //This file returns the required rss feeds
     //The URL format MUST include:
     //    course: the course id

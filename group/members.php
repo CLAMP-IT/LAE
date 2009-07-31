@@ -1,4 +1,4 @@
-<?php // $Id: members.php,v 1.3.2.8 2008/07/24 11:39:05 skodak Exp $
+<?php // $Id$
 /**
  * Add/remove members from group.
  *

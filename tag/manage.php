@@ -1,4 +1,4 @@
-<?php // $Id: manage.php,v 1.7.2.8 2008/07/16 01:20:48 scyrma Exp $
+<?php // $Id$
 
 require_once('../config.php');
 require_once($CFG->libdir.'/tablelib.php');

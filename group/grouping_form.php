@@ -1,4 +1,4 @@
-<?php //$Id: grouping_form.php,v 1.1.2.3 2008/12/29 21:32:36 skodak Exp $
+<?php //$Id$
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 

@@ -1,4 +1,4 @@
-<?php //$Id: backuplib.php,v 1.179.2.44 2009/05/28 14:40:18 stronk7 Exp $
+<?php //$Id$
     //This file contains all the function needed in the backup utility
     //except the mod-related funtions that are into every backuplib.php inside
     //every mod directory

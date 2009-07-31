@@ -1,4 +1,4 @@
-<?PHP // $Id: stickyblocks.php,v 1.18.2.2 2008/05/02 04:07:28 dongsheng Exp $
+<?PHP // $Id$
 
     require_once('../config.php');
     require_once($CFG->dirroot.'/my/pagelib.php');

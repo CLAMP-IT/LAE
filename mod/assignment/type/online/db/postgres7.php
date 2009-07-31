@@ -1,4 +1,4 @@
-<?php  // $Id: postgres7.php,v 1.7 2007/08/29 14:38:35 stronk7 Exp $
+<?php  // $Id$
 
 
 function assignment_type_online_upgrade($oldversion)  {

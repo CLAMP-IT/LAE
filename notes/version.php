@@ -1,4 +1,4 @@
-<?php   // $Id: version.php,v 1.3 2007/08/31 04:05:13 moodler Exp $
+<?php   // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of the note module

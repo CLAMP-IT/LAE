@@ -1,4 +1,4 @@
-<?php // $Id: index.php,v 1.121.2.10 2009/05/22 15:08:08 stronk7 Exp $
+<?php // $Id$
 
 //  Manage all uploaded files in a course file area
 

@@ -16,7 +16,7 @@
 // | Authors: Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: Regex.php,v 1.1 2006/09/24 17:04:56 jamiesensei Exp $
+// $Id$
 
 require_once('HTML/QuickForm/Rule.php');
 

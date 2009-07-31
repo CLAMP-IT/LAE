@@ -1,4 +1,4 @@
-<?php // $Id: assign.php,v 1.63.2.16 2009/04/07 23:48:00 arborrow Exp $
+<?php // $Id$
       // Script to assign users to contexts
 
     require_once('../../config.php');

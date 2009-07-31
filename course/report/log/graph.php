@@ -1,4 +1,4 @@
-<?php // $Id: graph.php,v 1.4.8.2 2008/11/30 12:05:04 skodak Exp $
+<?php // $Id$
       // Produces a graph of log accesses
 
     require_once("../../../config.php");

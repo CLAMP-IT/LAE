@@ -1,8 +1,8 @@
-<?php // $Id: addpage.php,v 1.19 2007/02/23 20:20:54 mark-nielsen Exp $
+<?php // $Id$
 /**
  *  Action for adding a question page.  Prints an HTML form.
  *
- * @version $Id: addpage.php,v 1.19 2007/02/23 20:20:54 mark-nielsen Exp $
+ * @version $Id$
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  * @package lesson
  **/

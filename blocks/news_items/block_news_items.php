@@ -1,4 +1,4 @@
-<?PHP //$Id: block_news_items.php,v 1.23.2.4 2008/10/31 19:04:03 stronk7 Exp $
+<?PHP //$Id$
 
 class block_news_items extends block_base {
     function init() {

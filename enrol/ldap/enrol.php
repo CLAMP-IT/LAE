@@ -1,4 +1,4 @@
-<?php  // $Id: enrol.php,v 1.21.2.4 2008/06/07 21:19:45 iarenaza Exp $
+<?php  // $Id$
 
 require_once("$CFG->dirroot/enrol/enrol.class.php");
 

@@ -1,4 +1,4 @@
-<?php // $Id: unenrol.php,v 1.32.2.3 2008/05/16 02:07:58 dongsheng Exp $
+<?php // $Id$
 
 //  Remove oneself or someone else from a course, unassigning all
 //  roles one might have

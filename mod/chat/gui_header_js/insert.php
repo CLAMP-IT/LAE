@@ -1,4 +1,4 @@
-<?php  // $Id: insert.php,v 1.10 2007/08/17 12:49:40 skodak Exp $
+<?php  // $Id$
 
     include('../../../config.php');
     include('../lib.php');

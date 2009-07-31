@@ -17,7 +17,7 @@ define('CHAT_SIDEKICK_MESSAGE',     0x22);
 define('CHAT_SIDEKICK_BEEP',        0x23);
 
 $phpversion = phpversion();
-echo 'Moodle chat daemon v1.0 on PHP '.$phpversion." (\$Id: chatd.php,v 1.32.4.3 2008/10/08 06:41:55 dongsheng Exp $)\n\n";
+echo 'Moodle chat daemon v1.0 on PHP '.$phpversion." (\$Id$)\n\n";
 
 /// Set up all the variables we need   /////////////////////////////////////
 

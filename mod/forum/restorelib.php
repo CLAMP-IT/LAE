@@ -1,4 +1,4 @@
-<?php //$Id: restorelib.php,v 1.60.4.5 2008/04/30 01:45:45 dongsheng Exp $
+<?php //$Id$
     //This php script contains all the stuff to backup/restore
     //forum mods
 

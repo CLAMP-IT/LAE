@@ -1,4 +1,4 @@
-<?php // $Id: version.php,v 1.53.2.4 2008/11/29 17:56:43 piers Exp $
+<?php // $Id$
 
 /////////////////////////////////////////////////////////////////////////////////
 ///  Code fragment to define the version of scorm
