@@ -1,27 +1,19 @@
-<?php  //$Id$
+<?php
 
-///////////////////////////////////////////////////////////////////////////
-//                                                                       //
-// NOTICE OF COPYRIGHT                                                   //
-//                                                                       //
-// Moodle - Modular Object-Oriented Dynamic Learning Environment         //
-//          http://moodle.com                                            //
-//                                                                       //
-// Copyright (C) 1999 onwards  Martin Dougiamas  http://moodle.com       //
-//                                                                       //
-// This program is free software; you can redistribute it and/or modify  //
-// it under the terms of the GNU General Public License as published by  //
-// the Free Software Foundation; either version 2 of the License, or     //
-// (at your option) any later version.                                   //
-//                                                                       //
-// This program is distributed in the hope that it will be useful,       //
-// but WITHOUT ANY WARRANTY; without even the implied warranty of        //
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         //
-// GNU General Public License for more details:                          //
-//                                                                       //
-//          http://www.gnu.org/copyleft/gpl.html                         //
-//                                                                       //
-///////////////////////////////////////////////////////////////////////////
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once $CFG->libdir.'/formslib.php';
 
@@ -249,6 +241,17 @@ class edit_category_form extends moodleform {
         $gpr = $this->_customdata['gpr'];
         $gpr->add_mform_elements($mform);
 
+/// mark advanced according to site settings
+        if (isset($CFG->grade_item_advanced)) {
+            $advanced = explode(',', $CFG->grade_item_advanced);
+            foreach ($advanced as $el) {
+                $el = 'grade_item_'.$el;
+                if ($mform->elementExists($el)) {
+                    $mform->setAdvanced($el);
+                }
+            }
+        }
+
 //-------------------------------------------------------------------------------
         // buttons
         $this->add_action_buttons();
@@ -433,7 +436,6 @@ class edit_category_form extends moodleform {
                         $element =& $mform->createElement('text', 'grade_item_aggregationcoef', get_string($coefstring, 'grades'));
                     }
                     $mform->insertElementBefore($element, 'parentcategory');
-                    $mform->setDefault('grade_item_aggregationcoef', (int) $grade_item->aggregationcoef); // must be cast to int, otherwise "0" counts as true :S
                     $mform->setHelpButton('grade_item_aggregationcoef', array($coefstring, get_string($coefstring, 'grades'), 'grade'), true);
                 }
             }
@@ -450,6 +452,14 @@ class edit_category_form extends moodleform {
             if (empty($data['grade_item_scaleid'])) {
                 $errors['grade_item_scaleid'] = get_string('missingscale', 'grades');
             }
+        }
+        if (array_key_exists('grade_item_grademin', $data) and array_key_exists('grade_item_grademax', $data)) {
+            if (($data['grade_item_grademax'] != 0 OR $data['grade_item_grademin'] != 0) AND
+                ($data['grade_item_grademax'] == $data['grade_item_grademin'] OR
+                 $data['grade_item_grademax'] < $data['grade_item_grademin'])) {
+                 $errors['grade_item_grademin'] = get_string('incorrectminmax', 'grades');
+                 $errors['grade_item_grademax'] = get_string('incorrectminmax', 'grades');
+             }
         }
 
         return $errors;

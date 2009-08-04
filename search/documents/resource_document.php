@@ -20,8 +20,8 @@
 /**
 * requires and includes
 */
-require_once("$CFG->dirroot/search/documents/document.php");
-require_once("$CFG->dirroot/mod/resource/lib.php");
+require_once($CFG->dirroot.'/search/documents/document.php');
+require_once($CFG->dirroot.'/mod/resource/lib.php');
 
 /* *
 * a class for representing searchable information
@@ -99,11 +99,12 @@ function resource_get_content_for_index(&$notneeded) {
     if ($resources = get_records_sql($query)){ 
         foreach($resources as $aResource){
             $coursemodule = get_field('modules', 'id', 'name', 'resource');
-            $cm = get_record('course_modules', 'course', $aResource->course, 'module', $coursemodule, 'instance', $aResource->id);
-            $context = get_context_instance(CONTEXT_MODULE, $cm->id);
-            $aResource->id = $cm->id;
-            $documents[] = new ResourceSearchDocument(get_object_vars($aResource), $context->id);
-            mtrace("finished $aResource->name");
+            if($cm = get_record('course_modules', 'course', $aResource->course, 'module', $coursemodule, 'instance', $aResource->id)){
+                $context = get_context_instance(CONTEXT_MODULE, $cm->id);
+                $aResource->id = $cm->id;
+                $documents[] = new ResourceSearchDocument(get_object_vars($aResource), $context->id);
+                mtrace("finished $aResource->name");
+            }
         }
     }
 
@@ -310,6 +311,7 @@ function resource_check_text_access($path, $itemtype, $this_id, $user, $group_id
     $cm = get_record('course_modules', 'id', $module_context->instanceid);
     if (empty($cm)) return false; // Shirai 20090530 - MDL19342 - course module might have been delete
     $course_context = get_context_instance(CONTEXT_COURSE, $r->course);
+    $course = get_record('course', 'id', $r->course);
 
     //check if course is visible
     if (!$course->visible && !has_capability('moodle/course:viewhiddencourses', $course_context)) {

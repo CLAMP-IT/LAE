@@ -600,6 +600,22 @@ function clean_param($param, $type) {
 }
 
 /**
+ * Return true if given value is integer or string with integer value
+ *
+ * @param mixed $value String or Int
+ * @return bool true if number, false if not
+ */
+function is_number($value) {
+    if (is_int($value)) {
+        return true;
+    } else if (is_string($value)) {
+        return ((string)(int)$value) === $value;
+    } else {
+        return false;
+    }
+}
+
+/**
  * This function is useful for testing whether something you got back from
  * the HTML editor actually contains anything. Sometimes the HTML editor
  * appear to be empty, but actually you get back a <br> tag or something.
@@ -2959,7 +2975,7 @@ function update_user_record($username, $authplugin) {
                 continue;
             }
             if ($confval === 'onlogin') {
-                $value = addslashes(stripslashes($value));   // Just in case
+                $value = addslashes($value);
                 // MDL-4207 Don't overwrite modified user profile values with
                 // empty LDAP values when 'unlocked if empty' is set. The purpose
                 // of the setting 'unlocked if empty' is to allow the user to fill
@@ -5233,6 +5249,7 @@ function places_to_search_for_lang_strings() {
         'gradereport_' => array('grade/report'),
         'gradeimport_' => array('grade/import'),
         'gradeexport_' => array('grade/export'),
+        'qformat_' => array('question/format'),
         'profilefield_' => array('user/profile/field'),
         '' => array('mod')
     );
@@ -7242,8 +7259,17 @@ function address_in_subnet($addr, $subnetstr) {
         $subnet = trim($subnet);
         if (strpos($subnet, '/') !== false) { /// type 1
             list($ip, $mask) = explode('/', $subnet);
-            if ($mask === '' || $mask > 32) {
-                $mask = 32;
+            if (!is_number($mask) || $mask < 0 || $mask > 32) {
+                continue;
+            }
+            if ($mask == 0) {
+                return true;
+            }
+            if ($mask == 32) {
+                if ($ip === $addr) {
+                    return true;
+                }
+                continue;
             }
             $mask = 0xffffffff << (32 - $mask);
             $found = ((ip2long($addr) & $mask) == (ip2long($ip) & $mask));
