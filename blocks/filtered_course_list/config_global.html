@@ -1,0 +1,240 @@
+<script type="text/JavaScript">
+    function showDiv(divID) {
+        // Hide all 3 DIVs to clean up the UI
+        var categories = document.getElementById("categories");
+        var term       = document.getElementById("term");
+        var custom     = document.getElementById("custom");
+
+        categories.style.display = "none";
+        term.style.display       = "none";
+        custom.style.display     = "none";
+
+        // Now we can show the specified section.
+        var e = document.getElementById(divID);
+
+        if (e.style.display == "block") {
+            e.style.display = "none";
+        } else {
+            e.style.display = "block";
+        }
+    }
+</script>
+
+<table cellpadding="9" cellspacing="0">
+<?php /* This setting does not work, so I am commenting it out. I think it should not even be an option. -CKM 20090729  
+    <tr valign="top">
+        <td align="right">block_filtered_course_list_adminview:</td>
+        <td>
+            <input name="block" type="hidden" value="<?php echo intval($_REQUEST['block']); ?>" />
+            <select name="block_filtered_course_list_adminview">
+                <option value="all"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_adminview)) { 
+                            if ($CFG->block_filtered_course_list_adminview == "all") {
+                                echo " selected";
+                            }
+                        } else {
+                            echo " selected";
+                        }
+                    ?>>
+                    <?php
+                        p(get_string('allcourses', 'block_filtered_course_list'))
+                    ?>
+                </option>
+                <option value="own"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_adminview)) { 
+                            if ($CFG->block_filtered_course_list_adminview == "own") {
+                                echo " selected";
+                            }
+                        }
+                    ?>>
+                    <?php
+                        p(get_string('owncourses', 'block_filtered_course_list'))
+                    ?>
+                </option>
+            </select>
+        </td>
+       <td>
+            <?php print_string("configadminview", "block_filtered_course_list") ?>
+        </td>
+    </tr>
+*/ ?>
+    <tr valign="top">
+        <td align="right">
+            <?php print_string("confighideallcourseslink", "block_filtered_course_list") ?> </td> 
+        <td>
+            <select name="block_filtered_course_list_hideallcourseslink">
+                <option value="1"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_allcourseslink)) { 
+                            if ($CFG->block_filtered_course_list_hideallcourseslink) {
+                                echo " selected";
+                            }
+                        }
+                    ?>>
+                    <?php p(get_string('yes')) ?>
+                </option>
+                <option value="0"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_hideallcourseslink)) { 
+                            if (!$CFG->block_filtered_course_list_hideallcourseslink) {
+                                echo " selected";
+                            }
+                        } else {
+                            echo " selected";
+                        }
+                    ?>>
+                    <?php p(get_string('no')) ?>
+                </option>
+            </select>
+        </td>
+    </tr>
+    <tr valign="top">
+        <td align="right"> 
+            <?php print_string("configfiltertype", "block_filtered_course_list") ?>
+	</td>
+        <td>
+            <select name="block_filtered_course_list_filtertype" onClick="showDiv(this.value);">
+                <option value="term"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_filtertype)) { 
+                            if ($CFG->block_filtered_course_list_filtertype == "term") {
+                                echo " selected";
+                            }
+                        } else {
+                            // If nothing is set, let's assume that "By Term" is the default
+                            echo " selected";
+                        }
+                    ?>>
+                    <?php p(get_string('filterterm', 'block_filtered_course_list')) ?>
+                </option>
+                <option value="categories"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_filtertype)) { 
+                            if ($CFG->block_filtered_course_list_filtertype == "categories") {
+                                echo " selected";
+                            }
+                        }
+                    ?>>
+                    <?php p(get_string('filtercategories', 'block_filtered_course_list')) ?> 
+                </option>
+                <option value="custom"
+                    <?php
+                        if (isset($CFG->block_filtered_course_list_filtertype)) { 
+                            if (!$CFG->block_filtered_course_list_filtertype) {
+                                echo " selected";
+                            }
+                        }
+                    ?>>
+                    <?php p(get_string('filtercustom', 'block_filtered_course_list')) ?>
+                </option>
+            </select>
+        </td>
+    </tr>
+    <tr><td align="center">
+
+<div id="term" style="background-color:#EFEFEF; width=60%; margin-left:auto; margin-right:auto; padding:3px;
+    <?php
+        if (isset($CFG->block_filtered_course_list_filtertype)) {
+            if ($CFG->block_filtered_course_list_filtertype == 'term') {
+                echo "display:block;";
+            } else {
+                echo "display:none;";
+            }
+        } else {
+            // If nothing is set, let's assume that "By Term" is the default
+            echo "display:block;";
+        }
+    ?>">
+
+        <p><?php print_string("configtermcurrent", "block_filtered_course_list") ?>  
+
+            <input name="block_filtered_course_list_termcurrent"
+                <?php
+                    if (isset($CFG->block_filtered_course_list_termcurrent)) {
+                        echo "value=\"$CFG->block_filtered_course_list_termcurrent\"";
+                    } else {
+                        echo "value=\"F08\"";
+                    }
+                ?>> 
+        </p>
+        <p>
+            <?php print_string("configtermfuture", "block_filtered_course_list") ?> 
+            <input name="block_filtered_course_list_termfuture"
+                <?php
+                    if (isset($CFG->block_filtered_course_list_termfuture)) {
+                        echo "value=\"$CFG->block_filtered_course_list_termfuture\"";
+                    } else {
+                        echo "value=\"S09\"";
+                    }
+                ?>> &nbsp; &nbsp;
+        </p>
+</div>
+
+<div id="categories" style="background-color:#EFEFEF; width:90%; margin-left:auto; margin-right:auto; padding:
+3px;
+    <?php
+        if (isset($CFG->block_filtered_course_list_filtertype)) {
+            if ($CFG->block_filtered_course_list_filtertype == 'categories') {
+                echo "display:block;";
+            } else {
+                echo "display:none;";
+            }
+        } else {
+            echo "display:none;";
+        }
+    ?>">
+        <p><?php print_string("configcategories", "block_filtered_course_list") ?> &nbsp; 
+            <select name="block_filtered_course_list_categories" multiple size = 5>
+                <?php
+                    // Obtain a list of all categories in this Moodle instance
+                    $categories = get_categories('none', 'cc.name ASC');
+
+                    // See if we have already set a category list
+                    $selected_cat_ids = '';
+                    if (isset($CFG->block_filtered_course_list_categories)) {
+                        $selected_cat_ids = explode(',', $CFG->block_filtered_course_list_categories);
+                    }
+
+                    foreach ($categories as $category) {
+                        echo "<option value=\"$category->id\"";
+
+                        // Now look to see if this category has been selected already
+                        if ($selected_cat_ids) {
+                            foreach ($selected_cat_ids as $category_id) {
+                                if ($category->id == $category_id) {
+                                    echo " selected";
+                                    break;
+                                }
+                            }
+                        }
+
+                        echo ">$category->name";
+                    }
+                ?>
+            </select>
+        &nbsp; &nbsp;
+        </p>
+</div>
+
+<div id="custom" style="background-color:#EFEFEF; width:90%; margin-left:auto; margin-right:auto; padding:3px;
+    <?php
+        if (isset($CFG->block_filtered_course_list_filtertype)) {
+            if ($CFG->block_filtered_course_list_filtertype == 'custom') {
+                echo "display:block;";
+            } else {
+                echo "display:none;";
+            }
+        } else {
+            echo "display:none;";
+        }
+    ?>">
+        <p>&nbsp; &nbsp; block_filtered_course_list_custom:
+            We'll get to this one pretty soon. For now, this will just be a placeholder.
+        </p>
+</div>
+</td></tr></table>
+<p align="center">
+    <input type="submit" value="<?php print_string("savechanges") ?>" />
+</p>
