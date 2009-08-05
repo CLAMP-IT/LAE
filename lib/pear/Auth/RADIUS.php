@@ -43,7 +43,7 @@ require_once 'PEAR.php';
 * @package Auth_RADIUS
 * @author  Michael Bretterklieber <michael@bretterklieber.com>
 * @access  public
-* @version $Revision: 1.1.2.2 $
+* @version $Revision$
 */
 
 PEAR::loadExtension('radius');
