@@ -12,7 +12,8 @@
 
 require_once('../../config.php');
 require_once($CFG->libdir .'/rsslib.php');
-require_once(MAGPIE_DIR .'rss_fetch.inc');
+//require_once(MAGPIE_DIR .'rss_fetch.inc');
+require_once($CFG->libdir . '/rsslib_ext.php');
 
 require_login();
 global $USER;
