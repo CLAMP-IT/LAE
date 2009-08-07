@@ -43,7 +43,7 @@ require_once 'PEAR.php';
 * @package Crypt_CHAP
 * @author  Michael Bretterklieber <michael@bretterklieber.com>
 * @access  public
-* @version $Revision$
+* @version $Revision: 1.1.2.2 $
 */
 
 /**

@@ -402,11 +402,6 @@
             return false; // blog system disabled
         }
 
-        // a hack to publish some blogs openly.  Uses $CFG->openblogs = array(44, 322); in config.php
-        if (isset($CFG->openblogs) && in_array($targetuserid,$CFG->openblogs)) {
-            return true;
-        }
-
         if (!empty($USER->id) and $USER->id == $targetuserid) {
             return true; // can view own posts in any case
         }
@@ -603,11 +598,6 @@
             break;
 
             case 'user':
-
-                // a hack to publish some blogs openly.  Uses $CFG->openblogs = array(44, 322); in config.php
-                if (isset($CFG->openblogs) && in_array($filterselect,$CFG->openblogs)) {
-                    $permissionsql = ' AND (p.publishstate = \'site\' OR p.publishstate = \'public\') ';
-                }
 
                 $SQL = 'SELECT '.$requiredfields.' FROM '.$CFG->prefix.'post p, '.$tagtablesql
                         .$CFG->prefix.'user u
