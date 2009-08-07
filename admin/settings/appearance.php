@@ -51,6 +51,7 @@ if ($hassiteconfig) { // speedup for non-admins, add all caps used on this page
     // "htmleditor" settingpage
     $temp = new admin_settingpage('htmleditor', get_string('htmleditor', 'admin'));
     $temp->add(new admin_setting_configcheckbox('htmleditor', get_string('usehtmleditor', 'admin'), get_string('confightmleditor','admin'), 1));
+/*
     $temp->add(new admin_setting_configtext('editorbackgroundcolor', get_string('editorbackgroundcolor', 'admin'), get_string('edhelpbgcolor'), '#ffffff', PARAM_NOTAGS));
     $temp->add(new admin_setting_configtext('editorfontfamily', get_string('editorfontfamily', 'admin'), get_string('edhelpfontfamily'), 'Trebuchet MS,Verdana,Arial,Helvetica,sans-serif', PARAM_NOTAGS));
     $temp->add(new admin_setting_configtext('editorfontsize', get_string('editorfontsize', 'admin'), get_string('edhelpfontsize'), '', PARAM_NOTAGS));
@@ -62,6 +63,7 @@ if ($hassiteconfig) { // speedup for non-admins, add all caps used on this page
     }
     $temp->add(new admin_setting_special_editorhidebuttons());
     $temp->add(new admin_setting_emoticons());
+*/
     $ADMIN->add('appearance', $temp);
 
     // "htmlsettings" settingpage
