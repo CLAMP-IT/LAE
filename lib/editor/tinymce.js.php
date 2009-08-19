@@ -107,7 +107,6 @@ $temp = explode('/', $temp);
 $root = $temp[1];
 
 $configuration = <<<EOF
-
 function createHTMLArea(id) {
 
     random       = Math.ceil(1000*Math.random());
@@ -121,12 +120,12 @@ function createHTMLArea(id) {
 
         plugins : "safari,spellchecker,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,pagebreak,",
         spellchecker_languages : "+English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv",
-	 spellchecker_rpc_url : "/$root/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php",
+	 spellchecker_rpc_url : "{$CFG->httpswwwroot}/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php",
 
         plugin_insertdate_dateFormat : "%Y-%m-%d",
         plugin_insertdate_timeFormat : "%H:%M:%S",
 
-        content_css : "/$root/lib/editor/tinymce/examples/css/content.css",
+        content_css : "{$CFG->httpswwwroot}/lib/editor/tinymce/examples/css/content.css",
 
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "top",
@@ -169,9 +168,9 @@ echo <<<EOF
         language: "$editorlanguage",
         directionality: "$directionality",
         plugins: "spellchecker,emoticons,paste,directionality,contextmenu",
-        content_css : "/$root/lib/editor/tinymce/moodlecontent.css",
+        content_css : "{$CFG->httpswwwroot}/lib/editor/tinymce/moodlecontent.css",
         spellchecker_languages : "+English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv",
-	 spellchecker_rpc_url : "/$root/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php"
+	 spellchecker_rpc_url : "{$CFG->httpswwwroot}/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php"
    });
     tinyMCE.init({
         mode: "textareas",
@@ -187,21 +186,19 @@ echo <<<EOF
         apply_source_formatting: true, 
         remove_script_host: false,
         entity_encoding: "raw",
-		content_css : "/$root/lib/editor/tinymce/moodlecontent.css",
+		content_css : "{$CFG->httpswwwroot}/lib/editor/tinymce/moodlecontent.css",
         language: "$editorlanguage",
         directionality: "$directionality",
-        plugins: "safari,spellchecker,table,style,layer,advhr,advimage,advlink,emoticons,inlinepopups,media,searchreplace,paste,directionality,fullscreen,moodleimage,moodlenolink,dragmath,nonbreaking,contextmenu,insertdatetime,save,iespell,preview,print,noneditable,visualchars,xhtmlxtras,template,pagebreak",
-        plugin_insertdate_dateFormat : "$strdate",
-        plugin_insertdate_timeFormat : "$strtime",
+        plugins: "safari,spellchecker,table,style,layer,advhr,advimage,advlink,emoticons,inlinepopups,media,searchreplace,paste,directionality,fullscreen,moodleimage,dragmath,nonbreaking,contextmenu,insertdatetime,save,iespell,preview,print,noneditable,visualchars,xhtmlxtras,template,pagebreak",
         spellchecker_languages : "+English=en,Danish=da,Dutch=nl,Finnish=fi,French=fr,German=de,Italian=it,Polish=pl,Portuguese=pt,Spanish=es,Swedish=sv",
-	 spellchecker_rpc_url : "/$root/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php",
+	 spellchecker_rpc_url : "{$CFG->httpswwwroot}/lib/editor/tinymce/jscripts/tiny_mce/plugins/spellchecker/rpc.php",
 
         theme_advanced_font_sizes: "1,2,3,4,5,6,7",
         theme_advanced_layout_manager: "SimpleLayout",
         theme_advanced_toolbar_align : "left",
         theme_advanced_buttons1: "fontselect,fontsizeselect,|,bold,italic,underline,|,bullist,numlist,outdent,indent",
 	 theme_advanced_buttons1_add: "|,justifyleft,justifycenter,justifyright,|,forecolor,backcolor,|,charmap,hr,dragmath",
-	 theme_advanced_buttons2: "link,unlink,moodlenolink,|,table,visualaid, image,|,selectall,cleanup",
+	 theme_advanced_buttons2: "link,unlink,|,table,visualaid, image,|,selectall,cleanup",
 	 theme_advanced_buttons2_add: "removeformat,pastetext,pasteword,|,undo,redo,|,search,|,code,|,spellchecker,|,|,|,fullscreen",
 	 theme_advanced_buttons3 : "",
         theme_advanced_fonts: "Trebuchet=Trebuchet MS,Verdana,Arial,Helvetica,sans-serif;Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;Georgia=georgia,times new roman,times,serif;Tahoma=tahoma,arial,helvetica,sans-serif;Times New Roman=times new roman,times,serif;Verdana=verdana,arial,helvetica,sans-serif;Impact=impact;Wingdings=wingdings", 
@@ -215,7 +212,7 @@ echo <<<EOF
 //        theme_advanced_buttons1_add: "|,undo,redo,|,search,spellchecker",
 //        theme_advanced_buttons2: "bold,italic,underline,strikethrough,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull",
 //        theme_advanced_buttons2_add: "|,selectall,cleanup,removeformat,pastetext,pasteword,|,forecolor,backcolor,|,ltr,rtl",
-//        theme_advanced_buttons3: "bullist,numlist,outdent,indent,|,link,unlink,moodlenolink,anchor,|,insertdate,inserttime,|,emoticons,image,,dragmath,advhr,nonbreaking,charmap",
+//        theme_advanced_buttons3: "bullist,numlist,outdent,indent,|,link,unlink,anchor,|,insertdate,inserttime,|,emoticons,image,,dragmath,advhr,nonbreaking,charmap",
 //        theme_advanced_buttons3_add: "|,table,insertlayer,styleprops,visualchars,|,code,preview",
 
 EOF;
