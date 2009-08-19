@@ -18,7 +18,7 @@
   // Takes the supplied feed $url and returns a MockingbirdRSS object ($RSS)
   function fetch_rss($url) {
       $RSS = new MockingbirdRSS($url);
-      $RSS->cache_path = SIMPLE_CACHE_DIR;
+      $RSS->cache_path = SIMPLEPIE_CACHE_DIR;
       $RSS->enable_caching = SIMPLEPIE_CACHE_ON;
       $RSS->fetch_url();
       return $RSS;

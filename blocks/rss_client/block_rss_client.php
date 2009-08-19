@@ -178,7 +178,9 @@
         $returnstring = '';
         $now = time();
         require_once($CFG->libdir .'/rsslib.php');
-        require_once(MAGPIE_DIR .'rss_fetch.inc');
+	require_once($CFG->libdir . '/rsslib_ext.php');
+        // remove deprecated reference to Magpie RSS
+	// require_once(MAGPIE_DIR .'rss_fetch.inc');
         if (!defined('MAGPIE_OUTPUT_ENCODING')) {
             define('MAGPIE_OUTPUT_ENCODING', 'utf-8');  // see bug 3107
         }
@@ -316,7 +318,9 @@
 
     /// We require some stuff
         require_once($CFG->libdir .'/rsslib.php');
-        require_once(MAGPIE_DIR .'rss_fetch.inc');
+        require_once($CFG->libdir . '/rsslib_ext.php');
+	// remove deprecated reference to Magpie RSS
+        // require_once(MAGPIE_DIR .'rss_fetch.inc');
 
         if (!defined('MAGPIE_OUTPUT_ENCODING')) {
             define('MAGPIE_OUTPUT_ENCODING', 'utf-8');  // see bug 3107
