@@ -1,4 +1,4 @@
-Moodle Liberal Arts Edition v1.0 Release Notes
+h1. Moodle Liberal Arts Edition v1 Release Notes
 
 Welcome to the Moodle: Liberal Arts Edition v1.0. The goal of LAE is to provide a coherent package for modules, patches, and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
@@ -13,14 +13,18 @@ CLAMP members can participate in the development of the LAE by joining the Devel
 
 http://redmine.clamp-it.org/projects/show/development
 
+===BROWSER COMPATIBILITY===
+We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excellent support for web standards and works best with the LAE's built-in TinyMCE text editor. Other browsers work, but we have seen occasional quicks in how they interact with TinyMCE.
+
 ===CONTENTS===
 
 The LAE v1.0 consists of the following components:
 
 ====Moodle 1.9.5+ (20090729)====
-This is the Moodle 1.9.5+ weekly build from late July. It's included because HTMLArea is no longer being updated by its community, and is scheduled to be removed in Moodle 2.0 (to be replaced by TinyMCE or CKEditor)
+This is the Moodle 1.9.5+ weekly build from late July.
 
-We're adding it to 1.9.5 to fix a usability problem involving cutting and pasting text from Microsoft Word into Moodle in which extraneous, hidden code would be copied along wiht the intended text. This hidden text would then become visible when the posts arrived via email.
+====TinyMCE v2.x====
+TinyMCE is a new WYSIWYG editor for Moodle that replaces the older, out-of-date HTMLArea editor that ships with Moodle. HTMLArea is scheduled to be removed in Moodle 2.0 (to be replaced by TinyMCE or CKEditor) but we decided to address it immediately because of a usability problem involving cutting and pasting text from Microsoft Word into Moodle. This problem results in extraneous, hidden code would be copied along with the intended text. This hidden text would then become visible when the posts arrived via email.
 
 ====Filtered Course List Block====
 This block addresses a problem many campuses that are into their second or third year of Moodle encounter: filtering the current term's courses from those of previous terms. 
@@ -42,7 +46,7 @@ The following add-ons are not included in the LAE, but are available for downloa
 
 * Census Report: An administrative report that audits Moodle and displays a statistics about active courses, students and faculty.
 
-* Common Moodle Patches+: A collection of commonly used patches (including the max grade patch) for improving Moodle usability.
+* Common Moodle Patches+: A collection of commonly used patches (including the max grade patch, a bug fix for tex, moving the 'course search' form to the top of the courses page) for improving Moodle usability.
 
 * Gradebook Max Grade patch: Increases the maximum allowable grade from 100 to 250 (included in the "Common Moodle Patches" file; this is a standalone version).
 
@@ -69,7 +73,18 @@ If you are installing Moodle for the first time, you can follow the standard Moo
 
 http://docs.moodle.org/en/Installing_Moodle
 
+===UPGRADING TO THE LAE===
 If you are upgrading an existing installation, you can follow your normal procedure for doing an "in-place" upgrade (replacing your old Moodle files with the new LAE ones, then copying over any additional modules or blocks you might have from the old install into the new one)
+
+You will then need to edit your config.php file and include the following two lines of code in order to enable TinyMCE support (these lines are added automatically if you are doing a new installation).
+
+$CFG->validateforms = 'server';
+$CFG->defaulthtmleditor='tinymce';
+
+You should place them just above these lines:
+
+// MAKE SURE WHEN YOU EDIT THIS FILE THAT THERE ARE NO SPACES, BLANK LINES,
+// RETURNS, OR ANYTHING ELSE AFTER THE TWO CHARACTERS ON THE NEXT LINE.
 
 A few notes:
 
@@ -78,5 +93,3 @@ A few notes:
 2) We *strongly* recommend doing a test upgrade on a development Moodle instance before upgrading your production instance.
 
 3) If you have a more current version of Moodle installed (one later than 1.9.5+ (20090729), do not attempt to install LAE v1.0, as it will likely cause problems. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
-
-
