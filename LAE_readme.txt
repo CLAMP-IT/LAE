@@ -1,8 +1,14 @@
-h1. Moodle Liberal Arts Edition v1 Release Notes
+===Moodle Liberal Arts Edition v1.01 Release Notes===
 
-Welcome to the Moodle: Liberal Arts Edition v1.0. The goal of LAE is to provide a coherent package for modules, patches, and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle: Liberal Arts Edition v1.01. The goal of LAE is to provide a coherent package for modules, patches, and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons, however, have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
+
+* Security Release Notes *
+
+Moodle has announced a critical security flaw in the Moodle 1.9.5 and Moodle 1.8 branches. Their recommended solution for this flaw is to upgraded to Moodle 1.9.6. However, as a whole CLAMP schools don't do point releases during the semester because of the possibility of radically changing or breaking core functionality while classes are in session.
+
+Moodle core has not released a patch for this flaw, so we've reverse engineered one by comparing the code changes between 1.9.5+ (the version the LAE is based on) and Moodle 1.9.6. We've identified the changed code, and made it available as a patch for the LAE (available on the project home page) and incorporated it into this new LAE 1.0.1 release.
 
 ===LEGAL===
 The LAE is offered "as is", with no warranty. The institutions that comprise CLAMP have done their best to test this code, but we're offering it strictly as a connivence to our members. 
