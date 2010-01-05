@@ -198,17 +198,21 @@ YAHOO.namespace("graderreport");
 
 function init() {
     // Adjust height of header c0
-    var rows = document.getElementsByClassName('heading_name_row');
-    var header_cell_region = YAHOO.util.Dom.getRegion(rows[rows.length-1].firstChild);
-    if(header_cell_region)
+    //"heading_name_row" only exists if static students column is turned on
+    var rows = YAHOO.util.Dom.getElementsByClassName('heading_name_row');
+    if(rows && rows.length>0)
     {
-        var height = header_cell_region.bottom - header_cell_region.top;
-        if(!isNaN(height))
+        var header_cell_region = YAHOO.util.Dom.getRegion(rows[rows.length-1].firstChild);
+        if(header_cell_region)
         {
-            YAHOO.util.Dom.setStyle('studentheader', 'height', height + 'px');
+            var height = header_cell_region.bottom - header_cell_region.top;
+            if(!isNaN(height))
+            {
+                YAHOO.util.Dom.setStyle('studentheader', 'height', height + 'px');
+            }
         }
     }
-    
+
     // attach event listener to the table for mouseover and mouseout
     var table = document.getElementById('user-grades');
     YAHOO.util.Event.on(table, 'mouseover', YAHOO.graderreport.mouseoverHandler);

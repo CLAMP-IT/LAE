@@ -12,6 +12,7 @@
  * @package questionbank
  * @subpackage importexport
  */
+require_once($CFG->dirroot . '/mod/hotpot/lib.php');
 
 class qformat_hotpot extends qformat_default {
 
@@ -102,7 +103,15 @@ class qformat_hotpot extends qformat_default {
                     notice("Unknown quiz type '$xml->quiztype'");
                 }
         } // end switch
-        return $questions;
+
+        if (count($questions)) {
+            return $questions;
+        } else {
+            if (method_exists($this, 'error')) { // Moodle >= 1.8
+                $this->error(get_string('giftnovalidquestion', 'quiz'));
+            }
+            return false;
+        }
     }
 
     function process_jcloze(&$xml, &$questions) {
@@ -188,7 +197,7 @@ class qformat_hotpot extends qformat_default {
                         $text = $this->hotpot_prepare_str($xml->xml_value($tags,  $answer."['text'][0]['#']"));
                         $correct = $xml->xml_value($tags,  $answer."['correct'][0]['#']");
                         $feedback = $this->hotpot_prepare_str($xml->xml_value($tags,  $answer."['feedback'][0]['#']"));
-                        if ($text) {
+                        if (strlen($text)) {
                             // set score (0=0%, 1=100%)
                             $fraction = empty($correct) ? 0 : 1;
                             // store answer
@@ -217,10 +226,17 @@ class qformat_hotpot extends qformat_default {
                 $q++;
             } // end while $text
 
-            // define total grade for this exercise
-            $question->defaultgrade = $gap_count * $defaultgrade;
+            if ($q) {
+                // define total grade for this exercise
+                $question->defaultgrade = $gap_count * $defaultgrade;
 
-            $questions[] = $question;
+                // add this cloze as a single question object
+                $questions[] = $question;
+            } else {
+                // no gaps found in this text so don't add this question
+                // import will fail and error message will be displayed:
+            }
+
             $x++;
         } // end while $exercise
     }
@@ -531,109 +547,15 @@ class qformat_hotpot extends qformat_default {
     }
 } // end class
 
-// get the standard XML parser supplied with Moodle
-require_once("$CFG->libdir/xmlize.php");
-
-class hotpot_xml_tree {
-    function hotpot_xml_tree($str, $xml_root='') {
-        if (empty($str)) {
-            $this->xml =  array();
-        } else {
-            // encode htmlentities in JCloze
-            $this->encode_cdata($str, 'gap-fill');
-            // xmlize (=convert xml to tree)
-            $this->xml =  xmlize($str, 0);
-        }
-        $this->xml_root = $xml_root;
-    }
-    function xml_value($tags, $more_tags="[0]['#']") {
-
-        $tags = empty($tags) ? '' : "['".str_replace(",", "'][0]['#']['", $tags)."']";
-        eval('$value = &$this->xml'.$this->xml_root.$tags.$more_tags.';');
-
-        if (is_string($value)) {
-
-            // decode angle brackets and ampersands
-            $value = strtr($value, array('&#x003C;'=>'<', '&#x003E;'=>'>', '&#x0026;'=>'&'));
-
-            // remove white space between <table>, <ul|OL|DL> and <OBJECT|EMBED> parts 
-            // (so it doesn't get converted to <br />)
-            $htmltags = '('
-            .    'TABLE|/?CAPTION|/?COL|/?COLGROUP|/?TBODY|/?TFOOT|/?THEAD|/?TD|/?TH|/?TR'
-            .    '|OL|UL|/?LI'
-            .    '|DL|/?DT|/?DD'
-            .    '|EMBED|OBJECT|APPLET|/?PARAM'
-            //.    '|SELECT|/?OPTION'
-            //.    '|FIELDSET|/?LEGEND'
-            //.    '|FRAMESET|/?FRAME'
-            .    ')'
-            ;
-            $search = '#(<'.$htmltags.'[^>]*'.'>)\s+'.'(?='.'<'.')#is';
-            $value = preg_replace($search, '\\1', $value);
-
-            // replace remaining newlines with <br />
-            $value = str_replace("\n", '<br />', $value);
-
-            // encode unicode characters as HTML entities
-            // (in particular, accented charaters that have not been encoded by HP)
-
-            // multibyte unicode characters can be detected by checking the hex value of the first character
-            //    00 - 7F : ascii char (roman alphabet + punctuation)
-            //    80 - BF : byte 2, 3 or 4 of a unicode char
-            //    C0 - DF : 1st byte of 2-byte char
-            //    E0 - EF : 1st byte of 3-byte char
-            //    F0 - FF : 1st byte of 4-byte char
-            // if the string doesn't match the above, it might be
-            //    80 - FF : single-byte, non-ascii char
-            $search = '#('.'[\xc0-\xdf][\x80-\xbf]'.'|'.'[\xe0-\xef][\x80-\xbf]{2}'.'|'.'[\xf0-\xff][\x80-\xbf]{3}'.'|'.'[\x80-\xff]'.')#se';
-            $value = preg_replace($search, "hotpot_utf8_to_html_entity('\\1')", $value);
-        }
-        return $value;
-    }
-    function encode_cdata(&$str, $tag) {
-
-        // conversion tables
-        static $HTML_ENTITIES = array(
-            '&apos;' => "'",
-            '&quot;' => '"',
-            '&lt;'   => '<',
-            '&gt;'   => '>',
-            '&amp;'  => '&',
-        );
-        static $ILLEGAL_STRINGS = array(
-            "\r"  => '',
-            "\n"  => '&lt;br /&gt;',
-            ']]>' => '&#93;&#93;&#62;',
-        );
-
-        // extract the $tag from the $str(ing), if possible
-        $pattern = '|(^.*<'.$tag.'[^>]*)(>.*<)(/'.$tag.'>.*$)|is';
-        if (preg_match($pattern, $str, $matches)) {
-
-            // encode problematic CDATA chars and strings
-            $matches[2] = strtr($matches[2], $ILLEGAL_STRINGS);
-
-
-            // if there are any ampersands in "open text"
-            // surround them by CDATA start and end markers
-            // (and convert HTML entities to plain text)
-            $search = '/>([^<]*&[^<]*)</e';
-            $replace = '"><![CDATA[".strtr("$1", $HTML_ENTITIES)."]]><"';
-            $matches[2] = preg_replace($search, $replace, $matches[2]);
-
-            $str = $matches[1].$matches[2].$matches[3];
-        }
-    }
-}
-
 function hotpot_charcode_to_utf8($charcode) {
+    // thanks to Miguel Perez: http://jp2.php.net/chr (19-Sep-2007)
     if ($charcode <= 0x7F) {
         // ascii char (roman alphabet + punctuation)
         return chr($charcode);
     }
     if ($charcode <= 0x7FF) {
         // 2-byte char
-        return chr(($charcode >> 0x06) + 0xC0).chr(($charcode & 0x3F) + 128);
+        return chr(($charcode >> 0x06) + 0xC0).chr(($charcode & 0x3F) + 0x80);
     }
     if ($charcode <= 0xFFFF) {
         // 3-byte char
@@ -645,33 +567,6 @@ function hotpot_charcode_to_utf8($charcode) {
     }
     // unidentified char code !!
     return ' '; 
-}
-
-function hotpot_utf8_to_html_entity($char) {
-    // http://www.zend.com/codex.php?id=835&single=1
-
-    // array used to figure what number to decrement from character order value 
-    // according to number of characters used to map unicode to ascii by utf-8 
-    static $HOTPOT_UTF8_DECREMENT = array(
-        1=>0, 2=>192, 3=>224, 4=>240
-    );
-
-    // the number of bits to shift each character by 
-    static $HOTPOT_UTF8_SHIFT = array(
-        1=>array(0=>0),
-        2=>array(0=>6,  1=>0),
-        3=>array(0=>12, 1=>6,  2=>0),
-        4=>array(0=>18, 1=>12, 2=>6, 3=>0)
-    );
-     
-    $dec = 0; 
-    $len = strlen($char);
-    for ($pos=0; $pos<$len; $pos++) {
-        $ord = ord ($char{$pos});
-        $ord -= ($pos ? 128 : $HOTPOT_UTF8_DECREMENT[$len]); 
-        $dec += ($ord << $HOTPOT_UTF8_SHIFT[$len][$pos]); 
-    }
-    return '&#x'.sprintf('%04X', $dec).';';
 }
 
 function hotpot_convert_relative_urls($str, $baseurl, $filename) {
@@ -699,104 +594,3 @@ function hotpot_convert_relative_urls($str, $baseurl, $filename) {
 
     return $str;
 }
-
-function hotpot_convert_relative_url($baseurl, $filename, $opentag, $url, $closetag, $stripslashes=true) {
-    if ($stripslashes) {
-        $opentag = stripslashes($opentag);
-        $url = stripslashes($url);
-        $closetag = stripslashes($closetag);
-    }
-
-    // catch <PARAM name="FlashVars" value="TheSound=soundfile.mp3">
-    //    ampersands can appear as "&", "&amp;" or "&amp;#x0026;amp;"
-    if (preg_match('|^'.'\w+=[^&]+'.'('.'&((amp;#x0026;)?amp;)?'.'\w+=[^&]+)*'.'$|', $url)) {
-        $query = $url;
-        $url = '';
-        $fragment = '';
-
-    // parse the $url into $matches
-    //    [1] path
-    //    [2] query string, if any
-    //    [3] anchor fragment, if any
-    } else if (preg_match('|^'.'([^?]*)'.'((?:\\?[^#]*)?)'.'((?:#.*)?)'.'$|', $url, $matches)) {
-        $url = $matches[1];
-        $query = $matches[2];
-        $fragment = $matches[3];
-
-    // there appears to be no query or fragment in this url
-    } else {
-        $query = '';
-        $fragment = '';
-    }
-
-    if ($url) {
-        $url = hotpot_convert_url($baseurl, $filename, $url, false);
-    }
-
-    if ($query) {
-        $search = '#'.'(file|src|thesound)='."([^&]+)".'#ise';
-        $replace = "'\\1='.hotpot_convert_url('".$baseurl."','".$filename."','\\2')";
-        $query = preg_replace($search, $replace, $query);
-    }
-
-    $url = $opentag.$url.$query.$fragment.$closetag;
-
-    return $url;
-}
-
-function hotpot_convert_url($baseurl, $filename, $url, $stripslashes=true) {
-    // maintain a cache of converted urls
-    static $HOTPOT_RELATIVE_URLS = array();
-
-    if ($stripslashes) {
-        $url = stripslashes($url);
-    }
-
-    // is this an absolute url? (or javascript pseudo url)
-    if (preg_match('%^(http://|/|javascript:)%i', $url)) {
-        // do nothing
-
-    // has this relative url already been converted?
-    } else if (isset($HOTPOT_RELATIVE_URLS[$url])) {
-        $url = $HOTPOT_RELATIVE_URLS[$url];
-
-    } else {
-        $relativeurl = $url;
-
-        // get the subdirectory, $dir, of the quiz $filename
-        $dir = dirname($filename);
-
-        // allow for leading "./" and "../"
-        while (preg_match('|^(\.{1,2})/(.*)$|', $url, $matches)) {
-            if ($matches[1]=='..') {
-                $dir = dirname($dir);
-            }
-            $url = $matches[2];
-        }
-
-        // add subdirectory, $dir, to $baseurl, if necessary
-        if ($dir && $dir<>'.') {
-            $baseurl .= "$dir/";
-        }
-
-        // prefix $url with $baseurl
-        $url = "$baseurl$url";
-
-        // add url to cache
-        $HOTPOT_RELATIVE_URLS[$relativeurl] = $url;
-    }
-    return $url;
-}
-
-// allow importing in Moodle v1.4 (and less)
-// same core functions but different class name
-if (!class_exists("quiz_file_format")) {
-    class quiz_file_format extends qformat_default {
-        function readquestions ($lines) {
-            $format = new qformat_hotpot();
-            return $format->readquestions($lines);
-        }
-    }
-}
-
-?>

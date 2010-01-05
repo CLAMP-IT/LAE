@@ -1007,8 +1007,7 @@ function choose_from_menu_nested($options,$name,$selected='',$nothing='choose',$
     }
     if (!empty($options)) {
         foreach ($options as $section => $values) {
-
-            $output .= '   <optgroup label="'. s(format_string($section)) .'">'."\n";
+            $output .= '   <optgroup label="'. s(strip_tags(format_string($section))) .'">'."\n";
             foreach ($values as $value => $label) {
                 $output .= '   <option value="'. format_string($value) .'"';
                 if ((string)$value == (string)$selected) {
@@ -2023,8 +2022,8 @@ function clean_text($text, $format=FORMAT_MOODLE) {
                 $text = purify_html($text);
             } else {
             /// Fix non standard entity notations
-                $text = preg_replace('/(&#[0-9]+)(;?)/', "\\1;", $text);
-                $text = preg_replace('/(&#x[0-9a-fA-F]+)(;?)/', "\\1;", $text);
+                $text = preg_replace('/&#0*([0-9]+);?/', "&#\\1;", $text);
+                $text = preg_replace('/&#x0*([0-9a-fA-F]+);?/', "&#x\\1;", $text);
 
             /// Remove tags that are not allowed
                 $text = strip_tags($text, $ALLOWED_TAGS);
@@ -2304,13 +2303,43 @@ function html_to_text($html) {
  * @param string $text Passed in by reference. The string to be searched for urls.
  */
 function convert_urls_into_links(&$text) {
-/// Make lone URLs into links.   eg http://moodle.com/
-    $text = eregi_replace("([[:space:]]|^|\(|\[)([[:alnum:]]+)://([^[:space:]]*)([[:alnum:]#?/&=])",
-                          "\\1<a href=\"\\2://\\3\\4\" target=\"_blank\">\\2://\\3\\4</a>", $text);
+    //I've added img tags to this list of tags to ignore.
+    //See MDL-21168 for more info. A better way to ignore tags whether or not
+    //they are escaped partially or completely would be desirable. For example:
+    //<a href="blah">
+    //&lt;a href="blah"&gt;
+    //&lt;a href="blah">
+    $filterignoretagsopen  = array('<a\s[^>]+?>', '<img\s[^>]+?>');
+    $filterignoretagsclose = array('</a>','');
+    filter_save_ignore_tags($text,$filterignoretagsopen,$filterignoretagsclose,$ignoretags);
+    
+    // Check if we support unicode modifiers in regular expressions. Cache it.
+    // TODO: this check should be a environment requirement in Moodle 2.0, as far as unicode
+    // chars are going to arrive to URLs officially really soon (2010?)
+    // Original RFC regex from: http://www.bytemycode.com/snippets/snippet/796/
+    // Various ideas from: http://alanstorm.com/url_regex_explained
+    // Unicode check, negative assertion and other bits from Moodle.
+    static $unicoderegexp;
+    if (!isset($unicoderegexp)) {
+        $unicoderegexp = @preg_match('/\pL/u', 'a'); // This will fail silenty, returning false,
+    }
 
-/// eg www.moodle.com
-    $text = eregi_replace("([[:space:]]|^|\(|\[)www\.([^[:space:]]*)([[:alnum:]#?/&=])",
-                          "\\1<a href=\"http://www.\\2\\3\" target=\"_blank\">www.\\2\\3</a>", $text);
+    if ($unicoderegexp) { //We can use unicode modifiers
+        $text = preg_replace('#(((http(s?))://)(((([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+                             '<a href="\\1" target="_blank">\\1</a>', $text);
+        $text = preg_replace('#((www\.([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl])(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+                             '<a href="http://\\1" target="_blank">\\1</a>', $text);
+    } else { //We cannot use unicode modifiers
+        $text = preg_replace('#(((http(s?))://)(((([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+                             '<a href="\\1" target="_blank">\\1</a>', $text);
+        $text = preg_replace('#((www\.([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z])(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+                             '<a href="http://\\1" target="_blank">\\1</a>', $text);
+    }
+
+    if (!empty($ignoretags)) {
+        $ignoretags = array_reverse($ignoretags); /// Reversed so "progressive" str_replace() will solve some nesting problems.
+        $text = str_replace(array_keys($ignoretags),$ignoretags,$text);
+    }
 }
 
 /**
@@ -2491,7 +2520,7 @@ function print_header ($title='', $heading='', $navigation='', $focus='',
         $meta .= 
            "<script type=\"text/javascript\">\n".
            "  var flashversion = swfobject.getFlashPlayerVersion();\n".
-           "  YAHOO.util.Connect.asyncRequest('GET','".$CFG->wwwroot."/login/environment.php?sesskey=".sesskey()."&flashversion='+flashversion.major+'.'+flashversion.minor+'.'+flashversion.release);\n".
+           "  YAHOO.util.Connect.asyncRequest('GET','".$CFG->wwwroot."/login/environment.php?sesskey=".sesskey()."&amp;flashversion='+flashversion.major+'.'+flashversion.minor+'.'+flashversion.release);\n".
            "</script>";
     }
 
@@ -3502,7 +3531,8 @@ function user_login_string($course=NULL, $user=NULL) {
         } else if (!empty($user->access['rsw'][$context->path])) {
             $rolename = '';
             if ($role = get_record('role', 'id', $user->access['rsw'][$context->path])) {
-                $rolename = ': '.format_string($role->name);
+                $rolename = join("", role_fix_names(array($role->id=>$role->name), $context));
+                $rolename = ': '.format_string($rolename);
             }
             $loggedinas = get_string('loggedinas', 'moodle', $username).$rolename.
                       " (<a $CFG->frametarget
@@ -6084,7 +6114,7 @@ function redirect($url, $message='', $delay=-1) {
 <script type="text/javascript">
 //<![CDATA[
 
-  function redirect() {
+  function redirect() { 
       document.location.replace('<?php echo addslashes_js($url) ?>');
   }
   setTimeout("redirect()", <?php echo ($delay * 1000) ?>);
@@ -6135,7 +6165,7 @@ function notify($message, $style='notifyproblem', $align='center', $return=false
     $obfuscated = '';
     while ($i < $length) {
         if (rand(0,2)) {
-            $obfuscated.='%'.dechex(ord($email{$i}));
+                $obfuscated.='%'.dechex(ord($email{$i}));
         } else {
             $obfuscated.=$email{$i};
         }
@@ -6340,13 +6370,13 @@ function print_side_block($heading='', $content='', $list=NULL, $icons=NULL, $fo
         if ($list) {
             $row = 0;
             //Accessibility: replaced unnecessary table with list, see themes/standard/styles_layout.css
-            echo "\n<ul class='list'>\n";
-            foreach ($list as $key => $string) {
+            echo "\n<ul class='list'>\n";            
+            foreach ($list as $key => $string) {                
                 echo '<li class="r'. $row .'">';
                 if ($icons) {
-                    echo '<div class="icon column c0">'. $icons[$key] .'</div>';
+                   echo '<div class="icon column c0">'. $icons[$key] .'</div>';
                 }
-                echo '<div class="column c1">'. $string .'</div>';
+                echo '<div class="column c1">' . $string . '</div>';
                 echo "</li>\n";
                 $row = $row ? 0:1;
             }
@@ -6381,7 +6411,7 @@ function print_side_block_start($heading='', $attributes = array()) {
         $attributes['class'] = 'sideblock';
 
     } else if(!strpos($attributes['class'], 'sideblock')) {
-        $attributes['class'] .= ' sideblock';
+        $attributes['class'] .= ' sideblock';        
     }
 
     // OK, the class is surely there and in addition to anything
@@ -7010,5 +7040,40 @@ function auth_get_plugin_title ($authtype) {
     return $authtitle;
 }
 
-// vim:autoindent:expandtab:shiftwidth=4:tabstop=4:tw=140:
+ /**
+ * Print password policy.
+ * @uses $CFG
+ * @return string
+ */
+ function print_password_policy(){
+     global $CFG;
+     $messages = array();
+     
+     if(!empty($CFG->passwordpolicy)){
+            $messages[] = get_string('informminpasswordlength', 'auth', $CFG->minpasswordlength);
+            if(!empty($CFG->minpassworddigits)){
+                $messages[] = get_string('informminpassworddigits', 'auth', $CFG->minpassworddigits);
+            }
+            if(!empty($CFG->minpasswordlower)){
+                $messages[] = get_string('informminpasswordlower', 'auth', $CFG->minpasswordlower);
+            }
+            if(!empty($CFG->minpasswordupper)){
+                $messages[] = get_string('informminpasswordupper', 'auth', $CFG->minpasswordupper);
+            }
+            if(!empty($CFG->minpasswordnonalphanum)){
+                $messages[] = get_string('informminpasswordnonalphanum', 'auth', $CFG->minpasswordnonalphanum);
+            }
+            
+            $lastmessage = new stdClass;
+            $lastmessage->one = '';
+            $lastmessage->two = array_pop($messages);
+            $messages[] = get_string('and','moodle',$lastmessage);
+            $message = join(', ', $messages);
+            $message = '<div class="fitemtitle">&nbsp;</div><div class="felement ftext">'. get_string('informpasswordpolicy', 'auth', $message) . '</div>';
+        }
+        return $message;
+                
+ }
+
+ // vim:autoindent:expandtab:shiftwidth=4:tabstop=4:tw=140:
 ?>
