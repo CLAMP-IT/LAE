@@ -943,13 +943,30 @@ function forum_make_mail_html($course, $forum, $discussion, $post, $userfrom, $u
  * @return object A standard object with 2 variables: info (number of posts for this user) and time (last modified)
  */
 function forum_user_outline($course, $user, $mod, $forum) {
-    if ($count = forum_count_user_posts($forum->id, $user->id)) {
-        if ($count->postcount > 0) {
-            $result = new object();
-            $result->info = get_string("numposts", "forum", $count->postcount);
-            $result->time = $count->lastpost;
-            return $result;
+    global $CFG;
+    require_once("$CFG->libdir/gradelib.php");
+    $grades = grade_get_grades($course->id, 'mod', 'forum', $forum->id, $user->id);
+    if (empty($grades->items[0]->grades)) {
+        $grade = false;
+    } else {
+        $grade = reset($grades->items[0]->grades);
+    }
+
+    $count = forum_count_user_posts($forum->id, $user->id);
+
+    if ($count && $count->postcount > 0) {
+        $result = new object();
+        $result->info = get_string("numposts", "forum", $count->postcount);
+        $result->time = $count->lastpost;
+        if ($grade) {
+            $result->info .= ', ' . get_string('grade') . ': ' . $grade->str_long_grade;
         }
+        return $result;
+    } else if ($grade) {
+        $result = new object();
+        $result->info = get_string('grade') . ': ' . $grade->str_long_grade;
+        $result->time = $grade->dategraded;
+        return $result;
     }
     return NULL;
 }
@@ -960,6 +977,16 @@ function forum_user_outline($course, $user, $mod, $forum) {
  */
 function forum_user_complete($course, $user, $mod, $forum) {
     global $CFG,$USER;
+    require_once("$CFG->libdir/gradelib.php");
+
+    $grades = grade_get_grades($course->id, 'mod', 'forum', $forum->id, $user->id);
+    if (!empty($grades->items[0]->grades)) {
+        $grade = reset($grades->items[0]->grades);
+        echo '<p>'.get_string('grade').': '.$grade->str_long_grade.'</p>';
+        if ($grade->str_feedback) {
+            echo '<p>'.get_string('feedback').': '.$grade->str_feedback.'</p>';
+        }
+    }
 
     if ($posts = forum_get_user_posts($forum->id, $user->id)) {
 
@@ -1017,7 +1044,7 @@ function forum_user_complete($course, $user, $mod, $forum) {
  */
 function forum_print_overview($courses,&$htmlarray) {
     global $USER, $CFG;
-    $LIKE = sql_ilike();
+    //$LIKE = sql_ilike();//no longer using like in queries. MDL-20578
 
     if (empty($courses) || !is_array($courses) || count($courses) == 0) {
         return array();
@@ -4998,6 +5025,7 @@ function forum_print_discussion($course, $cm, $forum, $discussion, $post, $mode,
                 echo '<form id="form" method="post" action="rate.php">';
                 echo '<div class="ratingform">';
                 echo '<input type="hidden" name="forumid" value="'.$forum->id.'" />';
+                echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
                 $ratingsformused = true;
             }
 

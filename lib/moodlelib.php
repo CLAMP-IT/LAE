@@ -1831,6 +1831,16 @@ function confirm_sesskey($sesskey=NULL) {
 }
 
 /**
+ * Check the session key using {@link confirm_sesskey()},
+ * and cause a fatal error if it does not match.
+ */
+function require_sesskey() {
+    if (!confirm_sesskey()) {
+        print_error('invalidsesskey');
+    }
+}
+
+/**
  * Setup all global $CFG course variables, set locale and also themes
  * This function can be used on pages that do not require login instead of require_login()
  *
@@ -2843,6 +2853,22 @@ function is_internal_auth($auth) {
 }
 
 /**
+ * Returns true if the user is a 'restored' one
+ *
+ * Used in the login process to inform the user
+ * and allow him/her to reset the password
+ *
+ * @uses $CFG
+ * @param string $username username to be checked
+ * @return bool
+ */
+function is_restored_user($username) {
+    global $CFG;
+
+    return record_exists('user', 'username', $username, 'mnethostid', $CFG->mnet_localhost_id, 'password', 'restored');
+}
+
+/**
  * Returns an array of user fields
  *
  * @uses $CFG
@@ -3071,9 +3097,9 @@ function delete_user($user) {
     $updateuser = new object();
     $updateuser->id           = $user->id;
     $updateuser->deleted      = 1;
-    $updateuser->username     = $delname;         // Remember it just in case
-    $updateuser->email        = '';               // Clear this field to free it up
-    $updateuser->idnumber     = '';               // Clear this field to free it up
+    $updateuser->username     = $delname;            // Remember it just in case
+    $updateuser->email        = md5($user->username);// Store hash of username, useful importing/restoring users
+    $updateuser->idnumber     = '';                  // Clear this field to free it up
     $updateuser->timemodified = time();
 
     if (update_record('user', $updateuser)) {
@@ -3341,7 +3367,7 @@ function update_internal_user_password(&$user, $password) {
     global $CFG;
 
     $authplugin = get_auth_plugin($user->auth);
-    if (!empty($authplugin->config->preventpassindb)) {
+    if ($authplugin->prevent_local_passwords()) {
         $hashedpassword = 'not cached';
     } else {
         $hashedpassword = hash_internal_user_password($password);
@@ -6773,6 +6799,30 @@ function random_string ($length=15) {
     return $string;
 }
 
+/**
+ * Generate a complex random string (usefull for md5 salts)
+ *
+ * This function is based on the above {@link random_string()} however it uses a
+ * larger pool of characters and generates a string between 24 and 32 characters
+ *
+ * @param int $length Optional if set generates a string to exactly this length
+ * @return string
+ */
+function complex_random_string($length=null) {
+    $pool  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    $pool .= '`~!@#%^&*()_+-=[];,./<>?:{} ';
+    $poollen = strlen($pool);
+    mt_srand ((double) microtime() * 1000000);
+    if ($length===null) {
+        $length = floor(rand(24,32));
+    }
+    $string = '';
+    for ($i = 0; $i < $length; $i++) {
+        $string .= $pool[(mt_rand()%$poollen)];
+    }
+    return $string;
+}
+
 /*
  * Given some text (which may contain HTML) and an ideal length,
  * this function truncates the text neatly on a word boundary if possible
@@ -6792,12 +6842,18 @@ function shorten_text($text, $ideal=30, $exact = false) {
         return $text;
     }
 
-    // splits all html-tags to scanable lines
+    // Splits on HTML tags. Each open/close/empty tag will be the first thing
+    // and only tag in its 'line'
     preg_match_all('/(<.+?>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
 
     $total_length = strlen($ending);
-    $open_tags = array();
     $truncate = '';
+
+    // This array stores information about open and close tags and their position
+    // in the truncated string. Each item in the array is an object with fields
+    // ->open (true if open), ->tag (tag name in lower case), and ->pos 
+    // (byte position in truncated text)
+    $tagdetails = array();
 
     foreach ($lines as $line_matchings) {
         // if there is any html-tag in this line, handle it and add it (uncounted) to the output
@@ -6807,15 +6863,14 @@ function shorten_text($text, $ideal=30, $exact = false) {
                     // do nothing
             // if tag is a closing tag (f.e. </b>)
             } else if (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
-                // delete tag from $open_tags list
-                $pos = array_search($tag_matchings[1], array_reverse($open_tags, true)); // can have multiple exact same open tags, close the last one
-                if ($pos !== false) {
-                    unset($open_tags[$pos]);
-                }
+                // record closing tag
+                $tagdetails[] = (object)array('open'=>false, 
+                    'tag'=>strtolower($tag_matchings[1]), 'pos'=>strlen($truncate));
             // if tag is an opening tag (f.e. <b>)
             } else if (preg_match('/^<\s*([^\s>!]+).*?>$/s', $line_matchings[1], $tag_matchings)) {
-                // add tag to the beginning of $open_tags list
-                array_unshift($open_tags, strtolower($tag_matchings[1]));
+                // record opening tag
+                $tagdetails[] = (object)array('open'=>true, 
+                    'tag'=>strtolower($tag_matchings[1]), 'pos'=>strlen($truncate));
             }
             // add html-tag to $truncate'd text
             $truncate .= $line_matchings[1];
@@ -6877,6 +6932,24 @@ function shorten_text($text, $ideal=30, $exact = false) {
 
     // add the defined ending to the text
 	$truncate .= $ending;
+
+    // Now calculate the list of open html tags based on the truncate position
+    $open_tags = array();
+    foreach ($tagdetails as $taginfo) {
+        if(isset($breakpos) && $taginfo->pos >= $breakpos) {
+            // Don't include tags after we made the break!
+            break;
+        }
+        if($taginfo->open) {
+            // add tag to the beginning of $open_tags list
+            array_unshift($open_tags, $taginfo->tag);
+        } else {
+            $pos = array_search($taginfo->tag, array_reverse($open_tags, true)); // can have multiple exact same open tags, close the last one
+            if ($pos !== false) {
+                unset($open_tags[$pos]);
+            }
+        }
+    }
 
     // close all unclosed html-tags
     foreach ($open_tags as $tag) {
@@ -7925,7 +7998,7 @@ function message_popup_window() {
     $popuplimit = 30;     // Minimum seconds between popups
 
     if (!defined('MESSAGE_WINDOW')) {
-        if (isset($USER->id) and !isguestuser()) {
+        if (!empty($USER->id) and !isguestuser()) {
             if (!isset($USER->message_lastpopup)) {
                 $USER->message_lastpopup = 0;
             }

@@ -109,6 +109,12 @@ function workshop_add_instance($workshop) {
         return get_string('invaliddates', 'workshop');
     }
 
+    // set the workshop's type
+    $wtype = 0; // 3 phases, no grading grades
+    if ($workshop->includeself or $workshop->ntassessments) $wtype = 1; // 3 phases with grading grades
+    if ($workshop->nsassessments) $wtype = 2; // 5 phases with grading grades
+    $workshop->wtype = $wtype;
+
     if ($returnid = insert_record("workshop", $workshop)) {
 
         $event = NULL;
@@ -1751,7 +1757,7 @@ function workshop_grade_assessments($workshop, $verbose=false) {
                                 set_field("workshop_assessments", "timegraded", $timenow, "id", $assessment->id);
                             } else {
                                 // it's one of the pack, compare with the best...
-                                $gradinggrade = workshop_compare_assessments($workshop, $best, $assessment);
+                                $gradinggrade = round(workshop_compare_assessments($workshop, $best, $assessment));
                                 // ...and save the grade for the assessment
                                 set_field("workshop_assessments", "gradinggrade", $gradinggrade, "id", $assessment->id);
                                 set_field("workshop_assessments", "timegraded", $timenow, "id", $assessment->id);
@@ -1783,9 +1789,11 @@ function workshop_grade_assessments($workshop, $verbose=false) {
 function workshop_gradinggrade($workshop, $student) {
     // returns the current (external) grading grade of the based on their (cold) assessments
     // (needed as it's called by grade)
+    global $CFG;
+    require_once(dirname(__FILE__) . '/locallib.php');
 
     $gradinggrade = 0;
-    if ($assessments = workshop_get_user_assessments($workshop, $student)) {
+    if ($assessments = workshop_get_user_assessments_done($workshop, $student)) {
         $n = 0;
         foreach ($assessments as $assessment) {
             $gradinggrade += $assessment->gradinggrade;

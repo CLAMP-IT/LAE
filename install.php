@@ -554,6 +554,9 @@ if ($nextstage == SAVE) {
     $str .= '$CFG->directorypermissions = 00777;  // try 02777 on a server in Safe Mode'."\r\n";
     $str .= "\r\n";
 
+    $str .= '$CFG->passwordsaltmain = \''.addsingleslashes(complex_random_string()).'\';'."\r\n";
+    $str .= "\r\n";
+
     $str .= 'require_once("$CFG->dirroot/lib/setup.php");'."\r\n";
     $str .= '// Force server-side form validation; required for FCKeditor'."\r\n";
     $str .= '$CFG->validateforms = \'server'."';\r\n";
