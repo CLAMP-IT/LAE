@@ -48,6 +48,13 @@ class csv_import_reader {
         $content = $textlib->trim_utf8_bom($content);
         // Fix mac/dos newlines
         $content = preg_replace('!\r\n?!', "\n", $content);
+
+	// Strip double quotes
+	$content = preg_replace('/^"/', '', $content);
+	$content = preg_replace('/\n"/', "\n", $content);
+	$content = preg_replace('/"\n/', "\n", $content);
+	$content = str_replace('","', ',', $content);
+
         // is there anyting in file?
         $columns = strtok($content, "\n");
         if ($columns === false) {
