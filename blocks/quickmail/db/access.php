@@ -44,6 +44,15 @@ $block_quickmail_capabilities = array(
             'admin' => CAP_ALLOW
         )
     ),
+    'block/quickmail:canrecv' => array(
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_BLOCK,
+        'legacy' => array(
+                'teacher' => CAP_ALLOW,
+                'editingteacher' => CAP_ALLOW,
+                'student' => CAP_ALLOW,
+        )
+    ),
 );
 
 ?>
