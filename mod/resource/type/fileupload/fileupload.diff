@@ -1,0 +1,30 @@
+######################################################################################
+## fileupload-strings.diff
+## 2009-06-05 - dwheeler - untested replacement for broken fileupload strings for v1.9.5
+######################################################################################
+--- moodle-after/lang/en_utf8/resource.php	2009-06-03 11:20:44.000000000 -0700
++++ moodle-before/lang/en_utf8/resource.php	2009-06-04 08:07:05.000000000 -0700
+@@ -134,5 +134,7 @@
+ $string['warningblockingdelete'] = 'Warning: Delete operation is blocked by existing resource. Either update your resources first or ask administrator to disable this safety mechanism in global Resource configuration.';
+ $string['warningdisabledrename'] = 'Warning: The automatic renaming of references in resources is disabled. Please update affected resources manually if needed. Administrator can also enable automatic renaming in global Resource configuration.';
+ $string['websearchdefault'] = 'Websearch default';
++$string['attachment'] = 'Attachment';
++$string['resourcetypefileupload'] = 'Upload a file';
+ 
+ ?>
+##################################################################################
+# fileupload-patch.diff
+# 
+# 2009-06-05 - wheelerda - patch clamp simple file upload fileupload resource  
+##################################################################################
+--- moodle-after/mod/resource/lib.php	2009-06-03 11:20:45.000000000 -0700
++++ moodle-before/mod/resource/lib.php	2009-06-05 07:36:44.000000000 -0700
+@@ -361,7 +361,7 @@
+ 
+        require_once($CFG->libdir.'/filelib.php');
+ 
+-       if ($resource->type == 'file') {
++       if (($resource->type == 'file') || ($resource->type == 'fileupload')) {
+            $icon = mimeinfo("icon", $resource->reference);
+            if ($icon != 'unknown.gif') {
+                $info->icon ="f/$icon";

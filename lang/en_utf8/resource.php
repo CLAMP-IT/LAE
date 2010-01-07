@@ -134,5 +134,7 @@ $string['vol'] = 'Vol';
 $string['warningblockingdelete'] = 'Warning: Delete operation is blocked by existing resource. Either update your resources first or ask administrator to disable this safety mechanism in global Resource configuration.';
 $string['warningdisabledrename'] = 'Warning: The automatic renaming of references in resources is disabled. Please update affected resources manually if needed. Administrator can also enable automatic renaming in global Resource configuration.';
 $string['websearchdefault'] = 'Websearch default';
+$string['attachment'] = 'Attachment';
+$string['resourcetypefileupload'] = 'Upload a file';
 
 ?>
