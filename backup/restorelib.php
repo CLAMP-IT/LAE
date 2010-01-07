@@ -1410,6 +1410,8 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
         //Put the info in the DB, recoding ids and saving the in backup tables
 
         $sequence = "";
+        # keep track of new sections that we add, so we can increase numsections later
+        $restore_maxsection = 0;
 
         if ($info) {
             //For each, section, save it to db
@@ -1435,26 +1437,27 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
                         $rec->summary = $section->summary;
                         update_record("course_sections", $rec);
                     }
-                    //If that section doesn't exist, get section 0 (every mod will be
-                    //asigned there
+                    //If that section doesn't exist, create it
                     if(!$rec) {
-                        $rec = get_record("course_sections","course",$restore->course_id,
-                                                            "section","0");
+                        $new_section = new object();
+                        $new_section->course = $restore->course_id;
+                        $new_section->section = $sect->number;
+                        $new_section->summary = "";
+                        $new_section->sequence = "";
+                        $newid = insert_record("course_sections", $new_section);
+                        if ($newid) {
+                            $rec->id = $newid;
+                            $rec->sequence = "";
+                            // keep track of the highest number section that we add
+                            if ($sect->number > $restore_maxsection) {
+                                $restore_maxsection = $sect->number;
+                            }
+                        } else {
+                            $status = false;
+                        }
+                    } else {
+                        $newid = $rec->id;
                     }
-                    //New check. If section 0 doesn't exist, insert it here !!
-                    //Teorically this never should happen but, in practice, some users
-                    //have reported this issue.
-                    if(!$rec) {
-                        $zero_sec = new object();
-                        $zero_sec->course = $restore->course_id;
-                        $zero_sec->section = 0;
-                        $zero_sec->summary = "";
-                        $zero_sec->sequence = "";
-                        $newid = insert_record("course_sections",$zero_sec);
-                        $rec->id = $newid;
-                        $rec->sequence = "";
-                    }
-                    $newid = $rec->id;
                     $sequence = $rec->sequence;
                 }
                 if ($newid) {
@@ -1558,6 +1561,16 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
                         $update_rec->sequence = $sequence;
                         $status = update_record("course_sections",$update_rec);
                     }
+                }
+            }
+            // increase numsections if we added a new section with a higher number
+            $cur_numsections = get_field('course', 'numsections', 'id', $restore->course_id);
+            if ($cur_numsections === false) {
+                $status = false;
+            } else {
+                if ($restore_maxsection > $cur_numsections) {
+                    // update the course numsections so that it displays the new sections
+                    set_field('course', 'numsections', $restore_maxsection, 'id', $restore->course_id);
                 }
             }
         } else {
