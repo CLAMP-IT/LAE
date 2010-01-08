@@ -4,7 +4,7 @@
 
     require('../../../config.php');
     require('../lib.php');
-
+    
     $chat_sid      = required_param('chat_sid', PARAM_ALPHANUM);
     $chat_lasttime = optional_param('chat_lasttime', 0, PARAM_INT);
     $chat_lastrow  = optional_param('chat_lastrow', 1, PARAM_INT);
@@ -27,25 +27,34 @@
     //Setup course, lang and theme
     course_setup($course);
 
+    // load chat module
+    $cm = get_record('chat','id',$chatuser->chatid);
+
     // force deleting of timed out users if there is a silence in room or just entering
     if ((time() - $chat_lasttime) > $CFG->chat_old_ping) {
         // must be done before chat_get_latest_message!!!
         chat_delete_old_users();
     }
-
+    
     if ($message = chat_get_latest_message($chatuser->chatid, $chatuser->groupid)) {
         $chat_newlasttime = $message->timestamp;
     } else {
         $chat_newlasttime = 0;
     }
 
-    if ($chat_lasttime == 0) { //display some previous messages
-        $chat_lasttime = time() - $CFG->chat_old_ping; //TO DO - any better value??
-    }
-
     $timenow    = time();
 
     $groupselect = $chatuser->groupid ? " AND (groupid='".$chatuser->groupid."' OR groupid='0') " : "";
+
+    // Set lasttime based on module information
+    if($chat_lasttime == 0) {
+        if(isset($cm->showhistory) && $chat_lasttime = strtotime("-".$cm->showhistory,$timenow)) {
+            // Success; do nothing
+        } else {  
+            // Module limit not set or invalid; fall back on old test
+            $chat_lasttime = $timenow - $CFG->chat_old_ping;  
+        }
+    }
 
     $messages = get_records_select("chat_messages",
                         "chatid = '$chatuser->chatid' AND timestamp > '$chat_lasttime' $groupselect",
@@ -108,10 +117,18 @@
         <?php
         $beep = false;
         $refreshusers = false;
+        $chat_last_day = date('z-y',time());
         $us = array ();
         if (($chat_lasttime != $chat_newlasttime) and $messages) {
 
             foreach ($messages as $message) {
+                // Test if message date is not today
+                $day_header = "";
+                if($chat_last_day != date('z-y',$message->timestamp)) {
+                    $day_header = "-- " . date('F j, Y', $message->timestamp) . " --";
+                    $chat_last_day = date('z-y',$message->timestamp);
+                }
+            
                 $chat_lastrow = ($chat_lastrow + 1) % 2;
                 $formatmessage = chat_format_message($message, $chatuser->course, $USER, $chat_lastrow);
                 if ($formatmessage->beep) {
@@ -122,6 +139,9 @@
                 }
                 $us[$message->userid] = $timenow - $message->timestamp;
                 echo "if(parent.msg)";
+                if(!empty($day_header)) {
+                    echo "parent.msg.document.write('".$day_header."\\n');\n";
+                }
                 echo "parent.msg.document.write('".addslashes_js($formatmessage->html)."\\n');\n";
              }
         }

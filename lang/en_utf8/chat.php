@@ -71,6 +71,7 @@ $string['serverport'] = 'Server port';
 $string['savemessages'] = 'Save past sessions';
 $string['seesession'] = 'See this session';
 $string['sessions'] = 'Chat sessions';
+$string['showhistoryname'] = 'Visible scrollback in chat window';
 $string['strftimemessage'] = '%%H:%%M';
 $string['studentseereports'] = 'Everyone can view past sessions';
 $string['updatemethod'] = 'Update method';
