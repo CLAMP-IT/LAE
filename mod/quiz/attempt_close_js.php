@@ -2,7 +2,7 @@
 
 <div class="controls">
 <?php
-if (!empty($popup) && $popup == 1) {
+if (!empty($popup)) {
 ?>
 
 <script type="text/javascript">

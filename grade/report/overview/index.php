@@ -30,11 +30,10 @@ if (!$course = get_record('course', 'id', $courseid)) {
 require_login($course);
 
 $context = get_context_instance(CONTEXT_COURSE, $course->id);
-$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('gradereport/overview:view', $context);
 
 if (empty($userid)) {
-    require_capability('moodle/grade:viewall', $systemcontext);
+    require_capability('moodle/grade:viewall', $context);
 
 } else {
     if (!get_record('user', 'id', $userid, 'deleted', 0) or isguestuser($userid)) {
@@ -43,16 +42,12 @@ if (empty($userid)) {
 }
 
 $access = false;
-if (has_capability('moodle/grade:viewall', $systemcontext)) {
+if (has_capability('moodle/grade:viewall', $context)) {
     //ok - can view all course grades
     $access = true;
 
-} else if ($userid == $USER->id and has_capability('moodle/grade:viewall', $context)) {
-    //ok - can view any own grades
-    $access = true;
-    
 } else if ($userid == $USER->id and has_capability('moodle/grade:view', $context) and $course->showgrades) {
-    //ok - can view own course grades
+    //ok - can view own grades
     $access = true;
 
 } else if (has_capability('moodle/grade:viewall', get_context_instance(CONTEXT_USER, $userid)) and $course->showgrades) {
@@ -77,8 +72,7 @@ $USER->grade_last_report[$course->id] = 'overview';
 //first make sure we have proper final grades - this must be done before constructing of the grade tree
 grade_regrade_final_grades($courseid);
 
-if (has_capability('moodle/grade:viewall', $systemcontext)) { //Admins will see all student reports
-    // please note this would be extremely slow if we wanted to implement this properly for all teachers
+if (has_capability('moodle/grade:viewall', $context)) { //Teachers will see all student reports
     $groupmode    = groups_get_course_groupmode($course);   // Groups are being used
     $currentgroup = groups_get_course_group($course, true);
 
@@ -128,7 +122,7 @@ if (has_capability('moodle/grade:viewall', $systemcontext)) { //Admins will see 
             }
         }
     }
-} else { //Non-admins will see just their own report
+} else { //Students will see just their own report
 
     // Create a report instance
     $report = new grade_report_overview($userid, $gpr, $context);

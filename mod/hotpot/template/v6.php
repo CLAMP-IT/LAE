@@ -227,7 +227,7 @@ class hotpot_xml_quiz_template extends hotpot_xml_template_default {
             }
 
             // convert to comma delimited string
-            $this->PreloadImageList = empty($list) ? '' : "'".implode("','", $list)."'";
+            $this->PreloadImageList = empty($list) ? '' : "'".implode(',', $list)."'";
         }
         return $this->PreloadImageList;
     }
@@ -1064,20 +1064,10 @@ class hotpot_xml_quiz_template extends hotpot_xml_template_default {
         }
     }
     function v6_expand_Correct() {
-        if ($this->parent->quiztype=='jcloze') {
-            $tag = 'guesses-correct';
-        } else {
-            $tag = 'guess-correct';
-        }
-        return $this->js_value('hotpot-config-file,'.$this->parent->quiztype.','.$tag);
+        return $this->js_value('hotpot-config-file,'.$this->parent->quiztype.',guesses-correct');
     }
     function v6_expand_Incorrect() {
-        if ($this->parent->quiztype=='jcloze') {
-            $tag = 'guesses-incorrect';
-        } else {
-            $tag = 'guess-incorrect';
-        }
-        return $this->js_value('hotpot-config-file,'.$this->parent->quiztype.','.$tag);
+        return $this->js_value('hotpot-config-file,'.$this->parent->quiztype.',guesses-incorrect');
     }
     function v6_expand_GiveHint() {
         return $this->js_value('hotpot-config-file,'.$this->parent->quiztype.',next-correct-letter');

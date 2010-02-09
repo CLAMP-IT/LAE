@@ -14,7 +14,6 @@
         }
 
         redirect($urltogo);
-        
     }
 
     $pluginconfig   = get_config('auth/shibboleth');

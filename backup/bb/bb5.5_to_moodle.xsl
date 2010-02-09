@@ -427,7 +427,7 @@
     </SUMMARY>
     <ALLTEXT></ALLTEXT>
     <POPUP></POPUP>
-    <OPTIONS></OPTIONS>
+    <OPTIONS>frame</OPTIONS>
     <TIMEMODIFIED>1094240775</TIMEMODIFIED>
   </MOD>
 </xsl:template>
@@ -512,7 +512,7 @@
       <xsl:value-of select="DESCRIPTION/TEXT"/>
     </ALLTEXT>
     <POPUP></POPUP>
-    <OPTIONS></OPTIONS>
+    <OPTIONS>frame</OPTIONS>
     <TIMEMODIFIED>1094240775</TIMEMODIFIED>
   </MOD>
 </xsl:template>

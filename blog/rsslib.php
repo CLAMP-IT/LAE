@@ -71,9 +71,7 @@
             $items = array();
             foreach ($blogposts as $blogpost) {
                 $item = NULL;
-                if ($type != 'user') {
-                    $item->author = fullname(get_record('user','id',$blogpost->userid));
-                }
+                $item->author = fullname(get_record('user','id',$blogpost->userid));
                 $item->title = $blogpost->subject;
                 $item->pubdate = $blogpost->lastmodified;
                 $item->link = $CFG->wwwroot.'/blog/index.php?postid='.$blogpost->id;
@@ -116,13 +114,8 @@
             $info .= ': '.get_field('tags', 'text', 'id', $tagid);
         }
 
-        if ($type == 'user') {
-            $link = $CFG->wwwroot.'/blog/index.php?userid='.$id;
-        } else {
-            $link = $CFG->wwwroot.'/blog/index.php'; 
-        }
         $header = rss_standard_header(get_string($type.'blog','blog', $info), 
-                                      $link,
+                                      $CFG->wwwroot.'/blog/index.php', 
                                       get_string('intro','blog'));
                                                       
         $footer = rss_standard_footer();

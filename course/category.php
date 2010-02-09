@@ -137,17 +137,7 @@
             $courses = array();
             foreach ($data as $key => $value) {
                 if (preg_match('/^c\d+$/', $key)) {
-                    $courseid = substr($key, 1);
-                    array_push($courses, $courseid);
-
-                    // check this course's category
-                    if ($movingcourse = get_record('course', 'id', $courseid)) {
-                        if ($movingcourse->category != $id ) {
-                            error('The course doesn\'t belong to this category');
-                        }
-                    } else {
-                        error('Error finding the course');
-                    }
+                    array_push($courses, substr($key, 1));
                 }
             }
             move_courses($courses, $data->moveto);
@@ -155,6 +145,7 @@
 
     /// Hide or show a course
         if ((!empty($hide) or !empty($show)) and confirm_sesskey()) {
+            require_capability('moodle/course:visibility', $context);
             if (!empty($hide)) {
                 $course = get_record('course', 'id', $hide);
                 $visible = 0;
@@ -162,10 +153,7 @@
                 $course = get_record('course', 'id', $show);
                 $visible = 1;
             }
-
             if ($course) {
-                $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
-                require_capability('moodle/course:visibility', $coursecontext);
                 if (!set_field('course', 'visible', $visible, 'id', $course->id)) {
                     notify('Could not update that course!');
                 }
@@ -195,11 +183,8 @@
                 $swapcourse = get_record('course', 'category',  $category->id,
                         'sortorder', $movecourse->sortorder + 1);
             }
+
             if ($swapcourse and $movecourse) {
-                // check course's category
-                if ($movecourse->category != $id) {
-                    error('The course doesn\'t belong to this category');
-                }
                 // Renumber everything for robustness
                 begin_sql();
                 if (!(    set_field('course', 'sortorder', $max, 'id', $swapcourse->id)

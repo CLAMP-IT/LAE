@@ -909,12 +909,10 @@ function get_my_courses($userid, $sort='visible DESC,sortorder ASC', $fields=NUL
                 // build the context obj
                 $c = make_context_subobj($c);
 
-                if ($limit > 0 && $cc >= $limit) {
+                $courses[$c->id] = $c;
+                if ($limit > 0 && $cc++ > $limit) {
                     break;
                 }
-                
-                $courses[$c->id] = $c;
-                $cc++;
             }
             rs_close($rs);
             return $courses;

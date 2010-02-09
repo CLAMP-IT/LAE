@@ -138,11 +138,9 @@ switch ($filtertype) {
             $personalcontext = get_context_instance(CONTEXT_USER, $filterselect);
             if (!has_capability('moodle/blog:view', $sitecontext) 
               and !has_capability('moodle/user:readuserblogs', $personalcontext)) {
-                require_login();  // last-ditch attempt to gain permissions
                 error('You do not have the required permissions to read user blogs');
             }
             if (!blog_user_can_view_user_post($filterselect)) {
-                require_login();  // last-ditch attempt to gain permissions
                 error('You can not view blog of this user, sorry.');
             }
         }
@@ -165,7 +163,7 @@ if (empty($courseid)) {
 
 include($CFG->dirroot .'/blog/header.php');
 
-blog_print_html_formatted_entries($postid, $filtertype, $filterselect, $tagid, stripslashes($tag));
+blog_print_html_formatted_entries($postid, $filtertype, $filterselect, $tagid, $tag);
 
 add_to_log($courseid, 'blog', 'view', 'index.php?filtertype='.$filtertype.'&amp;filterselect='.$filterselect.'&amp;postid='.$postid.'&amp;tagid='.$tagid.'&amp;tag='.$tag, 'view blog entry');
 

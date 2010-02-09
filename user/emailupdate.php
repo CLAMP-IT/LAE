@@ -26,7 +26,6 @@ if (empty($preferences['newemailattemptsleft'])) {
     print_box($stroutofattempts, 'center');
 
 } elseif ($key == $preferences['newemailkey']) {
-    $olduser = clone($user);
     cancel_email_update($user->id);
     $user->email = $preferences['newemail'];
 
@@ -41,8 +40,6 @@ if (empty($preferences['newemailattemptsleft'])) {
             error('Error updating user record');
 
         } else {
-            $authplugin = get_auth_plugin($user->auth);
-            $authplugin->user_update($olduser, $user);
             events_trigger('user_updated', $user);
             $a->email = $user->email;
             $stremailupdatesuccess = get_string('auth_emailupdatesuccess', 'auth', $a);

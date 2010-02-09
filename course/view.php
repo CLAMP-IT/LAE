@@ -166,8 +166,6 @@
                                  'yui_event',
                                  'yui_dragdrop',
                                  'yui_connection',
-                                 'yui_selector',
-                                 'yui_element',
                                  'ajaxcourse_blocks',
                                  'ajaxcourse_sections'));
                 

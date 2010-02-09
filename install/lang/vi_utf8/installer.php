@@ -11,11 +11,11 @@
 
 $string['admindirerror'] = 'Thư mục quản trị được chỉ ra chưa đúng';
 $string['admindirname'] = 'Thư mục quản trị';
-$string['bypassed'] = 'Đi đường vòng';
 $string['caution'] = 'Cảnh báo';
-$string['check'] = 'Kiểm tra';
+$string['closewindow'] = 'Đóng cửa sổ này';
 $string['configfilenotwritten'] = 'Kịch bản cài đặt không có khả năng tự động tạo một file config.php file chứa các thiết lập chọn lựa của bạn, có thể thư mục Moodle không có khả năng ghi. Bạn có thể copy bằng tay đoạn mã sau vào một file đặt tên là config.php trong thư mục gốc của Moodle.';
 $string['configfilewritten'] = 'config.php được tạo một cách thành công';
+$string['continue'] = 'Tiếp tục';
 $string['database'] = 'Cơ sở dữ liệu';
 $string['dataroot'] = 'Thư mục dữ liệu';
 $string['datarooterror'] = ' \'Thư mục dữ liệu\' bạn chỉ ra không thể được tìm thấy hoặc được tạo. Hoặc đường dẫn đúng hoặc tạo thư mục   Either correct the path or create that directory manually.';
@@ -27,9 +27,8 @@ $string['dbtype'] = 'Type';
 $string['dirroot'] = 'Thư mục Moodle';
 $string['dirrooterror'] = '  Thiết lập \'Thư mục Moodle\' dường như không đúng - chúng tôi không thể tìm thấy các file cài đặt Moodle ở đó. Giá trị dưới đây được đặt lại.';
 $string['download'] = 'Tải xuống';
-$string['environmentrequireinstall'] = 'cần phải được cài hay kích hoạt.';
-$string['environmentrequireversion'] = 'Cần phiên bản $a->needed trong khi bạn đang dùng $a->current';
-$string['environmentxmlerror'] = 'Lỗi đọc dữ liệu môi trường ($a->error_code)';
+$string['environmentrequireinstall'] = 'cầnphải được cài hay kích hoạt.';
+$string['error'] = 'Lỗi';
 $string['fail'] = 'Thất bại';
 $string['fileuploads'] = 'File tải lên';
 $string['fileuploadserror'] = 'Điều này sẽ là';
@@ -53,8 +52,9 @@ $string['gdversionhelp'] = '<p> Máy chủ của bạn hình như không cài GD
 <p>Để thêm GD vào PHP dưới hệ điều hành Unix, biên dịch PHP sử dụng tham số--with-gd. </p>
 
 <p>Dưới hệ điều hành Windows bạn có thể soạn thảo file php.ini và bỏ dấu chú thích dòng tham chiếu đến php_gd2.dll.</p>';
-$string['info'] = 'Thông tin';
+$string['help'] = 'Trợ giúp';
 $string['installation'] = 'Cài đặt';
+$string['language'] = 'Ngôn ngữ';
 $string['magicquotesruntime'] = 'Magic Quotes Run Time';
 $string['magicquotesruntimeerror'] = 'Điều này nên là off';
 $string['magicquotesruntimehelp'] = '<p>Magic quotes runtime nên được tắt để Moodle hoạt động đúng.</p>
@@ -87,18 +87,19 @@ $string['memorylimithelp'] = '<p> PHP thiết lập giới hạn bộ nhớ cho 
     <p>Tuy nhiên, trên một số máy chủ điều này có thể ngăn cản <b>tất cả</b> các trang PHP làm việc 
     (bạn sẽ nhìn thấy các lỗi khi bạn xem xét những trang này )vì thế bạn sẽ pahỉ di chuyền file .htaccess.</p></li>
 </ol>';
-$string['moodledocslink'] = 'Tài liệu của Moodle cho trang này';
+$string['moodledocslink'] = 'Tài liệu cho trang này';
 $string['mysqlextensionisnotpresentinphp'] = 'PHP chưa được cấu hình thuộc tính với đuôi mở rộng MySQL với mục đích là để nó có thể làm việc tốt với MySQL. Vui lòng kiểm tra file php.ini hoặc biên dịch lại PHP.';
-$string['name'] = 'Tên';
-$string['parentlanguage'] = 'vi';
+$string['name'] = 'Tiêu đề';
+$string['next'] = 'Tiếp theo';
+$string['ok'] = 'Đồng ý';
 $string['pass'] = 'Pass';
+$string['password'] = 'Mật khẩu';
 $string['phpversion'] = 'Phiên bản PHP';
 $string['phpversionerror'] = 'Phiên bản PHP phải ít nhất là 4.1.0';
 $string['phpversionhelp'] = '<p>Moodle yêu cầu một phiên bản PHP ít nhất là 4.1.0.</p>
 <p>Bạn đang dùng phiên bản hiện hành $a</p>
 <p>Ban phải nâng cấp PHP hoặc di chuyển một máy chủ với một phiên bản PHP mới hơn!</p>';
-$string['report'] = 'Báo cáo';
-$string['restricted'] = 'Hạn chế';
+$string['previous'] = 'Trước';
 $string['safemode'] = 'Chế độ an toàn ';
 $string['safemodeerror'] = 'Moodle có thể gặp một số sự cố với chế độ an toàn';
 $string['safemodehelp'] = '<p>Moodle có thể có một số vấn đề với chế độ an toàn, 
@@ -108,16 +109,16 @@ $string['safemodehelp'] = '<p>Moodle có thể có một số vấn đề với 
    phải tìm cung cấp một công ty host web mới cho site Moodle của bạn.</p>
    
 <p>Bạn có thể thử tiếp tục cài đặt nếu bạn thích, nhưng có thể phát sinh một số vấn đề sau này.</p>';
-$string['serverchecks'] = 'Kiểm tra máy chủ';
 $string['sessionautostart'] = 'Bắt đầu tự động Session ';
 $string['sessionautostarterror'] = 'Điều này nên là tắt';
 $string['sessionautostarthelp'] = '<p>Moodle yêu cầu hỗ trợ session và sẽ không làm việc nếu không có nó.</p>
 
 <p>Sessions có thể được cho phép trong file php.ini ... tìm kiếm tham số session.auto_start.</p>';
+$string['status'] = 'Trạng thái';
 $string['thischarset'] = 'UTF-8';
 $string['thisdirection'] = 'ltr';
 $string['thislanguage'] = 'Vietnamese';
-$string['user'] = 'Thành viên';
+$string['user'] = 'Người dùng';
 $string['wwwroot'] = 'Địa chỉ web';
 $string['wwwrooterror'] = ' Địa chỉ web không hợp lệ - Các file cài đặt Moodle không xuất hiện ở đó.';
 ?>

@@ -147,7 +147,7 @@ echo '</div>';
 
 function search_spammers($keywords) {
 
-    global $CFG, $USER; 
+    global $CFG, $USER, $DB; 
 
     if (!is_array($keywords)) {
         $keywords = array($keywords);    // Make it into an array
