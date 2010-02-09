@@ -8071,7 +8071,7 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
         }
 
         //We compare Moodle's versions
-        if ($CFG->version < $info->backup_moodle_version && $status) {
+        if ($status && $CFG->version < $info->backup_moodle_version) {
             $message = new object();
             $message->serverversion = $CFG->version;
             $message->serverrelease = $CFG->release;
@@ -8140,8 +8140,9 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
         global $SESSION;
         $restore->backup_unique_code=$backup_unique_code;
         $restore->users = 2; // yuk
-        $restore->course_files = $SESSION->restore->restore_course_files;
-        $restore->site_files = $SESSION->restore->restore_site_files;
+        // we set these from restore object on silent restore and from info (backup) object on import
+        $restore->course_files = isset($SESSION->restore->restore_course_files) ? $SESSION->restore->restore_course_files : $SESSION->info->backup_course_files;
+        $restore->site_files = isset($SESSION->restore->restore_site_files) ? $SESSION->restore->restore_site_files : $SESSION->info->backup_site_files;
         if ($allmods = get_records("modules")) {
             foreach ($allmods as $mod) {
                 $modname = $mod->name;
@@ -8152,17 +8153,39 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
                 }
             }
         }
+        // Calculate all session objects checksum and store them in session too
+        // so restore_execute.html (used by manual restore and import) will be
+        // able to detect any problem in session info.
+        restore_save_session_object_checksums($restore, $SESSION->info, $SESSION->course_header);
+
         return true;
+    }
+
+    /**
+     * Save the checksum of the 3 main in-session restore objects (restore, info, course_header)
+     * so restore_execute.html will be able to check that all them have arrived correctly, without
+     * losing data for any type of session size limit/error. MDL-18469. Used both by manual restore
+     * and import
+     */
+    function restore_save_session_object_checksums($restore, $info, $course_header) {
+        global $SESSION;
+        $restore_checksums = array();
+        $restore_checksums['info']          = md5(serialize($info));
+        $restore_checksums['course_header'] = md5(serialize($course_header));
+        $restore_checksums['restore']       = md5(serialize($restore));
+        $SESSION->restore_checksums = $restore_checksums;
     }
 
     function backup_to_restore_array($backup,$k=0) {
         if (is_array($backup) ) {
+            $restore = array();
             foreach ($backup as $key => $value) {
                 $newkey = str_replace('backup','restore',$key);
                 $restore[$newkey] = backup_to_restore_array($value,$key);
             }
         }
         else if (is_object($backup)) {
+            $restore = new stdClass();
             $tmp = get_object_vars($backup);
             foreach ($tmp as $key => $value) {
                 $newkey = str_replace('backup','restore',$key);
@@ -8223,6 +8246,19 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
         //Location of the xml file
         $xml_file = $CFG->dataroot."/temp/backup/".$restore->backup_unique_code."/moodle.xml";
 
+        // Re-assure xml file is in place before any further process
+        if (! $status = restore_check_moodle_file($xml_file)) {
+            if (!is_file($xml_file)) {
+                $errorstr = 'Error checking backup file. moodle.xml not found. Session problem?';
+            } else {
+                $errorstr = 'Error checking backup file. moodle.xml is incorrect or corrupted. Session problem?';
+            }
+            if (!defined('RESTORE_SILENTLY')) {
+                notify($errorstr);
+            }
+            return false;
+        }
+
         //Preprocess the moodle.xml file spliting into smaller chucks (modules, users, logs...)
         //for optimal parsing later in the restore process.
         if (!empty($CFG->experimentalsplitrestore)) {
@@ -8231,10 +8267,9 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
             }
             //First of all, split moodle.xml into handy files
             if (!restore_split_xml ($xml_file, $restore)) {
+                $errorstr = "Error proccessing moodle.xml file. Process ended.";
                 if (!defined('RESTORE_SILENTLY')) {
-                    notify("Error proccessing moodle.xml file. Process ended.");
-                } else {
-                    $errorstr = "Error proccessing moodle.xml file. Process ended.";
+                    notify($errorstr);
                 }
                 return false;
             }
@@ -9384,6 +9419,29 @@ define('RESTORE_GROUPS_GROUPINGS', 3);
             assign_capability($override->capability, $override->permission, $override->roleid, $override->contextid);
         }
     }
+
+    /**
+     * true or false function to see if user can roll dates on restore (any course is enough)
+     * @return bool
+     */
+    function restore_user_can_roll_dates() {
+        global $USER;
+        // if user has moodle/restore:rolldates capability at system or any course cat return true
+
+        if (has_capability('moodle/restore:rolldates', get_context_instance(CONTEXT_SYSTEM))) {
+            return true;
+        }
+
+        // Non-cached - get accessinfo
+        if (isset($USER->access)) {
+            $accessinfo = $USER->access;
+        } else {
+            $accessinfo = get_user_access_sitewide($USER->id);
+        }
+        $courses = get_user_courses_bycap($USER->id, 'moodle/restore:rolldates', $accessinfo, true);
+        return !empty($courses);
+    }
+
     //write activity date changes to the html log file, and update date values in the the xml array
     function restore_log_date_changes($recordtype, &$restore, &$xml, $TAGS, $NAMETAG='NAME') {
 
