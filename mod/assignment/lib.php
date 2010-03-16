@@ -1161,13 +1161,13 @@ class assignment_base {
                'WHERE '.$where.'u.id IN ('.implode(',',$users).') ';
 
         $table->pagesize($perpage, count($users));
+
         ///offset used to calculate index of student in that particular query, needed for the pop up to know who's next
         $offset = $page * $perpage;
 
         $strupdate = get_string('update');
         $strgrade  = get_string('grade');
         $grademenu = make_grades_menu($this->assignment->grade);
-
 
         $files_tozip = array(); // zip assignment files
 
@@ -1181,8 +1181,11 @@ class assignment_base {
           $subuser = get_record('user', 'id', $sub->userid);
 
           if ($files = get_directory_list($fullpath, 'responses'))
-            foreach ($files as $key => $file)
-              $files_tozip[$file] = array('path' => $fullpath . "/" . $file . " ", 'author' => $subuser->firstname . " " . $subuser->lastname);
+            foreach ($files as $key => $file) {
+              array_push($files_tozip, array('file' => $file,
+                                             'path' => $fullpath . "/" . $file . " ",
+                                             'author' => $subuser->firstname . " " . $subuser->lastname));
+            }
         }
 
         if (($ausers = get_records_sql($select.$sql.$sort, $table->get_page_start(), $table->get_page_size())) !== false) {
@@ -1318,7 +1321,7 @@ class assignment_base {
                     }
                 }
 
-                                $userlink = '<a href="' . $CFG->wwwroot . '/user/view.php?id=' . $auser->id . '&amp;course=' . $course->id . '">' . fullname($auser) . '</a>';
+				$userlink = '<a href="' . $CFG->wwwroot . '/user/view.php?id=' . $auser->id . '&amp;course=' . $course->id . '">' . fullname($auser) . '</a>';
                 $row = array($picture, $userlink, $grade, $comment, $studentmodified, $teachermodified, $status, $finalgrade);
                 if ($uses_outcomes) {
                     $row[] = $outcomes;
@@ -1951,6 +1954,69 @@ class assignment_base {
 
         return $status;
     }
+
+    /**
+     * base implementation for backing up subtype specific information
+     * for one single module
+     *
+     * @param filehandle $bf file handle for xml file to write to
+     * @param mixed $preferences the complete backup preference object
+     *
+     * @return boolean
+     *
+     * @static
+     */
+    function backup_one_mod($bf, $preferences, $assignment) {
+        return true;
+    }
+
+    /**
+     * base implementation for backing up subtype specific information
+     * for one single submission
+     *
+     * @param filehandle $bf file handle for xml file to write to
+     * @param mixed $preferences the complete backup preference object
+     * @param object $submission the assignment submission db record
+     *
+     * @return boolean
+     *
+     * @static
+     */
+    function backup_one_submission($bf, $preferences, $assignment, $submission) {
+        return true;
+    }
+
+    /**
+     * base implementation for restoring subtype specific information
+     * for one single module
+     *
+     * @param array  $info the array representing the xml
+     * @param object $restore the restore preferences
+     *
+     * @return boolean
+     *
+     * @static
+     */
+    function restore_one_mod($info, $restore, $assignment) {
+        return true;
+    }
+
+    /**
+     * base implementation for restoring subtype specific information
+     * for one single submission
+     *
+     * @param object $submission the newly created submission
+     * @param array  $info the array representing the xml
+     * @param object $restore the restore preferences
+     *
+     * @return boolean
+     *
+     * @static
+     */
+    function restore_one_submission($info, $restore, $assignment, $submission) {
+        return true;
+    }
+
 } ////// End of the assignment_base class
 
 
@@ -2860,9 +2926,9 @@ function assignment_types() {
         $types[$name] = get_string('type'.$name, 'assignment');
 
         // ugly hack to support pluggable assignment type titles..
-        if ($types[$name] == '[[type'.$name.']]') {
+        if ($types[$name] == '[[type'.$name.']]') { 
             $types[$name] = get_string('type'.$name, 'assignment_'.$name);
-        }
+        } 
     }
     asort($types);
     return $types;
@@ -2926,11 +2992,11 @@ function assignment_print_overview($courses, &$htmlarray) {
     $strreviewed = get_string('reviewed','assignment');
 
 
-    // NOTE: we do all possible database work here *outside* of the loop to ensure this scales
-
+    // NOTE: we do all possible database work here *outside* of the loop to ensure this scales 
+    
     // build up and array of unmarked submissions indexed by assigment id/ userid
     // for use where the user has grading rights on assigment
-    $rs = get_recordset_sql("SELECT id, assignment, userid
+    $rs = get_recordset_sql("SELECT id, assignment, userid 
                             FROM {$CFG->prefix}assignment_submissions
                             WHERE teacher = 0 AND timemarked = 0
                             AND assignment IN (". implode(',', $assignmentids).")");
@@ -2944,8 +3010,8 @@ function assignment_print_overview($courses, &$htmlarray) {
 
     // get all user submissions, indexed by assigment id
     $mysubmissions = get_records_sql("SELECT assignment, timemarked, teacher, grade
-                                      FROM {$CFG->prefix}assignment_submissions
-                                      WHERE userid = {$USER->id} AND
+                                      FROM {$CFG->prefix}assignment_submissions 
+                                      WHERE userid = {$USER->id} AND 
                                       assignment IN (".implode(',', $assignmentids).")");
 
     foreach ($assignments as $assignment) {

@@ -22,10 +22,10 @@ $zip_path       = $CFG->dataroot . "/temp/" . $zip_file;
 
 // Organize filenames
 $zip_files = array();
-foreach ($zipinfo['files'] as $filename => $file) {
+foreach ($zipinfo['files'] as $file) {
   array_push($zip_files,
              array('file_location' => chop($file['path']),
-                   'new_name' =>  $name . '/' . $file['author'] . '_' . $filename));
+                   'new_name' =>  $name . '/' . $file['author'] . '_' . $file['file']));
 }
 
 /* Build the zip archive.
