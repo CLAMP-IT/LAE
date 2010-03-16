@@ -53,10 +53,7 @@
         error('Sorry, you do not have the correct permissions to use Quickmail.');
     }
 
-    // TO DO: Revise quickmail to auto-install support for the block/quickmail:canrecv capability.
-    // This code is commmented out because Quickmail will not function out-of-the-box with 'canrecv' logic in place
-    // if (!$courseusers = get_users_by_capability($context, 'block/quickmail:canrecv', 'u.*', 'u.lastname, u.firstname', '', '', '', '', false)) {
-    if (!$courseusers = get_users_by_capability($context, 'moodle/course:view', 'u.*', 'u.lastname, u.firstname', '', '', '', '', false)) {
+    if (!$courseusers = get_users_by_capability($context, 'block/quickmail:canrecv', 'u.*', 'u.lastname, u.firstname', '', '', '', '', false)) {
         error('No course users found to email');
     }
 

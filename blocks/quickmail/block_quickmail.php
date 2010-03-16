@@ -28,7 +28,7 @@ class block_quickmail extends block_list {
      **/
     function init() {
         $this->title = get_string('blockname', 'block_quickmail');
-        $this->version = 2008071601; // 2006021501;  // YYYYMMDDXX
+        $this->version = 2010012801; // 2006021501;  // YYYYMMDDXX
     }
     
     /**
