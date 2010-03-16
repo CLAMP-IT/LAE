@@ -98,6 +98,8 @@ function forum_add_instance($forum) {
  * @return bool success
  */
 function forum_update_instance($forum) {
+    global $USER;
+
     $forum->timemodified = time();
     $forum->id           = $forum->instance;
 
@@ -151,6 +153,7 @@ function forum_update_instance($forum) {
         $post->subject  = $forum->name;
         $post->message  = $forum->intro;
         $post->modified = $forum->timemodified;
+        $post->userid   = $USER->id;    // MDL-18599, so that current teacher can take ownership of activities
 
         if (! update_record('forum_posts', ($post))) {
             error('Could not update the first post');
@@ -1064,7 +1067,7 @@ function forum_print_overview($courses,&$htmlarray) {
     }
     $sql = substr($sql,0,-3); // take off the last OR
 
-    $sql .= ") AND l.module = 'forum' AND action $LIKE 'add post%' "
+    $sql .= ") AND l.module = 'forum' AND action = 'add post' "
         ." AND userid != ".$USER->id." GROUP BY cmid,l.course,instance";
 
     if (!$new = get_records_sql($sql)) {
@@ -3741,7 +3744,12 @@ function forum_file_area_name($post) {
  *
  */
 function forum_file_area($post) {
-    return make_upload_directory( forum_file_area_name($post) );
+    $path = forum_file_area_name($post);
+    if ($path) {
+        return make_upload_directory($path);
+    } else {
+        return false;
+    }
 }
 
 /**
