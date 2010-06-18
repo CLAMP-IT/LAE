@@ -142,7 +142,6 @@ class user_editadvanced_form extends moodleform {
             }
             //check allowed characters
             if ($usernew->username !== moodle_strtolower($usernew->username)) {
-                echo 'grrrr';
                 $err['username'] = get_string('usernamelowercase');
             } else {
                 if (empty($CFG->extendedusernamechars)) {

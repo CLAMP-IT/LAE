@@ -298,7 +298,7 @@
     echo '    <div id="wikiPageActions">
     ';
     /// The top row contains links to other wikis, if applicable.
-    if ($wiki_list = wiki_get_other_wikis($wiki, $USER, $course, $wiki_entry->id)) {
+    if ($wiki_entry && $wiki_list = wiki_get_other_wikis($wiki, $USER, $course, $wiki_entry->id)) {
         //echo "wiki list ";print_r($wiki_list);
         $selected="";
         
