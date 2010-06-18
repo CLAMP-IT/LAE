@@ -52,7 +52,7 @@ class flexible_table {
     }
     
     /**
-     * Sets the is_sortable variable to the given boolean, sort_default_column to 
+     * Sets the is_sortable variable to the given boolean, sort_default_column to
      * the given string, and the sort_default_order to the given integer.
      * @param bool $bool
      * @param string $defaultcolumn
@@ -155,7 +155,7 @@ class flexible_table {
     /**
      * I think that what this method does is set the column so that if the same data appears in 
      * consecutive rows, then it is not repeated.
-     * 
+     *
      * For example, in the quiz overview report, the fullname column is set to be suppressed, so
      * that when one student has made multiple attempts, their name is only printed in the row
      * for their first attempt.
@@ -211,10 +211,9 @@ class flexible_table {
      */
     function define_baseurl($url) {
         $this->reseturl = $url;
-        if(!strpos($url, '?')) {
+        if (!strpos($url, '?')) {
             $this->baseurl = $url.'?';
-        }
-        else {
+        } else {
             $this->baseurl = $url.'&amp;';
         }
     }
@@ -424,7 +423,6 @@ class flexible_table {
         } else if (!in_array('flexible', explode(' ', $this->attributes['class']))) {
             $this->attributes['class'] = trim('flexible ' . $this->attributes['class']);
         }
-
     }
 
     /**
@@ -658,8 +656,21 @@ class flexible_table {
                         $fsortorder = get_string('asc');
                         $lsortorder = get_string('asc');
                     }
-                    $this->headers[$index] = '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=firstname">'.get_string('firstname').get_accesshide(get_string('sortby').' '.get_string('firstname').' '.$fsortorder).'</a> '.$icon_sort_first.' / '.
-                                          '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=lastname">'.get_string('lastname').get_accesshide(get_string('sortby').' '.get_string('lastname').' '.$lsortorder).'</a> '.$icon_sort_last;
+
+                    $override = new object();
+                    $override->firstname = 'firstname';
+                    $override->lastname = 'lastname';
+                    $fullnamelanguage = get_string('fullnamedisplay', '', $override);
+                    
+                    if (($CFG->fullnamedisplay == 'firstname lastname') or
+                        ($CFG->fullnamedisplay == 'firstname') or
+                        ($CFG->fullnamedisplay == 'language' and $fullnamelanguage == 'firstname lastname' )) {
+                        $this->headers[$index] = '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=firstname">'.get_string('firstname').get_accesshide(get_string('sortby').' '.get_string('firstname').' '.$fsortorder).'</a> '.$icon_sort_first.' / '.
+                                                 '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=lastname">'.get_string('lastname').get_accesshide(get_string('sortby').' '.get_string('lastname').' '.$lsortorder).'</a> '.$icon_sort_last;
+                    } else { 
+                        $this->headers[$index] = '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=lastname">'.get_string('lastname').get_accesshide(get_string('sortby').' '.get_string('lastname').' '.$lsortorder).'</a> '.$icon_sort_last.' / '.
+                                                 '<a href="'.$this->baseurl.$this->request[TABLE_VAR_SORT].'=firstname">'.get_string('firstname').get_accesshide(get_string('sortby').' '.get_string('firstname').' '.$fsortorder).'</a> '.$icon_sort_first;
+                    } 
                 }
                 break;
 
@@ -774,16 +785,15 @@ class flexible_table {
         }
         $this->data[] = NULL;
     }
-    
+
     /**
-     * Add a row of data to the table. This function takes an array with 
-     * column names as keys. 
+     * Add a row of data to the table. This function takes an array with
+     * column names as keys.
      * It ignores any elements with keys that are not defined as columns. It
      * puts in empty strings into the row when there is no element in the passed
      * array corresponding to a column in the table. It puts the row elements in
      * the proper order.
      * @param $rowwithkeys array
-     * 
      */
     function add_data_keyed($rowwithkeys){
         foreach (array_keys($this->columns) as $column){

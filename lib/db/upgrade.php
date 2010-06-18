@@ -19,7 +19,7 @@
 
 function xmldb_main_upgrade($oldversion=0) {
 
-    global $CFG, $THEME, $USER, $db;
+    global $CFG, $THEME, $USER, $SITE, $db;
 
     $result = true;
 
@@ -3184,6 +3184,167 @@ function xmldb_main_upgrade($oldversion=0) {
         }
         upgrade_main_savepoint($result, 2007101551);
     }
+
+    if ($result && $oldversion < 2007101561.01) {
+        // As part of security changes password policy will now be enabled by default.
+        // If it has not already been enabled then we will enable it... Admins will still
+        // be able to switch it off after this upgrade
+        if (record_exists('config', 'name', 'passwordpolicy', sql_compare_text('value'), 0)) {
+            unset_config('passwordpolicy');
+        }
+
+        $message = get_string('upgrade197notice', 'admin');
+        if (empty($CFG->passwordsaltmain)) {
+            $docspath = $CFG->docroot.'/'.str_replace('_utf8', '', current_language()).'/report/security/report_security_check_passwordsaltmain';
+            $message .= "\n".get_string('upgrade197salt', 'admin', $docspath);
+        }
+        notify($message, 'notifysuccess');
+
+        unset($message);
+
+        upgrade_main_savepoint($result, 2007101561.01);
+    }
+
+    if ($result && $oldversion < 2007101561.02) {
+        $messagesubject = s($SITE->shortname).': '.get_string('upgrade197noticesubject', 'admin');
+        $message  = '<p>'.s($SITE->fullname).' ('.s($CFG->wwwroot).'):</p>'.get_string('upgrade197notice', 'admin');
+        if (empty($CFG->passwordsaltmain)) {
+            $docspath = $CFG->docroot.'/'.str_replace('_utf8', '', current_language()).'/report/security/report_security_check_passwordsaltmain';
+            $message .= "\n".get_string('upgrade197salt', 'admin', $docspath);
+        }
+
+        // Force administrators to change password on next login
+        $systemcontext = get_context_instance(CONTEXT_SYSTEM);
+        $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.picture, u.imagealt, u.email, u.password, u.mailformat
+              FROM {$CFG->prefix}role_capabilities rc
+              JOIN {$CFG->prefix}role_assignments ra ON (ra.contextid = rc.contextid AND ra.roleid = rc.roleid)
+              JOIN {$CFG->prefix}user u ON u.id = ra.userid
+             WHERE rc.capability = 'moodle/site:doanything'
+                   AND rc.permission = ".CAP_ALLOW."
+                   AND u.deleted = 0
+                   AND rc.contextid = ".$systemcontext->id." AND (u.auth='manual' OR u.auth='email')";
+
+        $adminusers = get_records_sql($sql);
+        foreach ($adminusers as $adminuser) {
+            if ($preference = get_record('user_preferences', 'userid', $adminuser->id, 'name', 'auth_forcepasswordchange')) {
+                if ($preference->value == '1') {
+                    continue;
+                }
+                set_field('user_preferences', 'value', '1', 'id', $preference->id);
+            } else {
+                $preference = new stdClass;
+                $preference->userid = $adminuser->id;
+                $preference->name   = 'auth_forcepasswordchange';
+                $preference->value  = '1';
+                insert_record('user_preferences', $preference);
+            }
+            $adminuser->maildisplay = 0; // do not use return email to self, it might actually help emails to get through and prevents notices
+            // Message them with the notice about upgrading
+            email_to_user($adminuser, $adminuser, $messagesubject, html_to_text($message), $message);
+        }
+
+        unset($adminusers);
+        unset($preference);
+        unset($message);
+        unset($messagesubject);
+
+        upgrade_main_savepoint($result, 2007101561.02);
+    }
+
+    if ($result && $oldversion < 2007101563.02) {
+        // this block tries to undo incorrect forcing of new passwords for admins that have no
+        // way to change passwords MDL-20933
+        $systemcontext = get_context_instance(CONTEXT_SYSTEM);
+        $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.picture, u.imagealt, u.email, u.password
+                  FROM {$CFG->prefix}role_capabilities rc
+                  JOIN {$CFG->prefix}role_assignments ra ON (ra.contextid = rc.contextid AND ra.roleid = rc.roleid)
+                  JOIN {$CFG->prefix}user u ON u.id = ra.userid
+                 WHERE rc.capability = 'moodle/site:doanything'
+                       AND rc.permission = ".CAP_ALLOW."
+                       AND u.deleted = 0
+                       AND rc.contextid = ".$systemcontext->id." AND u.auth<>'manual' AND u.auth<>'email'";
+
+        if ($adminusers = get_records_sql($sql)) {
+            foreach ($adminusers as $adminuser) {
+                delete_records('user_preferences', 'userid', $adminuser->id, 'name', 'auth_forcepasswordchange');
+            }
+        }
+        unset($adminusers);
+
+        upgrade_main_savepoint($result, 2007101563.02);
+    }
+
+    if ($result && $oldversion < 2007101563.03) {
+        // NOTE: this is quite hacky, but anyway it should work fine in 1.9,
+        //       in 2.0 we should always use plugin upgrade code for things like this
+
+        $authsavailable = get_list_of_plugins('auth');
+        foreach($authsavailable as $authname) {
+            if (!$auth = get_auth_plugin($authname)) {
+                continue;
+            }
+            if ($auth->prevent_local_passwords()) {
+                execute_sql("UPDATE {$CFG->prefix}user SET password='not cached' WHERE auth='$authname'");
+            }
+        }
+
+        upgrade_main_savepoint($result, 2007101563.03);
+    }
+
+    if ($result && $oldversion < 2007101571.01) {
+        // MDL-21011 bring down course sort orders away from maximum values
+        $sql = "SELECT id, category, sortorder from {$CFG->prefix}course
+                ORDER BY sortorder ASC;";
+        if ($courses = get_recordset_sql($sql)) {
+            $i=1000;
+            $old_category = 0;
+            while ($course = rs_fetch_next_record($courses)) {
+                if($course->category!=$old_category) {
+                    //increase i to put a gap between courses in different categories
+                    //don't think we need to but they had one before
+                    $i += 1000;
+                    $old_category = $course->category;
+                }
+                set_field('course', 'sortorder', $i++, 'id', $course->id);
+            }
+            rs_close($courses);
+        }
+        unset($courses);
+
+        upgrade_main_savepoint($result, 2007101571.01);
+    }
+
+    if ($result && $oldversion < 2007101571.02) {
+        upgrade_fix_incorrect_mnethostids();
+        upgrade_main_savepoint($result, 2007101571.02);
+    }
+
+    /// MDL-17863. Increase the portno column length on mnet_host to handle any port number
+    if ($result && $oldversion < 2007101571.03) {
+        $table = new XMLDBTable('mnet_host');
+        $field = new XMLDBField('portno');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '5', true, true, null, false, false, 0);
+        $result = change_field_precision($table, $field);
+        upgrade_main_savepoint($result, 2007101571.03);
+    }
+
+    // MDL-21407. Trim leading spaces from default tex latexpreamble causing problems under some confs
+    if ($result && $oldversion < 2007101571.04) {
+        if ($preamble = $CFG->filter_tex_latexpreamble) {
+            $preamble = preg_replace('/^ +/m', '', $preamble);
+            set_config('filter_tex_latexpreamble', $preamble);
+        }
+        upgrade_main_savepoint($result, 2007101571.04);
+    }
+
+    if ($result && $oldversion < 2007101571.05) {
+        // make the session regeneration setting enabled by default
+        if (empty($CFG->regenloginsession)) {
+            unset_config('regenloginsession');
+        }
+        upgrade_main_savepoint($result, 2007101571.05);
+    }
+
     return $result;
 }
 

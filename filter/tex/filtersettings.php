@@ -5,9 +5,8 @@ require_once($CFG->dirroot.'/filter/tex/lib.php');
 $items = array();
 $items[] = new admin_setting_heading('filter_tex_latexheading', get_string('latexsettings', 'admin'), '');
 $items[] = new admin_setting_configtextarea('filter_tex_latexpreamble', get_string('latexpreamble','admin'),
-               '', " \\usepackage[latin1]{inputenc}\n \\usepackage{amsmath}\n \\usepackage{amsfonts}\n \\RequirePackage{amsmath,amssymb,latexsym}\n");
+               '', "\\usepackage[latin1]{inputenc}\n\\usepackage{amsmath}\n\\usepackage{amsfonts}\n\\RequirePackage{amsmath,amssymb,latexsym}\n");
 $items[] = new admin_setting_configtext('filter_tex_latexbackground', get_string('backgroundcolour', 'admin'), '', '#FFFFFF');
-$items[] = new admin_setting_configtext('filter_tex_density', get_string('density', 'admin'), '', '120', PARAM_INT);
 $items[] = new admin_setting_configtext('filter_tex_density', get_string('density', 'admin'), '', '120', PARAM_INT);
 
 if (PHP_OS=='Linux') {
@@ -37,6 +36,12 @@ if (PHP_OS=='Linux') {
 $items[] = new admin_setting_configexecutable('filter_tex_pathlatex', get_string('pathlatex', 'admin'), '', $default_filter_tex_pathlatex);
 $items[] = new admin_setting_configexecutable('filter_tex_pathdvips', get_string('pathdvips', 'admin'), '', $default_filter_tex_pathdvips);
 $items[] = new admin_setting_configexecutable('filter_tex_pathconvert', get_string('pathconvert', 'admin'), '', $default_filter_tex_pathconvert);
+
+// Even if we offer GIF and PNG formats here, in the update callback we check whether
+// all the paths actually point to executables. If they don't, we force the setting 
+// to GIF, as that's the only format mimeTeX can produce.
+$formats = array('gif' => 'GIF', 'png' => 'PNG');
+$items[] = new admin_setting_configselect('filter_tex_convertformat', get_string('convertformat', 'admin'), get_string('configconvertformat', 'admin'), 'gif', $formats);
 
 foreach ($items as $item) {
     $item->set_updatedcallback('filter_tex_updatedcallback');

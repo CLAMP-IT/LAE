@@ -92,6 +92,10 @@ global $HTTPSPAGEREQUIRED;
 /// sometimes default PHP settings are borked on shared hosting servers, I wonder why they have to do that??
     @ini_set('precision', 14); // needed for upgrades and gradebook
 
+/// New versions of HTML Purifier are not compatible with PHP 4
+    if (version_compare(phpversion(), "5.0.5") < 0) {
+        $CFG->enablehtmlpurifier = 0;
+    }
 
 /// store settings from config.php in array in $CFG - we can use it later to detect problems and overrides
     $CFG->config_php_settings = (array)$CFG;
@@ -255,7 +259,6 @@ global $HTTPSPAGEREQUIRED;
     } else {
         $originaldatabasedebug = -1;
     }
-
 
 /// For now, only needed under apache (and probably unstable in other contexts)
     if (function_exists('register_shutdown_function')) {
@@ -566,10 +569,7 @@ global $HTTPSPAGEREQUIRED;
     if (!empty($_COOKIE['MoodleSessionTest'.$CFG->sessioncookie]) && $_COOKIE['MoodleSessionTest'.$CFG->sessioncookie] == "deleted") {
         unset($_COOKIE['MoodleSessionTest'.$CFG->sessioncookie]);
     }
-    if (!empty($CFG->usesid) && empty($_COOKIE['MoodleSession'.$CFG->sessioncookie])) {
-        require_once("$CFG->dirroot/lib/cookieless.php");
-        sid_start_ob();
-    }
+
 
     if (empty($nomoodlecookie)) {
         session_name('MoodleSession'.$CFG->sessioncookie);
@@ -618,7 +618,9 @@ global $HTTPSPAGEREQUIRED;
         $FULLME = qualified_me();
         $ME = strip_querystring($FULLME);
     }
-
+    if (!empty($CFG->usesid) && empty($_COOKIE['MoodleSession'.$CFG->sessioncookie])) {
+        require_once("$CFG->dirroot/lib/cookieless.php");
+    }
 /// In VERY rare cases old PHP server bugs (it has been found on PHP 4.1.2 running
 /// as a CGI under IIS on Windows) may require that you uncomment the following:
 //  session_register("USER");

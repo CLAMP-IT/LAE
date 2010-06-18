@@ -37,7 +37,7 @@
         // make sure this user is enrolled in this course and can access this HotPot
         require_login($course);
         $context = get_context_instance(CONTEXT_MODULE, $cm->id);
-        require_capability('mod/hotpot:attempt', $context);
+        require_capability('mod/hotpot:attempt', $context, $USER->id);
     }
     // set nextpage (for error messages)
     $nextpage = "$CFG->wwwroot/course/view.php?id=$course->id";
@@ -141,6 +141,7 @@
             // HP5 v5
             $get_html = empty($framename) ? true : false;
         }
+        
         if ($get_html) {
 
             if (HOTPOT_FIRST_ATTEMPT) {
@@ -163,8 +164,43 @@
                         $hp->insert_giveup_form($attemptid, '<!-- BeginTopNavButtons -->', '<!-- EndTopNavButtons -->');
                         break;
                     case HOTPOT_NAVIGATION_FRAME:
-                        $targetframe = $CFG->framename;
-                        // drop through to remove nav buttons too
+                    case HOTPOT_NAVIGATION_IFRAME:
+                        if (empty($CFG->framename)) {
+                            $targetframe = '_top';
+                        } else {
+                            $targetframe = $CFG->framename;
+                        }
+                        if ($pos = strpos($hp->html, '</body>')) {
+                            $insert = ''
+                                .'<script type="text/javascript">'."\n"
+                                .'//<![CDATA['."\n"
+                                ."var obj = document.getElementsByTagName('a');\n"
+                                ."if (obj) {\n"
+                                ."	var i_max = obj.length;\n"
+                                ."	for (var i=0; i<i_max; i++) {\n"
+                                ."		if (obj[i].href && ! obj[i].target) {\n"
+                                ."			obj[i].target = '$targetframe';\n"
+                                ."		}\n"
+                                ."	}\n"
+                                ."	var obj = null;\n"
+                                ."}\n"
+                                ."var obj = document.getElementsByTagName('form');\n"
+                                ."if (obj) {\n"
+                                ."	var i_max = obj.length;\n"
+                                ."	for (var i=0; i<i_max; i++) {\n"
+                                ."		if (obj[i].action && ! obj[i].target) {\n"
+                                ."			obj[i].target = '$targetframe';\n"
+                                ."		}\n"
+                                ."	}\n"
+                                ."	var obj = null;\n"
+                                ."}\n"
+                                .'//]]>'."\n"
+                                .'</script>'."\n"
+                            ;
+                            $hp->html = substr_replace($hp->html, $insert, $pos, 0);
+                        }
+                        $hp->remove_nav_buttons();
+                        break;
                     default:
                         $hp->remove_nav_buttons();
                 }
@@ -375,7 +411,8 @@
     switch ($hotpot->navigation) {
         case HOTPOT_NAVIGATION_BAR:
             //update_module_button($cm->id, $course->id, $strmodulename.'" style="font-size:0.8em')
-            print_header($title, $heading, $navigation, "", $head.$styles.$scripts, true, $button, $loggedinas, false, $body_tags
+            print_header(
+                $title, $heading, $navigation, "", $head.$styles.$scripts, true, $button, $loggedinas, false, $body_tags
             );
             if (!empty($available_msg)) {
                 notify($available_msg);
@@ -425,23 +462,57 @@
                     print $hp->html;
                 break;
                 default:
-                    $iframe_id = 'hotpot_iframe';
-                    $body_tags = " onload=\"set_iframe_height('$iframe_id')\"";
-                    $iframe_js = '<script src="iframe.js" type="text/javascript"></script>'."\n";
+                    // set iframe attributes
+                    $iframe_id = 'hotpot_embed_object';
+                    $iframe_name = 'hotpot_embed_iframe';
+                    $iframe_width = '100%';
+                    $iframe_height = '100%';
+                    $iframe_src = $CFG->wwwroot.'/mod/hotpot/view.php?id='.$cm->id.'&amp;framename=main';
+                    $iframe_onload_function = 'set_embed_object_height';
+                    $iframe_js = '<script src="'.$CFG->wwwroot.'/mod/hotpot/iframe.js" type="text/javascript"></script>'."\n";
+
                     print_header(
                         $title, $heading, $navigation,
                         "", $head.$styles.$scripts.$iframe_js, true, $button,
-                        $loggedinas, false, $body_tags
+                        $loggedinas, false
                     );
                     if (!empty($available_msg)) {
                         notify($available_msg);
                     }
-                    print "<iframe id=\"$iframe_id\" src=\"view.php?id=$cm->id&amp;framename=main\" height=\"100%\" width=\"100%\">";
-                    print "<ilayer name=\"$iframe_id\" src=\"view.php?id=$cm->id&amp;framename=main\" height=\"100%\" width=\"100%\">";
-                    print "</ilayer>\n";
-                    print "</iframe>\n";
+
+                    // for XHTML 1.0 Strict compatability, the embedded page should be implemented
+                    // using an <object> not an <iframe>. However, IE <object>'s are problematic
+                    // (links and forms cannot escape), so we use conditional comments to display
+                    // an <iframe> in IE and an <object> in other browsers
+
+                    // print the html element to hold the embedded html page
+                    // Note: the iframe in IE needs a "name" attribute for the resizing to work
+                    print '<!--[if IE]>'."\n";
+                    print '<iframe name="'.$iframe_name.'" id="'.$iframe_id.'" src="'.$iframe_src.'" width="'.$iframe_width.'" height="'.$iframe_height.'"></iframe>'."\n";
+                    print '<![endif]-->'."\n";
+                    print '<!--[if !IE]> <-->'."\n";
+                    print '<object id="'.$iframe_id.'" type="text/html" data="'.$iframe_src.'" width="'.$iframe_width.'" height="'.$iframe_height.'"></object>'."\n";
+                    print '<!--> <![endif]-->'."\n";
+
+                    // print javascript to add onload event handler - we do this here because
+                    // an object tag should have no onload attribute in XHTML 1.0 Strict
+                    print '<script type="text/javascript">'."\n";
+                    print '//<![CDATA['."\n";
+                    print "var obj = document.getElementById('$iframe_id');\n";
+                    print "if (obj) {\n";
+                    print "	if (obj.addEventListener) {\n";
+                    print "		obj.addEventListener('load', $iframe_onload_function, false);\n";
+                    print "	} else if (obj.attachEvent) {\n";
+                    print "		obj.attachEvent('onload', $iframe_onload_function);\n";
+                    print "	} else {\n";
+                    print "		obj['onload'] = $iframe_onload_function;\n";
+                    print "	}\n";
+                    print "}\n";
+                    print "obj = null;\n";
+                    print '//]]>'."\n";
+                    print '</script>'."\n";
+
                     print $footer;
-                break;
             } // end switch $framename
         break;
         case HOTPOT_NAVIGATION_GIVEUP:

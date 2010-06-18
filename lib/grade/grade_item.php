@@ -591,13 +591,25 @@ class grade_item extends grade_object {
     function set_hidden($hidden, $cascade=false) {
         $this->hidden = $hidden;
         $this->update();
-
+        
         if ($cascade) {
             if ($grades = grade_grade::fetch_all(array('itemid'=>$this->id))) {
                 foreach($grades as $grade) {
                     $grade->grade_item =& $this;
                     $grade->set_hidden($hidden, $cascade);
                 }
+            }
+        }
+
+        //if marking item visible make sure category is visible MDL-21367
+        if( !$hidden ) {
+            $category_array = grade_category::fetch_all(array('id'=>$this->categoryid));
+            if ($category_array && array_key_exists($this->categoryid, $category_array)) {
+                $category = $category_array[$this->categoryid];
+                //call set_hidden on the category regardless of whether it is hidden as its parent might be hidden
+                //if($category->is_hidden()) {
+                    $category->set_hidden($hidden, false);
+                //}
             }
         }
     }
@@ -871,7 +883,7 @@ class grade_item extends grade_object {
      * @return object Grade_category
      */
     function load_item_category() {
-        if (empty($this->category->id)) {
+        if (empty($this->item_category->id)) {
             $this->item_category = $this->get_item_category();
         }
         return $this->item_category;
@@ -1436,8 +1448,6 @@ class grade_item extends grade_object {
         if ($finalgrade !== false) {
             if ($this->is_overridable_item()) {
                 $grade->overridden = time();
-            } else {
-                $grade->overridden = 0;
             }
 
             $grade->finalgrade = $this->bounded_grade($finalgrade);
@@ -1462,7 +1472,7 @@ class grade_item extends grade_object {
         } else if (grade_floats_different($grade->finalgrade, $oldgrade->finalgrade)
                 or $grade->feedback       !== $oldgrade->feedback
                 or $grade->feedbackformat != $oldgrade->feedbackformat
-                or $grade->overridden     != $oldgrade->overridden) {
+                or ($oldgrade->overridden == 0 and $grade->overridden > 0)) {
             $grade->timemodified = time(); // hack alert - date graded
             $result = $grade->update($source);
         } else {

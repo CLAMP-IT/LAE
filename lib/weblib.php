@@ -119,7 +119,7 @@ $ALLOWED_PROTOCOLS = array('http', 'https', 'ftp', 'news', 'mailto', 'rtsp', 'te
  */
 function s($var, $strip=false) {
 
-    if ($var == '0') {  // for integer 0, boolean false, string '0'
+    if ($var === '0' or $var === false or $var === 0) {
         return '0';
     }
 
@@ -2019,6 +2019,7 @@ function clean_text($text, $format=FORMAT_MOODLE) {
         default:
 
             if (!empty($CFG->enablehtmlpurifier)) {
+                //this is PHP5 only, the lib/setup.php contains a disabler for PHP4
                 $text = purify_html($text);
             } else {
             /// Fix non standard entity notations
@@ -2046,24 +2047,29 @@ function clean_text($text, $format=FORMAT_MOODLE) {
 
 /**
  * KSES replacement cleaning function - uses HTML Purifier.
+ *
+ * @global object
+ * @param string $text The (X)HTML string to purify
  */
 function purify_html($text) {
     global $CFG;
 
     // this can not be done only once because we sometimes need to reset the cache
-    $cachedir = $CFG->dataroot.'/cache/htmlpurifier/';
+    $cachedir = $CFG->dataroot.'/cache/htmlpurifier';
     $status = check_dir_exists($cachedir, true, true);
 
     static $purifier = false;
+    static $config;
     if ($purifier === false) {
-        require_once $CFG->libdir.'/htmlpurifier/HTMLPurifier.auto.php';
+        require_once $CFG->libdir.'/htmlpurifier/HTMLPurifier.safe-includes.php';
         $config = HTMLPurifier_Config::createDefault();
-        $config->set('Core', 'AcceptFullDocuments', false);
-        $config->set('Core', 'Encoding', 'UTF-8');
-        $config->set('HTML', 'Doctype', 'XHTML 1.0 Transitional');
-        $config->set('Cache', 'SerializerPath', $cachedir);
-        $config->set('URI', 'AllowedSchemes', array('http'=>1, 'https'=>1, 'ftp'=>1, 'irc'=>1, 'nntp'=>1, 'news'=>1, 'rtsp'=>1, 'teamspeak'=>1, 'gopher'=>1, 'mms'=>1));
-        $config->set('Attr', 'AllowedFrameTargets', array('_blank'));
+        $config->set('Output.Newline', "\n");
+        $config->set('Core.ConvertDocumentToFragment', true);
+        $config->set('Core.Encoding', 'UTF-8');
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+        $config->set('Cache.SerializerPath', $cachedir);
+        $config->set('URI.AllowedSchemes', array('http'=>1, 'https'=>1, 'ftp'=>1, 'irc'=>1, 'nntp'=>1, 'news'=>1, 'rtsp'=>1, 'teamspeak'=>1, 'gopher'=>1, 'mms'=>1));
+        $config->set('Attr.AllowedFrameTargets', array('_blank'));
         $purifier = new HTMLPurifier($config);
     }
     return $purifier->purify($text);
@@ -2133,6 +2139,7 @@ function cleanAttributes2($htmlArray){
                 }
             }
             $arreach['value'] = preg_replace("/j\s*a\s*v\s*a\s*s\s*c\s*r\s*i\s*p\s*t/i", "Xjavascript", $arreach['value']);
+            $arreach['value'] = preg_replace("/v\s*b\s*s\s*c\s*r\s*i\s*p\s*t/i", "Xvbscript", $arreach['value']);
             $arreach['value'] = preg_replace("/e\s*x\s*p\s*r\s*e\s*s\s*s\s*i\s*o\s*n/i", "Xexpression", $arreach['value']);
             $arreach['value'] = preg_replace("/b\s*i\s*n\s*d\s*i\s*n\s*g/i", "Xbinding", $arreach['value']);
         } else if ($arreach['name'] == 'href') {
@@ -2309,10 +2316,10 @@ function convert_urls_into_links(&$text) {
     //<a href="blah">
     //&lt;a href="blah"&gt;
     //&lt;a href="blah">
-    $filterignoretagsopen  = array('<a\s[^>]+?>', '<img\s[^>]+?>');
-    $filterignoretagsclose = array('</a>','');
+    $filterignoretagsopen  = array('<a\s[^>]+?>');
+    $filterignoretagsclose = array('</a>');
     filter_save_ignore_tags($text,$filterignoretagsopen,$filterignoretagsclose,$ignoretags);
-    
+
     // Check if we support unicode modifiers in regular expressions. Cache it.
     // TODO: this check should be a environment requirement in Moodle 2.0, as far as unicode
     // chars are going to arrive to URLs officially really soon (2010?)
@@ -2324,15 +2331,16 @@ function convert_urls_into_links(&$text) {
         $unicoderegexp = @preg_match('/\pL/u', 'a'); // This will fail silenty, returning false,
     }
 
+    $unicoderegexp = false;//force non use of unicode modifiers. MDL-21296
     if ($unicoderegexp) { //We can use unicode modifiers
-        $text = preg_replace('#(((http(s?))://)(((([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+        $text = preg_replace('#(?<!=["\'])(((http(s?))://)(((([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?([\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]|%[a-fA-F0-9]{2})*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?)(?<![,\.;])#iu',
                              '<a href="\\1" target="_blank">\\1</a>', $text);
-        $text = preg_replace('#((www\.([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl])(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+        $text = preg_replace('#(?<!=["\']|//)((www\.([\pLl0-9]([\pLl0-9]|-)*[\pLl0-9]|[\pLl0-9])\.)+([\pLl]([\pLl0-9]|-)*[\pLl0-9]|[\pLl])(:[\pL0-9]*)?(/([\pLl0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-fA-F0-9]{2})*)*(\?([\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]|%[a-fA-F0-9]{2})*)?(\#[\pLl0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?)(?<![,\.;])#iu',
                              '<a href="http://\\1" target="_blank">\\1</a>', $text);
     } else { //We cannot use unicode modifiers
-        $text = preg_replace('#(((http(s?))://)(((([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+        $text = preg_replace('#(?<!=["\'])(((http(s?))://)(((([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z]))|(([0-9]{1,3}\.){3}[0-9]{1,3}))(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?([a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]|%[a-fA-F0-9]{2})*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?)(?<![,\.;])#i',
                              '<a href="\\1" target="_blank">\\1</a>', $text);
-        $text = preg_replace('#((www\.([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z])(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?(?<![,.;]))#i',
+        $text = preg_replace('#(?<!=["\']|//)((www\.([a-z0-9]([a-z0-9]|-)*[a-z0-9]|[a-z0-9])\.)+([a-z]([a-z0-9]|-)*[a-z0-9]|[a-z])(:[a-zA-Z0-9]*)?(/([a-z0-9\.!$&\'\(\)*+,;=_~:@-]|%[a-f0-9]{2})*)*(\?([a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]|%[a-fA-F0-9]{2})*)?(\#[a-z0-9\.!$&\'\(\)*+,;=_~:@/?-]*)?)(?<![,\.;])#i',
                              '<a href="http://\\1" target="_blank">\\1</a>', $text);
     }
 
@@ -2513,14 +2521,16 @@ function print_header ($title='', $heading='', $navigation='', $focus='',
     if (isloggedin() && !empty($CFG->excludeoldflashclients) && empty($SESSION->flashversion)) {
         // Unfortunately we can't use require_js here and keep it all clean in 1.9 ...
         // require_js(array('yui_yahoo', 'yui_event', 'yui_connection', $CFG->httpswwwroot."/lib/swfobject/swfobject.js"));
-        $meta .= '<script type="text/javascript"  src="'.$CFG->wwwroot.'/lib/yui/yahoo/yahoo-min.js"></script>';
-        $meta .= '<script type="text/javascript"  src="'.$CFG->wwwroot.'/lib/yui/event/event-min.js"></script>';
-        $meta .= '<script type="text/javascript"  src="'.$CFG->wwwroot.'/lib/yui/connection/connection-min.js"></script>';
-        $meta .= '<script type="text/javascript"  src="'.$CFG->wwwroot.'/lib/swfobject/swfobject.js"></script>';
+        $meta .= '<script type="text/javascript"  src="'.$CFG->httpswwwroot.'/lib/yui/yahoo/yahoo-min.js"></script>';
+        $meta .= '<script type="text/javascript"  src="'.$CFG->httpswwwroot.'/lib/yui/event/event-min.js"></script>';
+        $meta .= '<script type="text/javascript"  src="'.$CFG->httpswwwroot.'/lib/yui/connection/connection-min.js"></script>';
+        $meta .= '<script type="text/javascript"  src="'.$CFG->httpswwwroot.'/lib/swfobject/swfobject.js"></script>';
         $meta .= 
            "<script type=\"text/javascript\">\n".
+           "//<![CDATA[\n".
            "  var flashversion = swfobject.getFlashPlayerVersion();\n".
-           "  YAHOO.util.Connect.asyncRequest('GET','".$CFG->wwwroot."/login/environment.php?sesskey=".sesskey()."&amp;flashversion='+flashversion.major+'.'+flashversion.minor+'.'+flashversion.release);\n".
+           "  YAHOO.util.Connect.asyncRequest('GET','".$CFG->httpswwwroot."/login/environment.php?sesskey=".sesskey()."&flashversion='+flashversion.major+'.'+flashversion.minor+'.'+flashversion.release);\n".
+           "//]]>\n".
            "</script>";
     }
 
@@ -4696,6 +4706,12 @@ function print_group_picture($group, $courseid, $large=false, $return=false, $li
 
     $context = get_context_instance(CONTEXT_COURSE, $courseid);
 
+    // If there is no picture, do nothing
+    if (!$group->picture) {
+        return '';
+    }
+
+    // If picture is hidden, only show to those with course:managegroups
     if ($group->hidepicture and !has_capability('moodle/course:managegroups', $context)) {
         return '';
     }
@@ -4710,12 +4726,13 @@ function print_group_picture($group, $courseid, $large=false, $return=false, $li
     } else {
         $file = 'f2';
     }
-    if ($group->picture) {  // Print custom group picture
-        require_once($CFG->libdir.'/filelib.php');
-        $grouppictureurl = get_file_url($group->id.'/'.$file.'.jpg', null, 'usergroup');
-        $output .= '<img class="grouppicture" src="'.$grouppictureurl.'"'.
-            ' alt="'.s(get_string('group').' '.$group->name).'" title="'.s($group->name).'"/>';
-    }
+    
+    // Print custom group picture
+    require_once($CFG->libdir.'/filelib.php');
+    $grouppictureurl = get_file_url($group->id.'/'.$file.'.jpg', null, 'usergroup');
+    $output .= '<img class="grouppicture" src="'.$grouppictureurl.'"'.
+        ' alt="'.s(get_string('group').' '.$group->name).'" title="'.s($group->name).'"/>';
+
     if ($link or has_capability('moodle/site:accessallgroups', $context)) {
         $output .= '</a>';
     }
@@ -6164,7 +6181,7 @@ function notify($message, $style='notifyproblem', $align='center', $return=false
     $length = strlen($email);
     $obfuscated = '';
     while ($i < $length) {
-        if (rand(0,2)) {
+        if (rand(0,2) && $email{$i}!='@') { //MDL-20619 some browsers have problems unobfuscating @
                 $obfuscated.='%'.dechex(ord($email{$i}));
         } else {
             $obfuscated.=$email{$i};
@@ -7040,40 +7057,37 @@ function auth_get_plugin_title ($authtype) {
     return $authtitle;
 }
 
- /**
- * Print password policy.
+/**
+ * Returns a localized sentence in the current language summarizing the current password policy
+ *
  * @uses $CFG
  * @return string
  */
- function print_password_policy(){
-     global $CFG;
-     $messages = array();
-     
-     if(!empty($CFG->passwordpolicy)){
-            $messages[] = get_string('informminpasswordlength', 'auth', $CFG->minpasswordlength);
-            if(!empty($CFG->minpassworddigits)){
-                $messages[] = get_string('informminpassworddigits', 'auth', $CFG->minpassworddigits);
-            }
-            if(!empty($CFG->minpasswordlower)){
-                $messages[] = get_string('informminpasswordlower', 'auth', $CFG->minpasswordlower);
-            }
-            if(!empty($CFG->minpasswordupper)){
-                $messages[] = get_string('informminpasswordupper', 'auth', $CFG->minpasswordupper);
-            }
-            if(!empty($CFG->minpasswordnonalphanum)){
-                $messages[] = get_string('informminpasswordnonalphanum', 'auth', $CFG->minpasswordnonalphanum);
-            }
-            
-            $lastmessage = new stdClass;
-            $lastmessage->one = '';
-            $lastmessage->two = array_pop($messages);
-            $messages[] = get_string('and','moodle',$lastmessage);
-            $message = join(', ', $messages);
-            $message = '<div class="fitemtitle">&nbsp;</div><div class="felement ftext">'. get_string('informpasswordpolicy', 'auth', $message) . '</div>';
+function print_password_policy() {
+    global $CFG;
+
+    $message = '';
+    if (!empty($CFG->passwordpolicy)) {
+        $messages = array();
+        $messages[] = get_string('informminpasswordlength', 'auth', $CFG->minpasswordlength);
+        if (!empty($CFG->minpassworddigits)) {
+            $messages[] = get_string('informminpassworddigits', 'auth', $CFG->minpassworddigits);
         }
-        return $message;
-                
- }
+        if (!empty($CFG->minpasswordlower)) {
+            $messages[] = get_string('informminpasswordlower', 'auth', $CFG->minpasswordlower);
+        }
+        if (!empty($CFG->minpasswordupper)) {
+            $messages[] = get_string('informminpasswordupper', 'auth', $CFG->minpasswordupper);
+        }
+        if (!empty($CFG->minpasswordnonalphanum)) {
+            $messages[] = get_string('informminpasswordnonalphanum', 'auth', $CFG->minpasswordnonalphanum);
+        }
+
+        $messages = join(', ', $messages); // this is ugly but we do not have anything better yet...
+        $message = get_string('informpasswordpolicy', 'auth', $messages);
+    }
+    return $message;
+}
 
  // vim:autoindent:expandtab:shiftwidth=4:tabstop=4:tw=140:
 ?>
