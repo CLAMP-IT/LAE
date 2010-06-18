@@ -8036,6 +8036,7 @@ hotpot_backup_records	mod/hotpot/backuplib.php	/^    function hotpot_backup_reco
 hotpot_backup_responses	mod/hotpot/backuplib.php	/^    function hotpot_backup_responses($bf, &$parent, $level, $status) {$/;"	f
 hotpot_backup_string_ids	mod/hotpot/backuplib.php	/^    function hotpot_backup_string_ids(&$record, $fields) {$/;"	f
 hotpot_backup_strings	mod/hotpot/backuplib.php	/^    function hotpot_backup_strings($bf, $record, $level, $status) {$/;"	f
+hotpot_charcode_to_utf8	question/format/hotpot/format.php	/^function hotpot_charcode_to_utf8($charcode) {$/;"	f
 hotpot_check_backup_mods	mod/hotpot/backuplib.php	/^    function hotpot_check_backup_mods($course, $user_data=false, $backup_unique_code, $instances=null) {$/;"	f
 hotpot_check_backup_mods_instances	mod/hotpot/backuplib.php	/^    function hotpot_check_backup_mods_instances($instance,$backup_unique_code) {$/;"	f
 hotpot_convert_navbutton_url	mod/hotpot/lib.php	/^function hotpot_convert_navbutton_url($baseurl, $reference, $url, $course, $stripslashes=true) {$/;"	f
