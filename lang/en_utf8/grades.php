@@ -71,6 +71,7 @@ $string['category'] = 'Category';
 $string['categoryedit'] = 'Edit category';
 $string['categoryname'] = 'Category name';
 $string['categorytotal'] = 'Category total';
+$string['categorytotalname'] = 'Category total name'; // CLAMP #225 2010-06-24 cmoore
 $string['categorytotalfull'] = '$a->category total';
 $string['changereportdefaults'] = 'Change report defaults';
 $string['changedefaults'] = 'Change defaults';
