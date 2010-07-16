@@ -182,7 +182,9 @@ function useredit_shared_definition(&$mform) {
         $choices['0'] = get_string('ajaxno');
         $choices['1'] = get_string('ajaxyes');
         $mform->addElement('select', 'ajax', get_string('ajaxuse'), $choices);
-        $mform->setDefault('ajax', 0);
+		 // CLAMP # 114 2010-06-23 bobpuffer
+        $mform->setDefault('ajax', 1);
+		 // CLAMP # 114 2010-06-23 end
         $mform->setAdvanced('ajax');
     }
 

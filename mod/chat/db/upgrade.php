@@ -33,7 +33,9 @@ function xmldb_chat_upgrade($oldversion=0) {
     /// Launch change of precision for field lang
         $result = $result && change_field_precision($table, $field);
     }
-    
+
+//===== 1.9.0 upgrade line ======//
+    /// CLAMP #149 2010-01-07 cfulton
     if ($result && $oldversion < 2010010702) {
     
     /// Adding configurable value for scrollback history
@@ -42,8 +44,7 @@ function xmldb_chat_upgrade($oldversion=0) {
         $field->setAttributes(XMLDB_TYPE_CHAR,'20',null,XMLDB_NULL,null,null,null,null);
         $result = $result && add_field($table, $field);
     }
-
-//===== 1.9.0 upgrade line ======//
+    /// end added by cfulton
 
     return $result;
 }

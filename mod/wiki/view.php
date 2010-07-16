@@ -242,6 +242,7 @@
 
         global $ewiki_author, $USER;
         $ewiki_author=fullname($USER);
+        $page = (empty($pagename) ? EWIKI_DEFAULT_ACTION . EWIKI_ACTION_SEP_CHAR . $page : $page);
         $content=ewiki_page($page);
         $content2='';
 
@@ -298,7 +299,7 @@
     echo '    <div id="wikiPageActions">
     ';
     /// The top row contains links to other wikis, if applicable.
-    if ($wiki_list = wiki_get_other_wikis($wiki, $USER, $course, $wiki_entry->id)) {
+    if ($wiki_entry && $wiki_list = wiki_get_other_wikis($wiki, $USER, $course, $wiki_entry->id)) {
         //echo "wiki list ";print_r($wiki_list);
         $selected="";
         
@@ -318,7 +319,11 @@
         echo '<td class="sideblockheading">'
             .get_string('otherwikis', 'wiki').':&nbsp;&nbsp;';
         $script = 'self.location=getElementById(\'otherwikis\').wikiselect.options[getElementById(\'otherwikis\').wikiselect.selectedIndex].value';
-        choose_from_menu($wiki_list, "wikiselect", $selected, "choose", $script);
+        
+        /// CLAMP #219 2010-06-25 cfulton
+        /// passes null action to prevent choosing non-extant wiki
+        $nothing = 'javascript:void(0)';
+        choose_from_menu($wiki_list, "wikiselect", $selected, "choose", $script, $nothing);
         echo '</td>';
         echo '</tr></table>';
         echo '</form>';
@@ -381,7 +386,9 @@
         $currenttab = '';
         foreach ($tabs as $tab) {
             $tabname = get_string("tab$tab", 'wiki');
-            $row[] = new tabobject($tabname, $ewbase.'&amp;page='.$tab.'/'.s($ewiki_id), $tabname);
+            /// CLAMP #11 MDL-17237 2010-06-26 cfulton
+            /// Urlencode $ewiki_id or special characters are lost
+            $row[] = new tabobject($tabname, $ewbase.'&amp;page='.$tab.'/'.s(urlencode($ewiki_id)), $tabname);
             if ($ewiki_action == "$tab" or in_array($page, $specialpages)) {
                 $currenttab = $tabname;
             }

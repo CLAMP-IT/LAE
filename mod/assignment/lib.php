@@ -5,6 +5,8 @@
  * This class provides all the functionality for an assignment
  */
 
+// CLAMP #118 2010-03-16 dlandau
+// Include library for AssignmentZip.
 require_once($CFG->dirroot . '/lib/LAE/zip.php');
 
 DEFINE ('ASSIGNMENT_COUNT_WORDS', 1);
@@ -1169,6 +1171,8 @@ class assignment_base {
         $strgrade  = get_string('grade');
         $grademenu = make_grades_menu($this->assignment->grade);
 
+	// CLAMP #118 2010-03-16 dlandau
+	// Collect file data for later zipping.
         $files_tozip = array(); // zip assignment files
 
         require_once($CFG->dirroot.'/mod/assignment/type/'.$assignment->assignmenttype.'/assignment.class.php');
@@ -1187,6 +1191,7 @@ class assignment_base {
                                              'author' => $subuser->firstname . " " . $subuser->lastname));
             }
         }
+	/// end added by dlandau
 
         if (($ausers = get_records_sql($select.$sql.$sort, $table->get_page_start(), $table->get_page_size())) !== false) {
             $grading_info = grade_get_grades($this->course->id, 'mod', 'assignment', $this->assignment->id, array_keys($ausers));
@@ -1359,9 +1364,12 @@ class assignment_base {
         }
         /// End of fast grading form
 
+	// CLAMP #118 2010-03-16 dlandau
+	// Display zip button if more than one file is available.
         if(sizeof($files_tozip) > 1) {
           echo file_collection_form($files_tozip, $assignment->name);
         }
+        /// end added by dlandau
 
         /// Mini form for setting user preference
         echo '<div class="qgprefs">';

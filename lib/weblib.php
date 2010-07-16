@@ -284,6 +284,9 @@ function qualified_me() {
     // the server reports.
     if (isset($_SERVER['HTTPS'])) {
         $protocol = ($_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
+    // CLAMP 2010-07-09 dlandau - Fix https behind proxies, MDL-11061
+    } else if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) { 
+        $protocol = ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') ? 'https://' : 'http://';
     } else if (isset($_SERVER['SERVER_PORT'])) { # Apache2 does not export $_SERVER['HTTPS']
         $protocol = ($_SERVER['SERVER_PORT'] == '443') ? 'https://' : 'http://';
     } else {
@@ -5598,7 +5601,10 @@ function print_grade_menu($courseid, $name, $current, $includenograde=true, $ret
     if ($includenograde) {
         $grades[0] = get_string('nograde');
     }
-    for ($i=100; $i>=1; $i--) {
+    // MDL-22999     
+	 // CLAMP # 114 2010-06-23 bobpuffer
+    for ($i=250; $i>=1; $i--) {
+	 // CLAMP # 114 2010-06-23 end
         $grades[$i] = $i;
     }
     $output .= choose_from_menu($grades, $name, $current, '', '', 0, true);

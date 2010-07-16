@@ -63,5 +63,8 @@ $settings->add(new admin_setting_configcheckbox('forum_logblocked', get_string('
 
 $settings->add(new admin_setting_configcheckbox('forum_ajaxrating', get_string('ajaxrating', 'forum'),
                    get_string('configajaxrating', 'forum'), 0));
-
+/// CLAMP #175 2010-06-24 cfulton
+/// Toggle for anonymous forums
+$settings->add(new admin_setting_configcheckbox('forum_anonymous', get_string('masterallowanon', 'forum'),
+                   get_string('configmasterallowanon', 'forum'), 0));
 ?>

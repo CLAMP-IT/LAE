@@ -6,6 +6,12 @@ class mod_forum_mod_form extends moodleform_mod {
     function definition() {
 
         global $CFG, $COURSE;
+        /// CLAMP #175 2010-06-22 cfulton
+        /// Check for anonymous user; add if not found
+        if(!isset($CFG->anonymous_userid)) {
+            forum_add_anon_user();
+        }
+        /// end added by cfulton
         $mform    =& $this->_form;
 
 //-------------------------------------------------------------------------------
@@ -31,6 +37,18 @@ class mod_forum_mod_form extends moodleform_mod {
         $mform->setType('intro', PARAM_RAW);
         $mform->addRule('intro', get_string('required'), 'required', null, 'client');
         $mform->setHelpButton('intro', array('writing', 'questions', 'richtext'), false, 'editorhelpbutton');
+
+        /// CLAMP #175 2010-06-22 cfulton
+        /// Show options for anonymous forums
+        if($CFG->forum_anonymous) {
+	$options = array();
+        $options[0] = get_string('anonno', 'forum');
+        $options[1] = get_string('anonyes', 'forum');
+        $options[2] = get_string('anonoptional', 'forum');
+        $mform->addElement('select', 'anonymous', get_string('allowanonymous', 'forum'), $options);
+        $mform->setHelpButton('anonymous', array('anonymous', get_string('allowanonymous', 'forum'), 'forum'));
+        }
+	/// end added by cfulton
 
         $options = array();
         $options[0] = get_string('no');

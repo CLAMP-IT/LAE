@@ -880,12 +880,32 @@ ce'));
         $mform->addElement('select', 'framepage', get_string('keepnavigationvisible', 'resource'), $navoptions);
 
         $mform->setHelpButton('framepage', array('frameifpossible', get_string('keepnavigationvisible', 'resource'), 'resource'));
-        $mform->setDefault('framepage', 2);
+// CLAMP #181 2010-06-24 dwheeler (code courtesy of sryder)
+        $mform->setDefault('framepage', 0);
+// CLAMP #181 2010-06-24 end
         $mform->disabledIf('framepage', 'windowpopup', 'eq', 1);
         $mform->disabledIf('framepage', 'forcedownload', 'checked');
         $mform->setAdvanced('framepage');
 
-
+// CLAMP #181 2010-06-24 dwheeler (code courtesy of sryder)
+		foreach ($RESOURCE_WINDOW_OPTIONS as $option) {
+            if ($option == 'height' or $option == 'width') {
+                $mform->addElement('text', $option,
+            get_string('new'.$option, 'resource'),
+            array('size'=>'4'));
+                $mform->setDefault($option,
+            $CFG->{'resource_popup'.$option});
+                $mform->disabledIf($option, 'windowpopup', 'eq', 0);
+            } else {
+                $mform->addElement('checkbox', $option,
+            get_string('new'.$option, 'resource'));
+                $mform->setDefault($option,
+            $CFG->{'resource_popup'.$option});
+                $mform->disabledIf($option, 'windowpopup', 'eq', 0);
+            }
+            $mform->setAdvanced($option);
+        }
+// CLAMP #181 2010-06-24 end
     }
 }
 

@@ -380,6 +380,13 @@ function forum_cron() {
                     continue;
                 }
 
+                /// CLAMP #230 2010-06-25 cfulton
+                // Don't email if the forum is Q&A and the user has not posted
+                if ($forum->type == 'qanda' && !forum_get_user_first_post($discussion->id, $userto->id)) {
+                    mtrace('Did not email '.$userto->id.' because user has not posted in discussion');
+                    continue;
+                }
+                                                                                                        
                 // Get info about the sending user
                 if (array_key_exists($post->userid, $users)) { // we might know him/her already
                     $userfrom = $users[$post->userid];
@@ -2798,6 +2805,13 @@ function forum_print_post($post, $discussion, $forum, &$cm, $course, $ownpost=fa
     static $strpruneheading, $displaymode;
     static $strmarkread, $strmarkunread;
 
+    /// CLAMP #175 2010-06-22 cfulton
+    /// If anonymous is the poster check who the actual owner is
+    if(isset($post->hiddenuserid) && !empty($USER)) {
+        $ownpost = ($USER->id == $post->hiddenuserid);
+    }
+    /// end added by cfulton
+
     $post->course = $course->id;
     $post->forum  = $forum->id;
 
@@ -3909,10 +3923,14 @@ function forum_add_new_post($post,&$message) {
 
     $post->created    = $post->modified = time();
     $post->mailed     = "0";
-    $post->userid     = $USER->id;
     $post->attachment = "";
     $post->forum      = $forum->id;     // speedup
     $post->course     = $forum->course; // speedup
+    
+    /// CLAMP #175 2010-06-22 cfulton
+    /// Anonymize posting if necessary
+    $post = forum_scrub_userid($forum, $post);
+    /// end added by cfulton
 
     if (! $post->id = insert_record("forum_posts", $post)) {
         return false;
@@ -3990,7 +4008,6 @@ function forum_add_discussion($discussion,&$message) {
     $post = new object();
     $post->discussion  = 0;
     $post->parent      = 0;
-    $post->userid      = $USER->id;
     $post->created     = $timenow;
     $post->modified    = $timenow;
     $post->mailed      = 0;
@@ -4001,6 +4018,16 @@ function forum_add_discussion($discussion,&$message) {
     $post->course      = $forum->course; // speedup
     $post->format      = $discussion->format;
     $post->mailnow     = $discussion->mailnow;
+
+    /// CLAMP #175 2010-06-22 cfulton
+    /// Anonymize user if necessary.
+    if ($discussion->anonymous == 1 || $forum->anonymous == 1) {
+        $post->userid = $CFG->anonymous_userid;
+        $post->hiddenuserid = $USER->id;
+    } else {
+        $post->userid = $USER->id;
+    }
+    /// end added by cfulton
 
     if (! $post->id = insert_record("forum_posts", $post) ) {
         return 0;
@@ -4016,7 +4043,11 @@ function forum_add_discussion($discussion,&$message) {
     $discussion->firstpost    = $post->id;
     $discussion->timemodified = $timenow;
     $discussion->usermodified = $post->userid;
-    $discussion->userid = $USER->id;
+    
+    /// CLAMP #175 2010-06-22 cfulton
+    /// Anonymize user if necessary.
+    $discussion->userid = ($post->userid == $CFG->anonymous_userid) ? $post->userid : $USER->id;
+    /// end added by cfulton
 
     if (! $post->discussion = insert_record("forum_discussions", $discussion) ) {
         delete_records("forum_posts", "id", $post->id);
@@ -4630,7 +4661,9 @@ function forum_user_can_see_discussion($forum, $discussion, $context, $user=NULL
  *
  */
 function forum_user_can_see_post($forum, $discussion, $post, $user=NULL, $cm=NULL) {
-    global $USER;
+    /// CLAMP #221 MDL-9376 2010-06-24 cfulton
+    /// $CFG needed for QA forum patch
+    global $USER, $CFG;
 
     // retrieve objects (yuk)
     if (is_numeric($forum)) {
@@ -4691,9 +4724,14 @@ function forum_user_can_see_post($forum, $discussion, $post, $user=NULL, $cm=NUL
     if ($forum->type == 'qanda') {
         $firstpost = forum_get_firstpost_from_discussion($discussion->id);
         $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
+        
+        /// CLAMP #221 MDL-9376 2010-06-24 cfulton
+        /// Don't allow a user to view a post until the max editing time is past even if
+        /// they've posted an answer already
+        $userfirstpost = forum_get_user_first_post($discussion->id, $user->id);
 
-        return (forum_user_has_posted($forum->id,$discussion->id,$user->id) ||
-                $firstpost->id == $post->id ||
+        return (($userfirstpost !== false && (time() - $userfirstpost >= $CFG->maxeditingtime)) ||
+                $firstpost->id == $post->id || $post->userid == $user->id || $firstpost->userid == $user->id ||
                 has_capability('mod/forum:viewqandawithoutposting', $modcontext, $user->id, false));
     }
     return true;
@@ -6931,4 +6969,57 @@ function forum_get_extra_capabilities() {
     return array('moodle/site:accessallgroups', 'moodle/site:viewfullnames', 'moodle/site:trustcontent');
 }
 
+/// CLAMP #175 2010-06-22 cfulton
+/**
+ * Adds anonymous user if not present
+ */
+function forum_add_anon_user() {
+    /// Add anonymous role account
+    $anon_user = new stdClass();
+    $anon_user->username = "anonymous_user";
+    $anon_user->password = hash_internal_user_password(mt_rand());  /// Shouldn't be possible to logon as the user
+    $anon_user->auth = "nologin";
+    $anon_user->firstname = "Anonymous";
+    $anon_user->lastname = "User";
+    if($result = insert_record('user', $anon_user)) {
+        /// User added - now update config to store user id
+        $record = new stdClass();
+        $record->name = "anonymous_userid";
+        $record->value = $result;
+        $result = insert_record('config', $record);
+    }
+}
+/**
+ * Anonymizes the user id     	
+ */ 
+function forum_scrub_userid($forum, $post) {
+    global $CFG, $USER ;
+    if($post->anonymous == '1' || $forum->anonymous=='1') {
+        $post->userid = $CFG->anonymous_userid;
+        $post->hiddenuserid = $USER->id;
+    } else {
+        $post->userid     = $USER->id;
+    }
+    return $post;
+}
+
+/// CLAMP #221 MDL-9376 2010-06-24 cfulton
+/**
+ * Returns creation time of the first user's post in given discussion
+ * @param int $did
+ * @param int $userid
+ */
+function forum_get_user_first_post($did, $userid) {
+    global $CFG;
+    $sql = "SELECT p.created
+              FROM {$CFG->prefix}forum_posts p
+              WHERE p.userid = $userid AND p.discussion = $did
+              ORDER BY p.created";
+    $posts = get_record_sql($sql, true);
+    if ($posts===false) {
+        return false;
+    }
+    return $posts->created;
+}
+/// end added by cfulton
 ?>

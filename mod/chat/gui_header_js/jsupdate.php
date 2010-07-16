@@ -27,6 +27,7 @@
     //Setup course, lang and theme
     course_setup($course);
 
+    /// CLAMP #149 2010-01-07 cfulton
     // load chat module
     $cm = get_record('chat','id',$chatuser->chatid);
 
@@ -46,6 +47,7 @@
 
     $groupselect = $chatuser->groupid ? " AND (groupid='".$chatuser->groupid."' OR groupid='0') " : "";
 
+    /// CLAMP #149 2010-01-07 cfulton
     // Set lasttime based on module information
     if($chat_lasttime == 0) {
         if(isset($cm->showhistory) && $chat_lasttime = strtotime("-".$cm->showhistory,$timenow)) {
@@ -55,6 +57,7 @@
             $chat_lasttime = $timenow - $CFG->chat_old_ping;  
         }
     }
+    /// end added by cfulton
 
     $messages = get_records_select("chat_messages",
                         "chatid = '$chatuser->chatid' AND timestamp > '$chat_lasttime' $groupselect",
@@ -117,17 +120,24 @@
         <?php
         $beep = false;
         $refreshusers = false;
+
+        /// CLAMP #149 2010-01-07 cfulton
+        /// Set display information for chat
         $chat_last_day = date('z-y',time());
+        
         $us = array ();
         if (($chat_lasttime != $chat_newlasttime) and $messages) {
 
             foreach ($messages as $message) {
+                
+                /// CLAMP #149 2010-01-07 cfulton
                 // Test if message date is not today
                 $day_header = "";
                 if($chat_last_day != date('z-y',$message->timestamp)) {
                     $day_header = "-- " . date('F j, Y', $message->timestamp) . " --";
                     $chat_last_day = date('z-y',$message->timestamp);
                 }
+                /// end added by cfulton
             
                 $chat_lastrow = ($chat_lastrow + 1) % 2;
                 $formatmessage = chat_format_message($message, $chatuser->course, $USER, $chat_lastrow);
@@ -139,9 +149,14 @@
                 }
                 $us[$message->userid] = $timenow - $message->timestamp;
                 echo "if(parent.msg)";
+                
+                /// CLAMP #149 2010-01-07 cfulton
+                // Output the day header if set
                 if(!empty($day_header)) {
                     echo "parent.msg.document.write('".$day_header."\\n');\n";
                 }
+                /// end added by cfulton
+                
                 echo "parent.msg.document.write('".addslashes_js($formatmessage->html)."\\n');\n";
              }
         }

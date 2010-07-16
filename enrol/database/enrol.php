@@ -375,6 +375,8 @@ function sync_enrolments($role = null) {
     // When the user logs in though, their role list will be updated
     // correctly.
     //
+			 // CLAMP # 114 2010-06-23 bobpuffer
+/*
     if (!$CFG->enrol_db_disableunenrol) {
         $sql = "
             SELECT ra.roleid, ra.userid, ra.contextid
@@ -408,6 +410,8 @@ function sync_enrolments($role = null) {
             rs_close($ers); // release the handle
         }
     }
+*/
+			 // CLAMP # 114 2010-06-23 end
 
     commit_sql();
 

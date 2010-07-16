@@ -562,6 +562,7 @@ if ($nextstage == SAVE) {
     $str .= '// Force server-side form validation; required for FCKeditor'."\r\n";
     $str .= '$CFG->validateforms = \'server'."';\r\n";
     $str .= '$CFG->defaulthtmleditor=\'tinymce'."';\r\n";
+    $str .= '$CFG->grade_profilereport=\'LAEuser' . "';\r\n";
     $str .= '// MAKE SURE WHEN YOU EDIT THIS FILE THAT THERE ARE NO SPACES, BLANK LINES,'."\r\n";
     $str .= '// RETURNS, OR ANYTHING ELSE AFTER THE TWO CHARACTERS ON THE NEXT LINE.'."\r\n";
     $str .= '?>';

@@ -57,11 +57,13 @@
             $navigation = build_navigation($navlinks);
             print_header("$site->shortname: $strcategories", $strcourses, $navigation, '', '', true, update_category_button());
             print_heading($strcategories);
+			 // CLAMP # 114 2010-06-23 bobpuffer
+            print_course_search();
+			 // CLAMP # 114 2010-06-23 end
             echo skip_main_destination();
             print_box_start('categorybox');
             print_whole_category_list();
             print_box_end();
-            print_course_search();
         } else {
             $strfulllistofcourses = get_string('fulllistofcourses');
             print_header("$site->shortname: $strfulllistofcourses", $strfulllistofcourses,

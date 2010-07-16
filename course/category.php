@@ -269,6 +269,9 @@
         print_box_end();
 
     } else {
+		// CLAMP # 114 2010-06-23 bobpuffer
+	    print_course_search();
+		// CLAMP # 114 2010-06-23 end
         print_paging_bar($totalcount, $page, $perpage, "category.php?id=$category->id&amp;perpage=$perpage&amp;");
 
         $strcourses = get_string('courses');
@@ -473,7 +476,6 @@
     }
     echo '</div>';
 
-    print_course_search();
 
     print_footer();
 

@@ -58,7 +58,10 @@ class MoodleQuickForm_modgrade extends MoodleQuickForm_select{
                 if (!$this->_hidenograde) {
                     $grades[0] = get_string('nograde');
                 }
-                for ($i=100; $i>=1; $i--) {
+			    // MDL-22999     
+				 // CLAMP # 114 2010-06-23 bobpuffer
+                for ($i=250; $i>=1; $i--) {
+				 // CLAMP # 114 2010-06-23 end
                     $grades[$i] = $i;
                 }
                 $this->load($grades);

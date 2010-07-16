@@ -59,6 +59,13 @@
             } else {
                $doc .= "$ {$formula} $\n";
             }
+			 // CLAMP # 114 2010-06-23 bobpuffer
+            ///////////////////////////////////////////
+			$doc = str_replace('&gt;','>',$doc);
+			$doc = str_replace('&lt;','<',$doc);
+			$doc = str_replace('&amp;','&',$doc);
+			$doc = str_replace('&nbsp;',' ',$doc); //////////////////////////////////////////////
+			 // CLAMP # 114 2010-06-23 end
             $doc .= "\\end{document}\n";
             return $doc;
         }

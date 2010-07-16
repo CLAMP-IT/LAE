@@ -1,5 +1,6 @@
 <?php  //$Id$
 
+require_once("$CFG->dirroot/mod/forum/lib.php");
 // This file keeps track of upgrades to 
 // the forum module
 //
@@ -86,6 +87,42 @@ function xmldb_forum_upgrade($oldversion=0) {
     if ($result && $oldversion < 2007101513) {
         delete_records('forum_ratings', 'post', 0); /// Clean existing wrong rates. MDL-18227
     }
+
+    /// CLAMP #175 2010-06-22 cfulton
+    /// Support for Anonymous User:Anonymous Forums
+    if ($result && $oldversion < 2010010700) {
+        /// New anonymous forum patch
+	/// Add anonymous user
+	forum_add_anon_user();	        
+
+        /// add hooks to _forum and _forum_posts
+        $table = new XMLDBTable('forum');
+        $field = new XMLDBField('anonymous');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '2', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'blockperiod');
+        $result = $result && add_field($table, $field);
+    }
+	
+    /// add the hiddenuserid to the forum posts field
+    if ($result && $oldversion < 2010010702) {
+        $table = new XMLDBTable('forum_posts');
+        $field = new XMLDBField('hiddenuserid');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, null, null, null, null, null);
+        $result = $result && add_field($table, $field);
+
+        /// Check for old anonymous forums patch and cleanup if necessary
+        if (isset($CFG->anonymous_name)) {
+            // The settings in mdl_forum are equivalent and can be ignored. We need to update mdl_forum_posts
+            $sql = "UPDATE ".$CFG->prefix."forum_posts SET hiddenuserid=userid WHERE anonymous=1";
+            if(!execute_sql($sql)) {
+                error("Failed to update old anonymous posts");
+            }
+            $sql = "UPDATE ".$CFG->prefix."forum_posts SET userid='".$CFG->anonymous_userid."' WHERE anonymous=1";
+            if(!execute_sql($sql)) {
+                error("Failed to update old anonymous posts");
+            }
+        }
+    }
+    /// end additions by cfulton
 
     return $result;
 }

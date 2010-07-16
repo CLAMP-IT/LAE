@@ -172,7 +172,9 @@
 
         echo get_string("firstname")."\t".get_string("lastname") . "\t". get_string("idnumber") . "\t";
         echo get_string("group"). "\t";
-        echo get_string("choice","choice"). "\n";        
+		 // CLAMP # 114 2010-06-23 bobpuffer
+        echo get_string("choice","choice"). "\t". "optionid". "\n";        
+		 // CLAMP # 114 2010-06-23 end
 
         /// generate the data for the body of the spreadsheet
         $i=0;  
@@ -195,7 +197,9 @@
                     }
                     echo $ug2. "\t";
                     if (isset($option_text)) {
-                        echo format_string($option_text,true);
+					 // CLAMP # 114 2010-06-23 bobpuffer
+                        echo format_string($option_text,true). "\t". $option;
+					 // CLAMP # 114 2010-06-23 end
                     }
                     echo "\n";
                 }

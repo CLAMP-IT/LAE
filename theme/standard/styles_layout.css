@@ -3880,7 +3880,10 @@ body#mod-quiz-view .generalbox#feedback .overriddennotice {
 #mod-quiz-attempt #timer {
   position:absolute;
   /*top:100px; is set by js*/
-  left:10px
+	// MDL-8547
+	// CLAMP # 114 2010-06-23 bobpuffer
+  right:10px
+	// CLAMP # 114 2010-06-23 end
 }
 
 body#question-preview .quemodname,

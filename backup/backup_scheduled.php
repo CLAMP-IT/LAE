@@ -106,7 +106,17 @@ function schedule_backup_cron() {
                     mtrace("            SKIPPING - hidden+unmodified");
                     set_field("backup_courses","laststatus","3","courseid",$backup_course->courseid);
                     $skipped = true;
-                }
+				 // CLAMP # 114 2010-06-23 bobpuffer
+                } else {
+ 	                 $space = get_directory_size("$CFG->dataroot/$course->id/");
+                    if( $space > 512000) {
+                     	 mtrace("            SKIPPING - exceeds maximum size");
+                        $skipped = true;
+                    	 set_field("backup_courses","laststatus","4","courseid",$backup_course->courseid);
+                        set_field("backup_courses","lastendtime",time(),"courseid",$backup_course->courseid);
+    	             }
+    	        }
+				 // CLAMP # 114 2010-06-23 end
                 //Now we backup every non skipped course with nextstarttime < now
                 if (!$skipped  && $backup_course->nextstarttime > 0 && $backup_course->nextstarttime < $now) {
                     //We have to send a email because we have included at least one backup

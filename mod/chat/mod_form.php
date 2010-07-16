@@ -33,8 +33,11 @@ class mod_chat_mod_form extends moodleform_mod {
         $options[3]  = get_string('repeatweekly', 'chat');
         $mform->addElement('select', 'schedule', get_string('repeattimes', 'chat'), $options);
 
+        /// CLAMP #149 2010-01-07 cfulton
+        // Show option for history scrollback display
         $mform->addElement('text', 'showhistory', get_string('showhistoryname', 'chat'), array('size'=>'20'));
         $mform->setDefault('showhistory','3 hours');
+        /// end added by cfulton
 
         $options=array();
         $options[0]    = get_string('neverdeletemessages', 'chat');

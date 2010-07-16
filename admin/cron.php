@@ -236,6 +236,13 @@
 
     if ($random100 < 20) {     // Approximately 20% of the time.
         mtrace("Running clean-up tasks...");
+         // mdl-16217
+		// CLAMP # 114 2010-06-23 bobpuffer
+	
+		/// clean up modules left over from bad import processing
+		$sql = "DELETE FROM `mdl_course_modules` WHERE instance=0";
+		execute_sql($sql, false);  
+		// CLAMP # 114 2010-06-23 bobpuffer
 
         /// Unenrol users who haven't logged in for $CFG->longtimenosee
 
