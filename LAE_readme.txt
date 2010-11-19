@@ -1,6 +1,6 @@
-===Moodle 1.9.9+Liberal Arts Edition v1.1 Release Notes===
+===Moodle 1.9.9+Liberal Arts Edition v1.1.1 Release Notes===
 
-Welcome to the Moodle 1.9.9+Liberal Arts Edition v1.1. The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.9+Liberal Arts Edition v1.1.1 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
@@ -18,15 +18,23 @@ We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excelle
 
 ===CONTENTS===
 
-Moodle 1.9.9+LAE v1.1 consists of Moodle 1.9.9 (20100609) as well as a number of CLAMP-developed features and bug fixes. The following features have been added to the v1.1 release:
+Moodle 1.9.9+LAE v1.1.1 consists of Moodle 1.9.9 (20100609) as well as a number of CLAMP-developed features and bug fixes. It also includes security fixes from 1.9.10 that have been backported to the LAE.
+
+The following features have been added to the v1.1 release:
 
 * Anonymous Forums
 * Simple File Upload
 * Assignment ZIP
 * CLAMP Grader Report
 
+The following security fixes have been added to the v1.1.1 release:
+
+MSA-10-0017: XSS vulnerability in YUI 2.4.0 through YUI 2.8.1
+MSA-10-0016: Multiple phpCAS library vulnerabilities
+MSA-10-0015: Customised HTML Purifier upgraded to 4.2.0
+
 ====Anonymous Forums====
-A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
+A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
 
 ====Assignment ZIP====
 This tool allows faculty to download all of the files associated with an assignment as a single ZIP file, greatly simplifying the download process.
@@ -168,4 +176,4 @@ A few notes:
 
 2) We *strongly* recommend doing a test upgrade on a development Moodle instance before upgrading your production instance.
 
-3) If you have a more current version of Moodle installed (one later than 1.9.9+ (20100609), do not attempt to install LAE v1.0, as it will likely cause problems. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
+3) If you have a more current version of Moodle installed (one later than 1.9.9+ (20100609), do not attempt to install LAE v1.1.1, as it will likely cause problems. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
