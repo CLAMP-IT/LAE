@@ -15,9 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-$gradereport_LAEgrader_capabilities = array(
+$gradereport_laegrader_capabilities = array(
 
-    'gradereport/LAEgrader:view' => array(
+    'gradereport/laegrader:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_COURSE,

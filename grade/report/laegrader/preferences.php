@@ -32,10 +32,10 @@ require_login($course->id);
 
 $context = get_context_instance(CONTEXT_COURSE, $course->id);
 $systemcontext = get_context_instance(CONTEXT_SYSTEM);
-require_capability('gradereport/LAEgrader:view', $context);
+require_capability('gradereport/laegrader:view', $context);
 
 require('preferences_form.php');
-$mform = new LAEgrader_report_preferences_form('preferences.php', compact('course'));
+$mform = new laegrader_report_preferences_form('preferences.php', compact('course'));
 
 // If data submitted, then process and store.
 if (!$mform->is_cancelled() && $data = $mform->get_data()) {
@@ -51,19 +51,19 @@ if (!$mform->is_cancelled() && $data = $mform->get_data()) {
         }
     }
 
-    redirect($CFG->wwwroot . '/grade/report/LAEgrader/index.php?id='.$courseid); // message here breaks accessability and is sloooowww
+    redirect($CFG->wwwroot . '/grade/report/laegrader/index.php?id='.$courseid); // message here breaks accessability and is sloooowww
     exit;
 }
 
 if ($mform->is_cancelled()){
-    redirect($CFG->wwwroot . '/grade/report/LAEgrader/index.php?id='.$courseid);
+    redirect($CFG->wwwroot . '/grade/report/laegrader/index.php?id='.$courseid);
 }
 
-print_grade_page_head($courseid, 'preferences', 'grader', get_string('preferences', 'gradereport_grader'));
+print_grade_page_head($courseid, 'preferences', 'laegrader', get_string('preferences', 'gradereport_laegrader'));
 
 // If USER has admin capability, print a link to the site config page for this report
 if (has_capability('moodle/site:config', $systemcontext)) {
-    echo '<div id="siteconfiglink"><a href="'.$CFG->wwwroot.'/'.$CFG->admin.'/settings.php?section=gradereportgrader">';
+    echo '<div id="siteconfiglink"><a href="'.$CFG->wwwroot.'/'.$CFG->admin.'/settings.php?section=gradereportlaegrader">';
     echo get_string('changereportdefaults', 'grades');
     echo "</a></div>\n";
 }

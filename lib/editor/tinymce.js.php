@@ -1,6 +1,7 @@
 <?php
 require_once('../../config.php');
-$editorlanguage = substr(current_language(), 0, 2);
+// $editorlanguage = substr(current_language(), 0, 2);
+$editorlanguage = current_language();
 $SESSION->lang = $editorlanguage;
 $directionality = get_string('thisdirection');
 $courseid = optional_param('course');

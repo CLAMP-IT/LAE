@@ -28,8 +28,8 @@ $gradereport_user_capabilities = array(
         )
     ),
 );
-$gradereport_LAEuser_capabilities = array(
-    'gradereport/LAEuser:view' => array(
+$gradereport_laeuser_capabilities = array(
+    'gradereport/laeuser:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
         'contextlevel' => CONTEXT_COURSE,

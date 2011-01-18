@@ -3397,4 +3397,26 @@ function update_course($data) {
     return false;
 }
 
+/** Checks whether a user is trying to submit a form with the LAMS format selected but LAMS is not configured.
+ *  Used as a callback by modform.
+ * @return boolean
+ */
+function course_form_check_lams($format) {
+    global $CFG, $COURSE;
+
+    if($format !== 'lams') {
+        return true;
+    }
+
+    // Get module record
+    $lams_module = get_record('modules','name','lams');
+
+    if(!$lams_module) return false;
+
+    if($lams_module->visible == 0) {
+        return false;
+    }
+    return true;
+}
+
 ?>

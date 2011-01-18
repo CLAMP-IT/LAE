@@ -1,6 +1,6 @@
-===Moodle 1.9.9+Liberal Arts Edition v1.1.1 Release Notes===
+===Moodle 1.9.9+Liberal Arts Edition v1.1.2 Release Notes===
 
-Welcome to the Moodle 1.9.9+Liberal Arts Edition v1.1.1 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.9+Liberal Arts Edition v1.1.2 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
@@ -18,7 +18,7 @@ We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excelle
 
 ===CONTENTS===
 
-Moodle 1.9.9+LAE v1.1.1 consists of Moodle 1.9.9 (20100609) as well as a number of CLAMP-developed features and bug fixes. It also includes security fixes from 1.9.10 that have been backported to the LAE.
+Moodle 1.9.9+LAE v1.1.2 consists of Moodle 1.9.9 (20100609) as well as a number of CLAMP-developed features and bug fixes. It also includes security fixes from 1.9.10 that have been backported to the LAE.
 
 The following features have been added to the v1.1 release:
 
@@ -29,9 +29,15 @@ The following features have been added to the v1.1 release:
 
 The following security fixes have been added to the v1.1.1 release:
 
-MSA-10-0017: XSS vulnerability in YUI 2.4.0 through YUI 2.8.1
-MSA-10-0016: Multiple phpCAS library vulnerabilities
-MSA-10-0015: Customised HTML Purifier upgraded to 4.2.0
+* MSA-10-0017: XSS vulnerability in YUI 2.4.0 through YUI 2.8.1
+* MSA-10-0016: Multiple phpCAS library vulnerabilities
+* MSA-10-0015: Customised HTML Purifier upgraded to 4.2.0
+
+The following features have been added to the v1.1.2 release:
+
+* Re-organized Files Upload UI
+* Value-input for Assignment Grading Interface
+
 
 ====Anonymous Forums====
 A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
@@ -59,7 +65,17 @@ Moodle sometimes fails to parse RSS feeds. This is because it relies on the unma
 ====TinyMCE 3.37====
 This is an upgrade from TinyMCE 2.x., our replacement editor for HTML Area. TinyMCE offers a superior feature set, and far better support for cutting and pasting from Microsoft Word. We need to verify that it works properly and upgrades cleanly from previous versions of LAE. Note: TinyMCE uses different HTML syntax from HTML area, so certain formating -- like bold or italics -- can't be undone using TinyMCE, and have to be changed in HTML view. 
 
+====Re-organized Files Upload UI====
+Keeps everything on one page, less clicks, more intuitive
+
+====Value-input for Assignment Grading Interface====
+Substitutes text input for asssignment grading dropdowns allowing decimal grades.  If $CFG-wipealloverrides is set
+in config.php, will wipe any overrides on assignment grades allowing freedom to grade from Assignment UI or Gradebook
+UI.
+
 ====Bug Fixes====
+* Fixed a limitation the code that presizes course backups to determine if they're too large (default Moodle goes through the whole backup process before it determines the course is too large). Was limiting backed up courses to 5MB -- now allows courses up to 1/2 Gig.
+
 * Can't edit a wiki with a # (hash, number sign, pound sign) in it's name.
 
 http://redmine.clamp-it.org/issues/show/11
@@ -86,25 +102,39 @@ http://redmine.clamp-it.org/issues/show/219
 http://redmine.clamp-it.org/issues/show/216
 http://tracker.moodle.org/browse/MDL-22933
 
+
+
 * SSL Publishing a Moodle site with ISA Server and no SSL Bridging (Browser--ssl--> ISA Server --nonssl --> Moodle) breaks Quiz View
 
 http://tracker.moodle.org/browse/MDL-11061
 
-* Move quiz timer to right side of page: In its default placement, the quiz time can obscure parts of the quiz interface. This offsets the timer to avoid that provlem.
+* Move quiz timer to right side of page: In its default placement, the quiz time can obscure parts of the quiz interface. This offsets the timer to avoid that problem.
 
 http://redmine.clamp-it.org/issues/show/114
+(part of "Common Hacks" integration)
 
 * Backup skips courses larger than half gig: Moodle can get hung up attempting to backup courses larger than half a gig. This tweaks skips over-sized courses (and logs the missed courses to the Moodle log)
 
 http://redmine.clamp-it.org/issues/show/114
+(part of "Common Hacks" integration)
 
 * Cleans up ghost resources from bad import: On rare occasions, a course restore/import import can cause empty "ghost" resources to appear. This fix removes those ghosts.
 
 http://redmine.clamp-it.org/issues/show/114
+(part of "Common Hacks" integration)
 
 * Fixes certain latex characters filterings
 
 http://redmine.clamp-it.org/issues/show/114
+(part of "Common Hacks" integration)
+
+* Suppresses the display of essay answers in the Quiz Item Analysis Report, since the report doesn't handle them correctly by design
+
+http://redmine.clamp-it.org/issues/show/182
+
+* Disables the LAMS course format if LAMS is not configured on the site
+
+http://redmine.clamp-it.org/issues/show/242
 
 ===Tweaks and Enhancements===
 
@@ -150,7 +180,7 @@ You can also download the individual components that make up the LAE from that U
 
 * Download the current release branch from the CLAMP Subversion repository:
 
-svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/branches/1.9.5-LAE1.0/Release
+svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.9-LAE1.1.2
 
 ===INSTALLING THE LAE===
 If you are installing Moodle for the first time, you can follow the standard Moodle installation instructions (substituting the LAE Moodle package for the regular Moodle one)
@@ -176,4 +206,4 @@ A few notes:
 
 2) We *strongly* recommend doing a test upgrade on a development Moodle instance before upgrading your production instance.
 
-3) If you have a more current version of Moodle installed (one later than 1.9.9+ (20100609), do not attempt to install LAE v1.1.1, as it will likely cause problems. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
+3) If you have a more current version of Moodle installed (one later than 1.9.9+ (20100609), do not attempt to install LAE v1.1.2, as it will cause a conflict with your newer database, and the installation will fail. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.

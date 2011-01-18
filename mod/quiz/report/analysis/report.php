@@ -181,7 +181,7 @@ class quiz_report extends quiz_default_report {
                         } else {
                             $test = new stdClass;
                             $test->responses = $QTYPES[$quizquestions[$i]->qtype]->get_correct_responses($quizquestions[$i], $states[$i]);
-                            if ($key = $QTYPES[$quizquestions[$i]->qtype]->check_response($quizquestions[$i], $states[$i], $test)) {
+                            if ($key = $QTYPES[$quizquestions[$i]->qtype]->check_response($quizquestions[$i], $states[$i], $test) || ($qtype == 'essay')) {
                                 $questions[$qid]['rcounts'][$key]++;
                             } else {
                                 $questions[$qid]['responses'][] = $resp;

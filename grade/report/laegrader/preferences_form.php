@@ -21,7 +21,7 @@ require_once($CFG->libdir.'/formslib.php');
  * First implementation of the preferences in the form of a moodleform.
  * TODO add "reset to site defaults" button
  */
-class LAEgrader_report_preferences_form extends moodleform {
+class laegrader_report_preferences_form extends moodleform {
 
     function definition() {
         global $USER, $CFG;
@@ -92,14 +92,20 @@ class LAEgrader_report_preferences_form extends moodleform {
         if (has_capability('moodle/grade:edit', $context)) {
             $preferences['prefgeneral']['quickgrading'] = $checkbox_default;
             $preferences['prefgeneral']['showquickfeedback'] = $checkbox_default;
+            $preferences['prefgeneral']['gradeeditalways'] = $checkbox_default;
+//            $preferences['prefgeneral']['accuratepointtotals'] = array(GRADE_REPORT_PREFERENCE_DEFAULT => $stryes, 0 => $strno, 1 => $stryes);
+            $preferences['prefgeneral']['laegraderreportheight'] = array(300,340,380,420,460,500,540,580,620,660,700,740,780,820,860,900);
+
         }
 
         // View capability is the lowest permission. Users with grade:manage or grade:edit must also have grader:view
-        if (has_capability('gradereport/LAEgrader:view', $context)) {
-            $preferences['prefgeneral']['studentsperpage'] = 'text';
-            $preferences['prefgeneral']['aggregationposition'] = array(GRADE_REPORT_PREFERENCE_DEFAULT => '*default*',
-                                                                       GRADE_REPORT_AGGREGATION_POSITION_FIRST => get_string('positionfirst', 'grades'),
-                                                                       GRADE_REPORT_AGGREGATION_POSITION_LAST => get_string('positionlast', 'grades'));
+        if (has_capability('gradereport/laegrader:view', $context)) {
+//            no students per page in laegrader report
+//            $preferences['prefgeneral']['studentsperpage'] = 'text';
+//            agg position always last in laegrader report
+//            $preferences['prefgeneral']['aggregationposition'] = array(GRADE_REPORT_PREFERENCE_DEFAULT => '*default*',
+//                                                                       GRADE_REPORT_AGGREGATION_POSITION_FIRST => get_string('positionfirst', 'grades'),
+//                                                                       GRADE_REPORT_AGGREGATION_POSITION_LAST => get_string('positionlast', 'grades'));
             // $preferences['prefgeneral']['enableajax'] = $checkbox_default;
 
             $preferences['prefshow']['showuserimage'] = $checkbox_default;
@@ -119,6 +125,7 @@ class LAEgrader_report_preferences_form extends moodleform {
             $mform->addElement('header', $group, get_string($group, 'grades'));
 
             foreach ($prefs as $pref => $type) {
+                $grades_str = ($pref == 'gradeeditalways' || $pref == 'laegraderreportheight') ? 'gradereport_laegrader' : 'grades';
                 // Detect and process dynamically numbered preferences
                 if (preg_match('/([^[0-9]+)([0-9]+)/', $pref, $matches)) {
                     $lang_string = $matches[1];
@@ -167,7 +174,7 @@ class LAEgrader_report_preferences_form extends moodleform {
                     $help_string = get_string("config{$lang_string}default", 'grades', $default);
                 }
 
-                $label = get_string($lang_string, 'grades') . $number;
+                $label = get_string($lang_string, $grades_str) . $number;
 
                 $mform->addElement($type, $full_pref, $label, $options);
                 if ($lang_string != 'showuserimage') {
@@ -178,9 +185,13 @@ class LAEgrader_report_preferences_form extends moodleform {
             }
         }
 
+        // not going to have any advanced prefs in this report
+        /*
         foreach($advanced as $name) {
             $mform->setAdvanced('grade_report_'.$name);
         }
+ *
+ */
 
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);

@@ -19,8 +19,8 @@
 require_once '../../../config.php';
 require_once $CFG->libdir.'/gradelib.php';
 require_once $CFG->dirroot.'/grade/lib.php';
-require_once $CFG->dirroot.'/grade/report/LAEgrader/lib.php';
-require_once $CFG->dirroot.'/grade/report/LAEgrader/locallib.php'; // END OF HACK
+require_once $CFG->dirroot.'/grade/report/laegrader/lib.php';
+require_once $CFG->dirroot.'/grade/report/laegrader/locallib.php'; // END OF HACK
 
 require_js(array('yui_yahoo', 'yui_dom', 'yui_event', 'yui_container', 'yui_connection', 'yui_dragdrop', 'yui_element'));
 
@@ -30,6 +30,7 @@ $page          = optional_param('page', 0, PARAM_INT);   // active page
 $perpageurl    = optional_param('perpage', 0, PARAM_INT);
 $edit          = optional_param('edit', -1, PARAM_BOOL); // sticky editting mode
 
+$itemid        = optional_param('sortitemid', 0, PARAM_ALPHANUM); // item to zerofill
 $sortitemid    = optional_param('sortitemid', 0, PARAM_ALPHANUM); // sort by which grade item
 $action        = optional_param('action', 0, PARAM_ALPHAEXT);
 $move          = optional_param('move', 0, PARAM_INT);
@@ -45,17 +46,17 @@ if (!$course = get_record('course', 'id', $courseid)) {
 require_login($course);
 $context = get_context_instance(CONTEXT_COURSE, $course->id);
 
-require_capability('gradereport/LAEgrader:view', $context);
+require_capability('gradereport/laegrader:view', $context);
 require_capability('moodle/grade:viewall', $context);
 
 /// return tracking object
-$gpr = new grade_plugin_return(array('type'=>'report', 'plugin'=>'LAEgrader', 'courseid'=>$courseid, 'page'=>$page));
+$gpr = new grade_plugin_return(array('type'=>'report', 'plugin'=>'laegrader', 'courseid'=>$courseid, 'page'=>$page));
 
 /// last selected report session tracking
 if (!isset($USER->grade_last_report)) {
     $USER->grade_last_report = array();
 }
-$USER->grade_last_report[$course->id] = 'LAEgrader';
+$USER->grade_last_report[$course->id] = 'laegrader';
 
 /// Build editing on/off buttons
 
@@ -78,16 +79,19 @@ if (has_capability('moodle/grade:edit', $context)) {
     $options = $gpr->get_options();
     $options['sesskey'] = sesskey();
 
-    if ($USER->gradeediting[$course->id]) {
-        $options['edit'] = 0;
-        $string = get_string('turneditingoff');
+    // allow for always editing config
+    if (get_user_preferences('grade_report_gradeeditalways')) {
+        $USER->gradeediting[$course->id] = 1;
     } else {
-        $options['edit'] = 1;
-        $string = get_string('turneditingon');
+        if ($USER->gradeediting[$course->id]) {
+            $options['edit'] = 0;
+            $string = get_string('turneditingoff');
+        } else {
+            $options['edit'] = 1;
+            $string = get_string('turneditingon');
+        }
+        $buttons = print_single_button('index.php', $options, $string, 'get', '_self', true);
     }
-
-    $buttons = print_single_button('index.php', $options, $string, 'get', '_self', true);
-
 } else {
     $USER->gradeediting[$course->id] = 0;
     $buttons = '';
@@ -95,26 +99,16 @@ if (has_capability('moodle/grade:edit', $context)) {
 
 $gradeserror = array();
 
-// Handle toggle change request
-if (!is_null($toggle) && !empty($toggle_type)) {
-    set_user_preferences(array('grade_report_show'.$toggle_type => $toggle));
-}
-
 //first make sure we have proper final grades - this must be done before constructing of the grade tree
 grade_regrade_final_grades($courseid);
 
-// Perform actions
-if (!empty($target) && !empty($action) && confirm_sesskey()) {
-	grade_report_grader::process_action($target, $action); // END OF HACK
-}
-
-$reportname = get_string('modulename', 'gradereport_LAEgrader');
+$reportname = get_string('modulename', 'gradereport_laegrader');
 // Initialise the grader report object
-$report = new grade_report_LAEgrader($courseid, $gpr, $context, $page, $sortitemid); // END OF HACK
+$report = new grade_report_laegrader($courseid, $gpr, $context, $page, $sortitemid); // END OF HACK
 
 // make sure separate group does not prevent view
 if ($report->currentgroup == -2) {
-    print_grade_page_head_local($COURSE->id, 'report', 'LAEgrader', $reportname, false, null, $buttons);
+    print_grade_page_head($COURSE->id, 'report', 'laegrader', $reportname, false, null, $buttons);
     print_heading(get_string("notingroup"));
     print_footer($course);
     exit;
@@ -137,10 +131,16 @@ $report->load_final_grades();
 
 if ($action === 'quick-dump') {
     $report->quick_dump();
+} elseif ($action === 'zerofill' && !is_null($itemid)) {
+    /// bunch of code here
+    echo '';
+    foreach ($report->grades as $usergrades) {
+
+    }
 }
 
 /// Print header
-print_grade_page_head($COURSE->id, 'report', 'LAEgrader', $reportname, false, null, $buttons);
+print_grade_page_head($COURSE->id, 'report', 'laegrader', $reportname, false, null, $buttons);
 
 echo $report->group_selector;
 echo '<div class="clearer"></div>';
@@ -151,37 +151,47 @@ foreach($warnings as $warning) {
     notify($warning);
 }
 
-$studentsperpage = $report->get_pref('studentsperpage');
-// Don't use paging if studentsperpage is empty or 0 at course AND site levels
-if (!empty($studentsperpage)) {
-    print_paging_bar($numusers, $report->page, $studentsperpage, $report->pbarurl);
-}
+$studentsperpage = 0;
 
-$reporthtml = '<script src="functions.js" type="text/javascript"></script>';
-//$reporthtml .= '<div class="gradeparent">';
-$reporthtml .= $report->get_studentnameshtml();
+/// because our names aren't a separate fixed table we eliminate altogether need for get_studentnameshtml()
+//$reporthtml .= $report->get_studentnameshtml();
+
+$reporthtml = '<br /><table id="user-grades" class="gradestable flexible boxaligncenter generaltable"><tbody>';
 $reporthtml .= $report->get_headerhtml();
-$reporthtml .= str_replace('iconsmall','iconsmall iconcenter',$report->get_iconshtml());
+
+// need to add a class to the icons so they can be differientiated in css
 //$reporthtml .= $report->get_iconshtml();
-$reporthtml .= $report->get_studentshtml();
+$reporthtml .= str_replace('iconsmall','iconsmall iconcenter',$report->get_iconshtml());
+
 $reporthtml .= $report->get_rangehtml();
 $reporthtml .= $report->get_avghtml(true);
 $reporthtml .= $report->get_avghtml();
+$reporthtml .= $report->get_studentshtml();
+
 $reporthtml .= $report->get_endhtml();
+
+// this report doesn't need a closing div tag
 //$reporthtml .= '</div>';
 
-//if ($report->frozennamesandheaders) {
-    $headerrows = ($USER->gradeediting[$courseid]) ? 2 : 1;
-    $headercols = ($report->get_pref('showuseridnumber')) ? 3 : 2;
-    $headerinit = "fxheaderInit('user-grades',380," . $headerrows . ',' . $headercols . ');';
-    $reporthtml .=
-            '<script src="' . $CFG->wwwroot . '/grade/report/LAEgrader/fxHeader_0.3.min.js" type="text/javascript"></script>
-            <script type="text/javascript">' .$headerinit . 'fxheader(); </script>';
-//}
+$headerrows = ($USER->gradeediting[$courseid]) ? 2 : 1;
+$headerrows += ($report->get_pref('showaverages')) ? 1 : 0;
+$headerrows += ($report->get_pref('showranges')) ? 1 : 0;
+$headercols = ($report->get_pref('showuseridnumber')) ? 3 : 2;
+$scrolling = get_user_preferences('grade_report_laegraderreportheight');
+$scrolling = $scrolling == null ? 380 : 300 + ($scrolling * 40);
+$headerinit = "fxheaderInit('user-grades', $scrolling," . $headerrows . ',' . $headercols . ');';
+$reporthtml .=
+        '<script src="' . $CFG->wwwroot . '/grade/report/laegrader/fxHeader_0.3.min.js" type="text/javascript"></script>
+        <script type="text/javascript">' .$headerinit . 'fxheader(); </script>';
+
+$reporthtml .=
+        '<script src="' . $CFG->wwwroot . '/grade/report/laegrader/jquery-1.4.2.min.js" type="text/javascript"></script>';
+$reporthtml .=
+        '<script src="' . $CFG->wwwroot . '/grade/report/laegrader/my_jslib.js" type="text/javascript"></script>';
 
 // print submit button
 if ($USER->gradeediting[$course->id]) {
-    echo '<form action="index.php" method="post">';
+    echo '<form name="gradesedit" action="index.php" method="post">';
     echo '<div>';
     echo '<input type="hidden" value="'.$courseid.'" name="id" />';
     echo '<input type="hidden" value="'.sesskey().'" name="sesskey" />';

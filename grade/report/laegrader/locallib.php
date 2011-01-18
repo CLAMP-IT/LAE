@@ -99,6 +99,86 @@ function print_grade_page_head_local($courseid, $active_type, $active_plugin=nul
 }
 
 
+function fill_parents(&$parents, &$items, $element, $idnumber,$accuratetotals = false, $alltotals = true) {
+    foreach($element['children'] as $sortorder=>$child) {
+        switch ($child['type']) {
+            case 'courseitem':
+            case 'categoryitem':
+                continue 2;
+            case 'category':
+                $childid = $child['object']->grade_item->id;
+                break;
+            default:
+                $childid = substr($child['eid'],1,8);
+        }
+        if (! isset($parents[$childid]) && isset($element->type) && !$element->type == 'courseitem') {
+            $parents[$childid]->id = $idnumber;
+            $parents[$childid]->agg = $element['object']->aggregation;
+        }
+        if (! empty($child['children'])) {
+            fill_parents($parents, $items, $child, $childid, $accuratetotals, $alltotals);
+        }
+        // accumulate max scores for parent
+//        if ($accuratetotals && $alltotals) {
+        if (isset($accuratetotals) && $accuratetotals && isset($alltotals) && $alltotals && ((isset($items[$childid]->aggregationcoef) && $items[$childid]->aggregationcoef <> 1) || (isset($parents[$childid]->agg) && $parents[$childid]->agg == GRADE_AGGREGATE_WEIGHTED_MEAN))) {
+            $items[$idnumber]->max_earnable += (isset($items[$childid]->max_earnable)) ? $items[$childid]->max_earnable : $items[$childid]->grademax;            
+        }
+    }
+    return;
+}
+
+    /**
+     * Returns name of element optionally with icon and link
+     * @param object $element
+     * @param bool $withlinks
+     * @param bool $icons
+     * @param bool $spacerifnone return spacer if no icon found
+     * @return header string
+     */
+    function get_element_headerlaegrader(&$element, $withlink=false, $icon=true, $spacerifnone=false) {
+        global $CFG, $COURSE;
+
+        $header = '';
+        $courseid = $COURSE->id;
+
+        if ($icon) {
+//            $header .= get_element_icon_local($element, $spacerifnone) . '<br />';
+        }
+        if ($element->type == 'categoryitem') {
+            $header .= 'C A T E G O R Y';
+        } else if ($element->type == 'courseitem') {
+            $header .= 'C O U R S E';
+        } else {
+//            $header .= '- - - - - - - - - - - - - - ';
+//            $header .= '<br />';
+        }
+        $header .= '<br />' . $element->get_name(true);
+        $itemtype     = $element->itemtype;
+        $itemmodule   = $element->itemmodule;
+        $iteminstance = $element->iteminstance;
+
+        if ($withlink and $itemtype=='mod' and $iteminstance and $itemmodule) {
+            if ($cm = get_coursemodule_from_instance($itemmodule, $iteminstance, $courseid)) {
+
+                $a->name = get_string('modulename', $itemmodule);
+                $title = get_string('linktoactivity', 'grades', $a);
+                $dir = $CFG->dirroot.'/mod/'.$itemmodule;
+
+                if (file_exists($dir.'/grade.php')) {
+                    $url = $CFG->wwwroot.'/mod/'.$itemmodule.'/grade.php?id='.$cm->id;
+                } else {
+                    $url = $CFG->wwwroot.'/mod/'.$itemmodule.'/view.php?id='.$cm->id;
+                }
+                $header = '<a href="'.$url.'" title="'.s($title).'">'.wordwrap($header,20,'<br />').'</a>';
+            }
+        } else {
+                $header = wordwrap($header,20,'<br />');
+        }
+
+        return $header;
+    }
+   
+
 /**
  * Returns icon of element
  * @param object $element
@@ -334,6 +414,36 @@ function grade_regrade_final_grades_local($courseid, $userid=null, $updated_item
     }
 }
 
+/**
+ * Returns icon to initiate zero-filling of empty grade cells for column
+ * @param object $element
+ * @param bool $spacerifnone return spacer if no icon found
+ * @return string icon or spacer
+ */
+function get_zerofill_icon(&$element, $courseid, $context) {
+    global $CFG;
+
+    if (!has_capability('moodle/grade:manage', $context)) {
+        if ($element['type'] == 'grade' and has_capability('moodle/grade:edit', $context)) {
+            // oki - let them override grade
+        } else {
+            return '';
+        }
+    }
+
+    $object = $element['object'];
+    if ($element['type'] == 'item') {
+        $stredit = get_string('zerofill', 'gradereport_laegrader');
+        $url = $CFG->wwwroot.'/grade/report/laegrader/index.php?id='.$courseid.'&amp;itemid='.$object->id . '&action=zerofill';
+//            $url = $gpr->add_url_params($url);
+//        return '<a href="'.$url.'"><img src="' . $CFG->wwwroot . '/grade/report/laegrader/zerofill.png" class="iconsmall" alt="'.s($stredit).'" title="'.s($stredit).'"/></a>';
+        return '<img src="' . $CFG->wwwroot . '/grade/report/laegrader/zerofill.png" class="iconsmall zerofill" alt="'.s($stredit) . '" title="'.s($stredit) . '" onclick="zerofill(' . $object->id . ')" />';
+//        return '<img src="' . $CFG->wwwroot . '/grade/report/laegrader/zerofill.png" class="iconsmall zerofill" alt="'.s($stredit) . '" />';
+    } else {
+        return '';
+    }
+}
+
 
 class grade_tree_local extends grade_tree {
     /**
@@ -344,7 +454,7 @@ class grade_tree_local extends grade_tree {
      * @param boolean $category_grade_last category grade item is the last child
      * @param array $collapsed array of collapsed categories
      */
-    function grade_tree_local($courseid, $fillers=true, $category_grade_last=false, $collapsed=null, $nooutcomes=false) {
+    function grade_tree_local($courseid, $fillers=true, $category_grade_last=true, $collapsed=null, $nooutcomes=false) {
         global $USER, $CFG;
 
         $this->courseid   = $courseid;
@@ -354,12 +464,8 @@ class grade_tree_local extends grade_tree {
         $this->parents 	  = array();
 
         // get course grade tree
-        $this->top_element = grade_category_local::fetch_course_tree($courseid, true);
+        $this->top_element = grade_category::fetch_course_tree($courseid, true);
 
-        // collapse the categories if requested
-        if (!empty($collapsed)) {
-            grade_tree_local::category_collapse($this->top_element, $collapsed);
-        }
 
         // no otucomes if requested
         if (!empty($nooutcomes)) {
@@ -378,7 +484,7 @@ class grade_tree_local extends grade_tree {
             grade_tree_local::inject_colspans($this->top_element);
         }
 
-        grade_tree_local::fill_levels($this->levels, $this->top_element, 0, null, $this->parents);        
+        grade_tree_local::fill_levels($this->levels, $this->top_element, 0, null, $this->parents);
     }
     
         /**
@@ -496,56 +602,6 @@ class grade_tree_local extends grade_tree {
         return $header;
     }
 
-
-    /**
-     * Returns name of element optionally with icon and link
-     * @param object $element
-     * @param bool $withlinks
-     * @param bool $icons
-     * @param bool $spacerifnone return spacer if no icon found
-     * @return header string
-     */
-    function get_element_headerLAEgrader(&$element, $withlink=false, $icon=true, $spacerifnone=false) {
-        global $CFG;
-
-        $header = '';
-
-        if ($icon) {
-//            $header .= get_element_icon_local($element, $spacerifnone) . '<br />';
-        }
-        if ($element->type == 'categoryitem') {
-            $header .= 'C A T E G O R Y';
-        } else if ($element->type == 'courseitem') {
-            $header .= '* * * * * * * *<br />C O U R S E';
-        } else {
-            $header .= '- - - - - - - - - - - - - - ';
-        }
-        $header .= '<br />' . $element->get_name(true);
-        $itemtype     = $element->itemtype;
-        $itemmodule   = $element->itemmodule;
-        $iteminstance = $element->iteminstance;
-
-        if ($withlink and $itemtype=='mod' and $iteminstance and $itemmodule) {
-            if ($cm = get_coursemodule_from_instance($itemmodule, $iteminstance, $this->courseid)) {
-
-                $a->name = get_string('modulename', $itemmodule);
-                $title = get_string('linktoactivity', 'grades', $a);
-                $dir = $CFG->dirroot.'/mod/'.$itemmodule;
-
-                if (file_exists($dir.'/grade.php')) {
-                    $url = $CFG->wwwroot.'/mod/'.$itemmodule.'/grade.php?id='.$cm->id;
-                } else {
-                    $url = $CFG->wwwroot.'/mod/'.$itemmodule.'/view.php?id='.$cm->id;
-                }
-
-                $header = '<a href="'.$url.'" title="'.s($title).'">'.$header.'</a>';
-            }
-        }
-
-        return $header;
-    }
-    
-	
 }
 
 class grade_edit_tree_local extends grade_edit_tree {

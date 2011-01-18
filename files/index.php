@@ -10,7 +10,21 @@
     require('../config.php');
     require($CFG->libdir.'/filelib.php');
     require($CFG->libdir.'/adminlib.php');
+?>
+<script type="text/javascript">
+//<![CDATA[
+    function mycheckall() {
+      var el = document.getElementsByTagName('input');
+      for(var i=0; i<el.length; i++) {
+        if(el[i].type == 'checkbox') {
+          el[i].checked = exby.checked? true:false;
+        }
+      }
+    }
+//]]>
+</script>
 
+<?php
     $id      = required_param('id', PARAM_INT);
     $file    = optional_param('file', '', PARAM_PATH);
     $wdir    = optional_param('wdir', '', PARAM_PATH);
@@ -150,7 +164,7 @@
         }
 
 
-        echo "<table border=\"0\" style=\"margin-left:auto;margin-right:auto\" cellspacing=\"3\" cellpadding=\"3\" width=\"640\">";
+        echo "<table border=\"0\" style=\"margin-left:auto;margin-right:auto;min-width:100%\" cellspacing=\"3\" cellpadding=\"3\" >";
         echo "<tr>";
         echo "<td colspan=\"2\">";
 
@@ -576,8 +590,13 @@
                     notify($archive->errorInfo(true));
 
                 } else {
-                    echo "<table cellpadding=\"4\" cellspacing=\"2\" border=\"0\" width=\"640\" class=\"files\">";
-                    echo "<tr class=\"file\"><th align=\"left\" class=\"header name\" scope=\"col\">$strname</th><th align=\"right\" class=\"header size\" scope=\"col\">$strsize</th><th align=\"right\" class=\"header date\" scope=\"col\">$strmodified</th></tr>";
+                    echo "<table cellpadding=\"4\" cellspacing=\"2\" border=\"0\" style=\"min-width:100%;margin-left:auto;margin-right:auto\" class=\"files\">";
+                    //echo "<tr class=\"file\"><th align=\"left\" class=\"header name\" scope=\"col\">$strname</th><th align=\"right\" class=\"header size\" scope=\"col\">$strsize</th><th align=\"right\" class=\"header date\" scope=\"col\">$strmodified</th></tr>";
+
+    echo "<th class=\"header name\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[0]}\">$strname</a></th>";
+    echo "<th class=\"header size\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[1]}\">$strsize</a></th>";
+    echo "<th class=\"header date\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[2]}\">$strmodified</a></th></tr>";
+
                     foreach ($list as $item) {
                         echo "<tr>";
                         print_cell("left", s($item['filename']), 'name');
@@ -707,8 +726,11 @@ function displaydir ($wdir) {
     global $USER, $CFG;
     global $choose;
 
+    // Get the sort parameter if there is one
+    $sort = optional_param('sort', 1, PARAM_INT);
+
     $fullpath = $basedir.$wdir;
-    $dirlist = array();
+    $dirlist = array(); 
 
     $directory = opendir($fullpath);             // Find all files
     while (false !== ($file = readdir($directory))) {
@@ -746,18 +768,145 @@ function displaydir ($wdir) {
     $strfolder = get_string("folder");
     $strfile   = get_string("file");
 
+    $padrename = get_string("rename");
+    $padedit   = str_repeat('&nbsp;',strlen($stredit) * 2.5);
+    $padunzip  = str_repeat('&nbsp;',strlen($strunzip) * 2.5);
+    $padlist   = str_repeat('&nbsp;',strlen($strlist) * 2.5);
+    $padrestore= str_repeat('&nbsp;',strlen($strrestore) * 2.5);
+    $padchoose = str_repeat('&nbsp;',strlen($strchoose) * 2.5);
+    $padfolder = str_repeat('&nbsp;',strlen($strfolder) * 2.5);
+    $padfile   = str_repeat('&nbsp;',strlen($strfile) * 2.5);
 
+    // Set sort arguments so that clicking on a column that is already sorted reverses the sort order
+    $sortvalues = array(1,2,3);
+    foreach ($sortvalues as &$sortvalue) {
+	    if ($sortvalue == $sort) {
+            $sortvalue = -$sortvalue;
+        }
+    }
+
+    $upload_max_filesize = get_max_upload_file_size($CFG->maxbytes);
+    $filesize = display_size($upload_max_filesize);
+
+    $struploadafile = get_string("uploadafile");
+    $struploadthisfile = get_string("uploadthisfile");
+    $strmaxsize = get_string("maxsize", "", $filesize);
+    $strcancel = get_string("cancel");
+
+    // beginning of with selected files portion
+//    echo "<hr/>";
+    echo "<table border=\"0\" cellspacing=\"2\" cellpadding=\"2\" style=\"min-width:900px;margin-left:auto;margin-right:auto\" class=\"files\">";
+    echo "<tr>";
+    if (!empty($USER->fileop) and ($USER->fileop == "move") and ($USER->filesource <> $wdir)) {
+        echo "<td colspan = \"3\" align=\"center\">";
+        echo "<form action=\"index.php\" method=\"get\">";
+//        echo "<div>";
+        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
+        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
+        echo " <input type=\"hidden\" name=\"action\" value=\"paste\" />";
+        echo " <input type=\"hidden\" name=\"sesskey\" value=\"$USER->sesskey\" />";
+        echo " <input align=\"center\" type=\"submit\" value=\"$strmovefilestohere\" />";
+        echo "<span> --> <b>$wdir</b></span><br />";
+ //       echo "</div>";
+        echo "</td>";
+ 		echo '<td>';
+        echo "</form>";
+        echo "<form action=\"index.php\" method=\"get\" align=\"left\">";
+        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
+        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
+        echo " <input type=\"hidden\" name=\"action\" value=\"cancel\" />";
+        echo " <input type=\"submit\" value=\"$strcancel\" style = \"color: red;margin-left:10px\" />";
+        echo "</form>";
+        echo "</td>";
+    } else {
+        echo '<td colspan = "3"></td>';
+        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan = "2" align="left">';
+        echo "<form enctype=\"multipart/form-data\" method=\"post\" action=\"index.php\">";
+        echo "<span> $struploadafile ($strmaxsize) --> <b>$wdir</b></span><br />";
+        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
+        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
+        echo " <input type=\"hidden\" name=\"action\" value=\"upload\" />";
+        echo " <input type=\"hidden\" name=\"sesskey\" value=\"$USER->sesskey\" />";
+        $maxbytes = get_max_upload_file_size($CFG->maxbytes, $coursebytes, $modbytes);
+        $str = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxbytes .'" />'."\n";
+        $name = 'userfile';
+        $str .= '<input type="file" size="40" name="'. $name .'" alt="'. $name .'" /><br />'."\n";
+        echo $str;
+        echo " <input type=\"submit\" name=\"save\" value=\"$struploadthisfile\" style = \"color: green;padding-left:5px\" />";
+    //    upload_print_form_fragment(1,array('userfile'),null,false,null,$upload_max_filesize,0,false);
+        echo "</form>";
+        echo '</td>';
+        echo '</tr>';
+        echo '<tr>';
+        echo "<td style = \"max-width:50px; white-space: nowrap\" colspan = \"2\" align=\"left\">";
+            echo "<form action=\"index.php\" method=\"get\">"; //dummy form - alignment only
+            echo "<fieldset class=\"invisiblefieldset\">";
+            echo " <input type=\"button\" value=\"$strselectall\" onclick=\"checkall();\" style = \"color: green\" />";
+            echo " <input type=\"button\" value=\"$strselectnone\" onclick=\"uncheckall();\" style = \"color: red\" />";
+            echo "</fieldset>";
+            echo "</form>";
+        echo "</td>";
+        echo '<td align="center">';
+        echo "<form action=\"index.php\" method=\"get\">";
+//        echo "<div>";
+        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
+        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
+        echo " <input type=\"hidden\" name=\"action\" value=\"makedir\" />";
+        echo " <input type=\"submit\" value=\"$strmakeafolder\" />";
+//        echo "</div>";
+        echo "</form>";
+        echo '</td>';
+        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan="3">';
+        // cancel button div
+        echo "<form action=\"index.php\" method=\"get\" align=\"left\">";
+        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
+        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
+        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
+        echo " <input type=\"hidden\" name=\"action\" value=\"cancel\" />";
+        echo " <input type=\"submit\" value=\"$strcancel\" align=\"left\" style = \"color: red\" />";
+        echo "</form>";
+        echo '</td>';
+        echo '</tr>';
+    }
     echo "<form action=\"index.php\" method=\"post\" id=\"dirform\">";
     echo "<div>";
     echo '<input type="hidden" name="choose" value="'.$choose.'" />';
     // echo "<hr align=\"center\" noshade=\"noshade\" size=\"1\" />";
-    echo "<hr/>";
-    echo "<table border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"640\" class=\"files\">";
     echo "<tr>";
-    echo "<th class=\"header\" scope=\"col\"></th>";
-    echo "<th class=\"header name\" scope=\"col\">$strname</th>";
-    echo "<th class=\"header size\" scope=\"col\">$strsize</th>";
-    echo "<th class=\"header date\" scope=\"col\">$strmodified</th>";
+//    echo "<table border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"640\">";
+//    echo "<tr><td>";
+    echo "<th class=\"header\" scope=\"col\" style = \"max-width : 40px\">";
+    echo "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
+    echo '<input type="hidden" name="choose" value="'.$choose.'" />';
+    echo "<input type=\"hidden\" name=\"wdir\" value=\"$wdir\" /> ";
+    echo "<input type=\"hidden\" name=\"sesskey\" value=\"$USER->sesskey\" />";
+    $options = array (
+                   "move" => "$strmovetoanotherfolder",
+                   "delete" => "$strdeletecompletely",
+                   "zip" => "$strcreateziparchive"
+               );
+    if (!empty($filelist) || !empty($dirlist)) {
+
+        choose_from_menu ($options, "action", "", "$strwithchosenfiles...", "javascript:getElementById('dirform').submit()");
+        echo '<div id="noscriptgo" style="display: inline;">';
+        echo '<input type="submit" value="'.get_string('go').'" />';
+        echo '<script type="text/javascript">'.
+               "\n//<![CDATA[\n".
+               'document.getElementById("noscriptgo").style.display = "none";'.
+               "\n//]]>\n".'</script>';
+        echo '</div>';
+
+    }
+//    echo "</td></tr></table>";
+
+    echo "</th>";
+    echo "<th style=\"padding-left:80px\" class=\"header name\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[0]}\">$strname</a></th>";
+    echo "<th class=\"header size\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[1]}\">$strsize</a></th>";
+    echo "<th class=\"header date\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[2]}\">$strmodified</a></th>";
     echo "<th class=\"header commands\" scope=\"col\">$straction</th>";
     echo "</tr>\n";
 
@@ -765,35 +914,86 @@ function displaydir ($wdir) {
         $dirlist[] = '..';
     }
 
+
+
+
+
+    // Sort parameter indicates column to sort by, and parity gives the direction
+	switch ($sort) {
+    case 1:
+        $sortcmp = 'return strcasecmp($a[0],$b[0]);';
+        break;
+    case -1:
+        $sortcmp = 'return strcasecmp($b[0],$a[0]);';
+        break;
+    case 2:
+        $sortcmp = 'return ($a[1] - $b[1]);';
+        break;
+    case -2:
+        $sortcmp = 'return ($b[1] - $a[1]);';
+        break;
+    case 3:
+        $sortcmp = 'return ($a[2] - $b[2]);';
+        break;
+    case -3:
+        $sortcmp = 'return ($b[2] - $a[2]);';
+        break;
+	}
+	
+	// Create a 2D array of directories and sort
+    $dirdetails = array();
+    foreach ($dirlist as $dir) {
+        $filename = $fullpath."/".$dir;
+        $filesize = display_size(get_directory_size("$fullpath/$dir"));
+        $filedate = userdate(filemtime($filename), "%d %b %Y, %I:%M %p");
+        $row = array($dir, $filesize, $filedate);
+		array_push($dirdetails, $row);
+ 		usort($dirdetails, create_function('$a,$b', $sortcmp)); 
+ 	}
+
+	// Create a 2D array of files and sort
+    $filedetails = array();
+    foreach ($filelist as $file) {
+        $filename = $fullpath."/".$file;
+        $filedate = userdate(filemtime($filename), "%d %b %Y, %I:%M %p");
+        $filesize = filesize($filename);
+        $row = array($file, $filesize, $filedate);
+		array_push($filedetails, $row);
+		usort($filedetails, create_function('$a,$b', $sortcmp)); 
+	}
+
+
+
+
+
     $count = 0;
 
-    if (!empty($dirlist)) {
-        asort($dirlist);
-        foreach ($dirlist as $dir) {
+    if (!empty($dirdetails)) {
+        foreach ($dirdetails as $dir) {
             echo "<tr class=\"folder\">";
 
-            if ($dir == '..') {
+            if ($dir[0] == '..') {
                 $fileurl = rawurlencode(dirname($wdir));
                 print_cell();
                 // alt attribute intentionally empty to prevent repetition in screen reader
-                print_cell('left', '<a href="index.php?id='.$id.'&amp;wdir='.$fileurl.'&amp;choose='.$choose.'"><img src="'.$CFG->pixpath.'/f/parent.gif" class="icon" alt="" />&nbsp;'.get_string('parentfolder').'</a>', 'name');
+                print_cell('left', '<a  style="padding-left:10px" href="index.php?id='.$id.'&amp;wdir='.$fileurl.'&amp;choose='.$choose.'"><img src="'.$CFG->pixpath.'/f/parent.gif" class="icon" alt="" />&nbsp;'.get_string('parentfolder').'</a>', 'name');
                 print_cell();
                 print_cell();
                 print_cell();
 
             } else {
                 $count++;
-                $filename = $fullpath."/".$dir;
-                $fileurl  = rawurlencode($wdir."/".$dir);
-                $filesafe = rawurlencode($dir);
-                $filesize = display_size(get_directory_size("$fullpath/$dir"));
-                $filedate = userdate(filemtime($filename), get_string("strftimedatetime"));
+                $filename = $fullpath."/".$dir[0];
+                $fileurl  = rawurlencode($wdir."/".$dir[0]);
+                $filesafe = rawurlencode($dir[0]);
+                $filesize = $dir[1]; 
+                $filedate = $dir[2]; 
                 if ($wdir.$dir === '/moddata') {
                     print_cell();
                 } else {
                     print_cell("center", "<input type=\"checkbox\" name=\"file$count\" value=\"$fileurl\" />", 'checkbox');
                 }
-                print_cell("left", "<a href=\"index.php?id=$id&amp;wdir=$fileurl&amp;choose=$choose\"><img src=\"$CFG->pixpath/f/folder.gif\" class=\"icon\" alt=\"$strfolder\" />&nbsp;".htmlspecialchars($dir)."</a>", 'name');
+                print_cell("left", "<a href=\"index.php?id=$id&amp;wdir=$fileurl&amp;choose=$choose\"><img src=\"$CFG->pixpath/f/folder.gif\" class=\"icon\" alt=\"$strfolder\" />&nbsp;".htmlspecialchars($dir[0])."</a>", 'name');
                 print_cell("right", $filesize, 'size');
                 print_cell("right", $filedate, 'date');
                 if ($wdir.$dir === '/moddata') {
@@ -808,135 +1008,69 @@ function displaydir ($wdir) {
     }
 
 
-    if (!empty($filelist)) {
-        asort($filelist);
-        foreach ($filelist as $file) {
+    if (!empty($filedetails)) {
+        foreach ($filedetails as $file) {
 
-            $icon = mimeinfo("icon", $file);
+            $icon = mimeinfo("icon", $file[0]);
 
             $count++;
-            $filename    = $fullpath."/".$file;
+            $filename    = $fullpath."/".$file[0];
             $fileurl     = trim($wdir, "/")."/$file";
-            $filesafe    = rawurlencode($file);
+            $filesafe    = rawurlencode($file[0]);
             $fileurlsafe = rawurlencode($fileurl);
-            $filedate    = userdate(filemtime($filename), get_string("strftimedatetime"));
+            $filedate    = $file[2]; 
 
             $selectfile = trim($fileurl, "/");
 
             echo "<tr class=\"file\">";
 
-            print_cell("center", "<input type=\"checkbox\" name=\"file$count\" value=\"$fileurl\" />", 'checkbox');
-            echo "<td align=\"left\" style=\"white-space:nowrap\" class=\"name\">";
+            print_cell("right", "<input type=\"checkbox\" name=\"file$count\" value=\"$fileurl\" />", 'checkbox');
+            echo "<td align=\"left\" style=\"white-space:nowrap;padding-left:10px\" class=\"name\">";
 
             $ffurl = get_file_url($id.'/'.$fileurl);
             link_to_popup_window ($ffurl, "display",
-                                  "<img src=\"$CFG->pixpath/f/$icon\" class=\"icon\" alt=\"$strfile\" />&nbsp;".htmlspecialchars($file),
+                                  "<img src=\"$CFG->pixpath/f/$icon\" class=\"icon\" alt=\"$strfile\" />&nbsp;".htmlspecialchars($file[0]),
                                   480, 640);
             echo "</td>";
 
-            $file_size = filesize($filename);
+            $file_size = $file[1]; 
             print_cell("right", display_size($file_size), 'size');
             print_cell("right", $filedate, 'date');
 
             if ($choose) {
                 $edittext = "<strong><a onclick=\"return set_value('$selectfile')\" href=\"#\">$strchoose</a></strong>&nbsp;";
             } else {
-                $edittext = '';
+                $edittext =  $padchoose;
             }
 
 
             if ($icon == "text.gif" || $icon == "html.gif") {
                 $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=edit&amp;choose=$choose\">$stredit</a>";
-            } else if ($icon == "zip.gif") {
+            } else {
+                $edittext .= $padedit;
+            }	    
+            if ($icon == "zip.gif") {
                 $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=unzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strunzip</a>&nbsp;";
                 $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=listzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strlist</a> ";
-                if (!empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
-                    $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
-                }
+            } else {
+                $edittext .= $padunzip;
+                $edittext .= $padlist;
+            }	    
+            if (!empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
+                $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
+            } else {
+                $edittext .= $padrestore;
             }
-
-            print_cell("right", "$edittext <a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
+            
+            print_cell("left", "$edittext <a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
 
             echo "</tr>";
         }
     }
-    echo "</table>";
-    echo "<hr />";
-    //echo "<hr width=\"640\" align=\"center\" noshade=\"noshade\" size=\"1\" />";
-
-    echo "<table border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"640\">";
-    echo "<tr><td>";
-    echo "<input type=\"hidden\" name=\"id\" value=\"$id\" />";
-    echo '<input type="hidden" name="choose" value="'.$choose.'" />';
-    echo "<input type=\"hidden\" name=\"wdir\" value=\"$wdir\" /> ";
-    echo "<input type=\"hidden\" name=\"sesskey\" value=\"$USER->sesskey\" />";
-    $options = array (
-                   "move" => "$strmovetoanotherfolder",
-                   "delete" => "$strdeletecompletely",
-                   "zip" => "$strcreateziparchive"
-               );
-    if (!empty($count)) {
-
-        choose_from_menu ($options, "action", "", "$strwithchosenfiles...", "javascript:getElementById('dirform').submit()");
-        echo '<div id="noscriptgo" style="display: inline;">';
-        echo '<input type="submit" value="'.get_string('go').'" />';
-        echo '<script type="text/javascript">'.
-               "\n//<![CDATA[\n".
-               'document.getElementById("noscriptgo").style.display = "none";'.
-               "\n//]]>\n".'</script>';
-        echo '</div>';
-
-    }
-    echo "</td></tr></table>";
     echo "</div>";
     echo "</form>";
-    echo "<table border=\"0\" cellspacing=\"2\" cellpadding=\"2\" width=\"640\"><tr>";
-    echo "<td align=\"center\">";
-    if (!empty($USER->fileop) and ($USER->fileop == "move") and ($USER->filesource <> $wdir)) {
-        echo "<form action=\"index.php\" method=\"get\">";
-        echo "<div>";
-        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
-        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
-        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
-        echo " <input type=\"hidden\" name=\"action\" value=\"paste\" />";
-        echo " <input type=\"hidden\" name=\"sesskey\" value=\"$USER->sesskey\" />";
-        echo " <input type=\"submit\" value=\"$strmovefilestohere\" />";
-        echo "</div>";
-        echo "</form>";
-    }
-    echo "</td>";
-    echo "<td align=\"right\">";
-        echo "<form action=\"index.php\" method=\"get\">";
-        echo "<div>";
-        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
-        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
-        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
-        echo " <input type=\"hidden\" name=\"action\" value=\"makedir\" />";
-        echo " <input type=\"submit\" value=\"$strmakeafolder\" />";
-        echo "</div>";
-        echo "</form>";
-    echo "</td>";
-    echo "<td align=\"right\">";
-        echo "<form action=\"index.php\" method=\"get\">"; //dummy form - alignment only
-        echo "<fieldset class=\"invisiblefieldset\">";
-        echo " <input type=\"button\" value=\"$strselectall\" onclick=\"checkall();\" />";
-        echo " <input type=\"button\" value=\"$strselectnone\" onclick=\"uncheckall();\" />";
-        echo "</fieldset>";
-        echo "</form>";
-    echo "</td>";
-    echo "<td align=\"right\">";
-        echo "<form action=\"index.php\" method=\"get\">";
-        echo "<div>";
-        echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
-        echo " <input type=\"hidden\" name=\"id\" value=\"$id\" />";
-        echo " <input type=\"hidden\" name=\"wdir\" value=\"$wdir\" />";
-        echo " <input type=\"hidden\" name=\"action\" value=\"upload\" />";
-        echo " <input type=\"submit\" value=\"$struploadafile\" />";
-        echo "</div>";
-        echo "</form>";
-    echo "</td></tr>";
     echo "</table>";
-    echo "<hr/>";
+//    echo "<hr />";
     //echo "<hr width=\"640\" align=\"center\" noshade=\"noshade\" size=\"1\" />";
 
 }

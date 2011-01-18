@@ -1,13 +1,13 @@
-.grade-report-LAEuser table.user-grade .datesubmitted {
+.grade-report-laeuser table.user-grade .datesubmitted {
   font-size: 0.7em;
 }
 
-.grade-report-LAEuser table.user-grade .courseitem,
-.grade-report-LAEuser table.user-grade .categoryitem {
+.grade-report-laeuser table.user-grade .courseitem,
+.grade-report-laeuser table.user-grade .categoryitem {
   font-weight: bold;
 }
 
-.grade-report-LAEuser table.user-grade td.cell {
+.grade-report-laeuser table.user-grade td.cell {
   padding-left: 5px;
   padding-right: 5px;
   text-align:center;
@@ -23,8 +23,8 @@ table.user-grade td.left {
 }
 
 /* this must be last if we want to override other category and course item colors */
-.grade-report-LAEuser table.user-grade .hidden,
-.grade-report-LAEuser table.user-grade .hidden a {
+.grade-report-laeuser table.user-grade .hidden,
+.grade-report-laeuser table.user-grade .hidden a {
   color:#aaaaaa;
 }
 

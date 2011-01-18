@@ -109,7 +109,7 @@ function schedule_backup_cron() {
 				 // CLAMP # 114 2010-06-23 bobpuffer
                 } else {
  	                 $space = get_directory_size("$CFG->dataroot/$course->id/");
-                    if( $space > 512000) {
+                    if( $space > 536870912) {
                      	 mtrace("            SKIPPING - exceeds maximum size");
                         $skipped = true;
                     	 set_field("backup_courses","laststatus","4","courseid",$backup_course->courseid);

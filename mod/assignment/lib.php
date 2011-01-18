@@ -4,10 +4,10 @@
  *
  * This class provides all the functionality for an assignment
  */
-
 // CLAMP #118 2010-03-16 dlandau
 // Include library for AssignmentZip.
 require_once($CFG->dirroot . '/lib/LAE/zip.php');
+
 
 DEFINE ('ASSIGNMENT_COUNT_WORDS', 1);
 DEFINE ('ASSIGNMENT_COUNT_LETTERS', 2);
@@ -45,6 +45,29 @@ class assignment_base {
      */
     function assignment_base($cmid='staticonly', $assignment=NULL, $cm=NULL, $course=NULL) {
         global $COURSE;
+       echo '<script type="text/javascript">
+            <!--
+            String.prototype.trim = function () {
+                return this.replace(/^\s*/, "").replace(/\s*$/, "");
+            }
+            function validate (f,max) {
+                // trim the value
+                f.value=f.value.trim();
+                // our regex
+                var re = /[-|+]?[ ]*[0-9]*\.?[0-9]+$/;
+                if(re.test(f.value) && f.value <= max)  {
+                    return true; }
+                else if(f.value == ""){
+                    f.value  = -1;
+                    return true; }
+                else {
+                    alert("Must be a valid number no greater than " + max);
+                }
+                setTimeout(function(){f.focus()},10);
+                return false;
+                };
+            -->
+            </script>';
 
         if ($cmid == 'staticonly') {
             //use static functions only!
@@ -213,13 +236,18 @@ class assignment_base {
         global $USER, $CFG;
         require_once($CFG->libdir.'/gradelib.php');
 
-        if (!has_capability('mod/assignment:submit', $this->context, $USER->id, false)) {
-            // can not submit assignments -> no feedback
-            return;
+        if (!$submission) { /// Get submission for this assignment
+            $submission = $this->get_submission($USER->id, false);
         }
 
-        if (!$submission) { /// Get submission for this assignment
-            $submission = $this->get_submission($USER->id);
+        // Check the user can submit
+        $cansubmit = has_capability('mod/assignment:submit', $this->context, $USER->id, false);
+        // If not then check if ther user still has the view cap and has a previous submission
+        $cansubmit = $cansubmit || (!empty($submission) && has_capability('mod/assignment:view', $this->context, $USER->id, false));
+
+        if (!$cansubmit) {
+            // can not submit assignments -> no feedback
+            return;
         }
 
         $grading_info = grade_get_grades($this->course->id, 'mod', 'assignment', $this->assignment->id, $USER->id);
@@ -422,7 +450,7 @@ class assignment_base {
      * This is common to all assignment types.
      *
      * @param $assignment object The data from the form on mod.html
-     * @return int The assignment id
+     * @return bool success
      */
     function update_instance($assignment) {
         global $COURSE;
@@ -477,7 +505,9 @@ class assignment_base {
      * Update grade item for this submission.
      */
     function update_grade($submission) {
-        assignment_update_grades($this->assignment, $submission->userid);
+        // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW SAVING OF FLOATING POINT GRADE INPUT FROM TEXT FIELD IN ASSIGNMENT INTERFACE
+//        assignment_update_grades($this->assignment, $submission->userid);
+        assignment_update_grades($this->assignment, $submission->userid, $submission); // END OF HACK BOBPUFFER
     }
 
     /**
@@ -506,12 +536,30 @@ class assignment_base {
 
         switch ($mode) {
             case 'grade':                         // We are in a popup window grading
-                if ($submission = $this->process_feedback()) {
-                    //IE needs proper header with encoding
-                    print_header(get_string('feedback', 'assignment').':'.format_string($this->assignment->name));
-                    print_heading(get_string('changessaved'));
-                    print $this->update_main_listing($submission);
-                }
+                // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW TEXT INPUT OF GRADE
+//                if ($submission = $this->process_feedback()) {
+                $submission = $this->process_feedback();
+                if (is_numeric($submission->grade)) {
+                    if (floatval($submission->grade) > floatval($this->assignment->grade)) {
+                        echo '<script type="text/javascript">alert("' . $submission->grade
+                                . ' is not a valid number no greater than ' . $this->assignment->grade . '")</script>';
+                    } else {
+                        //IE needs proper header with encoding
+                        print_header(get_string('feedback', 'assignment').':'.format_string($this->assignment->name));
+                        print_heading(get_string('changessaved'));
+                        print $this->update_main_listing($submission);
+                    }
+                } else {
+                    if (trim($submission->grade) == null || trim($submission->grade) == '-') {
+                        //IE needs proper header with encoding
+                        print_header(get_string('feedback', 'assignment').':'.format_string($this->assignment->name));
+                        print_heading(get_string('changessaved'));
+                        print $this->update_main_listing($submission);
+                    } else {
+                        echo '<script type="text/javascript">alert("' . $submission->grade
+                                . ' is not a valid number no greater than ' . $this->assignment->grade . '")</script>';
+                    }
+                } // END OF HACK BOBPUFFER
                 close_window();
                 break;
 
@@ -589,20 +637,28 @@ class assignment_base {
                     //this will also not write into database if no submissioncomment and grade is entered.
 
                     if ($updatedb){
-                        if ($newsubmission) {
-                            if (!isset($submission->submissioncomment)) {
-                                $submission->submissioncomment = '';
+                        // MDL-9085 BOBPUFFER 2010-10-07 HACK TO PROCESS TEXT INPUT FIELDS
+//                        if ($newsubmission) {
+                        if ((is_numeric($submission->grade) && !(floatval($submission->grade) > floatval($this->assignment->grade))) || trim($submission->grade) == "")  {
+                            if ($newsubmission) {  // END OF HACK BOBPUFFER
+                                if (!isset($submission->submissioncomment)) {
+                                    $submission->submissioncomment = '';
+                                }
+                                if (!$sid = insert_record('assignment_submissions', $submission)) {
+                                    return false;
+                                }
+                                $submission->id = $sid;
+                            } else {
+                                if (!update_record('assignment_submissions', $submission)) {
+                                    return false;
+                                }
                             }
-                            if (!$sid = insert_record('assignment_submissions', $submission)) {
-                                return false;
-                            }
-                            $submission->id = $sid;
                         } else {
-                            if (!update_record('assignment_submissions', $submission)) {
-                                return false;
-                            }
-                        }
-
+                            echo '<script type="text/javascript">alert("' . $submission->grade
+                                    . ' is not a valid number no greater than ' . $this->assignment->grade . '")</script>';
+                            continue;
+                        } // END OF HACK BOBPUFFER
+                        
                         // triger grade event
                         $this->update_grade($submission);
 
@@ -675,8 +731,11 @@ class assignment_base {
         if (empty($SESSION->flextable['mod-assignment-submissions']->collapse['grade'])) {
             //echo optional_param('menuindex');
             if ($quickgrade){
-                $output.= 'opener.document.getElementById("menumenu'.$submission->userid.
-                '").selectedIndex="'.optional_param('menuindex', 0, PARAM_INT).'";'."\n";
+                // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input for assignment grades
+//                $output.= 'opener.document.getElementById("menumenu'.$submission->userid.
+//                '").selectedIndex="'.optional_param('menuindex', 0, PARAM_INT).'";'."\n";
+                $output.= 'opener.document.getElementById("ginput'.$submission->userid.
+                '").value="' . $submission->grade . '";'."\n"; // END OF HACK BOBPUFFER
             } else {
                 $output.= 'opener.document.getElementById("g'.$submission->userid.'").innerHTML="'.
                 $this->display_grade($submission->grade)."\";\n";
@@ -804,6 +863,11 @@ class assignment_base {
         $grading_info = grade_get_grades($this->course->id, 'mod', 'assignment', $this->assignment->id, array($user->id));
         $disabled = $grading_info->items[0]->grades[$userid]->locked || $grading_info->items[0]->grades[$userid]->overridden;
 
+        // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW RETRIEVING OF FLOATING POINT GRADES FROM GRADEBOOK TO BE DISPLAYED AND EDITED IN ASSIGNMENT INTERFACE
+        if ($grading_info->items[0]->grades[$user->id]->str_grade <> null and floatval($grading_info->items[0]->grades[$user->id]->str_grade) <> floatval($submission->grade)) {
+            $submission->grade = s($grading_info->items[0]->grades[$user->id]->str_grade);
+        } // END OF HACK BOBPUFFER
+
     /// construct SQL, using current offset to find the data of the next student
         $course     = $this->course;
         $assignment = $this->assignment;
@@ -813,14 +877,19 @@ class assignment_base {
         /// Get all ppl that can submit assignments
 
         $currentgroup = groups_get_activity_group($cm);
-        if ($users = get_users_by_capability($context, 'mod/assignment:submit', 'u.id', '', '', '', $currentgroup, '', false)) {
-            $users = array_keys($users);
+        if (!empty($CFG->gradebookroles)) {
+            $gradebookroles = explode(",", $CFG->gradebookroles);
+        } else {
+            $gradebookroles = '';
         }
-
-        // if groupmembersonly used, remove users who are not in any group
-        if ($users and !empty($CFG->enablegroupings) and $cm->groupmembersonly) {
-            if ($groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id')) {
-                $users = array_intersect($users, array_keys($groupingusers));
+        $users = get_role_users($gradebookroles, $context, true, '', 'u.lastname ASC', true, $currentgroup);
+        if ($users) {
+            $users = array_keys($users);
+            // if groupmembersonly used, remove users who are not in any group
+            if (!empty($CFG->enablegroupings) and $cm->groupmembersonly) {
+                if ($groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id')) {
+                    $users = array_intersect($users, array_keys($groupingusers));
+                }
             }
         }
 
@@ -903,7 +972,14 @@ class assignment_base {
             echo '</div>';
         }
         echo '<div class="grade"><label for="menugrade">'.get_string('grade').'</label> ';
-        choose_from_menu(make_grades_menu($this->assignment->grade), 'grade', $submission->grade, get_string('nograde'), '', -1, false, $disabled);
+        // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow manual input of grades rather than dropdown
+        if ($disabled) {
+            echo $submission->grade;
+        } else {
+            echo '<input type="text" name="grade" size="6" value="' . $submission->grade . '" onblur="validate(this,' . $grading_info->items[0]->grademax . ')" />';
+        }
+//       choose_from_menu(make_grades_menu($this->assignment->grade), 'grade', $submission->grade, get_string('nograde'), '', -1, false, $disabled);
+        // END OF HACK BOBPUFFER
         echo '</div>';
 
         echo '<div class="clearer"></div>';
@@ -949,7 +1025,10 @@ class assignment_base {
         echo '<input type="hidden" name="mailinfo" value="0" />';
         echo '<input type="checkbox" id="mailinfo" name="mailinfo" value="1" '.$lastmailinfo.' /><label for="mailinfo">'.get_string('enableemailnotification','assignment').'</label>';
         echo '<div class="buttons">';
-        echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.selectedIndex" />';
+        // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow saving of text input field
+//        echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.selectedIndex" />';
+        echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.value" />';
+        // END OF HACK BOBPUFFER
         echo '<input type="submit" name="cancel" value="'.get_string('cancel').'" />';
         //if there are more to be graded.
         if ($nextid) {
@@ -1070,16 +1149,19 @@ class assignment_base {
         $groupmode = groups_get_activity_groupmode($cm);
         $currentgroup = groups_get_activity_group($cm, true);
         groups_print_activity_menu($cm, $CFG->wwwroot . '/mod/assignment/submissions.php?id=' . $this->cm->id);
-
-        /// Get all ppl that are allowed to submit assignments
-        if ($users = get_users_by_capability($context, 'mod/assignment:submit', 'u.id', '', '', '', $currentgroup, '', false)) {
-            $users = array_keys($users);
+        if (!empty($CFG->gradebookroles)) {
+            $gradebookroles = explode(",", $CFG->gradebookroles);
+        } else {
+            $gradebookroles = '';
         }
-
-        // if groupmembersonly used, remove users who are not in any group
-        if ($users and !empty($CFG->enablegroupings) and $cm->groupmembersonly) {
-            if ($groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id')) {
-                $users = array_intersect($users, array_keys($groupingusers));
+        $users = get_role_users($gradebookroles, $context, true, '', 'u.lastname ASC', true, $currentgroup);
+        if ($users) {
+            $users = array_keys($users);
+            if (!empty($CFG->enablegroupings) and $cm->groupmembersonly) {
+                $groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id');
+                if ($groupingusers) {
+                    $users = array_intersect($users, array_keys($groupingusers));
+                }
             }
         }
 
@@ -1193,7 +1275,20 @@ class assignment_base {
         }
 	/// end added by dlandau
 
+
         if (($ausers = get_records_sql($select.$sql.$sort, $table->get_page_start(), $table->get_page_size())) !== false) {
+            // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW EDITING OF FLOATING POINT NUMBERS IN ASSIGNMENT INTERFACE
+            // phony up the grade_item object for the grade_grade class call
+            if ($CFG->wipeassignmentoverrides) {
+                $grade_item = get_record('grade_items','itemmodule','assignment','iteminstance',$this->assignment->id,'courseid',$course->id);
+                $grades_override = grade_grade::fetch_users_grades($grade_item, array_keys($ausers), true);
+                foreach ($grades_override as $used_grade) {
+                    if ($used_grade->overridden <> 0) {
+                        $used_grade->overridden = 0;
+                        update_record('grade_grades', $used_grade);
+                    }
+                }
+            } // END OF HACK BOBPUFFER
             $grading_info = grade_get_grades($this->course->id, 'mod', 'assignment', $this->assignment->id, array_keys($ausers));
             foreach ($ausers as $auser) {
                 $final_grade = $grading_info->items[0]->grades[$auser->id];
@@ -1203,6 +1298,10 @@ class assignment_base {
                 if ($final_grade->overridden) {
                     $locked_overridden = 'overridden';
                 }
+                // MDL-9085 - Bob Puffer
+                if ($final_grade->grade <> null and floatval($final_grade->grade) <> floatval($auser->grade)) {
+                    $auser->grade = s($final_grade->grade);
+                } // MDL-9085 end
 
             /// Calculate user status
                 $auser->status = ($auser->timemarked > 0) && ($auser->timemarked >= $auser->timemodified);
@@ -1229,9 +1328,12 @@ class assignment_base {
                         if ($final_grade->locked or $final_grade->overridden) {
                             $grade = '<div id="g'.$auser->id.'" class="'. $locked_overridden .'">'.$final_grade->formatted_grade.'</div>';
                         } else if ($quickgrade) {
-                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-                                                     'menu['.$auser->id.']', $auser->grade,
-                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+                            // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
+                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+//                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+//                                                     'menu['.$auser->id.']', $auser->grade,
+//                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+                            // END OF HACK BOBPUFFER
                             $grade = '<div id="g'.$auser->id.'">'. $menu .'</div>';
                         } else {
                             $grade = '<div id="g'.$auser->id.'">'.$this->display_grade($auser->grade).'</div>';
@@ -1242,9 +1344,12 @@ class assignment_base {
                         if ($final_grade->locked or $final_grade->overridden) {
                             $grade = '<div id="g'.$auser->id.'" class="'. $locked_overridden .'">'.$final_grade->formatted_grade.'</div>';
                         } else if ($quickgrade) {
-                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-                                                     'menu['.$auser->id.']', $auser->grade,
-                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+                            // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
+                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+//                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+//                                                     'menu['.$auser->id.']', $auser->grade,
+//                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+                            // END OF HACK BOBPUFFER
                             $grade = '<div id="g'.$auser->id.'">'.$menu.'</div>';
                         } else {
                             $grade = '<div id="g'.$auser->id.'">'.$this->display_grade($auser->grade).'</div>';
@@ -1269,9 +1374,12 @@ class assignment_base {
                     if ($final_grade->locked or $final_grade->overridden) {
                         $grade = '<div id="g'.$auser->id.'">'.$final_grade->formatted_grade . '</div>';
                     } else if ($quickgrade) {   // allow editing
-                        $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-                                                 'menu['.$auser->id.']', $auser->grade,
-                                                 get_string('nograde'),'',-1,true,false,$tabindex++);
+                        // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
+                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+//                        $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+//                                                 'menu['.$auser->id.']', $auser->grade,
+//                                                 get_string('nograde'),'',-1,true,false,$tabindex++);
+                        // END OF HACK BOBPUFFER
                         $grade = '<div id="g'.$auser->id.'">'.$menu.'</div>';
                     } else {
                         $grade = '<div id="g'.$auser->id.'">-</div>';
@@ -1435,7 +1543,7 @@ class assignment_base {
         if (!$grading_info->items[0]->grades[$feedback->userid]->locked and
             !$grading_info->items[0]->grades[$feedback->userid]->overridden) {
 
-            $submission->grade      = $feedback->grade;
+            $submission->grade      = $feedback->grade == '-' ? $submission->grade : $feedback->grade;
             $submission->submissioncomment    = $feedback->submissioncomment;
             $submission->format     = $feedback->format;
             $submission->teacher    = $USER->id;
@@ -2278,7 +2386,9 @@ function assignment_get_user_grades($assignment, $userid=0) {
  * @param object $assignment null means all assignments
  * @param int $userid specific user only, 0 mean all
  */
-function assignment_update_grades($assignment=null, $userid=0, $nullifnone=true) {
+// MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW SAVING OF FLOATING POINT GRADE INPUT FROM TEXT FIELD IN ASSIGNMENT INTERFACE
+// function assignment_update_grades($assignment=null, $userid=0, $nullifnone=true)
+function assignment_update_grades($assignment=null, $userid=0, $submission=null) {
     global $CFG;
     if (!function_exists('grade_update')) { //workaround for buggy PHP versions
         require_once($CFG->libdir.'/gradelib.php');
@@ -2289,6 +2399,8 @@ function assignment_update_grades($assignment=null, $userid=0, $nullifnone=true)
             foreach($grades as $k=>$v) {
                 if ($v->rawgrade == -1) {
                     $grades[$k]->rawgrade = null;
+                } elseif ($submission->grade <> null && $v->rawgrade <> $submission) {
+                    $grades[$k]->rawgrade = $submission->grade; // END OF HACK BOBPUFFER
                 }
             }
             assignment_grade_item_update($assignment, $grades);
@@ -2556,10 +2668,10 @@ function assignment_print_recent_activity($course, $viewfullnames, $timestart) {
             if (empty($modinfo->groups[$cm->id])) {
                 continue;
             }
-            $usersgroups =  groups_get_all_groups($course->id, $cm->userid, $cm->groupingid);
+            $usersgroups =  groups_get_all_groups($course->id, $submission->userid, $cm->groupingid);
             if (is_array($usersgroups)) {
                 $usersgroups = array_keys($usersgroups);
-                $interset = array_intersect($usersgroups, $modinfo->groups[$cm->id]);
+                $intersect = array_intersect($usersgroups, $modinfo->groups[$cm->id]);
                 if (empty($intersect)) {
                     continue;
                 }
@@ -2572,7 +2684,7 @@ function assignment_print_recent_activity($course, $viewfullnames, $timestart) {
         return false;
     }
 
-    print_headline(get_string('newsubmissions', 'assignment').':');
+    print_headline(get_string('newsubmissions', 'assignment').':', 3);
 
     foreach ($show as $submission) {
         $cm = $modinfo->cms[$submission->cmid];
@@ -2809,18 +2921,23 @@ function assignment_count_real_submissions($cm, $groupid=0) {
 
     $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
-    // this is all the users with this capability set, in this context or higher
-    if ($users = get_users_by_capability($context, 'mod/assignment:submit', 'u.id', '', '', '', $groupid, '', false)) {
-        $users = array_keys($users);
+    if (!empty($CFG->gradebookroles)) {
+        $gradebookroles = explode(",", $CFG->gradebookroles);
+    } else {
+        $gradebookroles = '';
     }
-
-    // if groupmembersonly used, remove users who are not in any group
-    if ($users and !empty($CFG->enablegroupings) and $cm->groupmembersonly) {
-        if ($groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id')) {
-            $users = array_intersect($users, array_keys($groupingusers));
+    $users = get_role_users($gradebookroles, $context, true, '', 'u.lastname ASC', true, $groupid);
+    if ($users) {
+        $users = array_keys($users);
+        // if groupmembersonly used, remove users who are not in any group
+        if (!empty($CFG->enablegroupings) and $cm->groupmembersonly) {
+            $groupingusers = groups_get_grouping_members($cm->groupingid, 'u.id', 'u.id');
+            if ($groupingusers) {
+                $users = array_intersect($users, array_keys($groupingusers));
+            }
         }
     }
-
+    
     if (empty($users)) {
         return 0;
     }
@@ -3038,7 +3155,13 @@ function assignment_print_overview($courses, &$htmlarray) {
 
             // count how many people can submit
             $submissions = 0; // init
-            if ($students = get_users_by_capability($context, 'mod/assignment:submit', 'u.id', '', '', '', 0, '', false)) {
+            if (!empty($CFG->gradebookroles)) {
+                $gradebookroles = explode(",", $CFG->gradebookroles);
+            } else {
+                $gradebookroles = '';
+            }
+            $students = get_role_users($gradebookroles, $context, true);
+            if ($students) {
                 foreach($students as $student){
                     if(isset($unmarkedsubmissions[$assignment->id][$student->id])){
                         $submissions++;

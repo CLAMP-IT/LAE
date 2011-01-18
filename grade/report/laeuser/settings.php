@@ -17,17 +17,9 @@
 
 /// Add settings for this module to the $settings object (it's already defined)
 
-//$settings->add(new admin_setting_configcheckbox('grade_report_user_showrank', get_string('showrank', 'grades'), get_string('configshowrank', 'grades'), 0, PARAM_INT));
-//$settings->add(new admin_setting_configcheckbox('grade_report_user_showpercentage', get_string('showpercentage', 'grades'), get_string('configshowpercentage', 'grades'), 2, PARAM_INT));
-$settings->add(new admin_setting_configcheckbox('grade_report_user_showpoints', get_string('showpoints', 'grades'), get_string('configshowpoints', 'grades'), 2, PARAM_INT));
-$settings->add(new admin_setting_configcheckbox('grade_report_user_showfeedback_col', get_string('showfeedback', 'grades'), get_string('configshowfeedback_col', 'grades'), 2, PARAM_INT));
-$settings->add(new admin_setting_configcheckbox('grade_report_user_showrange', get_string('showrange', 'grades'), get_string('configshowrange', 'grades'), 2, PARAM_INT));
-$settings->add(new admin_setting_configcheckbox('grade_report_user_showweight', get_string('showweight', 'grades'), get_string('configshowweight', 'grades'), 2, PARAM_INT));
-$settings->add(new admin_setting_configcheckbox('grade_report_user_showlettergrade', get_string('showlettergrade', 'grades'), get_string('configshowlettergrade', 'grades'), 2, PARAM_INT));
-/*
-$options = array(0 => get_string('shownohidden', 'grades'),
-                 1 => get_string('showhiddenuntilonly', 'grades'),
-                 2 => get_string('showallhidden', 'grades'));
-$settings->add(new admin_setting_configselect('grade_report_user_showhiddenitems', get_string('showhiddenitems', 'grades'), get_string('configshowhiddenitems', 'grades'), 1, $options));
-*/
+$settings->add(new admin_setting_configcheckbox('grade_report_laeuser_showpoints', get_string('showpoints', 'gradereport_laeuser'), get_string('configshowpoints', 'gradereport_laeuser'), 2, PARAM_INT));
+$settings->add(new admin_setting_configcheckbox('grade_report_laeuser_showfeedback_col', get_string('showfeedback', 'gradereport_laeuser'), get_string('configshowfeedback_col', 'gradereport_laeuser'), 2, PARAM_INT));
+$settings->add(new admin_setting_configcheckbox('grade_report_laeuser_showrange', get_string('showrange', 'gradereport_laeuser'), get_string('configshowrange', 'gradereport_laeuser'), 2, PARAM_INT));
+$settings->add(new admin_setting_configcheckbox('grade_report_laeuser_showweight', get_string('showweight', 'gradereport_laeuser'), get_string('configshowweight', 'gradereport_laeuser'), 2, PARAM_INT));
+$settings->add(new admin_setting_configcheckbox('grade_report_laeuser_showlettergrade', get_string('showlettergrade', 'gradereport_laeuser'), get_string('configshowlettergrade', 'gradereport_laeuser'), 2, PARAM_INT));
 ?>

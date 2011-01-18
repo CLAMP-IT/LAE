@@ -127,6 +127,8 @@ class course_edit_form extends moodleform {
         $mform->addElement('select', 'format', get_string('format'), $formcourseformats);
         $mform->setHelpButton('format', array('courseformats', get_string('courseformats')), true);
         $mform->setDefault('format', $courseconfig->format);
+        $mform->registerRule('lamsconfigured','callback','course_form_check_lams');
+        $mform->addRule('format',get_string('notsetup','lams'),'lamsconfigured');
 
         for ($i=1; $i<=52; $i++) {
           $sectionmenu[$i] = "$i";
