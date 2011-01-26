@@ -27,6 +27,7 @@ $string['errorbeforecoursestart'] = 'Cannot set event before course start date';
 $string['errorinvaliddate'] = 'Invalid date';
 $string['errorinvalidminutes'] = 'Specify duration in minutes by giving a number between 1 and 999.';
 $string['errorinvalidrepeats'] = 'Specify the number of events by giving a number between 1 and 99.';
+$string['errormbstring'] = 'The Multibyte String extension is not installed; calendar export is unavailable.';
 $string['errornodescription'] = 'Description is required';
 $string['errornoeventname'] = 'Name is required';
 $string['eventdate'] = 'Date';

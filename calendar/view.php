@@ -166,17 +166,22 @@
     //Link to calendar export page
     echo '<div class="bottom">';
     if (!empty($CFG->enablecalendarexport)) {
-        print_single_button('export.php', array('course'=>$courseid), get_string('exportcalendar', 'calendar'));
+        if (function_exists('mb_strlen')) {
+            print_single_button('export.php', array('course'=>$courseid), get_string('exportcalendar', 'calendar'));
 
-        if (!empty($USER->id)) {
-            $authtoken = sha1($USER->username . $USER->password . $CFG->calendar_exportsalt);
-            $usernameencoded = urlencode($USER->username);
+            if (!empty($USER->id)) {
+                $authtoken = sha1($USER->username . $USER->password . $CFG->calendar_exportsalt);
+                $usernameencoded = urlencode($USER->username);
 
-            echo "<a href=\"export_execute.php?preset_what=all&amp;preset_time=recentupcoming&amp;username=$usernameencoded&amp;authtoken=$authtoken\">"
-                 .'<img src="'.$CFG->pixpath.'/i/ical.gif" height="14" width="36" '
-                 .'alt="'.get_string('ical', 'calendar').'" '
-                 .'title="'.get_string('quickdownloadcalendar', 'calendar').'" />'
-                 .'</a>';
+                echo "<a href=\"export_execute.php?preset_what=all&amp;preset_time=recentupcoming&amp;username=$usernameencoded&amp;authtoken=$authtoken\">"
+                   .'<img src="'.$CFG->pixpath.'/i/ical.gif" height="14" width="36" '
+                   .'alt="'.get_string('ical', 'calendar').'" '
+                   .'title="'.get_string('quickdownloadcalendar', 'calendar').'" />'
+                   .'</a>';
+            }
+        } else {
+            // MDL-24235: site administrator has enabled calendar export but mbstring is not installed
+            notify(get_string('errormbstring','calendar'));
         }
     }
 

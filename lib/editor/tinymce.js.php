@@ -1,8 +1,10 @@
 <?php
 require_once('../../config.php');
-// $editorlanguage = substr(current_language(), 0, 2);
-$editorlanguage = current_language();
-$SESSION->lang = $editorlanguage;
+// CLAMP # 252 2011-01-24 bob puffer
+$editorlanguage = substr(current_language(), 0, 2);
+//$editorlanguage = current_language();
+//$SESSION->lang = $editorlanguage;
+// CLAMP # 252 2011-01-24 bob puffer
 $directionality = get_string('thisdirection');
 $courseid = optional_param('course');
 $tinyroot = $CFG->httpswwwroot;
