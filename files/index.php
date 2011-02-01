@@ -767,7 +767,7 @@ function displaydir ($wdir) {
     $strchoose = get_string("choose");
     $strfolder = get_string("folder");
     $strfile   = get_string("file");
-
+/*
     $padrename = get_string("rename");
     $padedit   = str_repeat('&nbsp;',strlen($stredit) * 2.5);
     $padunzip  = str_repeat('&nbsp;',strlen($strunzip) * 2.5);
@@ -776,7 +776,16 @@ function displaydir ($wdir) {
     $padchoose = str_repeat('&nbsp;',strlen($strchoose) * 2.5);
     $padfolder = str_repeat('&nbsp;',strlen($strfolder) * 2.5);
     $padfile   = str_repeat('&nbsp;',strlen($strfile) * 2.5);
-
+*/
+    $padrename = get_string("rename");
+    $padedit   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $stredit . '&nbsp;</div>';
+    $padunzip  = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strunzip . '&nbsp;</div>';
+    $padlist   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strlist . '&nbsp;</div>';
+    $padrestore= '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strrestore . '&nbsp;</div>';
+    $padchoose = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strchoose . '&nbsp;</div>';
+    $padfolder = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strfolder . '&nbsp;</div>';
+    $padfile   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strfile . '&nbsp;</div>';
+    
     // Set sort arguments so that clicking on a column that is already sorted reverses the sort order
     $sortvalues = array(1,2,3);
     foreach ($sortvalues as &$sortvalue) {
@@ -821,8 +830,8 @@ function displaydir ($wdir) {
         echo "</form>";
         echo "</td>";
     } else {
-        echo '<td colspan = "3"></td>';
-        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan = "2" align="left">';
+        echo '<td colspan = "4"></td>';
+        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan = "1" align="left">';
         echo "<form enctype=\"multipart/form-data\" method=\"post\" action=\"index.php\">";
         echo "<span> $struploadafile ($strmaxsize) --> <b>$wdir</b></span><br />";
         echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
@@ -833,7 +842,7 @@ function displaydir ($wdir) {
         $maxbytes = get_max_upload_file_size($CFG->maxbytes, $coursebytes, $modbytes);
         $str = '<input type="hidden" name="MAX_FILE_SIZE" value="'. $maxbytes .'" />'."\n";
         $name = 'userfile';
-        $str .= '<input type="file" size="40" name="'. $name .'" alt="'. $name .'" /><br />'."\n";
+        $str .= '<input type="file" size="30" name="'. $name .'" alt="'. $name .'" /><br />'."\n";
         echo $str;
         echo " <input type=\"submit\" name=\"save\" value=\"$struploadthisfile\" style = \"color: green;padding-left:5px\" />";
     //    upload_print_form_fragment(1,array('userfile'),null,false,null,$upload_max_filesize,0,false);
@@ -849,7 +858,7 @@ function displaydir ($wdir) {
             echo "</fieldset>";
             echo "</form>";
         echo "</td>";
-        echo '<td align="center">';
+        echo '<td align="center" colspan = "2">';
         echo "<form action=\"index.php\" method=\"get\">";
 //        echo "<div>";
         echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
@@ -860,7 +869,7 @@ function displaydir ($wdir) {
 //        echo "</div>";
         echo "</form>";
         echo '</td>';
-        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan="3">';
+        echo '<td style="background-color:#ffddbb;padding-left:5px" colspan="1">';
         // cancel button div
         echo "<form action=\"index.php\" method=\"get\" align=\"left\">";
         echo ' <input type="hidden" name="choose" value="'.$choose.'" />';
@@ -904,7 +913,7 @@ function displaydir ($wdir) {
 //    echo "</td></tr></table>";
 
     echo "</th>";
-    echo "<th style=\"padding-left:80px\" class=\"header name\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[0]}\">$strname</a></th>";
+    echo "<th style=\"padding-left:120px\" class=\"header name\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[0]}\">$strname</a></th>";
     echo "<th class=\"header size\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[1]}\">$strsize</a></th>";
     echo "<th class=\"header date\" scope=\"col\"><a href=\"" . qualified_me(). "&sort={$sortvalues[2]}\">$strmodified</a></th>";
     echo "<th class=\"header commands\" scope=\"col\">$straction</th>";
@@ -983,6 +992,7 @@ function displaydir ($wdir) {
 
             } else {
                 $count++;
+                $edittext = $padchoose .$padedit . $padunzip . $padlist . $padrestore;
                 $filename = $fullpath."/".$dir[0];
                 $fileurl  = rawurlencode($wdir."/".$dir[0]);
                 $filesafe = rawurlencode($dir[0]);
@@ -999,7 +1009,7 @@ function displaydir ($wdir) {
                 if ($wdir.$dir === '/moddata') {
                     print_cell();
                 } else { 
-                    print_cell("right", "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
+                    print_cell("right", "$edittext<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
                 }
             }
 
@@ -1015,7 +1025,7 @@ function displaydir ($wdir) {
 
             $count++;
             $filename    = $fullpath."/".$file[0];
-            $fileurl     = trim($wdir, "/")."/$file";
+            $fileurl     = trim($wdir, "/")."/$file[0]";
             $filesafe    = rawurlencode($file[0]);
             $fileurlsafe = rawurlencode($fileurl);
             $filedate    = $file[2]; 
@@ -1038,7 +1048,7 @@ function displaydir ($wdir) {
             print_cell("right", $filedate, 'date');
 
             if ($choose) {
-                $edittext = "<strong><a onclick=\"return set_value('$selectfile')\" href=\"#\">$strchoose</a></strong>&nbsp;";
+                $edittext = "<strong><a onclick=\"return set_value('$selectfile')\" style=\"background-color:#ffffff\" href=\"#\">$strchoose</a></strong>&nbsp;";
             } else {
                 $edittext =  $padchoose;
             }
@@ -1050,19 +1060,19 @@ function displaydir ($wdir) {
                 $edittext .= $padedit;
             }	    
             if ($icon == "zip.gif") {
-                $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=unzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strunzip</a>&nbsp;";
-                $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=listzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strlist</a> ";
+                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=unzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strunzip</a>&nbsp;";
+                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=listzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strlist</a> ";
             } else {
                 $edittext .= $padunzip;
                 $edittext .= $padlist;
             }	    
             if (!empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
-                $edittext .= "<a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
+                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
             } else {
                 $edittext .= $padrestore;
             }
             
-            print_cell("left", "$edittext <a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
+            print_cell("right", "$edittext <a href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=rename&amp;choose=$choose\">$strrename</a>", 'commands');
 
             echo "</tr>";
         }

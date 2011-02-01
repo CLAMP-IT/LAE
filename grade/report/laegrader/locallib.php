@@ -111,7 +111,7 @@ function fill_parents(&$parents, &$items, $element, $idnumber,$accuratetotals = 
             default:
                 $childid = substr($child['eid'],1,8);
         }
-        if (! isset($parents[$childid]) && isset($element->type) && !$element->type == 'courseitem') {
+        if (!isset($parents[$childid]) && isset($element['type']) && $element['type'] <> 'courseitem') {
             $parents[$childid]->id = $idnumber;
             $parents[$childid]->agg = $element['object']->aggregation;
         }
@@ -250,7 +250,7 @@ function get_element_icon_local(&$element, $spacerifnone=false) {
  *
 */
 
-function limit_item($item, $items, &$grades) {
+function limit_item_old($item, $items, &$grades) {
     if (!empty($items[$item]->item_category->droplow)) {
         $droparray = array();
         foreach($items as $id=>$unused) {
@@ -292,6 +292,40 @@ function limit_item($item, $items, &$grades) {
         }
     }
 
+}
+function limit_item($this_cat,$items,&$grade_values,&$grade_maxes) {
+	$extraused = $this_cat->is_extracredit_used();
+    if (!empty($this_cat->droplow)) {
+         asort($grade_values, SORT_NUMERIC);
+         $dropped = 0;
+         foreach ($grade_values as $itemid=>$value) {
+            if ($dropped < $this_cat->droplow) {
+				if ($extraused and $items[$itemid]->aggregationcoef > 0) {
+                    // no drop low for extra credits
+                } else {
+                    unset($grade_values[$itemid]);
+                    unset($grade_maxes[$itemid]);
+                    $dropped++;
+                }
+            } else {
+                // we have dropped enough
+                break;
+            }
+        }
+    } else if (!empty($this_cat->keephigh)) {
+        arsort($grade_values, SORT_NUMERIC);
+        $kept = 0;
+        foreach ($grade_values as $itemid=>$value) {
+			if ($extraused and $items[$itemid]->aggregationcoef > 0) {
+                // we keep all extra credits
+            } else if ($kept < $this_cat->keephigh) {
+                $kept++;
+            } else {
+                unset($grade_values[$itemid]);
+                unset($grade_maxes[$itemid]);
+            }
+        }
+	}
 }
  /**
  * Updates all final grades in course.

@@ -303,39 +303,7 @@ class grade_report_laeuser extends grade_report_user {
 	               		$grade_values = $this->gtree->parents[$eid]->cat_item;
 	               		$grade_maxes = $this->gtree->parents[$eid]->cat_max;
 	               		$this_cat = $this->gtree->items[$eid]->get_item_category();
-	               		$extraused = $this_cat->is_extracredit_used();
-				        if (!empty($this_cat->droplow)) {
-				            asort($grade_values, SORT_NUMERIC);
-				            $dropped = 0;
-				            foreach ($grade_values as $itemid=>$value) {
-				                if ($dropped < $this_cat->droplow) {
-									if ($extraused and $items[$itemid]->aggregationcoef > 0) {
-				                        // no drop low for extra credits
-				                    } else {
-				                        unset($grade_values[$itemid]);
-				                        unset($grade_maxes[$itemid]);
-				                        $dropped++;
-				                    }
-				                } else {
-				                    // we have dropped enough
-				                    break;
-				                }
-				            }
-				
-				        } else if (!empty($this_cat->keephigh)) {
-				            arsort($grade_values, SORT_NUMERIC);
-				            $kept = 0;
-				            foreach ($grade_values as $itemid=>$value) {
-								if ($extraused and $items[$itemid]->aggregationcoef > 0) {
-				                    // we keep all extra credits
-				                } else if ($kept < $this_cat->keephigh) {
-				                    $kept++;
-				                } else {
-				                    unset($grade_values[$itemid]);
-				                    unset($grade_maxes[$itemid]);
-				                }
-				            }
-			       		}
+		               	limit_item($this_cat,$items,$grade_values,$grade_maxes);
 			       		// never aggregate hidden categories into their parents
 						if (! $grade_grade->is_hidden()) {
 			       			$this->gtree->parents[$this->gtree->parents[$eid]->id]->cat_item[$eid] = array_sum($grade_values);
@@ -425,7 +393,7 @@ class grade_report_laeuser extends grade_report_user {
                     // if a category or course item
                    	$tempmax = $grade_grade->grade_item->grademax;
                     	
-                   	if (isset($grade_maxes) && ($type == 'categoryitem' or $type == 'courseite')) {
+                   	if (isset($grade_maxes) && ($type == 'categoryitem' or $type == 'courseitem')) {
                    		$grade_grade->grade_item->grademax = array_sum($grade_maxes);
                    	}
 /*

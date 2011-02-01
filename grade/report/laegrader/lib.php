@@ -407,7 +407,7 @@ class grade_report_laegrader extends grade_report_grader {
                     $hidden = ' hidden ';
                     $catcolor = '#dfdfdf';
             } else if (isset($element->categoryid)) {
-//            } else if (isset($element->categoryid) && isset($element->parent) && $this->gtree->items[$element->parent]->itemtype <> 'course') {
+//            } else if (isset($element->categoryid) AND $this->gtree->items[$element->parent]->itemtype <> 'course') {
                     // same category as last
                     if ($element->categoryid <> $catparent) {
                             $catparent = $element->categoryid;
@@ -1012,30 +1012,25 @@ class grade_report_laegrader extends grade_report_grader {
                     } else if ($item->gradetype != GRADE_TYPE_TEXT) { // Value type
                         // We always want to display the correct (first) displaytype when editing
                         // regardless of grade_report_gradeeditalways
-/*
-                        $gradedisplaytype = (get_user_preferences('grade_report_gradeeditalways')) ?
-                            (integer) substr( (string) $item->get_displaytype(),0,1) : GRADE_DISPLAY_TYPE_REAL;
-*/
                         $gradedisplaytype = (integer) substr( (string) $item->get_displaytype(),0,1);
 
                         // if we have an accumulated total points that's not accurately reflected in the db, then we want to display the ACCURATE number
                         // we only need to take the extra calculation into account if points display since percent and letter are accurate by their nature
                         // If the settings don't call for ACCURATE point totals ($this->accuratetotals) then there will be no earned_total value
-                        if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($grade->earned_total)) {
-//                                $tempmax = $item->grademax;
-//                                $item->grademax = $grade->max_earnable;
-                            $value = grade_format_gradevalue($grade->earned_total, $item, true, $gradedisplaytype, null);
-                            if ($this->accuratetotals && isset($this->gtree->parents[$grade->itemid]->id)) {
-                                $this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->earned_total += $grade->earned_total;
-                            }
-//                                $item->grademax = $tempmax;
-                        } else {
-                            $value = grade_format_gradevalue($gradeval, $item, true, $gradedisplaytype, null);
-                            // this needs to take into account accuratetotals course setting
-                            if ($this->accuratetotals && isset($this->gtree->parents[$grade->itemid]->id)) {
-                                $this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->earned_total += $gradeval;
-                            }
+                        if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($this->grades[$userid][$grade->itemid]->cat_item)) {
+                        	$items = $this->gtree->items;
+		               		$grade_values = $this->grades[$userid][$grade->itemid]->cat_item;
+		               		$grade_maxes = $this->grades[$userid][$grade->itemid]->cat_max;
+		               		$this_cat = $this->gtree->items[$grade->itemid]->get_item_category();
+		               		limit_item($this_cat,$items,$grade_values,$grade_maxes);
+			       			$gradeval = array_sum($grade_values);
+							$item->grademax = array_sum($grade_maxes);
                         }
+                      	$value = grade_format_gradevalue($gradeval, $item, true, $gradedisplaytype, null);
+                        if (! $grade->is_hidden() && $gradeval <> null && $this->accuratetotals) {
+                			$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_item[$grade->itemid] = $gradeval;
+							$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_max[$grade->itemid] = $grade->rawgrademax;
+				   		}
                         if ($quickgrading and $grade->is_editable()) {
                             if (! $item->is_course_item() and ! $item->is_category_item()) {
                                 $studentshtml .= '<input type="hidden" name="oldgrade_'.$userid.'_'.$item->id.'" value="'.$value.'" />';
@@ -1065,49 +1060,29 @@ class grade_report_laegrader extends grade_report_grader {
 
                 } else { // Not editing
 					
-                	//HACK
-					// Alter the item if the display isn't points
-//                	if ($gradedisplaytype <> GRADE_DISPLAY_TYPE_REAL) {
-/*
-                            if ($item->itemtype == 'category') {
-                                // TRY THIS OUT AS A METHOD FOR ITEM
-                                limit_item($item, $this->gtree->items,$cat_tree);
-
-                            }
-
-*/
-                        if ($this->accuratetotals && isset($grade->earned_total)) {
-                            $gradedisplaytype = (integer) substr( (string) $item->get_displaytype(),0,1);
-                        } else {
-                            $gradedisplaytype = $item->get_displaytype();
-                        }
-                        // if we have an accumulated total points that's not accurately reflected in the db, then we want to display the ACCURATE number
-                        // we only need to take the extra calculation into account if points display since percent and letter are accurate by their nature
-                        // If the settings don't call for ACCURATE point totals ($this->accuratetotals) then there will be no earned_total value
-                        if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($grade->earned_total)) {
-//                                $tempmax = $item->grademax;
-//                                $item->grademax = $grade->max_earnable;
-                            $gradeval = $grade->earned_total;
-                            // is calculating accurate totals store the earned_total for this item to its parent, if there is one
-                            if ($this->accuratetotals && isset($this->gtree->parents[$grade->itemid]->id)) {
-                                $this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->earned_total += $grade->earned_total;
-                            }
-//                                $item->grademax = $tempmax;
-                        } else {
-                            if ($this->accuratetotals && isset($this->gtree->parents[$grade->itemid]->id)) {
-                                $this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->earned_total += $gradeval;
-                            }
-/*
-                            }
-                            if (isset($grade->weighted_grade) AND $grade->weighted_grade > 0) {
-                                $gradeval = $grade->weighted_grade * .01 * $item->grademax;
-//                                    $gradeval = $item->newgrade / $item->aggtotal * $item->grademax;
-//                                    $gradeval = $item->newgrade;
-                            }
- * 
- */
-                        } // END OF HACK
-                	
+                    if ($this->accuratetotals) {
+                        $gradedisplaytype = (integer) substr( (string) $item->get_displaytype(),0,1);
+                    } else {
+                        $gradedisplaytype = $item->get_displaytype();
+                    }
+                    // if we have an accumulated total points that's not accurately reflected in the db, then we want to display the ACCURATE number
+                    // we only need to take the extra calculation into account if points display since percent and letter are accurate by their nature
+                    // If the settings don't call for ACCURATE point totals ($this->accuratetotals) then there will be no earned_total value
+                    if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($this->grades[$userid][$grade->itemid]->cat_item)) {
+                       	$items = $this->gtree->items;
+	               		$grade_values = $this->grades[$userid][$grade->itemid]->cat_item;
+	               		$grade_maxes = $this->grades[$userid][$grade->itemid]->cat_max;
+	               		$this_cat = $this->gtree->items[$grade->itemid]->get_item_category();
+	               		limit_item($this_cat,$items,$grade_values,$grade_maxes);
+		       			$gradeval = array_sum($grade_values);
+						$item->grademax = array_sum($grade_maxes);
+                    }
+               		// is calculating accurate totals store the earned_total for this item to its parent, if there is one
+                    if (! $grade->is_hidden() && $gradeval <> null && $this->accuratetotals && isset($this->gtree->parents[$grade->itemid]->id)) {
+              			$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_item[$grade->itemid] = $gradeval;
+						$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_max[$grade->itemid] = $grade->rawgrademax;
+			   		}
+              	
                 	
                     // If feedback present, surround grade with feedback tooltip: Open span here
 
@@ -1296,32 +1271,33 @@ class grade_report_laegrader extends grade_report_grader {
 //                }
 
                 $grade = $this->grades[$key][$itemid];
-//                $item->grademax = $grade->rawgrademax;
-
+				$gradeval = $grade->finalgrade;
                 // if gradeeditalways then we only want the first displaytype (in case multiple displaytypes are requested)
                 $gradedisplaytype = (integer) substr( (string) $item->get_displaytype(),0,1);
-/*
-                $gradedisplaytype = (get_user_preferences('grade_report_gradeeditalways')) ?
-                    (integer) substr( (string) $item->get_displaytype(),0,1) : GRADE_DISPLAY_TYPE_REAL;
-*/
-//                $item->display = ($item->display == GRADE_DISPLAY_TYPE_DEFAULT) ? GRADE_DISPLAY_TYPE_REAL : $item->display;
-//                $gradeval = ($item->display <> GRADE_DISPLAY_TYPE_REAL AND $grade->weighted_grade > 0) ? $grade->weighted_grade * $grade->rawgrademax / 100 : $grade->finalgrade;
-                        // if we have an accumulated total points that's not accurately reflected in the db, then we want to display the ACCURATE number
-                if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($grade->earned_total)) {
-//                                $tempmax = $item->grademax;
-//                                $item->grademax = $grade->max_earnable;
-                    $gradestr = grade_format_gradevalue($grade->earned_total, $item, true, $gradedisplaytype, null);
-                    if (isset($this->gtree->parents[$grade->itemid]->id)) {
-                        $this->grades[$key][$this->gtree->parents[$grade->itemid]->id]->earned_total += $grade->earned_total;
+                // if we have an accumulated total points that's not accurately reflected in the db, then we want to display the ACCURATE number
+                if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && isset($this->grades[$userid][$grade->itemid]->cat_item)) {
+                   	$items = $this->gtree->items;
+               		$grade_values = $this->grades[$userid][$grade->itemid]->cat_item;
+               		$grade_maxes = $this->grades[$userid][$grade->itemid]->cat_max;
+               		$this_cat = $this->gtree->items[$grade->itemid]->get_item_category();
+               		limit_item($this_cat,$items,$grade_values,$grade_maxes);
+	       			$gradeval = array_sum($grade_values);
+					$item->grademax = array_sum($grade_maxes);
                     }
-//                                $item->grademax = $tempmax;
+           		// is calculating accurate totals store the earned_total for this item to its parent, if there is one
+                if (! $grade->is_hidden() && $gradeval <> null && $this->accuratetotals) {
+          			$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_item[$grade->itemid] = $gradeval;
+					$this->grades[$userid][$this->gtree->parents[$grade->itemid]->id]->cat_max[$grade->itemid] = $grade->rawgrademax;
+		   		}
+                $gradestr = grade_format_gradevalue($gradeval, $item, true, $gradedisplaytype, null);
+		   		
+/*
+		   		if ($gradedisplaytype == GRADE_DISPLAY_TYPE_REAL && $this->accuratetotals) {
+                    $gradestr = grade_format_gradevalue($grade->earned_total, $item, true, $gradedisplaytype, null);
                 } else {
                     $gradestr = grade_format_gradevalue($grade->finalgrade, $item, true, $gradedisplaytype, null);
-                    // this clause checks if accurate point counts are desired, and if so then begins storing points to the accumulated value (earned_total)
-                    if ($accuratetotals AND isset($this->gtree->parents[$grade->itemid]->id)) {
-                        $this->grades[$key][$this->gtree->parents[$grade->itemid]->id]->earned_total += $grade->finalgrade;
-                    }
                 }
+*/
                 if (is_percentage($gradestr)) {
                     $myxls->write_number($i,$j++,$gradestr * .01);
 //                    $myxls->write_number($i,$j++,substr(trim($gradestr),0,strlen(trim($gradestr))-1), array(num_format=>'Percent'));

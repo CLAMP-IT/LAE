@@ -93,7 +93,7 @@ class assignment_offline extends assignment_base {
             $this->update_grade($submission);
 
             add_to_log($this->course->id, 'assignment', 'update grades',
-                       'submissions.php?id='.$this->assignment->id.'&user='.$feedback->userid, $feedback->userid, $this->cm->id);
+                       'submissions.php?id='.$this->cm->id.'&user='.$feedback->userid, $feedback->userid, $this->cm->id);
         }
 
         return $submission;

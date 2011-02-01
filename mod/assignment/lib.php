@@ -540,7 +540,7 @@ class assignment_base {
 //                if ($submission = $this->process_feedback()) {
                 $submission = $this->process_feedback();
                 if (is_numeric($submission->grade)) {
-                    if (floatval($submission->grade) > floatval($this->assignment->grade)) {
+                    if (floatval($submission->grade) > floatval($this->assignment->grade) && $this->assignment->grade >= 0) {
                         echo '<script type="text/javascript">alert("' . $submission->grade
                                 . ' is not a valid number no greater than ' . $this->assignment->grade . '")</script>';
                     } else {
@@ -550,7 +550,7 @@ class assignment_base {
                         print $this->update_main_listing($submission);
                     }
                 } else {
-                    if (trim($submission->grade) == null || trim($submission->grade) == '-') {
+                    if (trim($submission->grade) == null || trim($submission->grade) == '-' || $this->assignment->grade < 0) {
                         //IE needs proper header with encoding
                         print_header(get_string('feedback', 'assignment').':'.format_string($this->assignment->name));
                         print_heading(get_string('changessaved'));
@@ -639,7 +639,7 @@ class assignment_base {
                     if ($updatedb){
                         // MDL-9085 BOBPUFFER 2010-10-07 HACK TO PROCESS TEXT INPUT FIELDS
 //                        if ($newsubmission) {
-                        if ((is_numeric($submission->grade) && !(floatval($submission->grade) > floatval($this->assignment->grade))) || trim($submission->grade) == "")  {
+                        if ((is_numeric($submission->grade) && !(floatval($submission->grade) > floatval($this->assignment->grade))) || trim($submission->grade) == "" || $this->assignment->grade < 0)  {
                             if ($newsubmission) {  // END OF HACK BOBPUFFER
                                 if (!isset($submission->submissioncomment)) {
                                     $submission->submissioncomment = '';
@@ -664,7 +664,7 @@ class assignment_base {
 
                         //add to log only if updating
                         add_to_log($this->course->id, 'assignment', 'update grades',
-                                   'submissions.php?id='.$this->assignment->id.'&user='.$submission->userid,
+                                   'submissions.php?id='.$this->cm->id.'&user='.$submission->userid,
                                    $submission->userid, $this->cm->id);
                     }
 
@@ -732,11 +732,14 @@ class assignment_base {
             //echo optional_param('menuindex');
             if ($quickgrade){
                 // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input for assignment grades
-//                $output.= 'opener.document.getElementById("menumenu'.$submission->userid.
-//                '").selectedIndex="'.optional_param('menuindex', 0, PARAM_INT).'";'."\n";
-                $output.= 'opener.document.getElementById("ginput'.$submission->userid.
-                '").value="' . $submission->grade . '";'."\n"; // END OF HACK BOBPUFFER
-            } else {
+				if($this->assignment->grade < 0) {
+                    $output.= 'opener.document.getElementById("menumenu'.$submission->userid.
+		                '").selectedIndex="'.optional_param('menuindex', 0, PARAM_INT).'";'."\n";
+				} else {
+                    $output.= 'opener.document.getElementById("ginput'.$submission->userid.
+                		'").value="' . $submission->grade . '";'."\n"; // END OF HACK BOBPUFFER
+				}
+			} else {
                 $output.= 'opener.document.getElementById("g'.$submission->userid.'").innerHTML="'.
                 $this->display_grade($submission->grade)."\";\n";
             }
@@ -864,7 +867,7 @@ class assignment_base {
         $disabled = $grading_info->items[0]->grades[$userid]->locked || $grading_info->items[0]->grades[$userid]->overridden;
 
         // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW RETRIEVING OF FLOATING POINT GRADES FROM GRADEBOOK TO BE DISPLAYED AND EDITED IN ASSIGNMENT INTERFACE
-        if ($grading_info->items[0]->grades[$user->id]->str_grade <> null and floatval($grading_info->items[0]->grades[$user->id]->str_grade) <> floatval($submission->grade)) {
+        if ($this->assignment-grade >= 0 && $grading_info->items[0]->grades[$user->id]->str_grade <> null && floatval($grading_info->items[0]->grades[$user->id]->str_grade) <> floatval($submission->grade)) {
             $submission->grade = s($grading_info->items[0]->grades[$user->id]->str_grade);
         } // END OF HACK BOBPUFFER
 
@@ -975,10 +978,11 @@ class assignment_base {
         // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow manual input of grades rather than dropdown
         if ($disabled) {
             echo $submission->grade;
-        } else {
+        } elseif ($this->assignment->grade < 0) {
+	       choose_from_menu(make_grades_menu($this->assignment->grade), 'grade', $submission->grade, get_string('nograde'), '', -1, false, $disabled);
+        } else {    	
             echo '<input type="text" name="grade" size="6" value="' . $submission->grade . '" onblur="validate(this,' . $grading_info->items[0]->grademax . ')" />';
         }
-//       choose_from_menu(make_grades_menu($this->assignment->grade), 'grade', $submission->grade, get_string('nograde'), '', -1, false, $disabled);
         // END OF HACK BOBPUFFER
         echo '</div>';
 
@@ -1026,8 +1030,11 @@ class assignment_base {
         echo '<input type="checkbox" id="mailinfo" name="mailinfo" value="1" '.$lastmailinfo.' /><label for="mailinfo">'.get_string('enableemailnotification','assignment').'</label>';
         echo '<div class="buttons">';
         // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow saving of text input field
-//        echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.selectedIndex" />';
-        echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.value" />';
+		if ($this->assignment->grade < 0) {
+        	echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.selectedIndex" />';
+		} else {
+        	echo '<input type="submit" name="submit" value="'.get_string('savechanges').'" onclick = "document.getElementById(\'submitform\').menuindex.value = document.getElementById(\'submitform\').grade.value" />';
+		}
         // END OF HACK BOBPUFFER
         echo '<input type="submit" name="cancel" value="'.get_string('cancel').'" />';
         //if there are more to be graded.
@@ -1279,7 +1286,7 @@ class assignment_base {
         if (($ausers = get_records_sql($select.$sql.$sort, $table->get_page_start(), $table->get_page_size())) !== false) {
             // MDL-9085 BOBPUFFER 2010-10-07 HACK TO ALLOW EDITING OF FLOATING POINT NUMBERS IN ASSIGNMENT INTERFACE
             // phony up the grade_item object for the grade_grade class call
-            if ($CFG->wipeassignmentoverrides) {
+            if ($CFG->wipeassignmentoverrides && $this->assignment->grade > -1) {
                 $grade_item = get_record('grade_items','itemmodule','assignment','iteminstance',$this->assignment->id,'courseid',$course->id);
                 $grades_override = grade_grade::fetch_users_grades($grade_item, array_keys($ausers), true);
                 foreach ($grades_override as $used_grade) {
@@ -1329,10 +1336,13 @@ class assignment_base {
                             $grade = '<div id="g'.$auser->id.'" class="'. $locked_overridden .'">'.$final_grade->formatted_grade.'</div>';
                         } else if ($quickgrade) {
                             // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
-                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
-//                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-//                                                     'menu['.$auser->id.']', $auser->grade,
-//                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+							if ($this->assignment->grade > -1) {
+	                        	$menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+							} else {
+	                        	$menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+                                                     'menu['.$auser->id.']', $auser->grade,
+                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+							}
                             // END OF HACK BOBPUFFER
                             $grade = '<div id="g'.$auser->id.'">'. $menu .'</div>';
                         } else {
@@ -1345,10 +1355,13 @@ class assignment_base {
                             $grade = '<div id="g'.$auser->id.'" class="'. $locked_overridden .'">'.$final_grade->formatted_grade.'</div>';
                         } else if ($quickgrade) {
                             // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
-                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
-//                            $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-//                                                     'menu['.$auser->id.']', $auser->grade,
-//                                                     get_string('nograde'),'',-1,true,false,$tabindex++);
+							if ($this->assignment->grade > -1) {
+                        		$menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+							} else {
+                        		$menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+                                    'menu['.$auser->id.']', $auser->grade,
+                                    get_string('nograde'),'',-1,true,false,$tabindex++);
+							}
                             // END OF HACK BOBPUFFER
                             $grade = '<div id="g'.$auser->id.'">'.$menu.'</div>';
                         } else {
@@ -1375,11 +1388,14 @@ class assignment_base {
                         $grade = '<div id="g'.$auser->id.'">'.$final_grade->formatted_grade . '</div>';
                     } else if ($quickgrade) {   // allow editing
                         // MDL-9085 BOBPUFFER 2010-10-07 HACK to allow text input field instead of dropdown
-                            $menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
-//                        $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
-//                                                 'menu['.$auser->id.']', $auser->grade,
-//                                                 get_string('nograde'),'',-1,true,false,$tabindex++);
-                        // END OF HACK BOBPUFFER
+						if ($this->assignment->grade > -1) {
+                    		$menu = '<input type="text" id="ginput' . $auser->id . '" name="menu[' . $auser->id.']" size="6" value="' . $auser->grade . '" onblur="validate(this,' . $grademax . ')" />';
+						} else {
+	                        $menu = choose_from_menu(make_grades_menu($this->assignment->grade),
+                                 'menu['.$auser->id.']', $auser->grade,
+                                 get_string('nograde'),'',-1,true,false,$tabindex++);
+                    	}
+                         // END OF HACK BOBPUFFER
                         $grade = '<div id="g'.$auser->id.'">'.$menu.'</div>';
                     } else {
                         $grade = '<div id="g'.$auser->id.'">-</div>';
@@ -1570,7 +1586,7 @@ class assignment_base {
             $this->update_grade($submission);
 
             add_to_log($this->course->id, 'assignment', 'update grades',
-                       'submissions.php?id='.$this->assignment->id.'&user='.$feedback->userid, $feedback->userid, $this->cm->id);
+                       'submissions.php?id='.$this->cm->id.'&user='.$feedback->userid, $feedback->userid, $this->cm->id);
         }
 
         return $submission;
