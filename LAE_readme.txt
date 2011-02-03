@@ -183,7 +183,7 @@ You can also download the individual components that make up the LAE from that U
 
 * Download the current release branch from the CLAMP Subversion repository:
 
-svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.9-LAE1.1.2
+svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.9-LAE1.1.4
 
 ===INSTALLING THE LAE===
 If you are installing Moodle for the first time, you can follow the standard Moodle installation instructions (substituting the LAE Moodle package for the regular Moodle one)
