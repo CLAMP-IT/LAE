@@ -182,7 +182,7 @@
         if($wiki->ewikiacceptbinary) {
             define("EWIKI_UPLOAD_MAXSIZE", get_max_upload_file_size());
             define("EWIKI_SCRIPT_BINARY", $ewbase."&binary=");
-            define("EWIKI_ALLOW_BINARY",1);
+            define("EWIKI_ACCEPT_BINARY",1);
             define("EWIKI_IMAGE_CACHING",1);
             #define("EWIKI_AUTOVIEW",1);
             include_once($CFG->dirroot."/mod/wiki/ewiki/plugins/lib/mime_magic.php");
@@ -192,7 +192,7 @@
             include_once($CFG->dirroot."/mod/wiki/ewiki/plugins/moodle/moodle_binary_store.php");
         } else {
             define("EWIKI_SCRIPT_BINARY", 0);
-            define("EWIKI_ALLOW_BINARY",0);
+            define("EWIKI_ACCEPT_BINARY",0);
         }
 
         # The mighty Wiki itself

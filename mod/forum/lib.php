@@ -380,13 +380,6 @@ function forum_cron() {
                     continue;
                 }
 
-                /// CLAMP #230 2010-06-25 cfulton
-                // Don't email if the forum is Q&A and the user has not posted
-                if ($forum->type == 'qanda' && !forum_get_user_first_post($discussion->id, $userto->id)) {
-                    mtrace('Did not email '.$userto->id.' because user has not posted in discussion');
-                    continue;
-                }
-                                                                                                        
                 // Get info about the sending user
                 if (array_key_exists($post->userid, $users)) { // we might know him/her already
                     $userfrom = $users[$post->userid];
@@ -4665,9 +4658,7 @@ function forum_user_can_see_discussion($forum, $discussion, $context, $user=NULL
  *
  */
 function forum_user_can_see_post($forum, $discussion, $post, $user=NULL, $cm=NULL) {
-    /// CLAMP #221 MDL-9376 2010-06-24 cfulton
-    /// $CFG needed for QA forum patch
-    global $USER, $CFG;
+    global $USER;
 
     // retrieve objects (yuk)
     if (is_numeric($forum)) {
@@ -4728,14 +4719,9 @@ function forum_user_can_see_post($forum, $discussion, $post, $user=NULL, $cm=NUL
     if ($forum->type == 'qanda') {
         $firstpost = forum_get_firstpost_from_discussion($discussion->id);
         $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
-        
-        /// CLAMP #221 MDL-9376 2010-06-24 cfulton
-        /// Don't allow a user to view a post until the max editing time is past even if
-        /// they've posted an answer already
-        $userfirstpost = forum_get_user_first_post($discussion->id, $user->id);
 
-        return (($userfirstpost !== false && (time() - $userfirstpost >= $CFG->maxeditingtime)) ||
-                $firstpost->id == $post->id || $post->userid == $user->id || $firstpost->userid == $user->id ||
+        return (forum_user_has_posted($forum->id,$discussion->id,$user->id) ||
+                $firstpost->id == $post->id || 
                 has_capability('mod/forum:viewqandawithoutposting', $modcontext, $user->id, false));
     }
     return true;
@@ -7006,24 +6992,4 @@ function forum_scrub_userid($forum, $post) {
     }
     return $post;
 }
-
-/// CLAMP #221 MDL-9376 2010-06-24 cfulton
-/**
- * Returns creation time of the first user's post in given discussion
- * @param int $did
- * @param int $userid
- */
-function forum_get_user_first_post($did, $userid) {
-    global $CFG;
-    $sql = "SELECT p.created
-              FROM {$CFG->prefix}forum_posts p
-              WHERE p.userid = $userid AND p.discussion = $did
-              ORDER BY p.created";
-    $posts = get_record_sql($sql, true);
-    if ($posts===false) {
-        return false;
-    }
-    return $posts->created;
-}
-/// end added by cfulton
 ?>

@@ -14,7 +14,7 @@ $ewiki_t["en"]["DOWNLOAD_ARCHIVE"] = "Download";
 #define("EWIKI_WIKIDUMP_ARCNAME", "WikiDump_");
 #define("EWIKI_WIKIDUMP_DEFAULTTYPE", "TAR");
 #define("EWIKI_WIKIDUMP_MAXLEVEL", 1);
-define('EWIKI_DUMP_FILENAME_REGEX',"/\W\+/");
+define('EWIKI_DUMP_FILENAME_REGEX',"/[^\\w+]/");
 
 #-- glue
 #if((function_exists(gzcompress) && EWIKI_WIKIDUMP_DEFAULTTYPE=="ZIP") || EWIKI_WIKIDUMP_DEFAULTTYPE=="TAR"){
@@ -242,7 +242,7 @@ function ewiki_page_wiki_dump_send($exportbinaries=0, $exportformats=0, $withvir
         error("You are not a teacher !");
       }
     } else {
-        $exportbasedir=tempnam("/tmp","WIKIEXPORT");
+        $exportbasedir=tempnam($CFG->dataroot."/temp/","WIKIEXPORT");
         @unlink($exportbasedir);
         @mkdir($exportbasedir);
         /// maybe we need to check the name here...?
@@ -330,19 +330,16 @@ function ewiki_page_wiki_dump_send($exportbinaries=0, $exportformats=0, $withvir
         }
       }
   
-      # Do not translate links when wiki already in pure html - mode
-      if($wiki->htmlmode!=2) {
           $content=preg_replace_callback(
             '/(<a href=")(.*?)(\.html">)/',
             create_function(
             // single quotes are essential here,
             // or alternative escape all $ as \$
             '$matches',
-            'return($matches[1].preg_replace(EWIKI_DUMP_FILENAME_REGEX,"",$matches[2]).$matches[3]);'
+            'return($matches[1].urlencode(preg_replace(EWIKI_DUMP_FILENAME_REGEX,"",$matches[2])).$matches[3]);'
             ),
             $content
             );
-      }
       #-- add file
       // Let's make sure the file exists and is writable first.
       if (!$handle = fopen($exportdir."/".$fn, 'w')) {
@@ -369,7 +366,8 @@ function ewiki_page_wiki_dump_send($exportbinaries=0, $exportformats=0, $withvir
         $timer=array();
         $level=-1;
         $fordump=1;
-        $str_formatted="<ul>\n<li><a href=\"".($wiki_entry->pagename).$html_ext."\">".($wiki_entry->pagename)."</a></li>";
+        $fixedpagename = str_replace(' ','+',$wiki_entry->pagename);
+        $str_formatted="<ul>\n<li><a href=\"".($fixedpagename).$html_ext."\">".($wiki_entry->pagename)."</a></li>";
         $fin_level=format_sitemap($a_sitemap, ($wiki_entry->pagename), $str_formatted, $level, $timer, $fordump);
         $str_formatted.="</ul>".str_pad("", $fin_level*6, "</ul>\n");
         $str_formatted=preg_replace_callback(
