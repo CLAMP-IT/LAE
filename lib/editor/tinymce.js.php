@@ -49,7 +49,7 @@ theme_advanced_buttons1_add:
 \"|,undo,redo,|,spellchecker,|,fullscreen,code\",
 theme_advanced_buttons2: \"bold,italic,underline,strikethrough,sub,sup,|,justifyleft,justifycenter,justifyright,justifyfull\",
 theme_advanced_buttons2_add: 
-\"|,selectall,cut,/*--// CLAMP Bug #281 2011-02-09 kwiliarty copy,paste //--*/,pastetext,pasteword,|,ltr,rtl\",
+\"|,selectall,cut,copy,paste,pastetext,pasteword,|,ltr,rtl\",
 theme_advanced_buttons3 : 
 \"bullist,numlist,outdent,indent,|,forecolor,backcolor,|,link,unlink,anchor,|,image,emotions,hr,nonbreaking,charmap,\",
 theme_advanced_buttons3_add : \"|,table,|,dragmath\",

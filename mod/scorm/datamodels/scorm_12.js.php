@@ -25,7 +25,7 @@ function SCORMapi1_2() {
     CMIInteger = '^\\d+$';
     CMISInteger = '^-?([0-9]+)$';
     CMIDecimal = '^-?([0-9]{0,3})(\.[0-9]{1,2})?$';
-    CMIIdentifier = '^[\\u0021-\\u007E]{0,255}$';
+    CMIIdentifier = '^\\w{1,255}$';
     CMIFeedback = CMIString256; // This must be redefined
     CMIIndex = '[._](\\d+).';
     // Vocabulary Data Type Definition
@@ -36,15 +36,15 @@ function SCORMapi1_2() {
     CMIResult = '^correct$|^wrong$|^unanticipated$|^neutral$|^([0-9]{0,3})?(\.[0-9]{1,2})?$';
     NAVEvent = '^previous$|^continue$';
     // Children lists
-    cmi_children = 'core,suspend_data,launch_data,comments,objectives,student_data,student_preference,interactions';
-    core_children = 'student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,lesson_mode,exit,session_time';
-    score_children = 'raw,min,max';
-    comments_children = 'content,location,time';
-    objectives_children = 'id,score,status';
+    cmi_children = 'core, suspend_data, launch_data, comments, objectives, student_data, student_preference, interactions';
+    core_children = 'student_id, student_name, lesson_location, credit, lesson_status, entry, score, total_time, lesson_mode, exit, session_time';
+    score_children = 'raw, min, max';
+    comments_children = 'content, location, time';
+    objectives_children = 'id, score, status';
     correct_responses_children = 'pattern';
-    student_data_children = 'mastery_score,max_time_allowed,time_limit_action';
-    student_preference_children = 'audio,language,speed,text';
-    interactions_children = 'id,objectives,time,type,correct_responses,weighting,student_response,result,latency';
+    student_data_children = 'mastery_score, max_time_allowed, time_limit_action';
+    student_preference_children = 'audio, language, speed, text';
+    interactions_children = 'id, objectives, time, type, correct_responses, weighting, student_response, result, latency';
     // Data ranges
     score_range = '0#100';
     audio_range = '-1#100';
@@ -198,22 +198,14 @@ function SCORMapi1_2() {
                     if (<?php echo $scorm->auto ?> == 1) {
                         setTimeout('top.document.location=top.next;',500);
                     }
-                }
-               <?php
-                    if (debugging('',DEBUG_DEVELOPER)) {
-                        echo 'LogAPICall("LMSFinish", "AJAXResult", result, 0);';
-                    }
-                ?>
-                result = ('true' == result) ? 'true' : 'false';
-                errorCode = (result == 'true')? '0' : '101';
+                }    
                 <?php 
                     if (debugging('',DEBUG_DEVELOPER)) {
                         //echo 'alert("Finished SCORM 1.2");';
-                        echo 'LogAPICall("LMSFinish", "result", result, 0);';
                         echo 'LogAPICall("LMSFinish", param, "", 0);';
                     }
                 ?>
-                return result;
+                return "true";
             } else {
                 errorCode = "301";
             }
@@ -415,21 +407,7 @@ function SCORMapi1_2() {
                         //echo 'alert("Data Commited");';
                     }
                 ?>
-                <?php
-                    if (debugging('',DEBUG_DEVELOPER)) {
-                        echo 'LogAPICall("LMSCommit", "AJAXResult", result, 0);';
-                    }
-                ?>
-                result = ('true' == result) ? 'true' : 'false';
-                errorCode = (result =='true')? '0' : '101';
-                <?php 
-                    if (debugging('',DEBUG_DEVELOPER)) {
-                        //echo 'alert("Finished SCORM 1.2");';
-                        echo 'LogAPICall("LMSCommit", "result", result, 0);';
-                        echo 'LogAPICall("LMSCommit", param, "", 0);';
-                    }
-                ?>
-                return result;
+                return "true";
             } else {
                 errorCode = "301";
             }
@@ -564,11 +542,9 @@ function SCORMapi1_2() {
                             if ((typeof eval('datamodel["'+elementmodel+'"].defaultvalue')) != "undefined") {
                                 if (eval('datamodel["'+elementmodel+'"].defaultvalue') != data[property] || eval('typeof(datamodel["'+elementmodel+'"].defaultvalue)') != typeof(data[property])) {
                                     datastring += elementstring;
-                                    eval('datamodel["'+elementmodel+'"].defaultvalue=data[property];');
                                 }
                             } else {
                                 datastring += elementstring;
-                                eval('datamodel["'+elementmodel+'"].defaultvalue=data[property];');
                             }
                         }
                     }
@@ -585,11 +561,13 @@ function SCORMapi1_2() {
             }
             if (cmi.core.lesson_mode == 'normal') {
                 if (cmi.core.credit == 'credit') {
-                    if (cmi.student_data.mastery_score != '' && cmi.core.score.raw != '') {
-                        if (parseFloat(cmi.core.score.raw) >= parseFloat(cmi.student_data.mastery_score)) {
-                            cmi.core.lesson_status = 'passed';
-                        } else {
-                            cmi.core.lesson_status = 'failed';
+                    if (cmi.core.lesson_status == 'completed') {
+                        if (cmi.student_data.mastery_score != '' && cmi.core.score.raw != '') {
+                            if (parseFloat(cmi.core.score.raw) >= parseFloat(cmi.student_data.mastery_score)) {
+                                cmi.core.lesson_status = 'passed';
+                            } else {
+                                cmi.core.lesson_status = 'failed';
+                            }
                         }
                     }
                 }

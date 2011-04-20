@@ -133,12 +133,14 @@
     #-- binary content (images)
     define("EWIKI_SCRIPT_BINARY", /*"/binary.php?binary="*/  ltrim(strtok(" ".EWIKI_SCRIPT,"?"))."?".EWIKI_UP_BINARY."="  );
     define("EWIKI_CACHE_IMAGES", 1  &&!headers_sent());
+    define("EWIKI_IMAGE_MAXSIZE", 64 *1024);
     define("EWIKI_IMAGE_MAXWIDTH", 3072);
     define("EWIKI_IMAGE_MAXHEIGHT", 2048);
     define("EWIKI_IMAGE_MAXALLOC", 1<<19);
     define("EWIKI_IMAGE_RESIZE", 1);
     define("EWIKI_IMAGE_ACCEPT", "image/jpeg,image/png,image/gif,application/x-shockwave-flash");
     define("EWIKI_IDF_INTERNAL", "internal://");
+    define("EWIKI_ACCEPT_BINARY", 0);   # for arbitrary binary data files
 
     #-- misc
         define("EWIKI_TMP", $_SERVER["TEMP"] ? $_SERVER["TEMP"] : "/tmp");

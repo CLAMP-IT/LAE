@@ -922,21 +922,21 @@ function blocks_get_by_page_pinned($page) {
     $weights = array();
 
     foreach ($pinned as $pos => $arr) {
-        $weights[$pos] = $arr;
+        $weights[$pos] = count($arr);
     }
 
     foreach ($user as $pos => $blocks) {
         if (!array_key_exists($pos,$pinned)) {
              $pinned[$pos] = array();
         }
-
-        foreach ($blocks as $block) {
-            $pinned[$pos][] = $block;
+        if (!array_key_exists($pos,$weights)) {
+            $weights[$pos] = 0;
         }
-        // Re-orders numbering starting at 0
-        $pinned[$pos] = array_merge($pinned[$pos]);
+        foreach ($blocks as $block) {
+            $pinned[$pos][$weights[$pos]] = $block;
+            $weights[$pos]++;
+        }
     }
-
     return $pinned;
 }
 

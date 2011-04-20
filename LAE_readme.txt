@@ -1,6 +1,6 @@
-===Moodle 1.9.11+Liberal Arts Edition v1.2 Release Notes===
+===Moodle 1.9.9+Liberal Arts Edition v1.1.4 Release Notes===
 
-Welcome to the Moodle 1.9.11+Liberal Arts Edition v1.2 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.9+Liberal Arts Edition v1.1.4 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
@@ -18,7 +18,7 @@ We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excelle
 
 ===CONTENTS===
 
-Moodle 1.9.11+LAE v1.2 consists of Moodle 1.9.11 (20110221) as well as a number of CLAMP-developed features and bug fixes.
+Moodle 1.9.9+LAE v1.1.4 consists of Moodle 1.9.9 (20100609) as well as a number of CLAMP-developed features and bug fixes. It also includes security fixes from 1.9.10 that have been backported to the LAE.
 
 The following features have been added to the v1.1 release:
 
@@ -26,6 +26,12 @@ The following features have been added to the v1.1 release:
 * Simple File Upload
 * Assignment ZIP
 * CLAMP Grader Report
+
+The following security fixes have been added to the v1.1.1 release:
+
+* MSA-10-0017: XSS vulnerability in YUI 2.4.0 through YUI 2.8.1
+* MSA-10-0016: Multiple phpCAS library vulnerabilities
+* MSA-10-0015: Customised HTML Purifier upgraded to 4.2.0
 
 The following features have been added to the v1.1.2 release:
 
@@ -35,10 +41,6 @@ The following features have been added to the v1.1.2 release:
 We skipped over the 1.1.3 release, moving directly to 1.1.4 (this was strictly a backend, administrative decision). 1.1.4 includes:
 
 * A fix for a bug in which TinyMCE would not display on text fields in the LAE edition.
-
-The following features have been added in the v1.2 release:
-
-* Moodle 1.9.11 merged into LAE
 
 ====Anonymous Forums====
 A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
@@ -52,7 +54,7 @@ We've created new, easier-to-use Grader and User Reports for Moodle. These are n
 ====Filtered Course List Block====
 This block addresses a problem many campuses that are into their second or third year of Moodle encounter: filtering the current term's courses from those of previous terms. 
 
-This block allows you to specify a current term and a future term based on whatever term-based naming convention you use in your Moodle courses' shortname field (e.g. FA11, SP12). It also allows you to specify a course category instead.
+This block allows you to specify a current term and a future term based on whatever term-based naming convention you use in your Moodle courses' shortname field (e.g. FA09, SP10). It also allows you to specify a course category instead.
 
 ====Quickmail====
 A block used to quickly send emails to members of a class, replicating similar functionality found in other learning management systems.
@@ -102,6 +104,8 @@ http://redmine.clamp-it.org/issues/show/219
 
 http://redmine.clamp-it.org/issues/show/216
 http://tracker.moodle.org/browse/MDL-22933
+
+
 
 * SSL Publishing a Moodle site with ISA Server and no SSL Bridging (Browser--ssl--> ISA Server --nonssl --> Moodle) breaks Quiz View
 
@@ -163,16 +167,6 @@ The "role renaming" options at the bottom of the course settings page are confus
 http://tracker.moodle.org/browse/MDL-22928
 http://redmine.clamp-it.org/issues/show/218
 
-* Files Upload UI
-
-The "Restore" option is now available only for .zip files.
-
-http://redmine.clamp-it.org/issues/show/287
-
-Background colors have been set to transparent and columns for folders and files have been set to line up.
-
-http://redmine.clamp-it.org/issues/show/289
-
 ====LAE Recommended Add-ons====
 
 * Census Report: An administrative report that audits Moodle and displays a statistics about active courses, students and faculty. Note: Census report now lets you specify a date range when running the report.
@@ -182,12 +176,14 @@ http://redmine.clamp-it.org/issues/show/289
 ===DOWNLOADING THE LAE===
 You can get the LAE in two ways:
 
-* Download the tar and zip packages from the CLAMP web site:
+* Download the tar package from the CLAMP web site:
 http://www.clamp-it.org/code/
+
+You can also download the individual components that make up the LAE from that URL.
 
 * Download the current release branch from the CLAMP Subversion repository:
 
-svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.10-LAE1.2
+svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.9-LAE1.1.4
 
 ===INSTALLING THE LAE===
 If you are installing Moodle for the first time, you can follow the standard Moodle installation instructions (substituting the LAE Moodle package for the regular Moodle one)
@@ -213,4 +209,4 @@ A few notes:
 
 2) We *strongly* recommend doing a test upgrade on a development Moodle instance before upgrading your production instance.
 
-3) If you have a more current version of Moodle installed (one later than 1.9.11+ (20110221), do not attempt to install LAE v1.2, as it will cause a conflict with your newer database, and the installation will fail. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
+3) If you have a more current version of Moodle installed (one later than 1.9.9+ (20100609), do not attempt to install LAE v1.1.2, as it will cause a conflict with your newer database, and the installation will fail. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
