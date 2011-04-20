@@ -149,7 +149,7 @@ class resource_file extends resource_base {
             unset($resource->windowpopup);
             $resource->options = '';
 
-        } else {            
+        } else {
             if (empty($resource->framepage)) {
                 $resource->options = '';
             } else {
@@ -266,12 +266,12 @@ class resource_file extends resource_base {
             } else if ($mimetype == 'application/pdf' || $mimetype == 'application/x-pdf') {
                 $resourcetype = "pdf";
                 //no need embedded, html file types behave like unknown file type
-                
+
             } else if ($mimetype == "audio/x-pn-realaudio-plugin") {   // It's a realmedia file
                 $resourcetype = "rm";
                     $embedded = true;
             }
-        } 
+        }
 
         $isteamspeak = (stripos($resource->reference, 'teamspeak://') === 0);
 
@@ -307,20 +307,6 @@ class resource_file extends resource_base {
                     $fullurl .= '&amp;'.$querystring;
                 }
             }
-
-        } else if ($CFG->resource_allowlocalfiles and (strpos($resource->reference, RESOURCE_LOCALPATH) === 0)) {  // Localpath
-            $localpath = get_user_preferences('resource_localpath', 'D:');
-            $relativeurl = str_replace(RESOURCE_LOCALPATH, $localpath, $resource->reference);
-
-            if ($querystring) {
-                $relativeurl .= '?'.$querystring;
-            }
-
-            $relativeurl = str_replace('\\', '/', $relativeurl);
-            $relativeurl = str_replace(' ', '%20', $relativeurl);
-            $fullurl = 'file:///'.htmlentities($relativeurl);
-            $localpath = true;
-
         } else {   // Normal uploaded file
             $forcedownloadsep = '?';
             if ($resource->options == 'forcedownload') {
@@ -328,25 +314,6 @@ class resource_file extends resource_base {
             }
             $fullurl = get_file_url($course->id.'/'.$resource->reference, $querys);
         }
-
-        /// Print a notice and redirect if we are trying to access a file on a local file system
-        /// and the config setting has been disabled
-        if (!$CFG->resource_allowlocalfiles and (strpos($resource->reference, RESOURCE_LOCALPATH) === 0)) {
-            if ($inpopup) {
-                print_header($pagetitle, $course->fullname);
-            } else {
-                $navigation = build_navigation($this->navlinks, $cm);
-                print_header($pagetitle, $course->fullname, $navigation,
-                        "", "", true, update_module_button($cm->id, $course->id, $this->strresource), navmenu($course, $cm));
-            }
-            notify(get_string('notallowedlocalfileaccess', 'resource', ''));
-            if ($inpopup) {
-                close_window_button();
-            }
-            print_footer('none');
-            die;
-        }
-
 
         /// Check whether this is supposed to be a popup, but was called directly
         if ($resource->popup and !$inpopup) {    /// Make a page and a pop-up window
@@ -382,7 +349,7 @@ class resource_file extends resource_base {
 
         $frameset = optional_param('frameset', '', PARAM_ALPHA);
         if (empty($frameset) and !$embedded and !$inpopup and ($resource->options == "frame" || $resource->options == "objectframe") and empty($USER->screenreader)) {
-        /// display the resource into a object tag
+            /// display the resource into a object tag
             if ($resource->options == "objectframe") {
             /// Yahoo javascript libaries for updating embedded object size
                 require_js(array('yui_utilities'));
@@ -396,11 +363,6 @@ class resource_file extends resource_base {
                 print_header($pagetitle, $course->fullname, $navigation, "", "", true, update_module_button($cm->id, $course->id, $this->strresource), navmenu($course, $cm, "parent"));
                 $options = new object();
                 $options->para = false;
-                if (!empty($localpath)) {  // Show some help
-                    echo '<div class="mdl-right helplink">';
-                    link_to_popup_window ('/mod/resource/type/file/localpath.php', get_string('localfile', 'resource'), get_string('localfilehelp','resource'), 400, 500, get_string('localfilehelp', 'resource'));
-                    echo '</div>';
-                }
                 echo '</div></div>';
 
             /// embedded file into iframe if the resource is on another domain
@@ -462,11 +424,7 @@ class resource_file extends resource_base {
                 echo "<title>" . format_string($course->shortname) . ": ".strip_tags(format_string($resource->name,true))."</title></head>\n";
                 echo "<frameset rows=\"$CFG->resource_framesize,*\">";
                 echo "<frame src=\"view.php?id={$cm->id}&amp;type={$resource->type}&amp;frameset=top\" title=\"".get_string('modulename','resource')."\"/>";
-                if (!empty($localpath)) {  // Show it like this so we interpose some HTML
-                    echo "<frame src=\"view.php?id={$cm->id}&amp;type={$resource->type}&amp;inpopup=true\" title=\"".get_string('modulename','resource')."\"/>";
-                } else {
-                    echo "<frame src=\"$fullurl\" title=\"".get_string('modulename','resource')."\"/>";
-                }
+                echo "<frame src=\"$fullurl\" title=\"".get_string('modulename','resource')."\"/>";
                 echo "</frameset>";
                 echo "</html>";
                 exit;
@@ -493,12 +451,6 @@ class resource_file extends resource_base {
             $options = new object();
             $options->para = false;
             echo '<div class="summary">'.format_text($resource->summary, FORMAT_HTML, $options).'</div>';
-            if (!empty($localpath)) {  // Show some help
-                echo '<div class="mdl-right helplink">';
-                link_to_popup_window ('/mod/resource/type/file/localpath.php', get_string('localfile', 'resource'),
-                        get_string('localfilehelp','resource'), 400, 500, get_string('localfilehelp', 'resource'));
-                echo '</div>';
-            }
             print_footer('empty');
             exit;
         }
@@ -516,7 +468,7 @@ class resource_file extends resource_base {
             update_module_button($cm->id, $course->id, $this->strresource), navmenu($course, $cm, "self"));
 
             }
-            
+
             if ($resourcetype == "image") {
                 echo '<div class="resourcecontent resourceimg">';
                 echo "<img title=\"".strip_tags(format_string($resource->name,true))."\" class=\"resourceimage\" src=\"$fullurl\" alt=\"\" />";
@@ -630,7 +582,7 @@ class resource_file extends resource_base {
                 echo '</div>';
             } else if ($resourcetype == "rm") {
 
-                echo '<div class="resourcecontent resourcerm">'; 
+                echo '<div class="resourcecontent resourcerm">';
                 echo '<object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA" width="320" height="240">';
                 echo '<param name="src" value="' . $fullurl . '" />';
                 echo '<param name="controls" value="All" />';
@@ -641,7 +593,7 @@ class resource_file extends resource_base {
                 echo '</object>';
                 echo '<!--<![endif]-->';
                 echo '</object>';
-                echo '</div>'; 
+                echo '</div>';
 
             } else if ($resourcetype == "quicktime") {
                 echo '<div class="resourcecontent resourceqt">';
@@ -710,13 +662,6 @@ class resource_file extends resource_base {
             }
 
         } else {              // Display the resource on it's own
-            if (!empty($localpath)) {   // Show a link to help work around browser security
-                echo '<div class="mdl-right helplink">';
-                link_to_popup_window ('/mod/resource/type/file/localpath.php', get_string('localfile', 'resource'),
-                        get_string('localfilehelp','resource'), 400, 500, get_string('localfilehelp', 'resource'));
-                echo '</div>';
-                echo "<div class=\"popupnotice\">(<a href=\"$fullurl\">$fullurl</a>)</div>";
-            }
             redirect($fullurl);
         }
 
@@ -740,6 +685,7 @@ class resource_file extends resource_base {
 
         if (isset($defaults['options']) and $defaults['options'] === 'forcedownload') {
             $defaults['forcedownload'] = 1;
+            $defaults['windowpopup'] = 0;
 
         } else if (!isset($defaults['popup'])) {
             // use form defaults
@@ -759,7 +705,7 @@ class resource_file extends resource_base {
             if (array_key_exists('options', $defaults)) {
                 if ($defaults['options']=='frame') {
                     $defaults['framepage'] = 1;
-                } else if ($defaults['options']=='objectframe') { 
+                } else if ($defaults['options']=='objectframe') {
                     $defaults['framepage'] = 2;
                 } else {
                     $defaults['framepage'] = 0;
@@ -789,8 +735,11 @@ class resource_file extends resource_base {
 
         $mform->addElement('choosecoursefile', 'reference', get_string('location'), null, array('maxlength' => 255, 'size' => 48));
         $mform->setDefault('reference', $CFG->resource_defaulturl);
-        $mform->addGroupRule('reference', array('value' => array(array(get_string('maximumchars', '', 255), 'maxlength', 255, 'client'))));
-        $mform->addRule('name', null, 'required', null, 'client');
+        $referencegrprules = array();
+        $referencegrprules['value'][] = array(get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+        $referencegrprules['value'][] = array(null, 'required', null, 'client');
+        $mform->addGroupRule('reference', $referencegrprules);
+        $mform->addRule('reference', null, 'required', null, 'client');
 
         if (!empty($CFG->resource_websearch)) {
             $searchbutton = $mform->addElement('button', 'searchbutton', get_string('searchweb', 'resource').'...');
@@ -798,15 +747,6 @@ class resource_file extends resource_base {
                               . "$CFG->resource_websearch', 'websearch', 'menubar=1,location=1,directories=1,toolbar=1,"
                               . "scrollbars,resizable,width=800,height=600');");
             $searchbutton->updateAttributes($buttonattributes);
-        }
-
-        if (!empty($CFG->resource_allowlocalfiles)) {
-            $lfbutton = $mform->addElement('button', 'localfilesbutton', get_string('localfilechoose', 'resource').'...');
-            $options = 'menubar=0,location=0,scrollbars,resizable,width=600,height=400';
-            $url = '/mod/resource/type/file/localfile.php?choose=id_reference_value';
-            $buttonattributes = array('title'=>get_string('localfilechoose', 'resource'), 'onclick'=>"return openpopup('$url', '"
-                              . $lfbutton->getName()."', '$options', 0);");
-            $lfbutton->updateAttributes($buttonattributes);
         }
 
         $mform->addElement('header', 'displaysettings', get_string('display', 'resource'));
@@ -822,7 +762,7 @@ class resource_file extends resource_base {
 
         $navoptions = array(0 => get_string('keepnavigationvisibleno','resource'), 1 => get_string('keepnavigationvisibleyesframe','resource'), 2 => get_string('keepnavigationvisibleyesobject','resource'));
         $mform->addElement('select', 'framepage', get_string('keepnavigationvisible', 'resource'), $navoptions);
-        
+
         $mform->setHelpButton('framepage', array('frameifpossible', get_string('keepnavigationvisible', 'resource'), 'resource'));
         $mform->setDefault('framepage', 0);
         $mform->disabledIf('framepage', 'windowpopup', 'eq', 1);

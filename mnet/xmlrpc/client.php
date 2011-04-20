@@ -149,7 +149,7 @@ class mnet_xmlrpc_client {
             // Find methods that we subscribe to on this host
             $sql = "
                 SELECT
-                    *
+                    r.id
                 FROM
                     {$CFG->prefix}mnet_rpc r,
                     {$CFG->prefix}mnet_service2rpc s2r,
@@ -161,8 +161,7 @@ class mnet_xmlrpc_client {
                     h2s.subscribe = '1' AND
                     h2s.hostid in ({$id_list})";
 
-            $permission = get_record_sql($sql);
-            if ($permission == false) {
+            if (!record_exists_sql($sql)) {
                 global $USER;
                 $this->error[] = '7:User with ID '. $USER->id .
                                  ' attempted to call unauthorised method '.
@@ -333,6 +332,14 @@ class mnet_xmlrpc_client {
                 $this->error[] = $this->response['faultCode'] . " : " . $this->response['faultString'];
             }
         }
+
+        // ok, it's signed, but is it signed with the right certificate ?
+        // do this *after* we check for an out of date key
+        if (!openssl_verify($this->xmlrpcresponse, base64_decode($sig_parser->signature), 
+                $mnet_peer->public_key)) {
+            $this->error[] = 'Invalid signature';
+        }
+
         return empty($this->error);
     }
 }

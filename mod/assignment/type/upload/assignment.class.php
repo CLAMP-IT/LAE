@@ -36,37 +36,37 @@ class assignment_upload extends assignment_base {
 
         $this->view_dates();
 
-        if (has_capability('mod/assignment:submit', $this->context)) {
-            $filecount = $this->count_user_files($USER->id);
-            $submission = $this->get_submission($USER->id);
+        $filecount = $this->count_user_files($USER->id);
+        $submission = $this->get_submission($USER->id);
 
-            $this->view_feedback();
+        $this->view_feedback();
 
-            if (!$this->drafts_tracked() or !$this->isopen() or $this->is_finalized($submission)) {
-                print_heading(get_string('submission', 'assignment'), '', 3);
-            } else {
-                print_heading(get_string('submissiondraft', 'assignment'), '', 3);
-            }
-
-            if ($filecount and $submission) {
-                print_simple_box($this->print_user_files($USER->id, true), 'center');
-            } else {
-                if (!$this->isopen() or $this->is_finalized($submission)) {
-                    print_simple_box(get_string('nofiles', 'assignment'), 'center');
-                } else {
-                    print_simple_box(get_string('nofilesyet', 'assignment'), 'center');
-                }
-            }
-
-            $this->view_upload_form();
-
-            if ($this->notes_allowed()) {
-                print_heading(get_string('notes', 'assignment'), '', 3);
-                $this->view_notes();
-            }
-
-            $this->view_final_submission();
+        if (!$this->drafts_tracked() or !$this->isopen() or $this->is_finalized($submission)) {
+            print_heading(get_string('submission', 'assignment'), '', 3);
+        } else {
+            print_heading(get_string('submissiondraft', 'assignment'), '', 3);
         }
+
+        if ($filecount and $submission) {
+            print_simple_box($this->print_user_files($USER->id, true), 'center');
+        } else {
+            if (!$this->isopen() or $this->is_finalized($submission)) {
+                print_simple_box(get_string('nofiles', 'assignment'), 'center');
+            } else {
+                print_simple_box(get_string('nofilesyet', 'assignment'), 'center');
+            }
+        }
+
+        if (has_capability('mod/assignment:submit', $this->context)) {
+            $this->view_upload_form();
+        }
+
+        if ($this->notes_allowed()) {
+            print_heading(get_string('notes', 'assignment'), '', 3);
+            $this->view_notes();
+        }
+
+        $this->view_final_submission();
         $this->view_footer();
     }
 
@@ -591,7 +591,7 @@ class assignment_upload extends assignment_base {
         require_once($CFG->dirroot.'/lib/uploadlib.php');
         $um = new upload_manager('newfile',false,true,$this->course,false,$this->assignment->maxbytes,true);
 
-        if ($um->process_file_uploads($dir)) {
+        if ($um->process_file_uploads($dir) and confirm_sesskey()) {
             $submission = $this->get_submission($USER->id, true); //create new submission if needed
             $updated = new object();
             $updated->id           = $submission->id;

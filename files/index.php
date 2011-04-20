@@ -8,8 +8,8 @@
 //  USER is a persistent variable using sessions
 
     require('../config.php');
-    require($CFG->libdir.'/filelib.php');
-    require($CFG->libdir.'/adminlib.php');
+    require_once($CFG->libdir . '/filelib.php');
+    require_once($CFG->libdir . '/adminlib.php');
 ?>
 <script type="text/javascript">
 //<![CDATA[

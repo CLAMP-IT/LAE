@@ -93,7 +93,7 @@ function setup_enrolments(&$user) {
                 //error_log('[ENROL_DB] Found '.count($existing).' existing roles and '.$count.' in external database');
 
                 foreach ($courselist as $coursefield) {   /// Check the list of courses against existing
-                    $course = get_record('course', $CFG->enrol_localcoursefield, $coursefield);
+                    $course = get_record('course', $CFG->enrol_localcoursefield, addslashes($coursefield));
                     if (!is_object($course)) {
                         if (empty($CFG->enrol_db_autocreate)) { // autocreation not allowed
                             if (debugging('',DEBUG_ALL)) {
@@ -157,7 +157,7 @@ function setup_enrolments(&$user) {
                     if ($role_assignment->enrol == 'database') {
                         //error_log('[ENROL_DB] Removing user from context '.$role_assignment->contextid);
                         role_unassign($role_assignment->roleid, $user->id, '', $role_assignment->contextid);
-                    } 
+                    }
                 }
             }
         } else {
@@ -231,7 +231,7 @@ function sync_enrolments($role = null) {
         $course = false;
         $course = get_record( 'course',
                               $CFG->enrol_localcoursefield,
-                              $extcourse );
+                              addslashes($extcourse) );
 
         if (!is_object($course)) {
             if (empty($CFG->enrol_db_autocreate)) { // autocreation not allowed

@@ -173,13 +173,14 @@ class grade_object {
             $wheresql = implode("AND", $wheresql);
         }
 
-        if ($datas = get_records_select($table, $wheresql, 'id')) {
+        if ($rs = get_recordset_select($table, $wheresql, 'id')) {
             $result = array();
-            foreach($datas as $data) {
+            while ($data = rs_fetch_next_record($rs)) {
                 $instance = new $classname();
                 grade_object::set_properties($instance, $data);
                 $result[$instance->id] = $instance;
             }
+            rs_close($rs);
             return $result;
 
         } else {
@@ -212,7 +213,7 @@ class grade_object {
             $data->oldid        = $this->id;
             $data->source       = $source;
             $data->timemodified = time();
-            $data->userlogged   = $USER->id;
+            $data->loggeduser   = $USER->id;
             insert_record($this->table.'_history', addslashes_recursive($data));
         }
 
@@ -242,7 +243,7 @@ class grade_object {
                 $data->oldid        = $this->id;
                 $data->source       = $source;
                 $data->timemodified = time();
-                $data->userlogged   = $USER->id;
+                $data->loggeduser   = $USER->id;
                 insert_record($this->table.'_history', addslashes_recursive($data));
             }
             return true;
@@ -303,7 +304,7 @@ class grade_object {
             $data->oldid        = $this->id;
             $data->source       = $source;
             $data->timemodified = time();
-            $data->userlogged   = $USER->id;
+            $data->loggeduser   = $USER->id;
             insert_record($this->table.'_history', addslashes_recursive($data));
         }
 

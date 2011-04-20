@@ -1013,7 +1013,6 @@ PEAR	lib/pear/PEAR.php	/^    function PEAR($error_class = null)$/;"	f
 PEAR_Error	lib/pear/PEAR.php	/^    function PEAR_Error($message = 'unknown error', $code = null,$/;"	f
 PGA	lib/adodb/perf/perf-oci8.inc.php	/^	function PGA()$/;"	f
 PGTStorage	auth/cas/CAS/CAS/PGTStorage/pgt-main.php	/^  function PGTStorage($cas_parent)$/;"	f
-PGTStorageDB	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function PGTStorageDB($cas_parent,$user,$password,$database_type,$hostname,$port,$database,$table)$/;"	f
 PGTStorageFile	auth/cas/CAS/CAS/PGTStorage/pgt-file.php	/^  function PGTStorageFile($cas_parent,$format,$path)$/;"	f
 PHPMailer	lib/phpmailer/class.phpmailer.php	/^    function PHPMailer () {$/;"	f
 PHPUnit_TestCase	lib/simpletestlib/extensions/pear_test_case.php	/^        function PHPUnit_TestCase($label = false) {$/;"	f
@@ -2804,7 +2803,7 @@ _testHeaderValue	lib/simpletestlib/web_tester.php	/^        function _testHeader
 _testLatestError	lib/simpletestlib/errors.php	/^        function _testLatestError($severity, $content, $filename, $line) {$/;"	f
 _testMultiple	lib/simpletestlib/web_tester.php	/^        function _testMultiple($compare) {$/;"	f
 _testParameter	lib/simpletestlib/mock_objects.php	/^        function _testParameter($parameter, $expected) {$/;"	f
-_testPermissions	lib/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer.php	/^    private function _testPermissions($dir) {$/;"	f
+_testPermissions	lib/htmlpurifier/HTMLPurifier/DefinitionCache/Serializer.php	/^    private function _testPermissions($dir, $chmod) {$/;"	f
 _testSingle	lib/simpletestlib/web_tester.php	/^        function _testSingle($compare) {$/;"	f
 _textstring	lib/fpdf/fpdf.php	/^function _textstring($s)$/;"	f
 _textstring	lib/fpdf/fpdfprotection.php	/^    function _textstring($s) {$/;"	f
@@ -3063,7 +3062,7 @@ add_action_buttons	lib/formslib.php	/^    function add_action_buttons($cancel = 
 add_admin	lib/deprecatedlib.php	/^function add_admin($userid) {$/;"	f
 add_category	question/category_class.php	/^    function add_category($newparent, $newcategory, $newinfo) {$/;"	f
 add_checkbox_controller	lib/formslib.php	/^    function add_checkbox_controller($groupid, $buttontext, $attributes, $originalValue = 0) {$/;"	f
-add_child	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function add_child($newnode) {return append_child($newnode);}$/;"	f
+add_child	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function add_child($newnode) {return $this->append_child($newnode);}$/;"	f
 add_component	lib/bennu/iCalendar_components.php	/^    function add_component($component) {$/;"	f
 add_course_module	course/lib.php	/^function add_course_module($mod) {$/;"	f
 add_data	lib/tablelib.php	/^    function add_data($row) {$/;"	f
@@ -3351,6 +3350,8 @@ asMime	lib/simpletestlib/encoding.php	/^        function asMime() {$/;"	f
 asRequest	lib/simpletestlib/encoding.php	/^        function asRequest() {$/;"	f
 asString	lib/simpletestlib/url.php	/^        function asString() {$/;"	f
 asUrlRequest	lib/simpletestlib/encoding.php	/^        function asUrlRequest() {$/;"	f
+assemble_category_path	question/format.php	/^    function assemble_category_path($names) {$/;"	f
+assemble_category_path	question/simpletest/testimportexport.php	/^    public function assemble_category_path($names) {$/;"	f
 assert	lib/simpletestlib/extensions/phpunit_test_case.php	/^        function assert($condition, $message = false) {$/;"	f
 assert	lib/simpletestlib/test_case.php	/^        function assert(&$expectation, $compare, $message = '%s') {$/;"	f
 assertAlnum	lib/htmlpurifier/HTMLPurifier/ConfigSchema/ValidatorAtom.php	/^    public function assertAlnum() {$/;"	f
@@ -3546,7 +3547,7 @@ auth_plugin_pam	auth/pam/auth.php	/^    function auth_plugin_pam() {$/;"	f
 auth_plugin_pop3	auth/pop3/auth.php	/^    function auth_plugin_pop3() {$/;"	f
 auth_plugin_radius	auth/radius/auth.php	/^    function auth_plugin_radius() {$/;"	f
 auth_plugin_shibboleth	auth/shibboleth/auth.php	/^    function auth_plugin_shibboleth() {$/;"	f
-authenticate	auth/cas/CAS/CAS.php	/^	function authenticate()$/;"	f
+authenticate	auth/cas/CAS/CAS.php	/^	function authenticate() {$/;"	f
 authenticate	lib/simpletestlib/browser.php	/^        function authenticate($username, $password) {$/;"	f
 authenticate	lib/simpletestlib/web_tester.php	/^        function authenticate($username, $password) {$/;"	f
 authenticate_user_login	lib/moodlelib.php	/^function authenticate_user_login($username, $password) {$/;"	f
@@ -3569,7 +3570,7 @@ average	lib/evalmath/evalmath.class.php	/^    function average($args) {$/;"	f
 b_writeIt	lib/soap/nusoap.php	/^		function b_writeIt(text){$/;"	f
 back	lib/simpletestlib/browser.php	/^        function back() {$/;"	f
 back	lib/simpletestlib/web_tester.php	/^        function back() {$/;"	f
-backtrace	auth/cas/CAS/CAS.php	/^	function backtrace()$/;"	f
+backtrace	auth/cas/CAS/CAS.php	/^	function backtrace() {$/;"	f
 backup	question/type/calculated/questiontype.php	/^    function backup($bf,$preferences,$question,$level=6) {$/;"	f
 backup	question/type/essay/questiontype.php	/^    function backup($bf, $preferences, $questionid, $level = 6) {$/;"	f
 backup	question/type/match/questiontype.php	/^    function backup($bf,$preferences,$question,$level=6) {$/;"	f
@@ -3848,7 +3849,7 @@ buildFromDirectory	lib/htmlpurifier/HTMLPurifier/ConfigSchema/InterchangeBuilder
 buildPayload	lib/soap/nusoap.php	/^	function buildPayload($data, $cookie_str = '') {$/;"	f
 buildQuery	lib/adodb/adodb-xmlschema.inc.php	/^	function buildQuery( $sql = NULL ) {$/;"	f
 buildQuery	lib/adodb/adodb-xmlschema03.inc.php	/^	function buildQuery( $sql = NULL ) {$/;"	f
-buildSAMLPayload	auth/cas/CAS/CAS/client.php	/^        function buildSAMLPayload()$/;"	f
+buildSAMLPayload	auth/cas/CAS/CAS/client.php	/^	function buildSAMLPayload()$/;"	f
 buildVal	lib/soap/nusoap.php	/^	function buildVal($pos){$/;"	f
 build_context_path	lib/accesslib.php	/^function build_context_path($force=false, $feedback=false) {$/;"	f
 build_html_tree	grade/edit/tree/lib.php	/^    function build_html_tree($element, $totals, $parents, &$categories, $level, &$row_count) {$/;"	f
@@ -4086,7 +4087,7 @@ chat_user_complete	mod/chat/lib.php	/^function chat_user_complete($course, $user
 chat_user_outline	mod/chat/lib.php	/^function chat_user_outline($course, $user, $mod, $chat) {$/;"	f
 check4errors	mod/resource/type/ims/resource.class.php	/^    function check4errors($file, $course, $resource) {$/;"	f
 checkAuth	lib/pear/HTTP/WebDAV/Server.php	/^     function checkAuth($type, $username, $password) $/;"	f
-checkAuthentication	auth/cas/CAS/CAS.php	/^	function checkAuthentication()$/;"	f
+checkAuthentication	auth/cas/CAS/CAS.php	/^	function checkAuthentication() {$/;"	f
 checkAuthentication	auth/cas/CAS/CAS/client.php	/^	function checkAuthentication()$/;"	f
 checkCookies	lib/soap/nusoap.php	/^	function checkCookies() {$/;"	f
 checkDB	search/indexlib.php	/^    public function checkDB() {$/;"	f
@@ -4291,7 +4292,7 @@ clickSubmitById	lib/simpletestlib/browser.php	/^        function clickSubmitById
 clickSubmitById	lib/simpletestlib/web_tester.php	/^        function clickSubmitById($id, $additional = false) {$/;"	f
 clickSubmitByName	lib/simpletestlib/browser.php	/^        function clickSubmitByName($name, $additional = false) {$/;"	f
 clickSubmitByName	lib/simpletestlib/web_tester.php	/^        function clickSubmitByName($name, $additional = false) {$/;"	f
-client	auth/cas/CAS/CAS.php	/^	function client($server_version,$/;"	f
+client	auth/cas/CAS/CAS.php	/^	function client($server_version, $server_hostname, $server_port, $server_uri, $start_session = true) {$/;"	f
 clientInfo	lib/typo3/class.t3lib_div.php	/^	function clientInfo($useragent='')	{$/;"	f
 clientJsLocation	lib/pear/HTML/AJAX/Server.php	/^    function clientJsLocation() $/;"	f
 clipString	lib/simpletestlib/dumper.php	/^        function clipString($value, $size, $position = 0) {$/;"	f
@@ -4560,7 +4561,7 @@ create_admin_user	lib/adminlib.php	/^function create_admin_user() {$/;"	f
 create_analysis_table	mod/hotpot/report/fullstat/report.php	/^	function create_analysis_table(&$users, &$attempts, &$questions, &$options, &$tables) {$/;"	f
 create_attribute	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function create_attribute($name,$value)$/;"	f
 create_blobvar	lib/adodb/drivers/adodb-sqlanywhere.inc.php	/^  function create_blobvar($blobVarName) {$/;"	f
-create_category_path	question/format.php	/^    function create_category_path($catpath, $delimiter='\/') {$/;"	f
+create_category_path	question/format.php	/^    function create_category_path($catpath) {$/;"	f
 create_cdata_section	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function create_cdata_section($content) {return new php4DOMNode($this->myDOMNode->createCDATASection($content),$this);}$/;"	f
 create_children	lib/listlib.php	/^    function create_children(&$records, &$children, $thisrecordid) {$/;"	f
 create_clickreport_table	mod/hotpot/report/click/report.php	/^	function create_clickreport_table(&$hotpot, &$cm, &$course, &$users, &$attempts, &$questions, &$options, &$tables) {$/;"	f
@@ -5366,7 +5367,7 @@ environment_check_unicode	lib/environmentlib.php	/^function environment_check_un
 environment_custom_checks	lib/environmentlib.php	/^function environment_custom_checks($version) {$/;"	f
 environment_results	lib/environmentlib.php	/^    function environment_results($part) {$/;"	f
 err	question/format/coursetestmanager/format.php	/^    function err($message, $dsn) {$/;"	f
-error	auth/cas/CAS/CAS.php	/^	function error($msg)$/;"	f
+error	auth/cas/CAS/CAS.php	/^	function error($msg) {$/;"	f
 error	lib/deprecatedlib.php	/^function error ($message, $link='') {$/;"	f
 error	lib/editorlib.php	/^    function error($message) {$/;"	f
 error	lib/htmlpurifier/HTMLPurifier/ConfigSchema/Validator.php	/^    protected function error($target, $msg) {$/;"	f
@@ -5389,7 +5390,7 @@ error_link	question/type/questiontype.php	/^    function error_link($cmoptions) 
 escalateReadLock	search/Zend/Search/Lucene/LockManager.php	/^    public static function escalateReadLock(Zend_Search_Lucene_Storage_Directory $lockDirectory)$/;"	f
 escalateReadLock	search/Zend/Search/Lucene/SoftLockManager.php	/^    public static function escalateReadLock(Zend_Search_Lucene_Storage_Directory $lockDirectory)$/;"	f
 escape	lib/adodb/adodb.inc.php	/^	function escape($s,$magic_quotes=false)$/;"	f
-escape	lib/htmlpurifier/HTMLPurifier/Generator.php	/^    public function escape($string, $quote = ENT_COMPAT) {$/;"	f
+escape	lib/htmlpurifier/HTMLPurifier/Generator.php	/^    public function escape($string, $quote = null) {$/;"	f
 escape	lib/htmlpurifier/HTMLPurifier/Printer.php	/^    protected function escape($string) {$/;"	f
 escape	lib/pear/HTML/AJAX/Helper.php	/^	function escape($input) {$/;"	f
 escapeCDATA	lib/htmlpurifier/HTMLPurifier/Lexer.php	/^    protected static function escapeCDATA($string) {$/;"	f
@@ -5671,6 +5672,7 @@ exists	lib/htmlpurifier/HTMLPurifier/Context.php	/^    public function exists($n
 exists	search/querylib.php	/^    private function exists($id) {$/;"	f
 exists_auth_plugin	lib/moodlelib.php	/^function exists_auth_plugin($auth) {$/;"	f
 expand	blocks/admin_tree/block_admin_tree.php	/^function expand(i) {$/;"	f
+expandCSSEscape	lib/htmlpurifier/HTMLPurifier/AttrDef.php	/^    protected function expandCSSEscape($string) {$/;"	f
 expandCollide	mod/scorm/datamodels/aicclib.php	/^              function expandCollide(which,list,item) {$/;"	f
 expandCollide	mod/scorm/datamodels/scorm_12lib.php	/^              function expandCollide(which,list,item) {$/;"	f
 expandCollide	mod/scorm/datamodels/scorm_13lib.php	/^              function expandCollide(which,list,item) {$/;"	f
@@ -5819,6 +5821,7 @@ filter	lib/htmlpurifier/HTMLPurifier/URIDefinition.php	/^    public function fil
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter.php	/^    abstract public function filter(&$uri, $config, $context);$/;"	f
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter/DisableExternal.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter/DisableExternalResources.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
+filter	lib/htmlpurifier/HTMLPurifier/URIFilter/DisableResources.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter/HostBlacklist.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter/MakeAbsolute.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
 filter	lib/htmlpurifier/HTMLPurifier/URIFilter/Munge.php	/^    public function filter(&$uri, $config, $context) {$/;"	f
@@ -5826,6 +5829,8 @@ filter_add_javascript	lib/filterlib.php	/^function filter_add_javascript($text) 
 filter_addslashes	auth/cas/auth.php	/^    function filter_addslashes($text) {$/;"	f
 filter_addslashes	auth/ldap/auth.php	/^    function filter_addslashes($text) {$/;"	f
 filter_addslashes	enrol/ldap/enrol.php	/^function filter_addslashes($text) {$/;"	f
+filter_mediaplugin_ogg_callback	filter/mediaplugin/filter.php	/^function filter_mediaplugin_ogg_callback($link) {$/;"	f
+filter_mediaplugin_ogv_callback	filter/mediaplugin/filter.php	/^function filter_mediaplugin_ogv_callback($link) {$/;"	f
 filter_phrases	lib/filterlib.php	/^function filter_phrases ($text, &$link_array, $ignoretagsopen=NULL, $ignoretagsclose=NULL) {$/;"	f
 filter_remove_duplicates	lib/filterlib.php	/^function filter_remove_duplicates($linkarray) {$/;"	f
 filter_save_ignore_tags	lib/filterlib.php	/^function filter_save_ignore_tags(&$text,$filterignoretagsopen,$filterignoretagsclose,&$ignoretags) {$/;"	f
@@ -5922,7 +5927,7 @@ for	mod/lesson/edit.php	/^ * Provides the interface for overall authoring of les
 for	mod/lesson/essay.php	/^ * Provides the interface for grading essay questions$/;"	c
 for	mod/lesson/highscores.php	/^ * Provides the interface for viewing and adding high scores$/;"	c
 for	question/type/questiontype.php	/^ * condem everyone to working round a clunky interface for ever afterwards.$/;"	c
-forceAuthentication	auth/cas/CAS/CAS.php	/^	function forceAuthentication()$/;"	f
+forceAuthentication	auth/cas/CAS/CAS.php	/^	function forceAuthentication() {$/;"	f
 forceAuthentication	auth/cas/CAS/CAS/client.php	/^	function forceAuthentication()$/;"	f
 force_regrading	lib/grade/grade_category.php	/^    function force_regrading() {$/;"	f
 force_regrading	lib/grade/grade_item.php	/^    function force_regrading() {$/;"	f
@@ -6291,7 +6296,7 @@ getAssertionLine	lib/simpletestlib/web_tester.php	/^        function getAssertio
 getAttribute	auth/cas/CAS/CAS/client.php	/^	function getAttribute($key)	{$/;"	f
 getAttribute	lib/pear/HTML/Common.php	/^    function getAttribute($attr)$/;"	f
 getAttribute	lib/simpletestlib/tag.php	/^        function getAttribute($label) {$/;"	f
-getAttributes	auth/cas/CAS/CAS.php	/^	function getAttributes()$/;"	f
+getAttributes	auth/cas/CAS/CAS.php	/^	function getAttributes() {$/;"	f
 getAttributes	auth/cas/CAS/CAS/client.php	/^	function getAttributes() {$/;"	f
 getAttributes	lib/pear/Auth/RADIUS.php	/^    function getAttributes()$/;"	f
 getAttributes	lib/pear/HTML/Common.php	/^    function getAttributes($asString = false)$/;"	f
@@ -6350,6 +6355,7 @@ getCookie	mod/scorm/datamodels/debug.js.php	/^function getCookie (cookie_name){$
 getCookieValue	lib/simpletestlib/browser.php	/^        function getCookieValue($host, $path, $name) {$/;"	f
 getCookieValue	lib/simpletestlib/cookies.php	/^        function getCookieValue($host, $path, $name) {$/;"	f
 getCookieValue	lib/simpletestlib/user_agent.php	/^        function getCookieValue($host, $path, $name) {$/;"	f
+getCookies	auth/cas/CAS/CAS/client.php	/^	function getCookies($url){$/;"	f
 getCookies	lib/soap/nusoap.php	/^	function getCookies() {$/;"	f
 getCookiesForRequest	lib/soap/nusoap.php	/^	function getCookiesForRequest($cookies, $secure=false) {$/;"	f
 getCreateDefaultSQL	lib/xmldb/classes/generators/XMLDBGenerator.class.php	/^    function getCreateDefaultSQL($xmldb_table, $xmldb_field) {$/;"	f
@@ -6621,7 +6627,6 @@ getLength	lib/xmldb/classes/XMLDBField.class.php	/^    function getLength() {$/;
 getLength	search/Zend/Search/Lucene/Index/Term.php	/^    public static function getLength($str)$/;"	f
 getLevel	lib/adodb/session/adodb-compress-gzip.php	/^	function getLevel() {$/;"	f
 getLevel	lib/environmentlib.php	/^    function getLevel() {$/;"	f
-getLink	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function getLink()$/;"	f
 getLink	lib/simpletestlib/browser.php	/^        function getLink($label, $index = 0) {$/;"	f
 getLinkById	lib/simpletestlib/browser.php	/^        function getLinkById($id) {$/;"	f
 getLinks	search/Zend/Search/Lucene/Document/Html.php	/^    public function getLinks()$/;"	f
@@ -6825,7 +6830,7 @@ getResume	auth/fc/fcFPP.php	/^    function getResume($userid) {$/;"	f
 getRewind	lib/htmlpurifier/HTMLPurifier/Injector.php	/^    public function getRewind() {$/;"	f
 getRootNamespace	lib/htmlpurifier/HTMLPurifier/ConfigSchema/Interchange/Id.php	/^    public function getRootNamespace() {$/;"	f
 getRule	lib/pear/HTML/QuickForm/RuleRegistry.php	/^    function &getRule($ruleName)$/;"	f
-getSA	auth/cas/CAS/CAS/client.php	/^       function getSA()$/;"	f
+getSA	auth/cas/CAS/CAS/client.php	/^	function getSA()$/;"	f
 getSQL	lib/adodb/adodb-xmlschema.inc.php	/^	function getSQL( $format = NULL, $sqlArray = NULL ) {$/;"	f
 getSQL	lib/adodb/adodb-xmlschema03.inc.php	/^	function getSQL( $format = NULL, $sqlArray = NULL ) {$/;"	f
 getST	auth/cas/CAS/CAS/client.php	/^	function getST()$/;"	f
@@ -6847,9 +6852,9 @@ getSequenceFromDB	lib/xmldb/classes/generators/postgres7/postgres7.class.php	/^f
 getSerial	lib/htmlpurifier/HTMLPurifier/Config.php	/^    public function getSerial() {$/;"	f
 getServerBaseURL	auth/cas/CAS/CAS/client.php	/^	function getServerBaseURL()$/;"	f
 getServerHostname	auth/cas/CAS/CAS/client.php	/^	function getServerHostname()$/;"	f
-getServerLoginURL	auth/cas/CAS/CAS.php	/^	function getServerLoginURL()$/;"	f
+getServerLoginURL	auth/cas/CAS/CAS.php	/^	function getServerLoginURL() {$/;"	f
 getServerLoginURL	auth/cas/CAS/CAS/client.php	/^	function getServerLoginURL($gateway=false,$renew=false) {$/;"	f
-getServerLogoutURL	auth/cas/CAS/CAS.php	/^	function getServerLogoutURL()$/;"	f
+getServerLogoutURL	auth/cas/CAS/CAS.php	/^	function getServerLogoutURL() {$/;"	f
 getServerLogoutURL	auth/cas/CAS/CAS/client.php	/^	function getServerLogoutURL()$/;"	f
 getServerPort	auth/cas/CAS/CAS/client.php	/^	function getServerPort()$/;"	f
 getServerProxyURL	auth/cas/CAS/CAS/client.php	/^	function getServerProxyURL()$/;"	f
@@ -6858,7 +6863,7 @@ getServerSamlValidateURL	auth/cas/CAS/CAS/client.php	/^	function getServerSamlVa
 getServerServiceValidateURL	auth/cas/CAS/CAS/client.php	/^	function getServerServiceValidateURL()$/;"	f
 getServerURI	auth/cas/CAS/CAS/client.php	/^	function getServerURI()$/;"	f
 getServerVersion	auth/cas/CAS/CAS/client.php	/^	function getServerVersion()$/;"	f
-getServiceURL	auth/cas/CAS/CAS.php	/^	function getServiceURL()$/;"	f
+getServiceURL	auth/cas/CAS/CAS.php	/^	function getServiceURL() {$/;"	f
 getSeverityAsString	lib/simpletestlib/errors.php	/^        function getSeverityAsString($severity) {$/;"	f
 getShowAdvanced	lib/formslib.php	/^    function getShowAdvanced(){$/;"	f
 getSigFigs	lib/htmlpurifier/HTMLPurifier/UnitConverter.php	/^    public function getSigFigs($n) {$/;"	f
@@ -6880,6 +6885,7 @@ getSize	lib/simpletestlib/xml.php	/^        function getSize() {$/;"	f
 getSlop	search/Zend/Search/Lucene/Search/Query/Phrase.php	/^    public function getSlop()$/;"	f
 getSource	lib/adodb/session/adodb-encrypt-mcrypt.php	/^	function getSource() {$/;"	f
 getStartOffset	search/Zend/Search/Lucene/Analysis/Token.php	/^    public function getStartOffset()$/;"	f
+getStartSession	auth/cas/CAS/CAS/client.php	/^	function getStartSession($session)$/;"	f
 getState	search/Zend/Search/Lucene/FSM.php	/^    public function getState()$/;"	f
 getStatement	lib/xmldb/classes/XMLDBStructure.class.php	/^    function &getStatement($statementname) {$/;"	f
 getStatements	lib/xmldb/classes/XMLDBStructure.class.php	/^    function &getStatements() {$/;"	f
@@ -6887,10 +6893,8 @@ getStaticProperty	lib/pear/PEAR.php	/^    function &getStaticProperty($class, $v
 getStatus	lib/environmentlib.php	/^    function getStatus() {$/;"	f
 getStatus	lib/simpletestlib/scorer.php	/^        function getStatus() {$/;"	f
 getStopFieldsetElements	lib/formslib.php	/^    function getStopFieldsetElements(){$/;"	f
-getStorageInfo	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function getStorageInfo()$/;"	f
 getStorageInfo	auth/cas/CAS/CAS/PGTStorage/pgt-file.php	/^  function getStorageInfo()$/;"	f
 getStorageInfo	auth/cas/CAS/CAS/PGTStorage/pgt-main.php	/^  function getStorageInfo()$/;"	f
-getStorageType	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function getStorageType()$/;"	f
 getStorageType	auth/cas/CAS/CAS/PGTStorage/pgt-file.php	/^  function getStorageType()$/;"	f
 getStorageType	auth/cas/CAS/CAS/PGTStorage/pgt-main.php	/^  function getStorageType()$/;"	f
 getString	auth/cas/CAS/CAS/client.php	/^	function getString($str)$/;"	f
@@ -6899,7 +6903,6 @@ getSubmitValue	lib/pear/HTML/QuickForm.php	/^    function getSubmitValue($elemen
 getSubmitValues	lib/pear/HTML/QuickForm.php	/^    function getSubmitValues($mergeFiles = false)$/;"	f
 getSubqueries	search/Zend/Search/Lucene/Search/Query/Boolean.php	/^    public function getSubqueries()$/;"	f
 getTabOffset	lib/pear/HTML/Common.php	/^    function getTabOffset()$/;"	f
-getTable	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function getTable()$/;"	f
 getTable	lib/xmldb/classes/XMLDBStatement.class.php	/^    function getTable() {$/;"	f
 getTable	lib/xmldb/classes/XMLDBStructure.class.php	/^    function &getTable($tablename) {$/;"	f
 getTableName	lib/xmldb/classes/generators/XMLDBGenerator.class.php	/^    function getTableName($xmldb_table, $quoted = true) {$/;"	f
@@ -6952,7 +6955,6 @@ getTypeSQL	lib/xmldb/classes/generators/mysql/mysql.class.php	/^    function get
 getTypeSQL	lib/xmldb/classes/generators/oci8po/oci8po.class.php	/^    function getTypeSQL ($xmldb_type, $xmldb_length=null, $xmldb_decimals=null) {$/;"	f
 getTypeSQL	lib/xmldb/classes/generators/postgres7/postgres7.class.php	/^    function getTypeSQL ($xmldb_type, $xmldb_length=null, $xmldb_decimals=null) {$/;"	f
 getTypes	search/Zend/Search/Lucene/Search/QueryToken.php	/^    public static function getTypes()$/;"	f
-getURL	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function getURL()$/;"	f
 getURL	auth/cas/CAS/CAS/client.php	/^	function getURL()$/;"	f
 getURL	lib/typo3/class.t3lib_div.php	/^	function getURL($url)	{$/;"	f
 getUnique	lib/xmldb/classes/XMLDBIndex.class.php	/^    function getUnique() {$/;"	f
@@ -6968,7 +6970,7 @@ getUrlById	lib/simpletestlib/frames.php	/^        function getUrlById($id) {$/;"
 getUrlById	lib/simpletestlib/page.php	/^        function getUrlById($id) {$/;"	f
 getUrlsByLabel	lib/simpletestlib/frames.php	/^        function getUrlsByLabel($label) {$/;"	f
 getUrlsByLabel	lib/simpletestlib/page.php	/^        function getUrlsByLabel($label) {$/;"	f
-getUser	auth/cas/CAS/CAS.php	/^	function getUser()$/;"	f
+getUser	auth/cas/CAS/CAS.php	/^	function getUser() {$/;"	f
 getUser	auth/cas/CAS/CAS/client.php	/^	function getUser()$/;"	f
 getUserInfo	auth/fc/fcFPP.php	/^    function getUserInfo($userid, $field) {$/;"	f
 getUserInfo	lib/pear/PEAR.php	/^    function getUserInfo()$/;"	f
@@ -7008,7 +7010,7 @@ getValue	search/Zend/Search/Lucene/Search/Weight.php	/^    public function getVa
 getValue	search/Zend/Search/Lucene/Search/Weight/Boolean.php	/^    public function getValue()$/;"	f
 getValue	search/Zend/Search/Lucene/Search/Weight/MultiTerm.php	/^    public function getValue()$/;"	f
 getValuesFromInsertSentence	lib/xmldb/classes/XMLDBStatement.class.php	/^    function getValuesFromInsertSentence($sentence) {$/;"	f
-getVersion	auth/cas/CAS/CAS.php	/^	function getVersion()$/;"	f
+getVersion	auth/cas/CAS/CAS.php	/^	function getVersion() {$/;"	f
 getVersion	lib/simpletestlib/simpletest.php	/^        function getVersion() {$/;"	f
 getVersion	lib/xmldb/classes/XMLDBStructure.class.php	/^    function getVersion() {$/;"	f
 getWorkLevel	lib/adodb/session/adodb-compress-bzip2.php	/^	function getWorkLevel() {$/;"	f
@@ -7089,7 +7091,7 @@ get_categories_for_contexts	lib/questionlib.php	/^function get_categories_for_co
 get_category_cell	grade/edit/tree/lib.php	/^    function get_category_cell($category, $levelclass, $params) {$/;"	f
 get_category_cell	grade/edit/tree/lib.php	/^    function get_category_cell($category, $levelclass, $params) {}$/;"	f
 get_category_or_system_context	course/lib.php	/^function get_category_or_system_context($categoryid) {$/;"	f
-get_category_path	question/format.php	/^    function get_category_path($id, $delimiter='\/', $includecontext = true) {$/;"	f
+get_category_path	question/format.php	/^    function get_category_path($id, $includecontext = true) {$/;"	f
 get_child_categories	course/lib.php	/^function get_child_categories($parentid) {$/;"	f
 get_child_contexts	lib/accesslib.php	/^function get_child_contexts($context) {$/;"	f
 get_child_ids	lib/listlib.php	/^    function get_child_ids() {$/;"	f
@@ -7204,6 +7206,7 @@ get_directory_list	lib/moodlelib.php	/^function get_directory_list($rootdir, $ex
 get_directory_size	lib/moodlelib.php	/^function get_directory_size($rootdir, $excludefile='') {$/;"	f
 get_dirs	lib/typo3/class.t3lib_div.php	/^	function get_dirs($path)	{$/;"	f
 get_dirty_contexts	lib/accesslib.php	/^function get_dirty_contexts($time) {$/;"	f
+get_display_html_path	question/type/shortanswer/questiontype.php	/^    function get_display_html_path() {$/;"	f
 get_displaytype	lib/grade/grade_item.php	/^    function get_displaytype() {$/;"	f
 get_edit_icon	grade/lib.php	/^    function get_edit_icon($element, $gpr) {$/;"	f
 get_editing_head_contributions	lib/questionlib.php	/^function get_editing_head_contributions($question) {$/;"	f
@@ -7910,7 +7913,7 @@ handleEnd	lib/htmlpurifier/HTMLPurifier/Injector/DisplayLinkURI.php	/^    public
 handleEnd	lib/htmlpurifier/HTMLPurifier/Injector/RemoveSpansWithoutAttributes.php	/^    public function handleEnd(&$token) {$/;"	f
 handleEnd	lib/htmlpurifier/HTMLPurifier/Injector/SafeObject.php	/^    public function handleEnd(&$token) {$/;"	f
 handleFailure	mod/wiki/view.php	/^function handleFailure(o) {$/;"	f
-handleLogoutRequests	auth/cas/CAS/CAS.php	/^    function handleLogoutRequests($check_client=true, $allowed_clients=false)$/;"	f
+handleLogoutRequests	auth/cas/CAS/CAS.php	/^	function handleLogoutRequests($check_client = true, $allowed_clients = false) {$/;"	f
 handleLogoutRequests	auth/cas/CAS/CAS/client.php	/^	function handleLogoutRequests($check_client=true, $allowed_clients=false) {$/;"	f
 handleRequest	lib/pear/HTML/AJAX.php	/^    function handleRequest()$/;"	f
 handleRequest	lib/pear/HTML/AJAX/Server.php	/^    function handleRequest() $/;"	f
@@ -7941,7 +7944,7 @@ hasImage	lib/simpletestlib/form.php	/^        function hasImage($selector) {$/;"
 hasMore	lib/adodb/adodb-iterator.inc.php	/^	function hasMore()$/;"	f
 hasPGT	auth/cas/CAS/CAS/client.php	/^	function hasPGT()$/;"	f
 hasPT	auth/cas/CAS/CAS/client.php	/^	function hasPT()$/;"	f
-hasSA	auth/cas/CAS/CAS/client.php	/^       function hasSA()$/;"	f
+hasSA	auth/cas/CAS/CAS/client.php	/^	function hasSA()$/;"	f
 hasST	auth/cas/CAS/CAS/client.php	/^	function hasST()$/;"	f
 hasSingleNormFile	search/Zend/Search/Lucene/Index/SegmentInfo.php	/^    public function hasSingleNormFile()$/;"	f
 hasSubmit	lib/simpletestlib/form.php	/^        function hasSubmit($selector) {$/;"	f
@@ -8190,7 +8193,7 @@ html_header	files/index.php	/^    function html_header($course, $wdir, $formfiel
 html_header	lib/editor/htmlarea/coursefiles.php	/^    function html_header($course, $wdir, $formfield=""){$/;"	f
 html_is_blank	lib/moodlelib.php	/^function html_is_blank($string) {$/;"	f
 html_quickform_toggle_checkboxes	lib/formslib.php	/^function html_quickform_toggle_checkboxes(group) {$/;"	f
-html_to_text	lib/weblib.php	/^function html_to_text($html) {$/;"	f
+html_to_text	lib/weblib.php	/^function html_to_text($html, $width = 75) {$/;"	f
 htmlarea	lib/editor/htmlarea/htmlarea.class.php	/^    function htmlarea($courseid) {$/;"	f
 htmlspecialchars_decode	lib/typo3/class.t3lib_div.php	/^	function htmlspecialchars_decode($value)	{$/;"	f
 http_COPY	lib/pear/HTTP/WebDAV/Server.php	/^    function http_COPY() $/;"	f
@@ -8379,7 +8382,6 @@ init	admin/xmldb/actions/view_table_php/view_table_php.class.php	/^    function 
 init	admin/xmldb/actions/view_table_sql/view_table_sql.class.php	/^    function init() {$/;"	f
 init	admin/xmldb/actions/view_table_xml/view_table_xml.class.php	/^    function init() {$/;"	f
 init	admin/xmldb/actions/view_xml/view_xml.class.php	/^    function init() {$/;"	f
-init	auth/cas/CAS/CAS/PGTStorage/pgt-db.php	/^  function init()$/;"	f
 init	auth/cas/CAS/CAS/PGTStorage/pgt-file.php	/^  function init()$/;"	f
 init	auth/cas/CAS/CAS/PGTStorage/pgt-main.php	/^  function init()$/;"	f
 init	blocks/activity_modules/block_activity_modules.php	/^    function init() {$/;"	f
@@ -8616,7 +8618,7 @@ isAbstract	lib/simpletestlib/reflection_php4.php	/^        function isAbstract()
 isAbstract	lib/simpletestlib/reflection_php5.php	/^        function isAbstract() {$/;"	f
 isAllowedAbsPath	lib/typo3/class.t3lib_div.php	/^	function isAllowedAbsPath($path)	{$/;"	f
 isArraySimpleOrStruct	lib/soap/nusoap.php	/^	function isArraySimpleOrStruct($val) {$/;"	f
-isAuthenticated	auth/cas/CAS/CAS.php	/^	function isAuthenticated()$/;"	f
+isAuthenticated	auth/cas/CAS/CAS.php	/^	function isAuthenticated() {$/;"	f
 isAuthenticated	auth/cas/CAS/CAS/client.php	/^	function isAuthenticated()$/;"	f
 isButton	lib/pear/HTML/QuickForm/Renderer/Object.php	/^    function isButton()$/;"	f
 isCallbackMode	auth/cas/CAS/CAS/client.php	/^	function isCallbackMode()$/;"	f
@@ -8672,7 +8674,7 @@ isReference	lib/simpletestlib/compatibility.php	/^        function isReference(&
 isRoot	lib/pear/OLE.php	/^    function isRoot($index)$/;"	f
 isRuleRegistered	lib/pear/HTML/QuickForm.php	/^    function isRuleRegistered($name, $autoRegister = false)$/;"	f
 isSecure	lib/simpletestlib/cookies.php	/^        function isSecure() {$/;"	f
-isSessionAuthenticated	auth/cas/CAS/CAS.php	/^	function isSessionAuthenticated ()$/;"	f
+isSessionAuthenticated	auth/cas/CAS/CAS.php	/^	function isSessionAuthenticated() {$/;"	f
 isSessionAuthenticated	auth/cas/CAS/CAS/client.php	/^	function isSessionAuthenticated ()$/;"	f
 isSubmit	lib/simpletestlib/browser.php	/^        function isSubmit($label) {$/;"	f
 isSubmitted	lib/formslib.php	/^    function isSubmitted()$/;"	f
@@ -8862,7 +8864,7 @@ journal_user_complete_index	mod/journal/lib.php	/^function journal_user_complete
 journal_user_outline	mod/journal/lib.php	/^function journal_user_outline($course, $user, $mod, $journal) {$/;"	f
 js_safe	mod/hotpot/template/default.php	/^    function js_safe($str, $convert_to_unicode=false) {$/;"	f
 js_safe_callback	mod/hotpot/template/default.php	/^    function js_safe_callback(&$matches) {$/;"	f
-js_value	mod/hotpot/template/default.php	/^    function js_value($tags, $more_tags="[0]['#']", $convert_to_unicode=false) {$/;"	f
+js_value	mod/hotpot/template/default.php	/^    function js_value($tags, $more_tags="[0]['#']", $convert_to_unicode=true) {$/;"	f
 jsonEncode	lib/pear/HTML/AJAX/Helper.php	/^	function jsonEncode($input) {$/;"	f
 json_decode	lib/pear/HTML/AJAX/JSON.php	/^	function json_decode($data) {$/;"	f
 json_encode	lib/pear/HTML/AJAX/JSON.php	/^	function json_encode($data) {$/;"	f
@@ -9178,7 +9180,7 @@ lock	search/Zend/Search/Lucene/Storage/File.php	/^    abstract public function l
 lock	search/Zend/Search/Lucene/Storage/File/Filesystem.php	/^    public function lock($lockType, $nonBlockingLock = false)$/;"	f
 lock	search/Zend/Search/Lucene/Storage/File/Memory.php	/^    public function lock($lockType, $nonBlockinLock = false)$/;"	f
 lockdiscovery	lib/pear/HTTP/WebDAV/Server.php	/^    function lockdiscovery($path) $/;"	f
-log	auth/cas/CAS/CAS.php	/^	function log($str)$/;"	f
+log	auth/cas/CAS/CAS.php	/^	function log($str) {$/;"	f
 logMsg	lib/adodb/adodb-xmlschema.inc.php	/^function logMsg( $msg, $title = NULL, $force = FALSE ) {$/;"	f
 logMsg	lib/adodb/adodb-xmlschema03.inc.php	/^function logMsg( $msg, $title = NULL, $force = FALSE ) {$/;"	f
 log_action	backup/cc/cc2moodle.php	/^    public static function log_action ($text, $critical_error = false) {$/;"	f
@@ -9874,6 +9876,7 @@ php4DOMNode	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function php4DOMNode($aD
 php4DOMNodelist	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function php4DOMNodelist($aDOMNodelist,$aOwnerDocument)$/;"	f
 php4DOMXPath	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function php4DOMXPath($dom_document)$/;"	f
 php4DomXsltStylesheet	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^		function php4DomXsltStylesheet($dom_document)$/;"	f
+php_check_php533	lib/customcheckslib.php	/^function php_check_php533($result) {$/;"	f
 php_check_register_globals	lib/customcheckslib.php	/^function php_check_register_globals($result) {$/;"	f
 pi	lib/evalmath/evalmath.class.php	/^    function pi($args) {$/;"	f
 pick_question_dataset	question/type/datasetdependent/abstractqtype.php	/^    function pick_question_dataset($question, $datasetitem) {$/;"	f
@@ -10365,7 +10368,7 @@ provide_import	question/format/missingword/format.php	/^    function provide_imp
 provide_import	question/format/multianswer/format.php	/^    function provide_import() {$/;"	f
 provide_import	question/format/webct/format.php	/^    function provide_import() {$/;"	f
 provide_import	question/format/xml/format.php	/^    function provide_import() {$/;"	f
-proxy	auth/cas/CAS/CAS.php	/^	function proxy($server_version,$/;"	f
+proxy	auth/cas/CAS/CAS.php	/^	function proxy($server_version, $server_hostname, $server_port, $server_uri, $start_session = true) {$/;"	f
 prune	lib/adminlib.php	/^    function prune($name) {$/;"	f
 purgeFile	search/Zend/Search/Lucene/Storage/Directory.php	/^    abstract public function purgeFile($filename);$/;"	f
 purgeFile	search/Zend/Search/Lucene/Storage/Directory/Filesystem.php	/^    public function purgeFile($filename)$/;"	f
@@ -10751,7 +10754,7 @@ records_to_menu	lib/dmllib.php	/^function records_to_menu($records, $field1, $fi
 recordset_to_array	lib/dmllib.php	/^function recordset_to_array($rs) {$/;"	f
 recordset_to_menu	lib/dmllib.php	/^function recordset_to_menu($rs) {$/;"	f
 recurseFolders	lib/simpletestlib.php	/^function recurseFolders($path, $callback, $fileregexp = '\/.*\/', $exclude = false, $ignorefolders = array()) {$/;"	f
-redirect	lib/weblib.php	/^  function redirect() { $/;"	f
+redirect	lib/weblib.php	/^  function redirect() {$/;"	f
 redirect	lib/weblib.php	/^function redirect($url, $message='', $delay=-1) {$/;"	f
 redirect	message/refresh.php	/^  function redirect() {$/;"	f
 redirect	question/export.php	/^  function redirect() {$/;"	f
@@ -10813,11 +10816,13 @@ remove	lib/htmlpurifier/HTMLPurifier/Strategy/MakeWellFormed.php	/^    private f
 removeArrayEntryByValue	lib/typo3/class.t3lib_div.php	/^	function removeArrayEntryByValue($array,$cmpValue)	{$/;"	f
 removeAttribute	lib/pear/HTML/Common.php	/^    function removeAttribute($attr)$/;"	f
 removeElement	lib/pear/HTML/QuickForm.php	/^    function &removeElement($elementName, $removeRules = true)$/;"	f
+removeIEConditional	lib/htmlpurifier/HTMLPurifier/Lexer.php	/^    protected static function removeIEConditional($string) {$/;"	f
 removeNode	lib/pear/HTML/AJAX/Action.php	/^    function removeNode($id)$/;"	f
 removeOption	lib/form/select.php	/^    function removeOption($value)$/;"	f
 removeOption	lib/form/selectwithlink.php	/^    function removeOption($value)$/;"	f
 removeOptions	lib/form/select.php	/^    function removeOptions()$/;"	f
 removeOptions	lib/form/selectwithlink.php	/^    function removeOptions()$/;"	f
+removeParameterFromQueryString	auth/cas/CAS/CAS/client.php	/^	function removeParameterFromQueryString($parameterName, $queryString)$/;"	f
 removePrefixPathFromList	lib/typo3/class.t3lib_div.php	/^	function removePrefixPathFromList($fileArr,$prefixToRemove)	{$/;"	f
 removeReference	search/Zend/Search/Lucene.php	/^    public function removeReference()$/;"	f
 removeReference	search/Zend/Search/Lucene/Interface.php	/^    public function removeReference();$/;"	f
@@ -10838,6 +10843,7 @@ remove_test_table	lib/simpletestlib.php	/^function remove_test_table($tablename,
 removedoublecr	mod/lesson/reformat.php	/^function removedoublecr($filename) {$/;"	f
 renameFile	search/Zend/Search/Lucene/Storage/Directory.php	/^    abstract public function renameFile($from, $to);$/;"	f
 renameFile	search/Zend/Search/Lucene/Storage/Directory/Filesystem.php	/^    public function renameFile($from, $to)$/;"	f
+renameSession	auth/cas/CAS/CAS/client.php	/^	function renameSession($ticket)$/;"	f
 rename_field	lib/ddllib.php	/^function rename_field($table, $field, $newname, $continue=true, $feedback=true) {$/;"	f
 rename_field_php	admin/xmldb/actions/view_table_php/view_table_php.class.php	/^    function rename_field_php($structure, $table, $field) {$/;"	f
 rename_hexfiles	backup/bb/restore_bb.php	/^function rename_hexfiles($subdir) {$/;"	f
@@ -11158,7 +11164,7 @@ result_dump_file	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^		function result_du
 result_dump_mem	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^		function result_dump_mem($dom_document) {return $dom_document->myDOMNode->saveHTML();}$/;"	f
 results	search/querylib.php	/^    public function results() {$/;"	f
 retrieveActions	lib/pear/HTML/AJAX/Action.php	/^    function retrieveActions()$/;"	f
-retrievePT	auth/cas/CAS/CAS.php	/^	function retrievePT($target_service,&$err_code,&$err_msg)$/;"	f
+retrievePT	auth/cas/CAS/CAS.php	/^	function retrievePT($target_service, & $err_code, & $err_msg) {$/;"	f
 retrievePT	auth/cas/CAS/CAS/client.php	/^	function retrievePT($target_service,&$err_code,&$err_msg)$/;"	f
 retry	lib/simpletestlib/browser.php	/^        function retry() {$/;"	f
 retry	lib/simpletestlib/web_tester.php	/^        function retry() {$/;"	f
@@ -11396,6 +11402,7 @@ scorm_restore_files	mod/scorm/restorelib.php	/^    function scorm_restore_files 
 scorm_restore_logs	mod/scorm/restorelib.php	/^    function scorm_restore_logs($restore,$log) {$/;"	f
 scorm_restore_mods	mod/scorm/restorelib.php	/^    function scorm_restore_mods($mod,$restore) {$/;"	f
 scorm_scandir	mod/scorm/locallib.php	/^function scorm_scandir($directory) {$/;"	f
+scorm_scoes_data_restore_mods	mod/scorm/restorelib.php	/^    function scorm_scoes_data_restore_mods ($new_scoe_id, $scoes_old_datas, $restore) {$/;"	f
 scorm_scoes_restore_mods	mod/scorm/restorelib.php	/^    function scorm_scoes_restore_mods($scorm_id,$info,$restore,$oldmodid) {$/;"	f
 scorm_scoes_seq_mapinfo_restore_mods	mod/scorm/restorelib.php	/^    function scorm_scoes_seq_mapinfo_restore_mods($sco_id,$objectiveid,$info,$restore) {$/;"	f
 scorm_scoes_seq_objective_restore_mods	mod/scorm/restorelib.php	/^     function scorm_scoes_seq_objective_restore_mods($sco_id,$info,$restore) {$/;"	f
@@ -11445,7 +11452,7 @@ scorm_seq_start_sequencing	mod/scorm/datamodels/sequencinglib.php	/^function sco
 scorm_seq_termination	mod/scorm/datamodels/sequencinglib.php	/^function scorm_seq_termination ($seq,$userid) {$/;"	f
 scorm_sequencing_delivery	mod/scorm/datamodels/sequencinglib.php	/^function scorm_sequencing_delivery($scoid,$userid,$seq){$/;"	f
 scorm_sequencing_exception	mod/scorm/datamodels/sequencinglib.php	/^function scorm_sequencing_exception($seq){$/;"	f
-scorm_simple_play	mod/scorm/locallib.php	/^function scorm_simple_play($scorm,$user) {$/;"	f
+scorm_simple_play	mod/scorm/locallib.php	/^function scorm_simple_play($scorm,$user, $context) {$/;"	f
 scorm_tempdir	mod/scorm/locallib.php	/^function scorm_tempdir($strPath)$/;"	f
 scorm_terminate_descendent_attempts	mod/scorm/datamodels/sequencinglib.php	/^function scorm_terminate_descendent_attempts ($activity,$userid,$seq){$/;"	f
 scorm_update_grades	mod/scorm/lib.php	/^function scorm_update_grades($scorm=null, $userid=0, $nullifnone=true) {$/;"	f
@@ -11534,9 +11541,9 @@ serialize_val	lib/soap/nusoap.php	/^	function serialize_val($val,$name=false,$ty
 servey_decode_content_links	mod/survey/restorelib.php	/^    function servey_decode_content_links ($content,$restore) {$/;"	f
 servey_encode_content_links	mod/survey/backuplib.php	/^    function servey_encode_content_links ($content,$preferences) {$/;"	f
 service	lib/soap/nusoap.php	/^	function service($data){$/;"	f
-serviceMail	auth/cas/CAS/CAS.php	/^	function serviceMail($url,$service,$flags,&$err_code,&$err_msg,&$pt)$/;"	f
+serviceMail	auth/cas/CAS/CAS.php	/^	function serviceMail($url, $service, $flags, & $err_code, & $err_msg, & $pt) {$/;"	f
 serviceMail	auth/cas/CAS/CAS/client.php	/^	function serviceMail($url,$service,$flags,&$err_code,&$err_msg,&$pt)$/;"	f
-serviceWeb	auth/cas/CAS/CAS.php	/^	function serviceWeb($url,&$err_code,&$output)$/;"	f
+serviceWeb	auth/cas/CAS/CAS.php	/^	function serviceWeb($url, & $err_code, & $output) {$/;"	f
 serviceWeb	auth/cas/CAS/CAS/client.php	/^	function serviceWeb($url,&$err_code,&$output)$/;"	f
 sessionError	lib/pear/HTML/AJAX/Debug.php	/^    function sessionError() $/;"	f
 sesskey	lib/moodlelib.php	/^function sesskey() {$/;"	f
@@ -11574,14 +11581,14 @@ setBrowser	lib/simpletestlib/web_tester.php	/^        function setBrowser(&$brow
 setButtonStatus	lib/editor/htmlarea/htmlarea.php	/^    function setButtonStatus(id, newval) {$/;"	f
 setButtonStatus	lib/editor/htmlarea/htmlarea_bak.php	/^    function setButtonStatus(id, newval) {$/;"	f
 setBypassStr	lib/environmentlib.php	/^    function setBypassStr($str) {$/;"	f
-setCacheTimesForAuthRecheck	auth/cas/CAS/CAS.php	/^	function setCacheTimesForAuthRecheck($n)$/;"	f
+setCacheTimesForAuthRecheck	auth/cas/CAS/CAS.php	/^	function setCacheTimesForAuthRecheck($n) {$/;"	f
 setCacheTimesForAuthRecheck	auth/cas/CAS/CAS/client.php	/^	function setCacheTimesForAuthRecheck($n)$/;"	f
 setCallbackMode	auth/cas/CAS/CAS/client.php	/^	function setCallbackMode($callback_mode)$/;"	f
 setCallbackURL	auth/cas/CAS/CAS/client.php	/^	function setCallbackURL($url)$/;"	f
 setCaretToPosition	lib/pear/HTML/QuickForm/autocomplete.php	/^function setCaretToPosition(input, position) {$/;"	f
-setCasServerCACert	auth/cas/CAS/CAS.php	/^	function setCasServerCACert($cert)$/;"	f
+setCasServerCACert	auth/cas/CAS/CAS.php	/^	function setCasServerCACert($cert) {$/;"	f
 setCasServerCACert	auth/cas/CAS/CAS/client.php	/^	function setCasServerCACert($cert)$/;"	f
-setCasServerCert	auth/cas/CAS/CAS.php	/^	function setCasServerCert($cert)$/;"	f
+setCasServerCert	auth/cas/CAS/CAS.php	/^	function setCasServerCert($cert) {$/;"	f
 setCasServerCert	auth/cas/CAS/CAS/client.php	/^	function setCasServerCert($cert)$/;"	f
 setCategory	question/format.php	/^    function setCategory( $category ) {$/;"	f
 setCatfromfile	question/format.php	/^    function setCatfromfile( $catfromfile ) {$/;"	f
@@ -11614,6 +11621,7 @@ setCookie	lib/simpletestlib/cookies.php	/^        function setCookie($name, $val
 setCookie	lib/simpletestlib/user_agent.php	/^        function setCookie($name, $value, $host = false, $path = '\/', $expiry = false) {$/;"	f
 setCookie	lib/simpletestlib/web_tester.php	/^        function setCookie($name, $value, $host = false, $path = '\/', $expiry = false) {$/;"	f
 setCookie	lib/soap/nusoap.php	/^	function setCookie($name, $value) {$/;"	f
+setCookies	auth/cas/CAS/CAS/client.php	/^	function setCookies($headers,$url){$/;"	f
 setCoordinates	lib/simpletestlib/url.php	/^        function setCoordinates($x = false, $y = false) {$/;"	f
 setCountry	lib/pear/Spreadsheet/Excel/Writer/Workbook.php	/^    function setCountry($code)$/;"	f
 setCourse	question/format.php	/^    function setCourse( $course ) {$/;"	f
@@ -11623,7 +11631,7 @@ setCurrentVersion	lib/environmentlib.php	/^    function setCurrentVersion($curre
 setCustomColor	lib/pear/Spreadsheet/Excel/Writer/Workbook.php	/^    function setCustomColor($index, $red, $green, $blue)$/;"	f
 setDTD	lib/xmldb/classes/XMLDBFile.class.php	/^    function setDTD($path) {$/;"	f
 setDatasource	lib/pear/HTML/QuickForm.php	/^    function setDatasource(&$datasource, $defaultsFilter = null, $constantsFilter = null)$/;"	f
-setDebug	auth/cas/CAS/CAS.php	/^	function setDebug($filename='')$/;"	f
+setDebug	auth/cas/CAS/CAS.php	/^	function setDebug($filename = '') {$/;"	f
 setDebugLevel	lib/soap/nusoap.php	/^	function setDebugLevel($level) {$/;"	f
 setDecimals	lib/xmldb/classes/XMLDBField.class.php	/^    function setDecimals($decimals) {$/;"	f
 setDefault	lib/formslib.php	/^    function setDefault($elementName, $defaultValue, $slashed=false){$/;"	f
@@ -11656,7 +11664,7 @@ setErrorCode	lib/environmentlib.php	/^    function setErrorCode($error_code) {$/
 setErrorHandling	lib/pear/PEAR.php	/^    function setErrorHandling($mode = null, $options = null)$/;"	f
 setErrorMessage	auth/cas/CAS/CAS/PGTStorage/pgt-main.php	/^  function setErrorMessage($error_message)$/;"	f
 setExtSheet	lib/pear/Spreadsheet/Excel/Writer/Parser.php	/^    function setExtSheet($name, $index)$/;"	f
-setExtraCurlOption	auth/cas/CAS/CAS.php	/^   function setExtraCurlOption($key, $value)$/;"	f
+setExtraCurlOption	auth/cas/CAS/CAS.php	/^	function setExtraCurlOption($key, $value) {$/;"	f
 setExtraCurlOption	auth/cas/CAS/CAS/client.php	/^	function setExtraCurlOption($key, $value)$/;"	f
 setFeedbackStr	lib/environmentlib.php	/^    function setFeedbackStr($str) {$/;"	f
 setFgColor	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setFgColor($color)$/;"	f
@@ -11675,8 +11683,8 @@ setFields	lib/xmldb/classes/XMLDBKey.class.php	/^    function setFields($fields)
 setFields	lib/xmldb/classes/XMLDBTable.class.php	/^    function setFields($fields) {$/;"	f
 setFilename	question/format.php	/^    function setFilename( $filename ) {$/;"	f
 setFirstSheet	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setFirstSheet()$/;"	f
-setFixedCallbackURL	auth/cas/CAS/CAS.php	/^	function setFixedCallbackURL($url='')$/;"	f
-setFixedServiceURL	auth/cas/CAS/CAS.php	/^	function setFixedServiceURL($url)$/;"	f
+setFixedCallbackURL	auth/cas/CAS/CAS.php	/^	function setFixedCallbackURL($url = '') {$/;"	f
+setFixedServiceURL	auth/cas/CAS/CAS.php	/^	function setFixedServiceURL($url) {$/;"	f
 setFontFamily	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setFontFamily($font_family)$/;"	f
 setFooter	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setFooter($string,$margin = 0.50)$/;"	f
 setFooterFont	lib/tcpdf/tcpdf.php	/^        function setFooterFont($font) {$/;"	f
@@ -11702,9 +11710,9 @@ setGroupElementTemplate	lib/pear/HTML/QuickForm/Renderer/Default.php	/^    funct
 setGroupTemplate	lib/pear/HTML/QuickForm/Renderer/Default.php	/^    function setGroupTemplate($html, $group)$/;"	f
 setHAlign	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setHAlign($location)$/;"	f
 setHPagebreaks	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setHPagebreaks($breaks)$/;"	f
-setHTMLFooter	auth/cas/CAS/CAS.php	/^	function setHTMLFooter($footer)$/;"	f
+setHTMLFooter	auth/cas/CAS/CAS.php	/^	function setHTMLFooter($footer) {$/;"	f
 setHTMLFooter	auth/cas/CAS/CAS/client.php	/^	function setHTMLFooter($footer)$/;"	f
-setHTMLHeader	auth/cas/CAS/CAS.php	/^	function setHTMLHeader($header)$/;"	f
+setHTMLHeader	auth/cas/CAS/CAS.php	/^	function setHTMLHeader($header) {$/;"	f
 setHTMLHeader	auth/cas/CAS/CAS/client.php	/^	function setHTMLHeader($header)$/;"	f
 setHTTPEncoding	lib/soap/nusoap.php	/^	function setHTTPEncoding($enc='gzip, deflate'){$/;"	f
 setHTTPProxy	lib/soap/nusoap.php	/^	function setHTTPProxy($proxyhost, $proxyport, $proxyusername = '', $proxypassword = '') {$/;"	f
@@ -11758,7 +11766,7 @@ setLabel	admin/report/unittest/ex_simple_test.php	/^    function setLabel($test_
 setLabel	lib/pear/HTML/QuickForm/element.php	/^    function setLabel($label)$/;"	f
 setLabel	lib/simpletestlib/tag.php	/^        function setLabel($label) {$/;"	f
 setLandscape	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setLandscape()$/;"	f
-setLang	auth/cas/CAS/CAS.php	/^	function setLang($lang)$/;"	f
+setLang	auth/cas/CAS/CAS.php	/^	function setLang($lang) {$/;"	f
 setLang	auth/cas/CAS/CAS/client.php	/^	function setLang($lang)$/;"	f
 setLanguageArray	lib/tcpdf/tcpdf.php	/^        function setLanguageArray($language) {$/;"	f
 setLeft	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setLeft($style)$/;"	f
@@ -11824,7 +11832,7 @@ setNeededVersion	lib/environmentlib.php	/^    function setNeededVersion($needed_
 setNext	lib/xmldb/classes/XMLDBObject.class.php	/^    function setNext($next) {$/;"	f
 setNextEntryField	search/Zend/Search/Lucene/Search/QueryParserContext.php	/^    public function setNextEntryField($field)$/;"	f
 setNextEntrySign	search/Zend/Search/Lucene/Search/QueryParserContext.php	/^    public function setNextEntrySign($sign)$/;"	f
-setNoCasServerValidation	auth/cas/CAS/CAS.php	/^	function setNoCasServerValidation()$/;"	f
+setNoCasServerValidation	auth/cas/CAS/CAS.php	/^	function setNoCasServerValidation() {$/;"	f
 setNoCasServerValidation	auth/cas/CAS/CAS/client.php	/^	function setNoCasServerValidation()$/;"	f
 setNotNull	lib/xmldb/classes/XMLDBField.class.php	/^    function setNotNull($notnull=true) {$/;"	f
 setNumFormat	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setNumFormat($num_format)$/;"	f
@@ -11835,9 +11843,7 @@ setOptions	lib/pear/HTML/QuickForm/hierselect.php	/^    function setOptions($opt
 setOutLine	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setOutLine()$/;"	f
 setOutline	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setOutline($visible = true, $symbols_below = true, $symbols_right = true, $auto_style = false)$/;"	f
 setPGT	auth/cas/CAS/CAS/client.php	/^	function setPGT($pgt)$/;"	f
-setPGTStorageDB	auth/cas/CAS/CAS.php	/^	function setPGTStorageDB($user,$/;"	f
-setPGTStorageDB	auth/cas/CAS/CAS/client.php	/^	function setPGTStorageDB($user,$/;"	f
-setPGTStorageFile	auth/cas/CAS/CAS.php	/^	function setPGTStorageFile($format='',$/;"	f
+setPGTStorageFile	auth/cas/CAS/CAS.php	/^	function setPGTStorageFile($format = '', $path = '') {$/;"	f
 setPGTStorageFile	auth/cas/CAS/CAS/client.php	/^	function setPGTStorageFile($format='',$/;"	f
 setPT	auth/cas/CAS/CAS/client.php	/^	function setPT($pt)$/;"	f
 setPaper	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setPaper($size = 0)$/;"	f
@@ -11872,7 +11878,7 @@ setRightColor	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setRig
 setRow	lib/pear/Spreadsheet/Excel/Writer/Validator.php	/^   function setRow($row, $col1, $col2, $incell = true)$/;"	f
 setRow	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setRow($row, $height, $format = null, $hidden = false, $level = 0)$/;"	f
 setRows	lib/pear/HTML/QuickForm/textarea.php	/^    function setRows($rows)$/;"	f
-setSA	auth/cas/CAS/CAS/client.php	/^       function setSA($sa)$/;"	f
+setSA	auth/cas/CAS/CAS/client.php	/^	function setSA($sa)$/;"	f
 setSOAPAction	lib/soap/nusoap.php	/^	function setSOAPAction($soapaction) {$/;"	f
 setST	auth/cas/CAS/CAS/client.php	/^	function setST($st)$/;"	f
 setSchema	lib/xmldb/classes/XMLDBFile.class.php	/^    function setSchema($path) {$/;"	f
@@ -11884,17 +11890,17 @@ setSelection	lib/pear/Spreadsheet/Excel/Writer/Worksheet.php	/^    function setS
 setSelectionRange	lib/pear/HTML/QuickForm/autocomplete.php	/^function setSelectionRange(input, selectionStart, selectionEnd) {$/;"	f
 setSequence	lib/xmldb/classes/XMLDBField.class.php	/^    function setSequence($sequence=true) {$/;"	f
 setSerializer	lib/pear/HTML/AJAX/Server.php	/^    function setSerializer($type) $/;"	f
-setServerLoginURL	auth/cas/CAS/CAS.php	/^	function setServerLoginURL($url='')$/;"	f
+setServerLoginURL	auth/cas/CAS/CAS.php	/^	function setServerLoginURL($url = '') {$/;"	f
 setServerLoginURL	auth/cas/CAS/CAS/client.php	/^	function setServerLoginURL($url)$/;"	f
-setServerLogoutURL	auth/cas/CAS/CAS.php	/^	function setServerLogoutURL($url='')$/;"	f
+setServerLogoutURL	auth/cas/CAS/CAS.php	/^	function setServerLogoutURL($url = '') {$/;"	f
 setServerLogoutURL	auth/cas/CAS/CAS/client.php	/^	function setServerLogoutURL($url)$/;"	f
-setServerProxyValidateURL	auth/cas/CAS/CAS.php	/^	function setServerProxyValidateURL($url='')$/;"	f
+setServerProxyValidateURL	auth/cas/CAS/CAS.php	/^	function setServerProxyValidateURL($url = '') {$/;"	f
 setServerProxyValidateURL	auth/cas/CAS/CAS/client.php	/^	function setServerProxyValidateURL($url)$/;"	f
-setServerSamlValidateURL	auth/cas/CAS/CAS.php	/^	function setServerSamlValidateURL($url='')$/;"	f
+setServerSamlValidateURL	auth/cas/CAS/CAS.php	/^	function setServerSamlValidateURL($url = '') {$/;"	f
 setServerSamlValidateURL	auth/cas/CAS/CAS/client.php	/^	function setServerSamlValidateURL($url)$/;"	f
-setServerServiceValidateURL	auth/cas/CAS/CAS.php	/^	function setServerServiceValidateURL($url='')$/;"	f
+setServerServiceValidateURL	auth/cas/CAS/CAS.php	/^	function setServerServiceValidateURL($url = '') {$/;"	f
 setServerServiceValidateURL	auth/cas/CAS/CAS/client.php	/^	function setServerServiceValidateURL($url)$/;"	f
-setSessionAttributes	auth/cas/CAS/CAS/client.php	/^ function setSessionAttributes($text_response)$/;"	f
+setSessionAttributes	auth/cas/CAS/CAS/client.php	/^	function setSessionAttributes($text_response)$/;"	f
 setShadow	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setShadow()$/;"	f
 setShowAdvanced	lib/formslib.php	/^    function setShowAdvanced($showadvancedNow = null){$/;"	f
 setSign	search/Zend/Search/Lucene/Search/QueryParser.php	/^    public function setSign()$/;"	f
@@ -11907,6 +11913,7 @@ setSize	lib/pear/Spreadsheet/Excel/Writer/Format.php	/^    function setSize($siz
 setSlop	search/Zend/Search/Lucene/Search/Query/Phrase.php	/^    public function setSlop($slop)$/;"	f
 setSource	lib/adodb/session/adodb-encrypt-mcrypt.php	/^	function setSource($source) {$/;"	f
 setSource	lib/pear/HTML/QuickForm/image.php	/^    function setSource($src)$/;"	f
+setStartSession	auth/cas/CAS/CAS/client.php	/^	function setStartSession($session)$/;"	f
 setState	search/Zend/Search/Lucene/FSM.php	/^    public function setState($state)$/;"	f
 setStatements	lib/xmldb/classes/XMLDBStructure.class.php	/^    function setStatements(&$statements) {$/;"	f
 setStatus	lib/environmentlib.php	/^    function setStatus($status) {$/;"	f
@@ -12189,8 +12196,6 @@ set_v_pagebreaks	lib/excel/Worksheet.php	/^    function set_v_pagebreaks($breaks
 set_value	files/index.php	/^            function set_value(txt) {$/;"	f
 set_value	lib/bennu/iCalendar_properties.php	/^    function set_value($value) {$/;"	f
 set_value	lib/editor/htmlarea/coursefiles.php	/^        function set_value(params) {$/;"	f
-set_value	mod/resource/type/file/localfile.php	/^    function set_value(txt) {$/;"	f
-set_value	mod/resource/type/file/localpath.php	/^    function set_value(txt) {$/;"	f
 set_value	mod/resource/type/ims/preview.php	/^        function set_value(txt) {$/;"	f
 set_viable_parents	question/category_class.php	/^    function set_viable_parents(&$parentstrings, $category) {$/;"	f
 set_wwwroot	mnet/peer.php	/^    function set_wwwroot($wwwroot) {$/;"	f
@@ -12433,6 +12438,8 @@ speller_enable	lib/speller/lib.php	/^function speller_enable (&$CFG) {$/;"	f
 split	lib/htmlpurifier/HTMLPurifier/AttrDef/HTML/Class.php	/^    protected function split($string, $config, $context) {$/;"	f
 split	lib/htmlpurifier/HTMLPurifier/AttrDef/HTML/Nmtokens.php	/^    protected function split($string, $config, $context) {$/;"	f
 splitCalc	lib/typo3/class.t3lib_div.php	/^	function splitCalc($string,$operators)	{$/;"	f
+split_category_path	question/format.php	/^    function split_category_path($path) {$/;"	f
+split_category_path	question/simpletest/testimportexport.php	/^    public function split_category_path($names) {$/;"	f
 split_fileref	lib/typo3/class.t3lib_div.php	/^	function split_fileref($fileref)	{$/;"	f
 split_tag_attributes	lib/typo3/class.t3lib_div.php	/^	function split_tag_attributes($tag)	{$/;"	f
 split_truefalse_comment	question/format/gift/format.php	/^    function split_truefalse_comment($comment){$/;"	f
@@ -12813,6 +12820,7 @@ test_address_in_subnet	lib/simpletest/testmoodlelib.php	/^    function test_addr
 test_address_in_subnet	mod/data/simpletest/testpreset.php	/^    function test_address_in_subnet() {$/;"	f
 test_ajaxenabled	lib/simpletest/testajaxlib.php	/^    function test_ajaxenabled()$/;"	f
 test_apply_unit	question/type/numerical/simpletest/testquestiontype.php	/^    function test_apply_unit() {$/;"	f
+test_assemble_category_path	question/simpletest/testimportexport.php	/^    public function test_assemble_category_path() {$/;"	f
 test_backslashes_and_quotes	lib/simpletest/testdmllib.php	/^    function test_backslashes_and_quotes() {$/;"	f
 test_backup_copy_user_files	lib/simpletest/testbackuplib.php	/^    function test_backup_copy_user_files() {$/;"	f
 test_check_browser_version	lib/simpletest/testmoodlelib.php	/^    function test_check_browser_version()$/;"	f
@@ -12940,6 +12948,10 @@ test_grade_scale_fetch	lib/grade/simpletest/testgradescale.php	/^    function te
 test_grade_scale_insert	lib/grade/simpletest/testgradescale.php	/^    function test_grade_scale_insert() {$/;"	f
 test_grade_scale_update	lib/grade/simpletest/testgradescale.php	/^    function test_grade_scale_update() {$/;"	f
 test_highlight	lib/simpletest/testweblib.php	/^    function test_highlight() {$/;"	f
+test_html_to_text_dont_screw_up_utf8	lib/simpletest/testweblib.php	/^    public function test_html_to_text_dont_screw_up_utf8() {$/;"	f
+test_html_to_text_image	lib/simpletest/testweblib.php	/^    public function test_html_to_text_image() {$/;"	f
+test_html_to_text_nowrap	lib/simpletest/testweblib.php	/^    public function test_html_to_text_nowrap() {$/;"	f
+test_html_to_text_simple	lib/simpletest/testweblib.php	/^    public function test_html_to_text_simple() {$/;"	f
 test_insert_record	lib/simpletest/testdmllib.php	/^    function test_insert_record() {$/;"	f
 test_make_user_directory	lib/simpletest/testmoodlelib.php	/^    function test_make_user_directory() {$/;"	f
 test_name	question/type/numerical/simpletest/testquestiontype.php	/^    function test_name() {$/;"	f
@@ -12958,6 +12970,8 @@ test_scale_construct	lib/grade/simpletest/testgradescale.php	/^    function test
 test_scale_load_items	lib/grade/simpletest/testgradescale.php	/^    function test_scale_load_items() {$/;"	f
 test_set_field	lib/simpletest/testdmllib.php	/^    function test_set_field() {$/;"	f
 test_shorten_text	lib/simpletest/testmoodlelib.php	/^    function test_shorten_text() {$/;"	f
+test_split_category_path	question/simpletest/testimportexport.php	/^    public function test_split_category_path() {$/;"	f
+test_split_category_path_cleans	question/simpletest/testimportexport.php	/^    public function test_split_category_path_cleans() {$/;"	f
 test_update_record	lib/simpletest/testdmllib.php	/^    function test_update_record() {$/;"	f
 test_usergetdate	lib/simpletest/testmoodlelib.php	/^    function test_usergetdate() {$/;"	f
 test_where_clause	lib/simpletest/testdmllib.php	/^    function test_where_clause() {$/;"	f
@@ -13060,11 +13074,11 @@ total_pages	search/querylib.php	/^    public function total_pages() {$/;"	f
 touch	mnet/peer.php	/^    function touch() {$/;"	f
 touchFile	search/Zend/Search/Lucene/Storage/Directory.php	/^    abstract public function touchFile($filename);$/;"	f
 touchFile	search/Zend/Search/Lucene/Storage/Directory/Filesystem.php	/^    public function touchFile($filename)$/;"	f
-trace	auth/cas/CAS/CAS.php	/^	function trace($str)$/;"	f
+trace	auth/cas/CAS/CAS.php	/^	function trace($str) {$/;"	f
 trace	mod/chat/chatd.php	/^    function trace($message, $level = E_USER_NOTICE) {$/;"	f
-traceBegin	auth/cas/CAS/CAS.php	/^	function traceBegin()$/;"	f
-traceEnd	auth/cas/CAS/CAS.php	/^	function traceEnd($res='')$/;"	f
-traceExit	auth/cas/CAS/CAS.php	/^	function traceExit()$/;"	f
+traceBegin	auth/cas/CAS/CAS.php	/^	function traceBegin() {$/;"	f
+traceEnd	auth/cas/CAS/CAS.php	/^	function traceEnd($res = '') {$/;"	f
+traceExit	auth/cas/CAS/CAS.php	/^	function traceExit() {$/;"	f
 traceMethod	lib/simpletestlib/simpletest.php	/^        function traceMethod($stack = false) {$/;"	f
 track	admin/uploaduser.php	/^    function track($col, $msg, $level='normal', $merge=true) {$/;"	f
 track	grade/export/lib.php	/^    function track($grade_grade) {$/;"	f
@@ -13235,7 +13249,7 @@ update_user_login_times	lib/moodlelib.php	/^function update_user_login_times() {
 update_user_record	auth/cas/auth.php	/^    function update_user_record($username, $updatekeys = false) {$/;"	f
 update_user_record	auth/db/auth.php	/^    function update_user_record($username, $updatekeys=false) {$/;"	f
 update_user_record	auth/ldap/auth.php	/^    function update_user_record($username, $updatekeys = false) {$/;"	f
-update_user_record	lib/moodlelib.php	/^function update_user_record($username, $authplugin) {$/;"	f
+update_user_record	lib/moodlelib.php	/^function update_user_record($username, $unused) {$/;"	f
 updated_forced_settings	lib/grade/grade_category.php	/^    function updated_forced_settings() {$/;"	f
 upgrade_17_groups	lib/db/upgradelib.php	/^function upgrade_17_groups() {$/;"	f
 upgrade_18_broken_groups	lib/db/upgradelib.php	/^function upgrade_18_broken_groups() {$/;"	f
@@ -13627,6 +13641,7 @@ validate	lib/htmlpurifier/HTMLPurifier/Length.php	/^    protected function valid
 validate	lib/htmlpurifier/HTMLPurifier/URI.php	/^    public function validate($config, $context) {$/;"	f
 validate	lib/htmlpurifier/HTMLPurifier/URIScheme.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
 validate	lib/htmlpurifier/HTMLPurifier/URIScheme/data.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
+validate	lib/htmlpurifier/HTMLPurifier/URIScheme/file.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
 validate	lib/htmlpurifier/HTMLPurifier/URIScheme/ftp.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
 validate	lib/htmlpurifier/HTMLPurifier/URIScheme/http.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
 validate	lib/htmlpurifier/HTMLPurifier/URIScheme/mailto.php	/^    public function validate(&$uri, $config, $context) {$/;"	f
@@ -13658,13 +13673,13 @@ validateFtpSyntax	lib/validateurlsyntax.php	/^function validateFtpSyntax( $ftpad
 validateId	lib/htmlpurifier/HTMLPurifier/ConfigSchema/Validator.php	/^    public function validateId($id) {$/;"	f
 validatePGT	auth/cas/CAS/CAS/client.php	/^	function validatePGT(&$validate_url,$text_response,$tree_response)$/;"	f
 validatePT	auth/cas/CAS/CAS/client.php	/^	function validatePT(&$validate_url,&$text_response,&$tree_response)$/;"	f
-validateSA	auth/cas/CAS/CAS/client.php	/^   function validateSA($validate_url,&$text_response,&$tree_response)$/;"	f
+validateSA	auth/cas/CAS/CAS/client.php	/^	function validateSA($validate_url,&$text_response,&$tree_response)$/;"	f
 validateST	auth/cas/CAS/CAS/client.php	/^	function validateST($validate_url,&$text_response,&$tree_response)$/;"	f
 validateToken	lib/htmlpurifier/HTMLPurifier/AttrValidator.php	/^    public function validateToken(&$token, &$config, $context) {$/;"	f
 validateUrlSyntax	lib/validateurlsyntax.php	/^function validateUrlSyntax( $urladdr, $options="" ){$/;"	f
 validateXMLStructure	lib/xmldb/classes/XMLDBFile.class.php	/^    function validateXMLStructure() {$/;"	f
 validate_	lib/formslib.php	/^function validate_' . $this->_formName . '(frm) {$/;"	f
-validate_	lib/formslib.php	/^function validate_' . $this->_formName . '_' . $elementName . '(element) {$/;"	f
+validate_	lib/formslib.php	/^function validate_' . $this->_formName . '_' . $escapedElementName . '(element) {$/;"	f
 validate_	lib/pear/HTML/QuickForm/DHTMLRulesTableless.php	/^function validate_' . $this->_attributes['id'] . '(frm) {$/;"	f
 validate_	lib/pear/HTML/QuickForm/DHTMLRulesTableless.php	/^function validate_' . $this->_attributes['id'] . '_' . $elementName . '(element) {$/;"	f
 validate_aba	enrol/authorize/enrol_form.php	/^    function validate_aba($aba)$/;"	f
@@ -13672,6 +13687,7 @@ validate_cc	enrol/authorize/enrol_form.php	/^    function validate_cc($Num, $Nam
 validate_defined_fields	lib/formslib.php	/^    function validate_defined_fields($validateonnosubmit=false) {$/;"	f
 validate_email	lib/weblib.php	/^function validate_email($address) {$/;"	f
 validate_file	lib/uploadlib.php	/^    function validate_file(&$file) {$/;"	f
+validate_form	auth/cas/auth.php	/^    function validate_form(&$form, &$err) {$/;"	f
 validate_form	auth/db/auth.php	/^     function validate_form(&$form, &$err) {$/;"	f
 validate_form	calendar/event.php	/^function validate_form(&$form, &$err) {$/;"	f
 validate_form	lib/authlib.php	/^     function validate_form(&$form, &$err) {$/;"	f

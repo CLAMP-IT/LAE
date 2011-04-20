@@ -139,10 +139,8 @@ function scorm_get_toc($user,$scorm,$liststyle,$currentorg='',$scoid='',$mode='n
                             $score = '('.get_string('score','scorm').':&nbsp;'.$usertrack->score_raw.')';
                         }
                         $strsuspended = get_string('suspended','scorm');
-                        if (isset($usertrack->{'cmi.core.exit'}) && ($usertrack->{'cmi.core.exit'} == 'suspend')) {
-                            if($usertrack->status !='completed') {
+                        if ($incomplete && isset($usertrack->{'cmi.exit'}) && ($usertrack->{'cmi.exit'} == 'suspend')) {
                                 $statusicon = '<img src="'.$scormpixdir.'/suspend.gif" alt="'.$strstatus.' - '.$strsuspended.'" title="'.$strstatus.' - '.$strsuspended.'" />';
-                            }
                         }
                     } else {
                         if ($play && empty($scoid)) {
@@ -169,7 +167,7 @@ function scorm_get_toc($user,$scorm,$liststyle,$currentorg='',$scoid='',$mode='n
                             $previd = $sco->id;
                         }
                     }
-                    require_once('sequencinglib.php');
+                    require_once($CFG->dirroot.'/mod/scorm/datamodels/sequencinglib.php');
                     if (scorm_seq_evaluate($sco->id,$usertracks)) {
                         if ($sco->id == $scoid) {
                             $result->prerequisites = true;
