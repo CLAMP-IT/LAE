@@ -1066,7 +1066,9 @@ function displaydir ($wdir) {
                 $edittext .= $padunzip;
                 $edittext .= $padlist;
             }	    
-            if (!empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
+			//the first contingency in the test below added by Kevin Wiliarty
+			//to address CLAMP #287 2011-03-08
+            if ($icon == "zip.gif" and !empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
                 $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
             } else {
                 $edittext .= $padrestore;

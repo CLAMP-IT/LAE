@@ -255,7 +255,7 @@
                 }
                 $item['title'] = s($item['title']);
 
-                $item['link'] = str_replace('&', '&amp;', $item['link']);
+                $item['link'] = htmlspecialchars_decode($item['link']);
 
                 $returnstring .= '<li><div class="link"><a href="'. $item['link'] .'" onclick="this.target=\'_blank\'" >'. $item['title'] . "</a></div>\n";
 

@@ -31,7 +31,7 @@ foreach ($zipinfo['files'] as $file) {
 /* Build the zip archive.
 
    If zlib is available, use that. Otherwise use the packages pclzip package. */
-if (class_exists(ZipArchive) && false) {
+if (class_exists('ZipArchive') && false) {
   $zip = new ZipArchive();
 
   if($zip->open($zip_path, ZIPARCHIVE::CREATE) !== TRUE) {
