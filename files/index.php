@@ -777,14 +777,16 @@ function displaydir ($wdir) {
     $padfolder = str_repeat('&nbsp;',strlen($strfolder) * 2.5);
     $padfile   = str_repeat('&nbsp;',strlen($strfile) * 2.5);
 */
+	//CLAMP #289 set color and background-color to transparent
+	//Kevin Wiliarty 2011-03-08
     $padrename = get_string("rename");
-    $padedit   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $stredit . '&nbsp;</div>';
-    $padunzip  = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strunzip . '&nbsp;</div>';
-    $padlist   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strlist . '&nbsp;</div>';
-    $padrestore= '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strrestore . '&nbsp;</div>';
-    $padchoose = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strchoose . '&nbsp;</div>';
-    $padfolder = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strfolder . '&nbsp;</div>';
-    $padfile   = '<div style="color:#ffffff; background-color:#ffffff; display:inline">' . $strfile . '&nbsp;</div>';
+    $padedit   = '<div style="color:transparent; background-color:transparent; display:inline">' . $stredit . '&nbsp;</div>';
+    $padunzip  = '<div style="color:transparent; background-color:transparent; display:inline">' . $strunzip . '&nbsp;</div>';
+    $padlist   = '<div style="color:transparent; background-color:transparent; display:inline">' . $strlist . '&nbsp;</div>';
+    $padrestore= '<div style="color:transparent; background-color:transparent; display:inline">' . $strrestore . '&nbsp;</div>';
+    $padchoose = '<div style="color:transparent; background-color:transparent; display:inline">' . $strchoose . '&nbsp;</div>';
+    $padfolder = '<div style="color:transparent; background-color:transparent; display:inline">' . $strfolder . '&nbsp;</div>';
+    $padfile   = '<div style="color:transparent; background-color:transparent; display:inline">' . $strfile . '&nbsp;</div>';
     
     // Set sort arguments so that clicking on a column that is already sorted reverses the sort order
     $sortvalues = array(1,2,3);
@@ -985,7 +987,9 @@ function displaydir ($wdir) {
                 $fileurl = rawurlencode(dirname($wdir));
                 print_cell();
                 // alt attribute intentionally empty to prevent repetition in screen reader
-                print_cell('left', '<a  style="padding-left:10px" href="index.php?id='.$id.'&amp;wdir='.$fileurl.'&amp;choose='.$choose.'"><img src="'.$CFG->pixpath.'/f/parent.gif" class="icon" alt="" />&nbsp;'.get_string('parentfolder').'</a>', 'name');
+				//CLAMP #289 change padding-left from 10 to 0px
+				//Kevin Wiliarty 2011-03-08
+                print_cell('left', '<a  style="padding-left:0px" href="index.php?id='.$id.'&amp;wdir='.$fileurl.'&amp;choose='.$choose.'"><img src="'.$CFG->pixpath.'/f/parent.gif" class="icon" alt="" />&nbsp;'.get_string('parentfolder').'</a>', 'name');
                 print_cell();
                 print_cell();
                 print_cell();
@@ -1034,8 +1038,10 @@ function displaydir ($wdir) {
 
             echo "<tr class=\"file\">";
 
-            print_cell("right", "<input type=\"checkbox\" name=\"file$count\" value=\"$fileurl\" />", 'checkbox');
-            echo "<td align=\"left\" style=\"white-space:nowrap;padding-left:10px\" class=\"name\">";
+            print_cell("center", "<input type=\"checkbox\" name=\"file$count\" value=\"$fileurl\" />", 'checkbox');
+			//CLAMP #289 change padding-left from 10 to 0px
+			//Kevin Wiliarty 2011-03-08	
+            echo "<td align=\"left\" style=\"white-space:nowrap;padding-left:0px\" class=\"name\">";
 
             $ffurl = get_file_url($id.'/'.$fileurl);
             link_to_popup_window ($ffurl, "display",
@@ -1048,7 +1054,9 @@ function displaydir ($wdir) {
             print_cell("right", $filedate, 'date');
 
             if ($choose) {
-                $edittext = "<strong><a onclick=\"return set_value('$selectfile')\" style=\"background-color:#ffffff\" href=\"#\">$strchoose</a></strong>&nbsp;";
+				//CLAMP #289 set background-color to transparent
+				//Kevin Wiliarty 2011-03-08
+                $edittext = "<strong><a onclick=\"return set_value('$selectfile')\" style=\"background-color:transparent\" href=\"#\">$strchoose</a></strong>&nbsp;";
             } else {
                 $edittext =  $padchoose;
             }
@@ -1060,8 +1068,10 @@ function displaydir ($wdir) {
                 $edittext .= $padedit;
             }	    
             if ($icon == "zip.gif") {
-                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=unzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strunzip</a>&nbsp;";
-                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=listzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strlist</a> ";
+				//CLAMP #289 set background-color to transparent
+				//Kevin Wiliarty 2011-03-08
+                $edittext .= "<a style=\"background-color:transparent\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=unzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strunzip</a>&nbsp;";
+                $edittext .= "<a style=\"background-color:transparent\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$fileurl&amp;action=listzip&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strlist</a> ";
             } else {
                 $edittext .= $padunzip;
                 $edittext .= $padlist;
@@ -1069,7 +1079,7 @@ function displaydir ($wdir) {
 			//the first contingency in the test below added by Kevin Wiliarty
 			//to address CLAMP #287 2011-03-08
             if ($icon == "zip.gif" and !empty($CFG->backup_version) and has_capability('moodle/site:restore', get_context_instance(CONTEXT_COURSE, $id))) {
-                $edittext .= "<a style=\"background-color:#ffffff\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
+                $edittext .= "<a style=\"background-color:transparent\" href=\"index.php?id=$id&amp;wdir=$wdir&amp;file=$filesafe&amp;action=restore&amp;sesskey=$USER->sesskey&amp;choose=$choose\">$strrestore</a> ";
             } else {
                 $edittext .= $padrestore;
             }
