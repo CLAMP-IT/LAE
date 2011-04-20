@@ -100,11 +100,13 @@ class edit_category_form extends moodleform {
         $mform->disabledIf('keephigh', 'droplow', 'noteq', 0);
         $mform->disabledIf('droplow', 'keephigh', 'noteq', 0);
 
-        // Category Total settings (was called Grade Item, misleadingly)
-        $mform->addElement('header', 'general', get_string('categorytotal', 'grades')); // CLAMP #225 2010-06-24 cmoore
+        // Grade item settings
+        //Displayed as Category total to avoid confusion between grade items requiring marking and category totals
+        $mform->addElement('header', 'general', get_string('categorytotal', 'grades'));
 
-        $mform->addElement('text', 'grade_item_itemname', get_string('categorytotalname', 'grades')); // CLAMP #225 2010-06-24 cmoore
-	$mform->setAdvanced('grade_item_itemname'); // CLAMP #225 2010-06-24 cmoore
+        $mform->addElement('text', 'grade_item_itemname', get_string('categorytotalname', 'grades'));
+        $mform->setAdvanced('grade_item_itemname');
+
         $mform->addElement('text', 'grade_item_iteminfo', get_string('iteminfo', 'grades'));
         $mform->setHelpButton('grade_item_iteminfo', array('iteminfo', get_string('iteminfo', 'grades'), 'grade'), true);
 
