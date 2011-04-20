@@ -102,6 +102,7 @@ if (isset($rss_record)) {
 
 
 if ($act == 'updfeed') {
+    require_sesskey();
 
     if (!$managefeeds) {
         error(get_string('noguestpost', 'forum').
@@ -154,6 +155,7 @@ if ($act == 'updfeed') {
     redirect($referrer, $message);
 
 } else if ($act == 'addfeed' ) {
+    require_sesskey();
 
     $canaddprivfeeds = has_capability('block/rss_client:createprivatefeeds', $context);
     $canaddsharedfeeds = has_capability('block/rss_client:createsharedfeeds', $context);
@@ -226,6 +228,7 @@ if ($act == 'updfeed') {
     rss_print_form($act, $url, $rssid, $preferredtitle, $shared, $id, $context);
 
 } else if ($act == 'delfeed') {
+    require_sesskey();
 
     if (!$managefeeds) {
         error(get_string('noguestpost', 'forum').

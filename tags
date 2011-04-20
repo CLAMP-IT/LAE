@@ -7484,7 +7484,7 @@ get_return_url	grade/lib.php	/^    function get_return_url($default, $extras=nul
 get_role_access	lib/accesslib.php	/^function get_role_access($roleid, $accessdata=NULL) {$/;"	f
 get_role_access_bycontext	lib/accesslib.php	/^function get_role_access_bycontext($roleid, $context, $accessdata=NULL) {$/;"	f
 get_role_context_caps	lib/accesslib.php	/^function get_role_context_caps($roleid, $context) {$/;"	f
-get_role_users	lib/accesslib.php	/^function get_role_users($roleid, $context, $parent=false, $fields='', $sort='u.lastname ASC', $gethidden=true, $group='', $limitfrom='', $limitnum='') {$/;"	f
+get_role_users	lib/accesslib.php	/^function get_role_users($roleid, $context, $parent=false, $fields='', $sort='u.lastname ASC, u.firstname ASC', $gethidden=true, $group='', $limitfrom='', $limitnum='') {$/;"	f
 get_roles	enrol/flatfile/enrol.php	/^    function get_roles() {$/;"	f
 get_roles	user/filters/courserole.php	/^    function get_roles() {$/;"	f
 get_roles	user/filters/globalrole.php	/^    function get_roles() {$/;"	f
