@@ -1167,6 +1167,7 @@ $string['order'] = 'Order';
 $string['other'] = 'Other';
 $string['outline'] = 'Outline';
 $string['outlinereport'] = 'Outline report';
+$string['oversize'] = 'Oversize';
 $string['page'] = 'Page';
 $string['pageheaderconfigablock'] = 'Configuring a block in %%fullname%%';
 $string['parentcategory'] = 'Parent category';

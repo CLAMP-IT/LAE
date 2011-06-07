@@ -7574,7 +7574,32 @@ function zip_files ($originalfiles, $destination) {
 
     //print_object($files);                  //Debug
 
-    if (empty($CFG->zip)) {    // Use built-in php-based zip function
+    // CLAMP #305 2011-05-25 cfulton
+    if (class_exists('ZipArchive')) {
+        $archive = new ZipArchive();
+        $filename = cleardoubleslashes("$destpath/$destfilename");
+
+        if ($archive->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+            notice("cannot open <$filename>\n");
+            return false;
+        }
+
+        $start = strlen($origpath)+1;
+
+        foreach($files as $file) {
+            if(is_dir($file)) {
+                $archive->addEmptyDir(basename($file));
+                $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($file));
+                foreach ($iterator as $key=>$value) {
+                    $archive->addFile(realpath($key), substr($key, $start)) or notice ("ERROR: Could not add file: $key");
+                }
+            } else {
+                $archive->addFile($file, basename($file));
+            }
+        }
+        $archive->close();
+    // CLAMP #305 2011-05-25 end
+    } else if (empty($CFG->zip)) {    // Use built-in php-based zip function
 
         include_once("$CFG->libdir/pclzip/pclzip.lib.php");
         //rewrite filenames because the old method with PCLZIP_OPT_REMOVE_PATH does not work under win32

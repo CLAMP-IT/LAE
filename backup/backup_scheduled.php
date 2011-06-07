@@ -107,16 +107,19 @@ function schedule_backup_cron() {
                     set_field("backup_courses","laststatus","3","courseid",$backup_course->courseid);
                     $skipped = true;
 				 // CLAMP # 114 2010-06-23 bobpuffer
+
                 } else {
- 	                 $space = get_directory_size("$CFG->dataroot/$course->id/");
-                    if( $space > 536870912) {
+ 	            $space = get_directory_size("$CFG->dataroot/$course->id/");
+		    // CLAMP # 299 2011-05-24 cfulton
+                    if( (!empty($CFG->maxbackupsize)) && (($CFG->maxbackupsize * (1024 * 1024)) < $space)) {
                      	 mtrace("            SKIPPING - exceeds maximum size");
                         $skipped = true;
                     	 set_field("backup_courses","laststatus","4","courseid",$backup_course->courseid);
                         set_field("backup_courses","lastendtime",time(),"courseid",$backup_course->courseid);
     	             }
+    	             // CLAMP # 299 2011-05-24 end
     	        }
-				 // CLAMP # 114 2010-06-23 end
+	        // CLAMP # 114 2010-06-23 end
                 //Now we backup every non skipped course with nextstarttime < now
                 if (!$skipped  && $backup_course->nextstarttime > 0 && $backup_course->nextstarttime < $now) {
                     //We have to send a email because we have included at least one backup
@@ -127,16 +130,16 @@ function schedule_backup_cron() {
                         $starttime = time();
                         set_field("backup_courses","laststarttime",$starttime,"courseid",$backup_course->courseid);
                         //Set course status to unfinished, the process will reset it
-                        set_field("backup_courses","laststatus","2","courseid",$backup_course->courseid);
+                        set_field("backup_courses","laststatus",BACKUP_STATE_UNFINISHED,"courseid",$backup_course->courseid);
                         //Launch backup
                         $course_status = schedule_backup_launch_backup($course,$starttime);
                         //Set lastendtime
                         set_field("backup_courses","lastendtime",time(),"courseid",$backup_course->courseid);
                         //Set laststatus
                         if ($course_status) {
-                            set_field("backup_courses","laststatus","1","courseid",$backup_course->courseid);
+                            set_field("backup_courses","laststatus",BACKUP_STATE_OK,"courseid",$backup_course->courseid);
                         } else {
-                            set_field("backup_courses","laststatus","0","courseid",$backup_course->courseid);
+                            set_field("backup_courses","laststatus",BACKUP_STATE_ERROR,"courseid",$backup_course->courseid);
                         }
                     }
                 }
@@ -169,10 +172,11 @@ function schedule_backup_cron() {
 
         //Get info about the status of courses
         $count_all = count_records('backup_courses');
-        $count_ok = count_records('backup_courses','laststatus','1');
-        $count_error = count_records('backup_courses','laststatus','0');
-        $count_unfinished = count_records('backup_courses','laststatus','2');
-        $count_skipped = count_records('backup_courses','laststatus','3');
+        $count_ok = count_records('backup_courses','laststatus',BACKUP_STATE_OK);
+        $count_error = count_records('backup_courses','laststatus',BACKUP_STATE_ERROR);
+        $count_unfinished = count_records('backup_courses','laststatus',BACKUP_STATE_UNFINISHED);
+        $count_skipped = count_records('backup_courses','laststatus',BACKUP_STATE_SKIPPED);
+        $count_oversize = count_records('backup_courses','laststatus',BACKUP_STATE_OVERSIZE);
 
         //Build the message text
         //Summary
@@ -183,6 +187,7 @@ function schedule_backup_cron() {
         $message .= "  ".get_string('skipped').": ".$count_skipped."\n";
         $message .= "  ".get_string('error').": ".$count_error."\n";
         $message .= "  ".get_string('unfinished').": ".$count_unfinished."\n\n";
+        $message .= "  ".get_string('oversize').": ".$count_oversize."\n\n";
 
         //Reference
         if ($count_error != 0 || $count_unfinished != 0) {
@@ -192,7 +197,7 @@ function schedule_backup_cron() {
             //Set message priority
             $admin->priority = 1;
             //Reset unfinished to error
-            set_field('backup_courses','laststatus','0','laststatus','2');
+            set_field('backup_courses','laststatus',BACKUP_STATE_ERROR,'laststatus','2');
         } else {
             $message .= "  ".get_string('backupfinished')."\n";
         }

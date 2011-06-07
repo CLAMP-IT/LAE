@@ -442,6 +442,9 @@ function calendar_get_upcoming($courses, $groups, $users, $daysinfuture, $maxeve
                         }
                         require_once ($CFG->dirroot.'/mod/assignment/type/'.$assignment->assignmenttype.'/assignment.class.php');
 
+                        /// CLAMP #301 cfulton 2011-05-04                    
+                        $cm->idnumber = $cm->id;
+                        /// end added by cfulton
                         $assignmentclass = 'assignment_'.$assignment->assignmenttype;
                         $assignmentinstance = new $assignmentclass($cm->id, $assignment, $cm);
 

@@ -8,6 +8,13 @@
     define('RESTORETO_NEW_COURSE',        2);
     define('RESTORETO_EXISTING_DELETING', 3);
     define('RESTORETO_EXISTING_ADDING',   4);
+    
+    // Define backup states
+    define('BACKUP_STATE_ERROR',      0);
+    define('BACKUP_STATE_OK',         1);
+    define('BACKUP_STATE_UNFINISHED', 2);
+    define('BACKUP_STATE_SKIPPED',    3);
+    define('BACKUP_STATE_OVERSIZE',   4);
 
     require_once($CFG->dirroot.'/lib/uploadlib.php');
 

@@ -273,6 +273,10 @@ $temp->add(new admin_setting_configselect('memcachedpconn', get_string('memcache
                                           get_string('configmemcachedpconn', 'admin'), 0,
                                           array( '0' => get_string('no'),
                                                  '1' => get_string('yes'))));
+                                                 
+$temp->add(new admin_setting_configtext('maxbackupsize', get_string('maxbackupsize', 'admin'),
+                                        get_string('configmaxbackupsize', 'admin'), 512));
+                                                 
 $ADMIN->add('server', $temp);
 
 if ($CFG->dbfamily === 'mysql') {
