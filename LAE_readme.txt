@@ -1,6 +1,6 @@
-===Moodle 1.9.11+Liberal Arts Edition v1.2 Release Notes===
+===Moodle 1.9.12+Liberal Arts Edition v1.2.1 Release Notes===
 
-Welcome to the Moodle 1.9.11+Liberal Arts Edition v1.2 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.12+Liberal Arts Edition v1.2.1 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
@@ -18,27 +18,21 @@ We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excelle
 
 ===CONTENTS===
 
-Moodle 1.9.11+LAE v1.2 consists of Moodle 1.9.11 (20110221) as well as a number of CLAMP-developed features and bug fixes.
+Moodle 1.9.12+LAEv1.2.1 consists of Moodle 1.9.12 (20110510) as well as a number of CLAMP-developed features and bug fixes.
 
-The following features have been added to the v1.1 release:
+The following features are included:
 
 * Anonymous Forums
 * Simple File Upload
 * Assignment ZIP
 * CLAMP Grader Report
-
-The following features have been added to the v1.1.2 release:
-
 * Re-organized Files Upload UI
 * Value-input for Assignment Grading Interface
 
-We skipped over the 1.1.3 release, moving directly to 1.1.4 (this was strictly a backend, administrative decision). 1.1.4 includes:
+The following features have been added in the v1.2.1 release:
 
-* A fix for a bug in which TinyMCE would not display on text fields in the LAE edition.
-
-The following features have been added in the v1.2 release:
-
-* Moodle 1.9.11 merged into LAE
+* Moodle 1.9.12 merged into LAE
+* ZIP archive backup options added.
 
 ====Anonymous Forums====
 A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
@@ -173,6 +167,18 @@ Background colors have been set to transparent and columns for folders and files
 
 http://redmine.clamp-it.org/issues/show/289
 
+* Stylesheet Conflict Between Grader and LAE Grader
+
+Fixed an css issue that caused rows to mis-aligned when both the Grader and LAE Grader are enabled.
+
+http://redmine.clamp-it.org/issues/show/300
+
+* Course Backup Enahncements
+
+If you have ZipArchive installed on your system, then the Moodle backup code will now take advantage of it. This allows for larger archives when running scheduled backups.
+
+Backup File Size Option: Moodle can hang during backups if there is too much content in the course. We've added a web interface option (under Administration > Performance) where admins can specify a max file size for course backups. The default file size is 512 MB.
+
 ====LAE Recommended Add-ons====
 
 * Census Report: An administrative report that audits Moodle and displays a statistics about active courses, students and faculty. Note: Census report now lets you specify a date range when running the report.
@@ -187,7 +193,7 @@ http://www.clamp-it.org/code/
 
 * Download the current release branch from the CLAMP Subversion repository:
 
-svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.10-LAE1.2
+svn co svn+ssh://[CLAMP username]@www.clamp-it.org/var/svn/moodle/tags/1.9.12-LAE1.2.1
 
 ===INSTALLING THE LAE===
 If you are installing Moodle for the first time, you can follow the standard Moodle installation instructions (substituting the LAE Moodle package for the regular Moodle one)
@@ -213,4 +219,4 @@ A few notes:
 
 2) We *strongly* recommend doing a test upgrade on a development Moodle instance before upgrading your production instance.
 
-3) If you have a more current version of Moodle installed (one later than 1.9.11+ (20110221), do not attempt to install LAE v1.2, as it will cause a conflict with your newer database, and the installation will fail. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.
+3) If you have a more current version of Moodle installed (one later than 1.9.12 (20110510), do not attempt to install LAE v1.2.1, as it will cause a conflict with your newer database, and the installation will fail. You can find your current version by logging into Moodle as an administrator and then going to Administration > Notifications and looking at the bottom of the page for the Moodle version.

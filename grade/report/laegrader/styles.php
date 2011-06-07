@@ -599,8 +599,6 @@ vertical-align:middle;
 .userreport {
     width:10px;
     height: 10px;
-    display:inline;
-    float: right;
 }
 
 .grade_icons img.iconsmall {

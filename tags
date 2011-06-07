@@ -3061,7 +3061,7 @@ add_action_buttons	course/moodleform_mod.php	/^    function add_action_buttons($
 add_action_buttons	lib/formslib.php	/^    function add_action_buttons($cancel = true, $submitlabel=null){$/;"	f
 add_admin	lib/deprecatedlib.php	/^function add_admin($userid) {$/;"	f
 add_category	question/category_class.php	/^    function add_category($newparent, $newcategory, $newinfo) {$/;"	f
-add_checkbox_controller	lib/formslib.php	/^    function add_checkbox_controller($groupid, $buttontext, $attributes, $originalValue = 0) {$/;"	f
+add_checkbox_controller	lib/formslib.php	/^    function add_checkbox_controller($groupid, $text = null, $attributes = null, $originalValue = 0) {$/;"	f
 add_child	auth/cas/CAS/CAS/domxml-php4-to-php5.php	/^	function add_child($newnode) {return $this->append_child($newnode);}$/;"	f
 add_component	lib/bennu/iCalendar_components.php	/^    function add_component($component) {$/;"	f
 add_course_module	course/lib.php	/^function add_course_module($mod) {$/;"	f
@@ -6036,6 +6036,7 @@ forum_get_unmailed_posts	mod/forum/lib.php	/^function forum_get_unmailed_posts($
 forum_get_user_discussions	mod/forum/lib.php	/^function forum_get_user_discussions($courseid, $userid, $groupid=0) {$/;"	f
 forum_get_user_grades	mod/forum/lib.php	/^function forum_get_user_grades($forum, $userid=0) {$/;"	f
 forum_get_user_involved_discussions	mod/forum/lib.php	/^function forum_get_user_involved_discussions($forumid, $userid) {$/;"	f
+forum_get_user_posted_time	mod/forum/lib.php	/^function forum_get_user_posted_time($did, $userid) {$/;"	f
 forum_get_user_posts	mod/forum/lib.php	/^function forum_get_user_posts($forumid, $userid) {$/;"	f
 forum_get_view_actions	mod/forum/lib.php	/^function forum_get_view_actions() {$/;"	f
 forum_go_back_to	mod/forum/lib.php	/^function forum_go_back_to($default) {$/;"	f
@@ -9282,7 +9283,7 @@ mdwp_add_p	lib/markdown.php	/^	function mdwp_add_p($text) {$/;"	f
 mdwp_hide_tags	lib/markdown.php	/^	function mdwp_hide_tags($text) {$/;"	f
 mdwp_show_tags	lib/markdown.php	/^	function mdwp_show_tags($text) {$/;"	f
 mdwp_strip_p	lib/markdown.php	/^	function mdwp_strip_p($t) { return preg_replace('{<\/?p>}i', '', $t); }$/;"	f
-me	lib/weblib.php	/^ function me() {$/;"	f
+me	lib/weblib.php	/^function me() {$/;"	f
 mediaplugin_filter	filter/mediaplugin/filter.php	/^function mediaplugin_filter($courseid, $text) {$/;"	f
 mediaplugin_filter_flv_callback	filter/mediaplugin/filter.php	/^function mediaplugin_filter_flv_callback($link) {$/;"	f
 mediaplugin_filter_mp3_callback	filter/mediaplugin/filter.php	/^function mediaplugin_filter_mp3_callback($link) {$/;"	f
