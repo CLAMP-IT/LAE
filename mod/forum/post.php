@@ -263,7 +263,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
             print_error('maxtimehaspassed', 'forum', '', format_time($CFG->maxeditingtime));
         }
     }
-    if (($post->userid <> $USER->id) and
+    if ((($post->userid <> $USER->id) && ($post->hiddenuserid <> $USER->id)) and
                 !has_capability('mod/forum:editanypost', $modcontext)) {
         print_error('cannoteditposts', 'forum');
     }
@@ -301,7 +301,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
     require_login($course, false, $cm);
     $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
 
-    if ( !(($post->userid == $USER->id && has_capability('mod/forum:deleteownpost', $modcontext))
+    if ( !((($post->userid == $USER->id || $post->hiddenuserid == $USER->id) && has_capability('mod/forum:deleteownpost', $modcontext))
                 || has_capability('mod/forum:deleteanypost', $modcontext)) ) {
         print_error('cannotdeletepost', 'forum');
     }
@@ -512,7 +512,7 @@ file_prepare_draft_area($draftitemid, $modcontext->id, 'mod_forum', 'attachment'
 
 //load data into form NOW!
 
-if ($USER->id != $post->userid) {   // Not the original author, so add a message to the end
+if (($USER->id != $post->userid) && ($USER->id != $post->hiddenuserid)) {   // Not the original author, so add a message to the end
     $data->date = userdate($post->modified);
     if ($post->messageformat == FORMAT_HTML) {
         $data->name = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$USER->id.'&course='.$post->course.'">'.
@@ -613,7 +613,7 @@ if ($fromform = $mform_post->get_data()) {
         // or has either startnewdiscussion or reply capability and is editting own post
         // then he can proceed
         // MDL-7066
-        if ( !(($realpost->userid == $USER->id && (has_capability('mod/forum:replypost', $modcontext)
+        if ( !(((($realpost->userid == $USER->id) || ($realpost->hiddenuserid == $USER->id)) && (has_capability('mod/forum:replypost', $modcontext)
                             || has_capability('mod/forum:startdiscussion', $modcontext))) ||
                             has_capability('mod/forum:editanypost', $modcontext)) ) {
             print_error('cannotupdatepost', 'forum');

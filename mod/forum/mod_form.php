@@ -55,6 +55,15 @@ class mod_forum_mod_form extends moodleform_mod {
 
         $this->add_intro_editor(true, get_string('forumintro', 'forum'));
 
+        if(isset($CFG->forum_enableanonymousposts) && $CFG->forum_enableanonymousposts) {
+            $options = array();
+            $options[FORUM_ANONYMOUS_NEVER] = get_string('anonno', 'forum');
+            $options[FORUM_ANONYMOUS_ALWAYS] = get_string('anonyes', 'forum');
+            $options[FORUM_ANONYMOUS_ALLOWED] = get_string('anonoptional', 'forum');
+            $mform->addElement('select','anonymous',get_string('allowanonymous', 'forum'), $options);
+            $mform->addHelpButton('anonymous', 'allowanonymous', 'forum');
+        }
+
         $options = array();
         $options[FORUM_CHOOSESUBSCRIBE] = get_string('subscriptionoptional', 'forum');
         $options[FORUM_FORCESUBSCRIBE] = get_string('subscriptionforced', 'forum');

@@ -44,7 +44,7 @@ class backup_forum_activity_structure_step extends backup_activity_structure_ste
             'maxbytes', 'maxattachments', 'forcesubscribe', 'trackingtype',
             'rsstype', 'rssarticles', 'timemodified', 'warnafter',
             'blockafter', 'blockperiod', 'completiondiscussions', 'completionreplies',
-            'completionposts'));
+            'completionposts', 'anonymous'));
 
         $discussions = new backup_nested_element('discussions');
 
@@ -58,7 +58,7 @@ class backup_forum_activity_structure_step extends backup_activity_structure_ste
         $post = new backup_nested_element('post', array('id'), array(
             'parent', 'userid', 'created', 'modified',
             'mailed', 'subject', 'message', 'messageformat',
-            'messagetrust', 'attachment', 'totalscore', 'mailnow'));
+            'messagetrust', 'attachment', 'totalscore', 'mailnow', 'hiddenuserid'));
 
         $ratings = new backup_nested_element('ratings');
 
