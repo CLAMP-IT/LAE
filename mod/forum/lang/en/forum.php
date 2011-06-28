@@ -28,11 +28,25 @@ $string['addanewquestion'] = 'Add a new question';
 $string['addanewtopic'] = 'Add a new topic';
 $string['advancedsearch'] = 'Advanced search';
 $string['allforums'] = 'All forums';
+$string['allowanonymous'] = 'Anonymize posts?';
+$string['allowanonymous_help'] = 'If anonymous posts for forums are enabled, users can post messages in forums and discussions without revealing their name to other users. All such posts will appear as by an anonymous user.
+
+The instructor can choose three different modes for this setting. Note that the logs still report user activity so this is not truly anonymous. 
+
+There are three choices for this setting:
+
+* Never [default]: participants may not post anonymously.
+* Always: all posts are anonymous.
+* Sometimes: participants may choose to post anonymously.';
 $string['allowdiscussions'] = 'Can a {$a} post to this forum?';
 $string['allowsallsubscribe'] = 'This forum allows everyone to choose whether to subscribe or not';
 $string['allowsdiscussions'] = 'This forum allows each person to start one discussion topic.';
 $string['allsubscribe'] = 'Subscribe to all forums';
 $string['allunsubscribe'] = 'Unsubscribe from all forums';
+$string['anonno'] = 'No, never';
+$string['anonoptional'] = 'Yes, let the user decide';
+$string['anonyes'] = 'Yes, always';
+$string['anonymouspost'] = 'Post anonymously';
 $string['alreadyfirstpost'] = 'This is already the first post in the discussion';
 $string['anyfile'] = 'Any file';
 $string['attachment'] = 'Attachment';
@@ -86,6 +100,7 @@ $string['completionreplieshelp'] = 'requiring replies to complete';
 $string['configcleanreadtime'] = 'The hour of the day to clean old posts from the \'read\' table.';
 $string['configdigestmailtime'] = 'People who choose to have emails sent to them in digest form will be emailed the digest daily. This setting controls which time of day the daily mail will be sent (the next cron that runs after this hour will send it).';
 $string['configdisplaymode'] = 'The default display mode for discussions if one isn\'t set.';
+$string['configenableanonymouspost'] = 'Set to \'yes\' if you want to enable Anonymous Forums.';
 $string['configenablerssfeeds'] = 'This switch will enable the possibility of RSS feeds for all forums.  You will still need to turn feeds on manually in the settings for each forum.';
 $string['configenabletimedposts'] = 'Set to \'yes\' if you want to allow setting of display periods when posting a new forum discussion (Experimental as not yet fully tested)';
 $string['configlongpost'] = 'Any post over this length (in characters not including HTML) is considered long. Posts displayed on the site front page, social format course pages, or user profiles are shortened to a natural break somewhere between the forum_shortpost and forum_longpost values.';
