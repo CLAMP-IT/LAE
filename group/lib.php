@@ -134,6 +134,9 @@ function groups_create_group($data, $editform = false, $editoroptions = false) {
 
     $data->id = $DB->insert_record('groups', $data);
 
+include('autocreategrouping.php'); // #CLAMP-333 cmoore & bobpuffer
+
+
     if ($editform and $editoroptions) {
         // Update description from editor with fixed files
         $data = file_postupdate_standard_editor($data, 'description', $editoroptions, $context, 'group', 'description', $data->id);
