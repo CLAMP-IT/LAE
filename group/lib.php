@@ -134,7 +134,8 @@ function groups_create_group($data, $editform = false, $editoroptions = false) {
 
     $data->id = $DB->insert_record('groups', $data);
 
-include('autocreategrouping.php'); // #CLAMP-333 cmoore & bobpuffer
+    if ($CFG->enablegroupmembersonly)
+	include('autocreategrouping.php'); // #CLAMP-333 cmoore & bobpuffer
 
 
     if ($editform and $editoroptions) {
