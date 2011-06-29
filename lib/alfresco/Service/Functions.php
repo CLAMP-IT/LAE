@@ -92,6 +92,9 @@
 	
 	// Write the content found in the file onto the socket
 	$handle = fopen($filePath, "r");
+	if (!$handle) {
+                throw new Exception("The file ".$filePath." could not be opened for reading");
+        }
 	while (feof($handle) == false)
 	{
 		$content = fread($handle, 1024);
