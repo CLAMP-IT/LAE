@@ -85,12 +85,12 @@ class nwiki_parser extends wiki_markup_parser {
         'italic' => array(
             'expression' => "/\'{3}(.+?)(\'{3}(?:\'{2})?)/is",
             'tag' => 'em',
-            'token' => array("'''", "'''")
+            'token' => array("\'\'\'", "\'\'\'")
         ),
         'bold' => array(
             'expression' => "/\'{2}(.+?)\'{2}/is",
             'tag' => 'strong',
-            'token' => array("''", "''")
+            'token' => array("\'\'", "\'\'")
         )
     );
     
