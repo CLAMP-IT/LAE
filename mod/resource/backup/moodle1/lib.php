@@ -254,6 +254,9 @@ class moodle1_mod_resource_handler extends moodle1_mod_handler {
                     $name = null;
                 }
                 break;
+	    case 'fileupload': // cmoore 2011-06-30
+		$name = null;
+		break;
             default:
                 throw new moodle1_convert_exception('unknown_resource_successor', $type);
         }
