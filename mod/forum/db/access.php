@@ -70,6 +70,19 @@ $mod_forum_capabilities = array(
             'admin' => CAP_ALLOW
         )
     ),
+    
+    'mod/forum:startqandadiscussion' => array(
+    
+        'riskbitmask' => RISK_SPAM,
+        
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'legacy' => array(
+            'teacher' => CAP_ALLOW,
+            'editingteacher' => CAP_ALLOW,
+            'admin' => CAP_ALLOW
+        )
+    ),
 
     'mod/forum:replypost' => array(
 

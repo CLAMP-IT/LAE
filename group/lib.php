@@ -105,6 +105,9 @@ function groups_create_group($data, $um=false) {
             $data->picture = 1;
         }
 
+	if ($CFG->enablegroupings)
+	    include('autocreategrouping.php'); // #CLAMP-333 cmoore & bobpuffer
+
         //trigger groups events
         events_trigger('groups_group_created', stripslashes_recursive($data));
     }

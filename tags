@@ -12709,7 +12709,7 @@ tag_assign	tag/lib.php	/^function tag_assign($record_type, $record_id, $tagid, $
 tag_autocomplete	tag/lib.php	/^function tag_autocomplete($text) {$/;"	f
 tag_cleanup	tag/lib.php	/^function tag_cleanup() {$/;"	f
 tag_cloud_sort	tag/locallib.php	/^function tag_cloud_sort($a, $b) {$/;"	f
-tag_compute_correlations	tag/lib.php	/^function tag_compute_correlations($min_correlation=2) {$/;"	f
+tag_compute_correlations	tag/lib.php	/^function tag_compute_correlations($mincorrelation = 2) {$/;"	f
 tag_cron	tag/lib.php	/^function tag_cron() {$/;"	f
 tag_delete	tag/lib.php	/^function tag_delete($tagids) {$/;"	f
 tag_delete_instance	tag/lib.php	/^function tag_delete_instance($record_type, $record_id, $tagid) {$/;"	f
@@ -12736,6 +12736,7 @@ tag_print_search_results	tag/locallib.php	/^function tag_print_search_results($q
 tag_print_tagged_users_table	tag/locallib.php	/^function tag_print_tagged_users_table($tag_object, $limitfrom='' , $limitnum='', $return=false) {$/;"	f
 tag_print_user_box	tag/locallib.php	/^function tag_print_user_box($user, $return=false) {$/;"	f
 tag_print_user_list	tag/locallib.php	/^function tag_print_user_list($userlist, $return=false) {$/;"	f
+tag_process_computed_correlation	tag/lib.php	/^function tag_process_computed_correlation(stdClass $tagcorrelation) {$/;"	f
 tag_record_count	tag/lib.php	/^function tag_record_count($record_type, $tagid) {$/;"	f
 tag_record_tagged_with	tag/lib.php	/^function tag_record_tagged_with($record_type, $record_id, $tag) {$/;"	f
 tag_rename	tag/lib.php	/^function tag_rename($tagid, $newrawname) {$/;"	f
@@ -12954,6 +12955,7 @@ test_html_to_text_image	lib/simpletest/testweblib.php	/^    public function test
 test_html_to_text_nowrap	lib/simpletest/testweblib.php	/^    public function test_html_to_text_nowrap() {$/;"	f
 test_html_to_text_simple	lib/simpletest/testweblib.php	/^    public function test_html_to_text_simple() {$/;"	f
 test_insert_record	lib/simpletest/testdmllib.php	/^    function test_insert_record() {$/;"	f
+test_make_timestamp	lib/simpletest/testmoodlelib.php	/^    public function test_make_timestamp() {$/;"	f
 test_make_user_directory	lib/simpletest/testmoodlelib.php	/^    function test_make_user_directory() {$/;"	f
 test_name	question/type/numerical/simpletest/testquestiontype.php	/^    function test_name() {$/;"	f
 test_name	question/type/shortanswer/simpletest/testquestiontype.php	/^    function test_name() {$/;"	f
@@ -12974,6 +12976,7 @@ test_shorten_text	lib/simpletest/testmoodlelib.php	/^    function test_shorten_t
 test_split_category_path	question/simpletest/testimportexport.php	/^    public function test_split_category_path() {$/;"	f
 test_split_category_path_cleans	question/simpletest/testimportexport.php	/^    public function test_split_category_path_cleans() {$/;"	f
 test_update_record	lib/simpletest/testdmllib.php	/^    function test_update_record() {$/;"	f
+test_userdate	lib/simpletest/testmoodlelib.php	/^    public function test_userdate() {$/;"	f
 test_usergetdate	lib/simpletest/testmoodlelib.php	/^    function test_usergetdate() {$/;"	f
 test_where_clause	lib/simpletest/testdmllib.php	/^    function test_where_clause() {$/;"	f
 tex2image	filter/algebra/algebradebug.php	/^function tex2image($texexp, $md5, $return=false) {$/;"	f

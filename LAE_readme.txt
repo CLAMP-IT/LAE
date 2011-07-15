@@ -1,6 +1,6 @@
-===Moodle 1.9.12+Liberal Arts Edition v1.2.1 Release Notes===
+===Moodle 1.9.12+Liberal Arts Edition v1.3 Beta Release Notes===
 
-Welcome to the Moodle 1.9.12+Liberal Arts Edition v1.2.1 The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.12+Liberal Arts Edition v1.3 Beta. The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
@@ -18,7 +18,7 @@ We recommend using Firefox 3.x with Moodle: Liberal Arts Edition. It has excelle
 
 ===CONTENTS===
 
-Moodle 1.9.12+LAEv1.2.1 consists of Moodle 1.9.12 (20110510) as well as a number of CLAMP-developed features and bug fixes.
+Moodle 1.9.12+LAEv1.3 consists of Moodle 1.9.12+ (20110623) as well as a number of CLAMP-developed features and bug fixes.
 
 The following features are included:
 
@@ -29,10 +29,21 @@ The following features are included:
 * Re-organized Files Upload UI
 * Value-input for Assignment Grading Interface
 
-The following features have been added in the v1.2.1 release:
+The following features have been added in the v1.3 release:
 
-* Moodle 1.9.12 merged into LAE
-* ZIP archive backup options added.
+* Moodle 1.9.12+ (20110623) merged into LAE
+
+The following bug fixes (with their CLAMP tracking number) were added as part of Moodle Hack/Doc Fest, Summer 2011 at Hampshire College:
+
+* CLAMP-12: Student cannot see reponse file for Advanced uploading of assignment with No Grade
+* CLAMP-183: Wiki won't display images with CamelCase-like names
+* CLAMP-307: Forum: Q&A allows students to start discussions
+* CLAMP-316: Bad HTML code in section header may disallow editing it
+* CLAMP-318: Grader Preference not saved, value inserted into DB to long for user_preferences.value field
+
+One new feature was added: if groupings are enabled, LAE will automatically great a new grouping whenever a group is created. This streamlines the process of using groupings to control access to specific resources with a Moodle course.
+
+* CLAMP-333: Auto-adding of grouping (if enabled) for each created group in a course
 
 ====Anonymous Forums====
 A completely new version of the Anonymous Forums option in Moodle. This version introduces a new "anonymous user" who is attached to forum posts, allowing faculty to back up and restore a forum without losing anonymity. There is an upgrade tool that automatically runs when LAE v1.1.1 is installed to convert the previous version of the Anonymous forums to the new format. Note: This feature is disabled by default.
@@ -123,11 +134,38 @@ http://redmine.clamp-it.org/issues/show/114
 
 * Suppresses the display of essay answers in the Quiz Item Analysis Report, since the report doesn't handle them correctly by design
 
+http://tracker.moodle.org/browse/MDL-21493
 http://redmine.clamp-it.org/issues/show/182
 
 * Disables the LAMS course format if LAMS is not configured on the site
 
+http://tracker.moodle.org/browse/MDL-12847
 http://redmine.clamp-it.org/issues/show/242
+
+* CLAMP: Student cannot see reponse file for Advanced uploading of assignment with No Grade
+
+http://redmine.clamp-it.org/issues/show/12
+http://tracker.moodle.org/browse/MDL-16553
+
+* Wiki won't display images with CamelCase-like names
+
+http://redmine.clamp-it.org/issues/show/183
+http://tracker.moodle.org/browse/MDL-14372
+
+* Bad HTML code in section header may disallow editing it
+
+http://redmine.clamp-it.org/issues/show/316
+http://tracker.moodle.org/browse/MDL-1458
+
+* Auto-adding of grouping (if enabled) for each created group in a course
+
+http://redmine.clamp-it.org/issues/show/333
+http://tracker.moodle.org/browse/MDL-28082
+
+* Forum: Q&A allows students to start discussions
+
+http://redmine.clamp-it.org/issues/show/307
+http://tracker.moodle.org/browse/MDL-27735
 
 ===Tweaks and Enhancements===
 

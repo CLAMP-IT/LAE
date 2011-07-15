@@ -6871,7 +6871,19 @@ function doc_link($path='', $text='', $iconpath='') {
 
     $lang = str_replace('_utf8', '', current_language());
 
-    $str = '<a href="' .$CFG->docroot. '/' .$lang. '/' .$path. '"' .$target. '>';
+    if (!empty($CFG->release)) {
+        $release = $CFG->release;
+    } else {
+        //derive branch from the first three letters of version.php's $release with the period taken out.($CFG->release isn't populated yet during upgrade)
+        include($CFG->dirroot.'/version.php');
+    }
+    if (preg_match('/^(.)\.(.)/', $release, $matches)) {
+        $branch = $matches[1].$matches[2];
+    } else {
+        $branch = '.';
+    }
+
+    $str = '<a href="' .$CFG->docroot. '/' .$branch. '/' .$lang. '/' .$path. '"' .$target. '>';
 
     if (empty($iconpath)) {
         $iconpath = $CFG->httpswwwroot . '/pix/docs.gif';
