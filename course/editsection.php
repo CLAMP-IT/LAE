@@ -24,6 +24,7 @@
 
         $timenow = time();
 
+        $form->summary = clean_param($form->summary, PARAM_CLEANHTML);
         if (! set_field("course_sections", "summary", $form->summary, "id", $section->id)) {
             error("Could not update the summary!");
         }

@@ -100,11 +100,15 @@ class grade_report_grader extends grade_report {
         $this->canviewuserreport = has_capability('gradereport/'.$CFG->grade_profilereport.':view', $this->context);
 
         // load collapsed settings for this report
-        if ($collapsed = get_user_preferences('grade_report_grader_collapsed_categories')) {
-            $this->collapsed = unserialize($collapsed);
-        } else {
-            $this->collapsed = array('aggregatesonly' => array(), 'gradesonly' => array());
-        }
+        $this->collapsed['aggregatesonly'] = get_user_preferences('grade_report_grader_collapsed_categories_aggregate');
+        $this->collapsed['gradesonly'] = get_user_preferences('grade_report_grader_collapsed_categories_grade');
+        
+        if(!$this->collapsed['aggregatesonly']) {
+            $this->collapsed['aggregatesonly'] = array();
+        } else $this->collapsed['aggregatesonly'] = explode(',',$this->collapsed['aggregatesonly']);
+        if(!$this->collapsed['gradesonly']) {
+            $this->collapsed['gradesonly'] = array();
+        } else $this->collapsed['gradesonly'] = explode(',',$this->collapsed['gradesonly']);
 
         if (empty($CFG->enableoutcomes)) {
             $nooutcomes = false;
@@ -1437,17 +1441,21 @@ class grade_report_grader extends grade_report {
         $targetid = substr($target, 1);
         // TODO: end
 
-        if ($collapsed = get_user_preferences('grade_report_grader_collapsed_categories')) {
-            $collapsed = unserialize($collapsed);
-        } else {
-            $collapsed = array('aggregatesonly' => array(), 'gradesonly' => array());
-        }
+        $collapsed['aggregatesonly'] = get_user_preferences('grade_report_grader_collapsed_categories_aggregate');
+        $collapsed['gradesonly'] = get_user_preferences('grade_report_grader_collapsed_categories_grade');
+        
+        if(!$collapsed['aggregatesonly']) {
+            $collapsed['aggregatesonly'] = array();
+        } else $collapsed['aggregatesonly'] = explode(',',$collapsed['aggregatesonly']);
+        if(!$collapsed['gradesonly']) {
+            $collapsed['gradesonly'] = array();
+        } else $collapsed['gradesonly'] = explode(',',$collapsed['gradesonly']);
 
         switch ($action) {
             case 'switch_minus': // Add category to array of aggregatesonly
                 if (!in_array($targetid, $collapsed['aggregatesonly'])) {
                     $collapsed['aggregatesonly'][] = $targetid;
-                    set_user_preference('grade_report_grader_collapsed_categories', serialize($collapsed));
+                    set_user_preference('grade_report_grader_collapsed_categories_aggregate', implode(',',$collapsed['aggregatesonly']));
                 }
                 break;
 
@@ -1459,13 +1467,14 @@ class grade_report_grader extends grade_report {
                 if (!in_array($targetid, $collapsed['gradesonly'])) {
                     $collapsed['gradesonly'][] = $targetid;
                 }
-                set_user_preference('grade_report_grader_collapsed_categories', serialize($collapsed));
+                set_user_preference('grade_report_grader_collapsed_categories_aggregate', implode(',',$collapsed['aggregatesonly']));
+                set_user_preference('grade_report_grader_collapsed_categories_grade', implode(',',$collapsed['gradesonly']));
                 break;
             case 'switch_whole': // Remove the category from the array of collapsed cats
                 $key = array_search($targetid, $collapsed['gradesonly']);
                 if ($key !== false) {
                     unset($collapsed['gradesonly'][$key]);
-                    set_user_preference('grade_report_grader_collapsed_categories', serialize($collapsed));
+                    set_user_preference('grade_report_grader_collapsed_categories_grade', implode(',',$collapsed['gradesonly']));
                 }
 
                 break;
