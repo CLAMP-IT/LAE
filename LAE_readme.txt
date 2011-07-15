@@ -1,6 +1,6 @@
-===Moodle 1.9.12+Liberal Arts Edition v1.3 Beta Release Notes===
+===Moodle 1.9.12+Liberal Arts Edition v1.3 Release Notes===
 
-Welcome to the Moodle 1.9.12+Liberal Arts Edition v1.3 Beta. The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
+Welcome to the Moodle 1.9.12+Liberal Arts Edition v1.3. The goal of LAE is to provide a coherent package for modules,  patches,  and code developed (or improved) by the Collaborative Liberal Arts Moodle Project. 
 
 This package consists of the code that the developers and instructional technologists at CLAMP schools have deemed essential to their operation of Moodle. A number of other recommend add-ons for Moodle are available through CLAMP web site (http://www.clamp-it.org). These recommended add-ons,  however,  have certain caveats that you should be aware of, and it's imperative that you read their respective lae_readme.txt files before installing them.
 
